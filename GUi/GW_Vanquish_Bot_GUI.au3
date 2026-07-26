@@ -439,11 +439,17 @@ Func _RebuildCampaignMapList($sCampaign)
 
         Local $iItem = $g_aMapListItemIDs[$i]
         Local $iRow = $g_aMapListRows[$i]
-        GUICtrlSetData($iItem, "|" & $g_aMapEntries[$i][1] & "|" & $g_aMapEntries[$i][2] & "|" & $sStatus)
+        _GUICtrlListView_SetItemText($idList, $iRow, "", 0)
+        _GUICtrlListView_SetItemText($idList, $iRow, $g_aMapEntries[$i][1], 1)
+        _GUICtrlListView_SetItemText($idList, $iRow, $g_aMapEntries[$i][2], 2)
+        _GUICtrlListView_SetItemText($idList, $iRow, $sStatus, 3)
         _GUICtrlListView_SetItemChecked($idList, $iRow, (Not $g_aMapEntries[$i][5]) And $g_aMapEntries[$i][3])
         If $g_aMapEntries[$i][5] Then
+            _GUICtrlListView_SetItemSelected($idList, $iRow, False, False)
+            _GUICtrlListView_SetItemCut($idList, $iRow, True)
             GUICtrlSetColor($iItem, 0x808080)
         Else
+            _GUICtrlListView_SetItemCut($idList, $iRow, False)
             GUICtrlSetColor($iItem, 0x000000)
         EndIf
     Next
@@ -467,6 +473,10 @@ Func _SyncVisibleMapChecks()
             EndIf
         Next
     Next
+EndFunc
+
+Func _SyncAllMapChecks()
+    _SyncVisibleMapChecks()
 EndFunc
 
 Func _EnforceVisibleMapSelectionRules()

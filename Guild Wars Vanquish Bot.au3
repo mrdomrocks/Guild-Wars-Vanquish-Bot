@@ -683,6 +683,9 @@ EndFunc
 Func _PrepareSelectedVanquishQueue()
     Global $Title, $NumberRun, $boolrun, $g_b_Vanquisher_AbortRoute, $g_b_Vanquisher_RunFinished
 
+    _SyncAllMapChecks()
+    _EnforceVisibleMapSelectionRules()
+
     If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
         _Log("Start failed: connect to a Guild Wars character first.")
         Return False
@@ -991,6 +994,7 @@ Func _HandleGuiMessage($msg, $bFromPump = False)
 EndFunc
 
 Func _RunGuiMaintenance()
+    _SyncAllMapChecks()
     _EnforceVisibleMapSelectionRules()
     _RefreshHeroTeamSelectionState()
     _UpdateVisibleSelectionToggleButton()
