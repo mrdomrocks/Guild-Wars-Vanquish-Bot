@@ -22,6 +22,7 @@ This script is the current vanquish-focused workflow in this workspace. It scans
 - bulk visible-map selection per campaign
 - hero team configuration for `Team4`, `Team6`, and `Team8`
 - vanquish history scan from the connected character
+- smart casting integrated into the fight routine for automated combat skill usage
 - deferred map-state refresh behavior to keep the GUI stable
 
 ## Requirements
@@ -76,6 +77,8 @@ Character=Insert Character Name Here
 - The launcher `GW Vanquish Bot.au3` simply includes `Guild Wars Vanquish Bot.au3`.
 - The script uses `#RequireAdmin`.
 - Connection is intended for a single detected logged-in Guild Wars client. If multiple characters are detected, the bot will not auto-attach.
+- Combat handling includes smart casting during the fight routine, so the bot can cycle offensive skills automatically while keeping healing skills handled separately.
+- In pre-searing, a few skills are still excluded from smart casting due to known compatibility issues: `Glyph of Lesser Energy`, `Ignite Arrows`, `Read the Wind`, and `Frenzy`.
 
 ## Linux / Wine Notes
 
