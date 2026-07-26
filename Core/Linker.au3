@@ -34,7 +34,9 @@
 #include <Memory.au3>
 #include <Process.au3>
 
-#include "../../../../API/_GwAu3.au3"
+; Legacy linker entry point retained for route-centric workflows.
+; Keep includes aligned with the current Guild Wars Vanquish Bot layout.
+#include "../../../API/_GwAu3.au3"
 #include "Vanquisher_Globals.au3"
 #include "Vanquisher_Compat.au3"
 #include "GwAu3_AddOns.au3"
@@ -50,7 +52,7 @@ Next
 
 _Crypt_Startup()
 
-#include "..\GUI\GUI.au3"
+#include "..\GUi\GW_Vanquish_Bot_GUI.au3"
 
 #include "..\Maps\LocationsIDS.au3"
 
