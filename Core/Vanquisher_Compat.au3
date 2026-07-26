@@ -4,6 +4,7 @@
 ; Keeps routes from continuing after the GUI/run state has been stopped.
 Func _Vanquisher_ShouldStop()
     Global $boolrun, $g_b_Vanquisher_AbortRoute, $g_b_Vanquisher_RunFinished
+    If IsFunc("_Vanquisher_PumpGUI") Then _Vanquisher_PumpGUI()
     If Not $boolrun Then Return True
     If $g_b_Vanquisher_AbortRoute Then Return True
     If $g_b_Vanquisher_RunFinished Then Return True

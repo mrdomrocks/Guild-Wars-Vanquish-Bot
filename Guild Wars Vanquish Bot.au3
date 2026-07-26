@@ -2,8 +2,10 @@
 
 #include "../../API/_GwAu3.au3"
 #include ".\Core\Vanquisher_Globals.au3"
+#include ".\Core\Vanquisher_Compat.au3"
 #include ".\Core\GwAu3_AddOns.au3"
 #include ".\Maps\LocationsIDS.au3"
+#include ".\Core\Vanquish_Routes.au3"
 #include ".\GUi\GW_Vanquish_Bot_GUI.au3"
 
 ; Top-level launcher and controller for the GW Vanquish Bot GUI.
@@ -39,6 +41,7 @@ Global $g_iHeroDropdownWidth = _EstimateHeroDropdownWidth()
 Global $g_sHelmetImagePath = @ScriptDir & "\GUi\Vanquish.png"
 Global $g_sConfigPath = @ScriptDir & "\vanquish_config.ini"
 Global $g_sMapsRoot = @ScriptDir & "\Maps"
+Global $g_bBotRunning = False
 
 If FileExists(@ScriptDir & "\Vanquish.png") Then
     $g_sHelmetImagePath = @ScriptDir & "\Vanquish.png"
@@ -52,6 +55,7 @@ If IsDeclared("g_bCore_AutoUpdate") Then $g_bCore_AutoUpdate = False
 _VB_CreateGUI()
 
 _LoadMapEntries()
+_InitializeMapListItems()
 _ResizeMapListColumns()
 _ShowMapCampaign("EOTN")
 _LoadHeroConfig()
@@ -59,57 +63,15 @@ _RefreshDetectedClient(True)
 _ResetRunStats()
 _UpdateStartButtonState()
 _UpdateRunStatusDisplay()
+_UpdateConnectedCharacterDisplay()
+_UpdateMapScanStatusDisplay()
+_UpdateRunControlStatusDisplay()
 _Log("Startup complete.")
 
 While 1
     Local $msg = GUIGetMsg()
-
-    Switch $msg
-        Case $GUI_EVENT_CLOSE
-            ExitLoop
-
-        Case $btnConnect
-            _ConnectToDetectedClient()
-
-        Case $btnScanVanquishHistory
-            _ScanConnectedCharacterVanquishHistory()
-
-        Case $btnStart
-            _PrepareSelectedVanquishQueue()
-
-        Case $btnSaveConfig
-            _SaveHeroConfig()
-
-        Case $btnGroupEOTN
-            _ShowMapCampaign("EOTN")
-
-        Case $btnGroupProphecies
-            _ShowMapCampaign("Prophecies")
-
-        Case $btnGroupFactions
-            _ShowMapCampaign("Factions")
-
-        Case $btnGroupNightfall
-            _ShowMapCampaign("Nightfall")
-
-        Case $btnToggleVisibleSelection
-            _ToggleVisibleMapChecks()
-    EndSwitch
-
-    _EnforceVisibleMapSelectionRules()
-    _RefreshHeroTeamSelectionState()
-    _UpdateVisibleSelectionToggleButton()
-    If Not $g_bClientConnected And TimerDiff($g_hClientScanTimer) >= 2000 Then
-        _RefreshDetectedClient()
-        $g_hClientScanTimer = TimerInit()
-    EndIf
-    If $g_bPendingPostConnectRefresh And TimerDiff($g_hPostConnectRefreshTimer) >= 250 Then _RunDeferredPostConnectRefresh()
-    If $g_bPendingMapStateLoad Then _RefreshConnectedMapState()
-
-    If TimerDiff($g_hCharacterRefreshTimer) >= 1000 Then
-        _UpdateLiveRunStats()
-        $g_hCharacterRefreshTimer = TimerInit()
-    EndIf
+    If Not _HandleGuiMessage($msg) Then ExitLoop
+    _RunGuiMaintenance()
 WEnd
 
 _VB_DestroyGUI()
@@ -132,6 +94,9 @@ Func _ConnectToDetectedClient()
         _SetCharacterSelectionState(False)
         _ResetRunStats()
         _ClearHistoricalVanquishStates(False)
+        _UpdateConnectedCharacterDisplay()
+        _UpdateMapScanStatusDisplay("no client connection")
+        _UpdateRunControlStatusDisplay("idle")
         _Log("Connect failed: no logged-in Guild Wars character was detected.")
         Return False
     EndIf
@@ -158,6 +123,9 @@ Func _ConnectToDetectedClient()
         _SetCharacterSelectionState(False)
         _ResetRunStats()
         _ClearHistoricalVanquishStates(False)
+        _UpdateConnectedCharacterDisplay()
+        _UpdateMapScanStatusDisplay("connect failed")
+        _UpdateRunControlStatusDisplay("idle")
         _Log("Connect failed for Guild Wars character: " & $sCharacter & ".")
         Return False
     EndIf
@@ -170,16 +138,19 @@ Func _ConnectToDetectedClient()
     $g_bConnectionStatePrimed = False
     $g_bVanquishHistoryLoaded = False
     $g_bPendingMapStateLoad = False
-    $g_bPendingPostConnectRefresh = True
-    $g_hPostConnectRefreshTimer = TimerInit()
+    $g_bPendingPostConnectRefresh = False
     $g_sConnectedCharacter = $sCharacter
     _SetCharacterSelectionState(True)
     _ResetRunStats()
     $g_hRunTimer = TimerInit()
 
+    ; Connection should stay on the client side only until the user explicitly scans maps.
     _ShowMainMenuTab()
     _UpdateRunStatusDisplay()
-    _Log("Connection established. Loading the map list and vanquish history...")
+    _UpdateConnectedCharacterDisplay()
+    _UpdateMapScanStatusDisplay("connected - scan pending")
+    _UpdateRunControlStatusDisplay("ready to scan")
+    _Log("Connection established. Map actions are idle until Scan Maps is pressed.")
     Return True
 EndFunc
 
@@ -247,16 +218,19 @@ EndFunc
 
 Func _ScanConnectedCharacterVanquishHistory()
     If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
+        _UpdateMapScanStatusDisplay("connect a client first")
         _Log("Scan failed: connect to a running Guild Wars client first.")
         Return False
     EndIf
 
     If Not _PrimeConnectedClientState(True) Then
+        _UpdateMapScanStatusDisplay("waiting for in-game state")
         _Log("Scan failed: wait for the character to finish loading into the world.")
         Return False
     EndIf
 
     If Not _CanQueryLiveClientState() Then
+        _UpdateMapScanStatusDisplay("client is still loading")
         _Log("Scan failed: Guild Wars is still loading the current character.")
         Return False
     EndIf
@@ -266,9 +240,17 @@ Func _ScanConnectedCharacterVanquishHistory()
     If $sCharacter = "" Then $sCharacter = "current character"
 
     _Log("Scanning vanquish history for " & $sCharacter & ".")
+    _UpdateMapScanStatusDisplay("scanning...")
     $g_bVanquishHistoryLoaded = _RefreshHistoricalVanquishStates()
     $g_bPendingMapStateLoad = False
     _UpdateStartButtonState()
+    If $g_bVanquishHistoryLoaded Then
+        _ShowMainMenuTab()
+        _UpdateMapScanStatusDisplay()
+        _UpdateRunControlStatusDisplay("ready to start")
+    Else
+        _UpdateMapScanStatusDisplay("scan unavailable")
+    EndIf
     Return $g_bVanquishHistoryLoaded
 EndFunc
 
@@ -284,6 +266,7 @@ Func _RefreshConnectedMapState($bLogWaiting = False)
     $g_bVanquishHistoryLoaded = _RefreshHistoricalVanquishStates()
     _RefreshHeroTeamSelectionState()
     _UpdateStartButtonState()
+    _UpdateMapScanStatusDisplay()
     Return $g_bVanquishHistoryLoaded
 EndFunc
 
@@ -912,7 +895,7 @@ Func _RefreshHistoricalVanquishStates()
         EndIf
     Next
 
-    _PopulateMapList($g_sActiveMapGroup)
+    _PopulateMapList("ALL")
     _Log("Loaded vanquish history: " & $iMarked & " completed map(s) found.")
     If $iMissingMapIDs > 0 Then
         _Log("Skipped history lookup for " & $iMissingMapIDs & " map(s) with no known map ID.")
@@ -929,6 +912,7 @@ Func _ClearHistoricalVanquishStates($bRefreshList = True)
 
     If $bRefreshList Then _PopulateMapList($g_sActiveMapGroup)
     _UpdateStartButtonState()
+    _UpdateMapScanStatusDisplay()
 EndFunc
 
 Func _MapCampaignFromFolder($sFolder)
@@ -958,4 +942,205 @@ Func _HumanizeMapName($sName)
     $sName = StringRegExpReplace($sName, "([a-z])([A-Z])", "$1 $2")
     $sName = StringReplace($sName, "EOTN", "EOTN")
     Return StringStripWS($sName, 3)
+EndFunc
+
+Func _HandleGuiMessage($msg, $bFromPump = False)
+    Switch $msg
+        Case 0
+            Return True
+
+        Case $GUI_EVENT_CLOSE
+            If $g_bBotRunning Then
+                _StopSelectedMapRoutine(False)
+                Return True
+            EndIf
+            Return False
+
+        Case $btnConnect
+            If Not $g_bBotRunning Then _ConnectToDetectedClient()
+
+        Case $btnScanVanquishHistory
+            If Not $g_bBotRunning Then _ScanConnectedCharacterVanquishHistory()
+
+        Case $btnStart
+            If Not $g_bBotRunning Then _StartSelectedMapRoutine()
+
+        Case $btnStop
+            _StopSelectedMapRoutine(Not $bFromPump)
+
+        Case $btnSaveConfig
+            If Not $g_bBotRunning Then _SaveHeroConfig()
+
+        Case $btnGroupEOTN
+            _ShowMapCampaign("EOTN")
+
+        Case $btnGroupProphecies
+            _ShowMapCampaign("Prophecies")
+
+        Case $btnGroupFactions
+            _ShowMapCampaign("Factions")
+
+        Case $btnGroupNightfall
+            _ShowMapCampaign("Nightfall")
+
+        Case $btnToggleVisibleSelection
+            _ToggleVisibleMapChecks()
+    EndSwitch
+
+    Return True
+EndFunc
+
+Func _RunGuiMaintenance()
+    _EnforceVisibleMapSelectionRules()
+    _RefreshHeroTeamSelectionState()
+    _UpdateVisibleSelectionToggleButton()
+    _UpdateConnectedCharacterDisplay()
+
+    If Not $g_bClientConnected And TimerDiff($g_hClientScanTimer) >= 2000 Then
+        _RefreshDetectedClient()
+        $g_hClientScanTimer = TimerInit()
+    EndIf
+
+    If $g_bPendingPostConnectRefresh And TimerDiff($g_hPostConnectRefreshTimer) >= 250 Then _RunDeferredPostConnectRefresh()
+    If $g_bPendingMapStateLoad Then _RefreshConnectedMapState()
+
+    If TimerDiff($g_hCharacterRefreshTimer) >= 1000 Then
+        _UpdateLiveRunStats()
+        $g_hCharacterRefreshTimer = TimerInit()
+    EndIf
+EndFunc
+
+Func _StartSelectedMapRoutine()
+    If $g_bBotRunning Then Return False
+    If Not _PrepareSelectedVanquishQueue() Then
+        _UpdateRunControlStatusDisplay("start blocked")
+        Return False
+    EndIf
+
+    $g_bBotRunning = True
+    $boolrun = True
+    $g_b_Vanquisher_AbortRoute = False
+    $g_b_Vanquisher_RunFinished = False
+    $g_b_Vanquisher_QueueAdvanced = False
+    _ResetRunStats()
+    $g_hRunTimer = TimerInit()
+    _UpdateRunStatusDisplay()
+    _UpdateRunControlStatusDisplay("running selected maps")
+    _UpdateStartButtonState()
+    _Log("Starting selected map routine.")
+
+    Local $bCompleted = _RunSelectedMapQueue()
+
+    $g_bBotRunning = False
+    $g_bPendingMapStateLoad = True
+    _UpdateRunStatusDisplay()
+    _UpdateStartButtonState()
+
+    If $bCompleted Then
+        _UpdateRunControlStatusDisplay("queue complete")
+        _Log("Selected map routine completed.")
+    ElseIf $g_b_Vanquisher_AbortRoute Or Not $boolrun Then
+        _UpdateRunControlStatusDisplay("stopped")
+        _Log("Selected map routine stopped.")
+    Else
+        _UpdateRunControlStatusDisplay("stopped with error")
+        _Log("Selected map routine ended before completion.")
+    EndIf
+
+    Return $bCompleted
+EndFunc
+
+Func _StopSelectedMapRoutine($bUserRequested = True)
+    If Not $g_bBotRunning Then
+        _UpdateRunControlStatusDisplay()
+        Return False
+    EndIf
+
+    $boolrun = False
+    $g_b_Vanquisher_AbortRoute = True
+    _UpdateRunControlStatusDisplay("stopping...")
+    _UpdateStartButtonState()
+    If $bUserRequested Then _Log("Stop requested for the selected map routine.")
+    Return True
+EndFunc
+
+Func _RunSelectedMapQueue()
+    If UBound($g_a_VanquisherZoneQueue) = 0 Then Return False
+
+    Local $bCompleted = False
+
+    While $boolrun And Not $g_b_Vanquisher_AbortRoute
+        If $g_i_VanquisherZoneQueueIndex < 0 Or $g_i_VanquisherZoneQueueIndex >= UBound($g_a_VanquisherZoneQueue) Then ExitLoop
+
+        Local $iQueueIndex = $g_i_VanquisherZoneQueueIndex
+        Local $iMapIndex = $g_a_VanquisherZoneQueue[$iQueueIndex]
+        Local $sRouteFunc = _GetRouteFunctionNameForMapIndex($iMapIndex)
+        If $sRouteFunc = "" Or Not IsFunc($sRouteFunc) Then
+            _Log("Start failed: no route function is available for " & _Vanquisher_ZoneDisplay($iMapIndex) & ".")
+            Return False
+        EndIf
+
+        $g_b_Vanquisher_QueueAdvanced = False
+        _UpdateRunControlStatusDisplay("running " & _Vanquisher_ZoneDisplay($iMapIndex))
+        CurrentAction("Running selected map " & ($iQueueIndex + 1) & "/" & UBound($g_a_VanquisherZoneQueue) & ": " & _Vanquisher_ZoneDisplay($iMapIndex))
+
+        While $boolrun And Not $g_b_Vanquisher_AbortRoute And $g_i_VanquisherZoneQueueIndex = $iQueueIndex
+            Call($sRouteFunc)
+            If $g_b_Vanquisher_QueueAdvanced Or $g_b_Vanquisher_RunFinished Then ExitLoop
+            _Vanquisher_PumpGUI()
+            Sleep(50)
+        WEnd
+
+        If Not $boolrun Or $g_b_Vanquisher_AbortRoute Then ExitLoop
+
+        If $g_b_Vanquisher_QueueAdvanced Or $g_b_Vanquisher_RunFinished Then
+            $g_iVanquishStreak += 1
+            _UpdateRunStatusDisplay()
+        EndIf
+
+        If $g_b_Vanquisher_RunFinished And $g_i_VanquisherZoneQueueIndex = $iQueueIndex Then
+            $bCompleted = True
+            ExitLoop
+        EndIf
+    WEnd
+
+    Return $bCompleted
+EndFunc
+
+Func _GetRouteFunctionNameForMapIndex($iMapIndex)
+    If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then Return ""
+    Return "VQ" & _Vanquisher_ZoneTitle($iMapIndex)
+EndFunc
+
+Func _Vanquisher_PumpGUI()
+    Local $msg = GUIGetMsg()
+    If $msg <> 0 Then _HandleGuiMessage($msg, True)
+    _RunGuiMaintenance()
+EndFunc
+
+Func _Vanquisher_UpdateStatusBar()
+    If Not $g_bBotRunning Then
+        _UpdateRunControlStatusDisplay()
+        Return
+    EndIf
+
+    If $g_i_VanquisherZoneQueueIndex < 0 Or $g_i_VanquisherZoneQueueIndex >= UBound($g_a_VanquisherZoneQueue) Then
+        _UpdateRunControlStatusDisplay("running")
+        Return
+    EndIf
+
+    Local $iMapIndex = $g_a_VanquisherZoneQueue[$g_i_VanquisherZoneQueueIndex]
+    _UpdateRunControlStatusDisplay("running " & _Vanquisher_ZoneDisplay($iMapIndex))
+EndFunc
+
+Func _Vanquisher_OnBotStopped()
+    $g_bBotRunning = False
+    _UpdateRunControlStatusDisplay("stopped")
+    _UpdateStartButtonState()
+EndFunc
+
+Func UpdateVanquish()
+    If Not $g_bBotRunning Then Return False
+    _UpdateRunControlStatusDisplay()
+    Return True
 EndFunc

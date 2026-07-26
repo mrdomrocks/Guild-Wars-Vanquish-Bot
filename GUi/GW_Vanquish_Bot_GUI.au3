@@ -6,6 +6,7 @@
 #include <ComboConstants.au3>
 #include <ListViewConstants.au3>
 #include <GuiListView.au3>
+#include <GuiTab.au3>
 #include <WindowsConstants.au3>
 
 ; UI-only module for the GW Vanquish Bot.
@@ -16,7 +17,8 @@ Global Const $MAP_CAMPAIGN_COUNT = 4
 Global $hGUI, $tab, $camp
 Global $console
 Global $picVanquishedHelmet
-Global $lblDetectedCharacter
+Global $lblDetectedClient, $lblDetectedCharacter, $lblConnectedCharacter
+Global $lblMapScanStatus, $lblRunControlStatus
 Global $lblRunTime, $lblDeaths, $lblVanquishStreak, $lblGoldPickedUp
 Global $btnConnect, $btnScanVanquishHistory, $btnStart, $btnStop, $btnSaveConfig
 Global $btnGroupEOTN, $btnGroupProphecies, $btnGroupFactions, $btnGroupNightfall
@@ -25,59 +27,86 @@ Global $lvMapsEOTN, $lvMapsProphecies, $lvMapsFactions, $lvMapsNightfall
 Global $g_aCampaignButtons[$MAP_CAMPAIGN_COUNT]
 Global $g_aCampaignLists[$MAP_CAMPAIGN_COUNT]
 Global $g_aCampaignNames[$MAP_CAMPAIGN_COUNT] = ["EOTN", "Prophecies", "Factions", "Nightfall"]
+Global $g_aMapListItemIDs[0]
+Global $g_aMapListRows[0]
+Global $g_aClientControlArray[4]
+Global $g_aMapScanControlArray[2]
+Global $g_aRunControlArray[7]
 Global $g_idComboTeam4[3]
 Global $g_idComboTeam6[5]
 Global $g_idComboTeam8[7]
 
 Func _VB_CreateGUI()
-    $hGUI = GUICreate("Guild Wars Vanquish Bot", 1180, 700)
-    $tab = GUICtrlCreateTab(10, 10, 1160, 680)
+    $hGUI = GUICreate("Guild Wars Vanquish Bot", 1180, 860)
+    $tab = GUICtrlCreateTab(10, 10, 1160, 840)
 
     GUICtrlCreateTabItem("Main Menu")
     $console = GUICtrlCreateEdit("", 20, 50, 690, 330, BitOR($ES_READONLY, $ES_AUTOVSCROLL, $ES_MULTILINE, $WS_VSCROLL))
     $picVanquishedHelmet = GUICtrlCreatePic($g_sHelmetImagePath, 230, 405, 240, 240)
-    GUICtrlCreateGroup("Connection", 730, 50, 350, 250)
-    $lblDetectedCharacter = GUICtrlCreateLabel("Detected Character: scanning...", 750, 76, 300, 34)
-    $btnConnect = GUICtrlCreateButton("Connect", 750, 118, 145, 28)
-    $btnScanVanquishHistory = GUICtrlCreateButton("Scan Maps", 915, 118, 145, 28)
-    $lblRunTime = GUICtrlCreateLabel("Current Run Time: 00:00:00", 750, 166, 300, 20)
-    $lblDeaths = GUICtrlCreateLabel("Deaths: 0", 750, 194, 300, 20)
-    $lblVanquishStreak = GUICtrlCreateLabel("Maps Vanquished In A Row: 0", 750, 222, 300, 20)
-    $lblGoldPickedUp = GUICtrlCreateLabel("Gold Picked Up: 0", 750, 250, 300, 20)
+    GUICtrlCreateGroup("Client Connection", 730, 50, 350, 120)
+    $lblDetectedClient = GUICtrlCreateLabel("Detected Client: scanning...", 750, 76, 300, 18)
+    $lblDetectedCharacter = GUICtrlCreateLabel("Detected Character: scanning...", 750, 98, 300, 18)
+    $lblConnectedCharacter = GUICtrlCreateLabel("Connected Character: not connected", 750, 120, 300, 18)
+    $btnConnect = GUICtrlCreateButton("Connect To Client", 750, 140, 310, 24)
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Heroes", 730, 280, 350, 275)
-    GUICtrlCreateGroup("Team 4", 740, 302, 160, 115)
+    GUICtrlCreateGroup("Map Vanquish Check", 730, 180, 350, 100)
+    $btnScanVanquishHistory = GUICtrlCreateButton("Scan Vanquish Maps", 750, 206, 310, 26)
+    $lblMapScanStatus = GUICtrlCreateLabel("Map Scan Status: waiting for client connection", 750, 240, 310, 30)
+    GUICtrlCreateGroup("", -99, -99, 1, 1)
+
+    GUICtrlCreateGroup("Run Control", 730, 290, 350, 170)
+    $btnStart = GUICtrlCreateButton("Start Selected Maps", 750, 316, 145, 34)
+    $btnStop = GUICtrlCreateButton("Stop", 915, 316, 145, 34)
+    $lblRunControlStatus = GUICtrlCreateLabel("Run Status: idle", 750, 360, 310, 18)
+    $lblRunTime = GUICtrlCreateLabel("Current Run Time: 00:00:00", 750, 384, 300, 18)
+    $lblDeaths = GUICtrlCreateLabel("Deaths: 0", 750, 404, 300, 18)
+    $lblVanquishStreak = GUICtrlCreateLabel("Maps Vanquished In A Row: 0", 750, 424, 300, 18)
+    $lblGoldPickedUp = GUICtrlCreateLabel("Gold Picked Up: 0", 750, 444, 300, 18)
+    GUICtrlCreateGroup("", -99, -99, 1, 1)
+
+    GUICtrlCreateGroup("Heroes", 730, 470, 350, 320)
+    GUICtrlCreateGroup("Team 4", 740, 492, 160, 115)
     For $i = 0 To 2
-        GUICtrlCreateLabel("H" & ($i + 1) & ":", 748, 322 + ($i * 28), 22, 18)
-        $g_idComboTeam4[$i] = GUICtrlCreateCombo("", 770, 319 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
+        GUICtrlCreateLabel("H" & ($i + 1) & ":", 748, 512 + ($i * 28), 22, 18)
+        $g_idComboTeam4[$i] = GUICtrlCreateCombo("", 770, 509 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
         GUICtrlSetData($g_idComboTeam4[$i], $g_sHeroList)
         GUICtrlSendMsg($g_idComboTeam4[$i], $CB_SETDROPPEDWIDTH, $g_iHeroDropdownWidth, 0)
     Next
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Team 6", 740, 422, 160, 125)
+    GUICtrlCreateGroup("Team 6", 740, 612, 160, 155)
     For $i = 0 To 4
-        GUICtrlCreateLabel("H" & ($i + 1) & ":", 748, 439 + ($i * 21), 22, 18)
-        $g_idComboTeam6[$i] = GUICtrlCreateCombo("", 770, 436 + ($i * 21), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
+        GUICtrlCreateLabel("H" & ($i + 1) & ":", 748, 632 + ($i * 28), 22, 18)
+        $g_idComboTeam6[$i] = GUICtrlCreateCombo("", 770, 629 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
         GUICtrlSetData($g_idComboTeam6[$i], $g_sHeroList)
         GUICtrlSendMsg($g_idComboTeam6[$i], $CB_SETDROPPEDWIDTH, $g_iHeroDropdownWidth, 0)
     Next
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Team 8", 910, 302, 160, 200)
+    GUICtrlCreateGroup("Team 8", 910, 492, 160, 215)
     For $i = 0 To 6
-        GUICtrlCreateLabel("H" & ($i + 1) & ":", 918, 322 + ($i * 24), 22, 18)
-        $g_idComboTeam8[$i] = GUICtrlCreateCombo("", 940, 319 + ($i * 24), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
+        GUICtrlCreateLabel("H" & ($i + 1) & ":", 918, 512 + ($i * 28), 22, 18)
+        $g_idComboTeam8[$i] = GUICtrlCreateCombo("", 940, 509 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
         GUICtrlSetData($g_idComboTeam8[$i], $g_sHeroList)
         GUICtrlSendMsg($g_idComboTeam8[$i], $CB_SETDROPPEDWIDTH, $g_iHeroDropdownWidth, 0)
     Next
     GUICtrlCreateGroup("", -99, -99, 1, 1)
-    $btnSaveConfig = GUICtrlCreateButton("Save Config", 915, 515, 145, 28)
+    $btnSaveConfig = GUICtrlCreateButton("Save Config", 910, 736, 160, 24)
 
-    GUICtrlCreateGroup("", -99, -99, 1, 1)
-    $btnStart = GUICtrlCreateButton("Start Bot", 792, 590, 105, 34)
-    $btnStop = GUICtrlCreateButton("Stop Bot", 915, 590, 105, 34)
+    $g_aClientControlArray[0] = $lblDetectedClient
+    $g_aClientControlArray[1] = $lblDetectedCharacter
+    $g_aClientControlArray[2] = $lblConnectedCharacter
+    $g_aClientControlArray[3] = $btnConnect
+    $g_aMapScanControlArray[0] = $btnScanVanquishHistory
+    $g_aMapScanControlArray[1] = $lblMapScanStatus
+    $g_aRunControlArray[0] = $btnStart
+    $g_aRunControlArray[1] = $btnStop
+    $g_aRunControlArray[2] = $lblRunControlStatus
+    $g_aRunControlArray[3] = $lblRunTime
+    $g_aRunControlArray[4] = $lblDeaths
+    $g_aRunControlArray[5] = $lblVanquishStreak
+    $g_aRunControlArray[6] = $lblGoldPickedUp
 
     GUICtrlCreateTabItem("Map Selection")
     $btnToggleVisibleSelection = GUICtrlCreateButton("Select All EOTN", 890, 56, 230, 30)
@@ -124,7 +153,7 @@ EndFunc
 Func _SetCurrentTabIndex($iTabIndex)
     If $tab = 0 Then Return
     If $iTabIndex < 0 Then $iTabIndex = 0
-    GUICtrlSendMsg($tab, $TCM_SETCURSEL, $iTabIndex, 0)
+    _GUICtrlTab_SetCurSel(GUICtrlGetHandle($tab), $iTabIndex)
 EndFunc
 
 Func _ShowMainMenuTab()
@@ -153,40 +182,97 @@ Func _SetCharacterSelectionState($bConnected)
     If $bConnected Then
         GUICtrlSetState($btnConnect, $GUI_DISABLE)
     Else
-        If $g_iDetectedClientPid > 0 Then
+        If Not $g_bBotRunning And $g_iDetectedClientPid > 0 Then
             GUICtrlSetState($btnConnect, $GUI_ENABLE)
         Else
             GUICtrlSetState($btnConnect, $GUI_DISABLE)
         EndIf
     EndIf
+    _UpdateConnectedCharacterDisplay()
     _UpdateStartButtonState()
 EndFunc
 
 Func _UpdateDetectedCharacterDisplay($sCharacter, $iDetectedCount)
+    Local $sClientLabel = "Detected Client: none"
     Local $sLabel = "Detected Character: none"
 
     If $iDetectedCount > 1 Then
+        $sClientLabel = "Detected Client: multiple clients"
         $sLabel = "Detected Character: multiple clients"
     ElseIf StringStripWS($sCharacter, 3) <> "" Then
+        $sClientLabel = "Detected Client: PID " & $g_iDetectedClientPid
         $sLabel = "Detected Character: " & $sCharacter
+    ElseIf $iDetectedCount = 0 Then
+        $sClientLabel = "Detected Client: none"
     EndIf
 
+    GUICtrlSetData($lblDetectedClient, $sClientLabel)
     GUICtrlSetData($lblDetectedCharacter, $sLabel)
     _SetCharacterSelectionState($g_bClientConnected)
 EndFunc
 
+Func _UpdateConnectedCharacterDisplay()
+    Local $sLabel = "Connected Character: not connected"
+    If $g_bClientConnected And StringStripWS($g_sConnectedCharacter, 3) <> "" Then
+        $sLabel = "Connected Character: " & $g_sConnectedCharacter
+    EndIf
+    GUICtrlSetData($lblConnectedCharacter, $sLabel)
+EndFunc
+
+Func _UpdateMapScanStatusDisplay($sStatus = "")
+    Local $iVanquished = 0
+    Local $iSelectable = 0
+
+    For $i = 0 To UBound($g_aMapEntries) - 1
+        If $g_aMapEntries[$i][5] Then
+            $iVanquished += 1
+        Else
+            $iSelectable += 1
+        EndIf
+    Next
+
+    If $sStatus = "" Then
+        If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
+            $sStatus = "waiting for client connection"
+        ElseIf Not $g_bVanquishHistoryLoaded Then
+            $sStatus = "ready to scan"
+        Else
+            $sStatus = $iVanquished & " completed, " & $iSelectable & " available"
+        EndIf
+    EndIf
+
+    GUICtrlSetData($lblMapScanStatus, "Map Scan Status: " & $sStatus)
+EndFunc
+
+Func _UpdateRunControlStatusDisplay($sStatus = "")
+    If $sStatus = "" Then
+        If $g_bBotRunning Then
+            $sStatus = "running"
+        ElseIf $g_bClientConnected And Not $g_bVanquishHistoryLoaded Then
+            $sStatus = "ready to scan"
+        ElseIf $g_bClientConnected Then
+            $sStatus = "ready"
+        Else
+            $sStatus = "idle"
+        EndIf
+    EndIf
+    GUICtrlSetData($lblRunControlStatus, "Run Status: " & $sStatus)
+EndFunc
+
 Func _UpdateStartButtonState()
     Local $iStartState = $GUI_DISABLE
-    If $g_bClientConnected And $Bot_Core_Initialized And $g_bConnectionStatePrimed And $g_bVanquishHistoryLoaded Then $iStartState = $GUI_ENABLE
+    If Not $g_bBotRunning And $g_bClientConnected And $Bot_Core_Initialized And $g_bConnectionStatePrimed And $g_bVanquishHistoryLoaded Then $iStartState = $GUI_ENABLE
     GUICtrlSetState($btnStart, $iStartState)
 
     Local $iStopState = $GUI_DISABLE
-    If $g_bClientConnected And $Bot_Core_Initialized Then $iStopState = $GUI_ENABLE
+    If $g_bBotRunning Then $iStopState = $GUI_ENABLE
     GUICtrlSetState($btnStop, $iStopState)
 
     Local $iScanState = $GUI_DISABLE
-    If $g_bClientConnected And $Bot_Core_Initialized Then $iScanState = $GUI_ENABLE
+    If Not $g_bBotRunning And $g_bClientConnected And $Bot_Core_Initialized Then $iScanState = $GUI_ENABLE
     GUICtrlSetState($btnScanVanquishHistory, $iScanState)
+    _UpdateMapScanStatusDisplay()
+    _UpdateRunControlStatusDisplay()
 EndFunc
 
 Func _EstimateMapListColumnWidth($iChars, $iPadding = 24)
@@ -318,24 +404,48 @@ Func _GetCampaignListView($sCampaign)
     Return $g_aCampaignLists[$iCampaignIndex]
 EndFunc
 
+Func _InitializeMapListItems()
+    ReDim $g_aMapListItemIDs[UBound($g_aMapEntries)]
+    ReDim $g_aMapListRows[UBound($g_aMapEntries)]
+
+    For $iCampaign = 0 To $MAP_CAMPAIGN_COUNT - 1
+        _GUICtrlListView_DeleteAllItems($g_aCampaignLists[$iCampaign])
+    Next
+
+    For $i = 0 To UBound($g_aMapEntries) - 1
+        Local $idList = _GetCampaignListView($g_aMapEntries[$i][0])
+        If $idList = 0 Then ContinueLoop
+
+        Local $iRow = _GUICtrlListView_GetItemCount($idList)
+        Local $iItem = GUICtrlCreateListViewItem("|" & $g_aMapEntries[$i][1] & "|" & $g_aMapEntries[$i][2] & "|", $idList)
+        $g_aMapListItemIDs[$i] = $iItem
+        $g_aMapListRows[$i] = $iRow
+        _GUICtrlListView_SetItemParam($idList, $iRow, $i)
+    Next
+
+    _PopulateMapList("ALL")
+EndFunc
+
 Func _RebuildCampaignMapList($sCampaign)
     Local $idList = _GetCampaignListView($sCampaign)
     If $idList = 0 Then Return
 
-    _GUICtrlListView_DeleteAllItems($idList)
-
     For $i = 0 To UBound($g_aMapEntries) - 1
         If $g_aMapEntries[$i][0] <> $sCampaign Then ContinueLoop
 
+        If $i >= UBound($g_aMapListItemIDs) Then ContinueLoop
         Local $sStatus = ""
         If $g_aMapEntries[$i][5] Then $sStatus = "Vanquished"
 
-        Local $iRow = _GUICtrlListView_GetItemCount($idList)
-        Local $iItem = GUICtrlCreateListViewItem("|" & $g_aMapEntries[$i][1] & "|" & $g_aMapEntries[$i][2] & "|" & $sStatus, $idList)
-        _GUICtrlListView_SetItemParam($idList, $iRow, $i)
+        Local $iItem = $g_aMapListItemIDs[$i]
+        Local $iRow = $g_aMapListRows[$i]
+        GUICtrlSetData($iItem, "|" & $g_aMapEntries[$i][1] & "|" & $g_aMapEntries[$i][2] & "|" & $sStatus)
         _GUICtrlListView_SetItemChecked($idList, $iRow, (Not $g_aMapEntries[$i][5]) And $g_aMapEntries[$i][3])
-        If $g_aMapEntries[$i][5] Then GUICtrlSetColor($iItem, 0x808080)
-        GUICtrlSetState($iItem, $GUI_SHOW)
+        If $g_aMapEntries[$i][5] Then
+            GUICtrlSetColor($iItem, 0x808080)
+        Else
+            GUICtrlSetColor($iItem, 0x000000)
+        EndIf
     Next
 EndFunc
 
@@ -438,7 +548,7 @@ Func _UpdateVisibleSelectionToggleButton()
 EndFunc
 
 Func _PopulateMapList($sCampaign, $sSubgroup = "")
-    Local $iActiveTab = _GetCurrentTabIndex()
+    #forceref $sSubgroup
     _SyncVisibleMapChecks()
     If $sCampaign = "ALL" Then
         For $iCampaign = 0 To $MAP_CAMPAIGN_COUNT - 1
@@ -447,7 +557,6 @@ Func _PopulateMapList($sCampaign, $sSubgroup = "")
 
         _UpdateMapGroupButtons()
         _UpdateVisibleSelectionToggleButton()
-        _SetCurrentTabIndex($iActiveTab)
         Return
     EndIf
 
@@ -457,7 +566,6 @@ Func _PopulateMapList($sCampaign, $sSubgroup = "")
     _RebuildCampaignMapList($sCampaign)
     _UpdateMapGroupButtons()
     _UpdateVisibleSelectionToggleButton()
-    _SetCurrentTabIndex($iActiveTab)
 EndFunc
 
 Func _SetVisibleMapChecks($bChecked)
