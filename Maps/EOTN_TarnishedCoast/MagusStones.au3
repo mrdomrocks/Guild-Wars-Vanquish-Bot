@@ -38,7 +38,7 @@ Do
 	If GetAreaVanquished() = False Then AggroMoveTo(17366, -5132)
 	If GetAreaVanquished() = False Then AggroMoveTo(18111, -8030)
 
-	If GetAreaVanquished() = False Then AggroMoveTo("Taking Blessing")
+        If $DeadOnTheRun = 0 Then CurrentAction("Taking Blessing")
 	If GetAreaVanquished() = False Then AggroMoveTo(18409, -8474)
 	If GetAreaVanquished() = False Then Sleep(2000)
 	If GetAreaVanquished() = False Then AggroMoveTo(18613, -11799)
@@ -61,12 +61,12 @@ Do
 	If GetAreaVanquished() = False Then AggroMoveTo(-4635, -16643)
 	If GetAreaVanquished() = False Then AggroMoveTo(-7814, -17796)
 
-	If GetAreaVanquished() = False Then AggroMoveTo("Taking Blessing")
+        If $DeadOnTheRun = 0 Then CurrentAction("Taking Blessing")
 	If GetAreaVanquished() = False Then AggroMoveTo(-10109, -17520)
-	If GetAreaVanquished() = False Then AggroMoveTo(2000)
+        If GetAreaVanquished() = False Then Sleep(2000)
 	If GetAreaVanquished() = False Then AggroMoveTo(-9111, -17237)
 	If GetAreaVanquished() = False Then AggroMoveTo(-10963, -15506)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12885, -14651
+        If GetAreaVanquished() = False Then AggroMoveTo(-12885, -14651)
 	If GetAreaVanquished() = False Then AggroMoveTo(-13975, -17857)
 	If GetAreaVanquished() = False Then AggroMoveTo(-11912, -10641)
 	If GetAreaVanquished() = False Then AggroMoveTo(-8760, -9933)
@@ -75,15 +75,15 @@ Do
 	If GetAreaVanquished() = False Then AggroMoveTo(-16527, -8175)
 	If GetAreaVanquished() = False Then AggroMoveTo(-17391, -5984)
 	If GetAreaVanquished() = False Then AggroMoveTo(-15704, -3996)
-	If GetAreaVanquished() = False Then AggroMoveTo("Moving")
+        If $DeadOnTheRun = 0 Then CurrentAction("Moving")
 	If GetAreaVanquished() = False Then AggroMoveTo(-16609, -2607)
 	If GetAreaVanquished() = False Then Sleep(2000)
-	If GetAreaVanquished() = False Then AggroMoveToo(-15476, 186)
+        If GetAreaVanquished() = False Then AggroMoveTo(-15476, 186)
 	If GetAreaVanquished() = False Then AggroMoveTo(-16480, 2522)
 	If GetAreaVanquished() = False Then AggroMoveTo(-17090, 5252)
 
-	If GetAreaVanquished() = False Then AggroMoveTo("Taking Blessing")
-	If GetAreaVanquished() = False Then MoveTo(-19292, 8994)
+        If $DeadOnTheRun = 0 Then CurrentAction("Taking Blessing")
+        If GetAreaVanquished() = False Then AggroMoveTo(-19292, 8994)
 	Sleep(2000)
 	If GetAreaVanquished() = False Then AggroMoveTo(-18640, 8724)
 	If GetAreaVanquished() = False Then AggroMoveTo(-18484, 12021)
@@ -101,7 +101,7 @@ Do
 	If GetAreaVanquished() = False Then AggroMoveTo(-5228, 12475)
 	If GetAreaVanquished() = False Then AggroMoveTo(-3468, 10837)
 
-	Moveto(-2037, 10758)
+        MoveTo(-2037, 10758)
 	RndSleep(2000)
 
 	If GetAreaVanquished() = False Then AggroMoveTo(-3804, 8017)
