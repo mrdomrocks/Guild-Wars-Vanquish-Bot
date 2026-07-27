@@ -4,11 +4,11 @@
 
 
 Func GoOutAlcaziaTangle()
-	MoveTo(20665.88, -11510.13)
-	RndSleep(250)
-	Move(19218.17, -10843.86)
-	RndSleep(3000)
-	WaitForLoad()
+        Local $aGoOutRoute[2][2] = [ [20665.88, -11510.13] _
+                , [19218.17, -10843.86] _
+                ]
+
+        _Vanquisher_RunPathfinderPortalRoute($aGoOutRoute, $vqrange, "AlcaziaTangle exit ", 3000)
 EndFunc
 
 Func VQAlcaziaTangle()

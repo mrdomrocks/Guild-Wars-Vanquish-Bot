@@ -16,8 +16,8 @@ Func _Vanquisher_ExitRouteIfDone($a_s_Phase = "")
     Return False
 EndFunc
 
-; Move through path with combat; last point is a portal (AggroMoveTo then Move + WaitForLoad).
-Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_Label = "")
+; Move through path with combat; last point is a portal (AggroMoveTo then Move + Wait).
+Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_Label = "", $a_i_PostMoveDelayMs = 0, $a_s_WaitFunc = "WaitForLoad")
     Local $l_i_Count = UBound($a_a_Points)
     If $l_i_Count < 1 Then Return
     Local $l_i_Last = $l_i_Count - 1
@@ -29,12 +29,30 @@ Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_La
     AggroMoveTo($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1], $a_s_Label & " portal", $a_i_AggroRange)
     Local $l_i_MapBefore = GetMapID()
     Move($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1])
+    If $a_i_PostMoveDelayMs > 0 Then Sleep($a_i_PostMoveDelayMs)
     ; Portal fired (map changed or loading) — must wait for load before cons/VQ start.
     If GetMapID() <> $l_i_MapBefore Or Map_GetInstanceInfo("IsLoading") Then
-        WaitForLoad()
+        Call($a_s_WaitFunc)
         Return
     EndIf
-    WaitForLoad()
+    Call($a_s_WaitFunc)
+EndFunc
+
+; Named aliases for map files authored as route arrays instead of repeated MoveTo()/Move().
+; These route runners stay pathfinder-friendly because AggroMoveTo() already prefers
+; the Pathfinder backend and falls back to legacy movement when needed.
+Func _Vanquisher_RunPathfinderRoute($a_a_Points, $a_i_AggroRange = 1450, $a_s_Label = "")
+    Local $l_i_Count = UBound($a_a_Points)
+    If $l_i_Count < 1 Then Return
+
+    For $l_i_Idx = 0 To $l_i_Count - 1
+        If _Vanquisher_ShouldStop() Then Return
+        AggroMoveTo($a_a_Points[$l_i_Idx][0], $a_a_Points[$l_i_Idx][1], $a_s_Label & ($l_i_Idx + 1), $a_i_AggroRange)
+    Next
+EndFunc
+
+Func _Vanquisher_RunPathfinderPortalRoute($a_a_Points, $a_i_AggroRange = 1450, $a_s_Label = "", $a_i_PostMoveDelayMs = 0, $a_s_WaitFunc = "WaitForLoad")
+    _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange, $a_s_Label, $a_i_PostMoveDelayMs, $a_s_WaitFunc)
 EndFunc
 
 Func _Vanquisher_IsWormSpoorWaypoint($a_s_Label)

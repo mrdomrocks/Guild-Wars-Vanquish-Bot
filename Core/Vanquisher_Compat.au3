@@ -829,7 +829,7 @@ Func _Vanquisher_AdvanceZoneQueue()
     $g_i_VanquisherZoneQueueIndex += 1
     If $g_i_VanquisherZoneQueueIndex >= UBound($g_a_VanquisherZoneQueue) Then Return False
 
-    $Title = _Vanquisher_ZoneTitle($g_a_VanquisherZoneQueue[$g_i_VanquisherZoneQueueIndex])
+    _ApplyQueuedMapContext($g_a_VanquisherZoneQueue[$g_i_VanquisherZoneQueueIndex])
     $NumberRun = 0
     $g_b_Vanquisher_QueueAdvanced = True
     If $Title = "TravelersVale" Then $g_b_AscalonCaravan_VisitedDG = False

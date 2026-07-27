@@ -6,10 +6,9 @@ Func VQLionsGate()
 
 	If GetMapID() = $LionsGate_Map Then    
 
-		Local $aWaypoints[1][4] = [ [0, 0, " ", $vqrange] ]			
 	
-		MoveandAggroVQ($aWaypoints)
-		MoveAndAggroVQReverse($aWaypoints)
+		If GetAreaVanquished() = False Then AggroMoveTo(0, 0)
+		If GetAreaVanquished() = False Then AggroMoveTo(0, 0)
 
 	EndIf
 EndFunc

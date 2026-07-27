@@ -2,6 +2,15 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+; Example GoOut route authored as a pathfinder-friendly array:
+; Func GoOutSAMPLE()
+;         Local $aGoOutRoute[3][2] = [ [1000, 2000] _
+;                 , [1500, 2500] _
+;                 , [1800, 2600] ]
+;
+;         _Vanquisher_RunPathfinderPortalRoute($aGoOutRoute, $vqrange, "SAMPLE exit ")
+; EndFunc
+
 Func VQSAMPLE()
 	If GetMapID() <> $ShadowsPassage_Map And GetMapID() <> $ShadowsPassage_Outpost Then TravelTo($ShadowsPassage_Outpost)
 	If GetMapID() = $ShadowsPassage_Outpost Then
@@ -11,19 +20,20 @@ Func VQSAMPLE()
 
 	If GetMapID() = $ShadowsPassage_Map Then
 
-		Local $aWaypoints[6][4] = [ [3396, 16639, " ", $vqrange] _
-		, [2094, 18885, " ", $vqrange] _
-		, [61, 18889, " ", $vqrange] _
-		, [-682, 13737, " ", $vqrange] _
-		, [-3699, 14519, " ", $vqrange] _
-		, [-4255, 16101, " ", $vqrange] ]
+                If GetAreaVanquished() = False Then AggroMoveTo(3396, 16639)
+                If GetAreaVanquished() = False Then AggroMoveTo(2094, 18885)
+                If GetAreaVanquished() = False Then AggroMoveTo(61, 18889)
+                If GetAreaVanquished() = False Then AggroMoveTo(-682, 13737)
+                If GetAreaVanquished() = False Then AggroMoveTo(-3699, 14519)
+                If GetAreaVanquished() = False Then AggroMoveTo(-4255, 16101)
 
-		; Forward + reverse: use MoveandAggroVQFullRoute (stops/resigns on 0 remaining).
-		MoveandAggroVQFullRoute($aWaypoints)
-
-		; Forward only: MoveandAggroVQ($aWaypoints)
-		; Multiple segments: call MoveandAggroVQ($aWaypointsA) then B, etc. — each segment checks abort automatically.
-		; Manual waypoints: AggroMoveTo() — also checks complete/abort at entry and during Fight.
+                ; Reverse pass example:
+                If GetAreaVanquished() = False Then AggroMoveTo(-4255, 16101)
+                If GetAreaVanquished() = False Then AggroMoveTo(-3699, 14519)
+                If GetAreaVanquished() = False Then AggroMoveTo(-682, 13737)
+                If GetAreaVanquished() = False Then AggroMoveTo(61, 18889)
+                If GetAreaVanquished() = False Then AggroMoveTo(2094, 18885)
+                If GetAreaVanquished() = False Then AggroMoveTo(3396, 16639)
 
 	EndIf
 EndFunc

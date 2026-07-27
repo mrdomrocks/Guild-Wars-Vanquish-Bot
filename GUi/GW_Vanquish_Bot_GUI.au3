@@ -13,6 +13,7 @@
 ; Run the top-level launcher from the bot root folder.
 
 Global Const $MAP_CAMPAIGN_COUNT = 4
+Global Const $CONSOLE_WIDTH = 360
 
 Global $hGUI, $tab, $camp
 Global $console
@@ -37,62 +38,76 @@ Global $g_idComboTeam6[5]
 Global $g_idComboTeam8[7]
 
 Func _VB_CreateGUI()
-    $hGUI = GUICreate("Guild Wars Vanquish Bot", 1180, 860)
-    $tab = GUICtrlCreateTab(10, 10, 1160, 840)
+    $hGUI = GUICreate("Guild Wars Vanquish Bot", 1180, 560)
+    $tab = GUICtrlCreateTab(10, 10, 1160, 540)
 
     GUICtrlCreateTabItem("Main Menu")
-    $console = GUICtrlCreateEdit("", 20, 50, 690, 330, BitOR($ES_READONLY, $ES_AUTOVSCROLL, $ES_MULTILINE, $WS_VSCROLL))
-    $picVanquishedHelmet = GUICtrlCreatePic($g_sHelmetImagePath, 230, 405, 240, 240)
-    GUICtrlCreateGroup("Client Connection", 730, 50, 350, 120)
-    $lblDetectedClient = GUICtrlCreateLabel("Detected Client: scanning...", 750, 76, 300, 18)
-    $lblDetectedCharacter = GUICtrlCreateLabel("Detected Character: scanning...", 750, 98, 300, 18)
-    $lblConnectedCharacter = GUICtrlCreateLabel("Connected Character: not connected", 750, 120, 300, 18)
-    $btnConnect = GUICtrlCreateButton("Connect To Client", 750, 140, 310, 24)
+    $console = GUICtrlCreateEdit("", 40, 50, $CONSOLE_WIDTH, 230, BitOR($ES_CENTER, $ES_READONLY, $ES_AUTOVSCROLL, $ES_MULTILINE, $WS_VSCROLL))
+    GUICtrlSetFont($console, 10, 400, 0, "Consolas")
+    $picVanquishedHelmet = GUICtrlCreatePic($g_sHelmetImagePath, 840, 55, 210, 210)
+
+    GUICtrlCreateGroup("Client Connection", 420, 50, 250, 120)
+    $lblDetectedClient = GUICtrlCreateLabel("Detected Client: scanning...", 425, 76, 220, 18)
+    $lblDetectedCharacter = GUICtrlCreateLabel("Detected Character: scanning...", 425, 98, 220, 18)
+    $lblConnectedCharacter = GUICtrlCreateLabel("Connected Character: not connected", 425, 120, 220, 18)
+    $btnConnect = GUICtrlCreateButton("Connect To Client", 425, 140, 220, 24)
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Map Vanquish Check", 730, 180, 350, 100)
-    $btnScanVanquishHistory = GUICtrlCreateButton("Scan Vanquish Maps", 750, 206, 310, 26)
-    $lblMapScanStatus = GUICtrlCreateLabel("Map Scan Status: waiting for client connection", 750, 240, 310, 30)
+    GUICtrlCreateGroup("Map Vanquish Scan", 420, 180, 250, 110)
+    $btnScanVanquishHistory = GUICtrlCreateButton("Scan Vanquish Maps", 425, 210, 220, 26)
+    $lblMapScanStatus = GUICtrlCreateLabel("Map Scan Status: waiting for client connection", 425, 244, 220, 30)
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Run Control", 730, 290, 350, 170)
-    $btnStart = GUICtrlCreateButton("Start Selected Maps", 750, 316, 145, 34)
-    $btnStop = GUICtrlCreateButton("Stop", 915, 316, 145, 34)
-    $lblRunControlStatus = GUICtrlCreateLabel("Run Status: idle", 750, 360, 310, 18)
-    $lblRunTime = GUICtrlCreateLabel("Current Run Time: 00:00:00", 750, 384, 300, 18)
-    $lblDeaths = GUICtrlCreateLabel("Deaths: 0", 750, 404, 300, 18)
-    $lblVanquishStreak = GUICtrlCreateLabel("Maps Vanquished In A Row: 0", 750, 424, 300, 18)
-    $lblGoldPickedUp = GUICtrlCreateLabel("Gold Picked Up: 0", 750, 444, 300, 18)
+    GUICtrlCreateGroup("Run Control", 40, 295, 280, 185)
+    $btnStart = GUICtrlCreateButton("Start Selected Maps", 55, 325, 120, 34)
+    $btnStop = GUICtrlCreateButton("Stop", 185, 325, 120, 34)
+    $lblRunControlStatus = GUICtrlCreateLabel("Run Status: idle", 55, 368, 250, 18)
+    $lblRunTime = GUICtrlCreateLabel("Current Run Time: 00:00:00", 55, 390, 250, 18)
+    $lblDeaths = GUICtrlCreateLabel("Deaths: 0", 55, 412, 250, 18)
+    $lblVanquishStreak = GUICtrlCreateLabel("Maps Vanquished In A Row: 0", 55, 434, 250, 18)
+    $lblGoldPickedUp = GUICtrlCreateLabel("Gold Picked Up: 0", 55, 456, 250, 18)
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Heroes", 730, 470, 350, 320)
-    GUICtrlCreateGroup("Team 4", 740, 492, 160, 115)
+    GUICtrlCreateGroup("Heroes", 340, 295, 740, 225)
+    GUICtrlCreateGroup("Team 4", 355, 320, 160, 115)
     For $i = 0 To 2
-        GUICtrlCreateLabel("H" & ($i + 1) & ":", 748, 512 + ($i * 28), 22, 18)
-        $g_idComboTeam4[$i] = GUICtrlCreateCombo("", 770, 509 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
+        GUICtrlCreateLabel("H" & ($i + 1) & ":", 363, 340 + ($i * 28), 22, 18)
+        $g_idComboTeam4[$i] = GUICtrlCreateCombo("", 385, 337 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
         GUICtrlSetData($g_idComboTeam4[$i], $g_sHeroList)
         GUICtrlSendMsg($g_idComboTeam4[$i], $CB_SETDROPPEDWIDTH, $g_iHeroDropdownWidth, 0)
     Next
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Team 6", 740, 612, 160, 155)
+    GUICtrlCreateGroup("Team 6", 530, 320, 160, 155)
     For $i = 0 To 4
-        GUICtrlCreateLabel("H" & ($i + 1) & ":", 748, 632 + ($i * 28), 22, 18)
-        $g_idComboTeam6[$i] = GUICtrlCreateCombo("", 770, 629 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
+        GUICtrlCreateLabel("H" & ($i + 1) & ":", 538, 340 + ($i * 28), 22, 18)
+        $g_idComboTeam6[$i] = GUICtrlCreateCombo("", 560, 337 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
         GUICtrlSetData($g_idComboTeam6[$i], $g_sHeroList)
         GUICtrlSendMsg($g_idComboTeam6[$i], $CB_SETDROPPEDWIDTH, $g_iHeroDropdownWidth, 0)
     Next
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Team 8", 910, 492, 160, 215)
+    GUICtrlCreateGroup("Team 8", 705, 320, 330, 145)
     For $i = 0 To 6
-        GUICtrlCreateLabel("H" & ($i + 1) & ":", 918, 512 + ($i * 28), 22, 18)
-        $g_idComboTeam8[$i] = GUICtrlCreateCombo("", 940, 509 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
+        Local $iColumn = 0
+        Local $iRow = $i
+        If $i >= 4 Then
+            $iColumn = 1
+            $iRow = $i - 4
+        EndIf
+
+        Local $iLabelX = 713 + ($iColumn * 155)
+        Local $iComboX = 735 + ($iColumn * 155)
+        Local $iLabelY = 340 + ($iRow * 28)
+        Local $iComboY = 337 + ($iRow * 28)
+
+        GUICtrlCreateLabel("H" & ($i + 1) & ":", $iLabelX, $iLabelY, 22, 18)
+        $g_idComboTeam8[$i] = GUICtrlCreateCombo("", $iComboX, $iComboY, 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
         GUICtrlSetData($g_idComboTeam8[$i], $g_sHeroList)
         GUICtrlSendMsg($g_idComboTeam8[$i], $CB_SETDROPPEDWIDTH, $g_iHeroDropdownWidth, 0)
     Next
     GUICtrlCreateGroup("", -99, -99, 1, 1)
-    $btnSaveConfig = GUICtrlCreateButton("Save Config", 910, 736, 160, 24)
+    $btnSaveConfig = GUICtrlCreateButton("Save Config", 790, 475, 160, 28)
 
     $g_aClientControlArray[0] = $lblDetectedClient
     $g_aClientControlArray[1] = $lblDetectedCharacter
@@ -109,16 +124,16 @@ Func _VB_CreateGUI()
     $g_aRunControlArray[6] = $lblGoldPickedUp
 
     GUICtrlCreateTabItem("Map Selection")
-    $btnToggleVisibleSelection = GUICtrlCreateButton("Select All EOTN", 890, 56, 230, 30)
-    $btnGroupEOTN = GUICtrlCreateButton("EOTN", 20, 56, 150, 30, $BS_DEFPUSHBUTTON)
-    $btnGroupProphecies = GUICtrlCreateButton("Prophecies", 580, 56, 150, 30)
-    $btnGroupFactions = GUICtrlCreateButton("Factions", 20, 336, 150, 30)
-    $btnGroupNightfall = GUICtrlCreateButton("Nightfall", 580, 336, 150, 30)
+    $btnToggleVisibleSelection = GUICtrlCreateButton("Select All EOTN", 890, 50, 230, 28)
+    $btnGroupEOTN = GUICtrlCreateButton("EOTN", 20, 50, 150, 28, $BS_DEFPUSHBUTTON)
+    $btnGroupProphecies = GUICtrlCreateButton("Prophecies", 580, 50, 150, 28)
+    $btnGroupFactions = GUICtrlCreateButton("Factions", 20, 290, 150, 28)
+    $btnGroupNightfall = GUICtrlCreateButton("Nightfall", 580, 290, 150, 28)
 
-    $lvMapsEOTN = GUICtrlCreateListView(" |Region|Map|Status", 20, 92, 540, 220, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
-    $lvMapsProphecies = GUICtrlCreateListView(" |Region|Map|Status", 580, 92, 540, 220, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
-    $lvMapsFactions = GUICtrlCreateListView(" |Region|Map|Status", 20, 372, 540, 220, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
-    $lvMapsNightfall = GUICtrlCreateListView(" |Region|Map|Status", 580, 372, 540, 220, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsEOTN = GUICtrlCreateListView(" |Region|Map|Status", 20, 84, 540, 190, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsProphecies = GUICtrlCreateListView(" |Region|Map|Status", 580, 84, 540, 190, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsFactions = GUICtrlCreateListView(" |Region|Map|Status", 20, 324, 540, 190, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsNightfall = GUICtrlCreateListView(" |Region|Map|Status", 580, 324, 540, 190, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     $g_aCampaignButtons[0] = $btnGroupEOTN
     $g_aCampaignButtons[1] = $btnGroupProphecies
@@ -233,7 +248,9 @@ Func _UpdateMapScanStatusDisplay($sStatus = "")
 
     If $sStatus = "" Then
         If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
-            $sStatus = "waiting for client connection"
+            $sStatus = "waiting for client"
+        ElseIf $g_bMapScanInProgress Then
+            $sStatus = "scanning..."
         ElseIf Not $g_bVanquishHistoryLoaded Then
             $sStatus = "ready to scan"
         Else
@@ -248,6 +265,8 @@ Func _UpdateRunControlStatusDisplay($sStatus = "")
     If $sStatus = "" Then
         If $g_bBotRunning Then
             $sStatus = "running"
+        ElseIf $g_bMapScanInProgress Then
+            $sStatus = "scanning maps"
         ElseIf $g_bClientConnected And Not $g_bVanquishHistoryLoaded Then
             $sStatus = "ready to scan"
         ElseIf $g_bClientConnected Then
@@ -269,8 +288,13 @@ Func _UpdateStartButtonState()
     GUICtrlSetState($btnStop, $iStopState)
 
     Local $iScanState = $GUI_DISABLE
-    If Not $g_bBotRunning And $g_bClientConnected And $Bot_Core_Initialized Then $iScanState = $GUI_ENABLE
+    If Not $g_bBotRunning And Not $g_bMapScanInProgress And $g_bClientConnected And $Bot_Core_Initialized Then $iScanState = $GUI_ENABLE
     GUICtrlSetState($btnScanVanquishHistory, $iScanState)
+    If $g_bMapScanInProgress Then
+        GUICtrlSetData($btnScanVanquishHistory, "Scanning Vanquish Maps...")
+    Else
+        GUICtrlSetData($btnScanVanquishHistory, "Scan Vanquish Maps")
+    EndIf
     _UpdateMapScanStatusDisplay()
     _UpdateRunControlStatusDisplay()
 EndFunc
@@ -284,6 +308,7 @@ Func _ResizeMapListColumns()
     Local $iCheckWidth = 34
     Local $iStatusChars = StringLen("Vanquished")
     Local Const $iMapListMaxWidth = 540
+    Local Const $iMapListHeight = 190
     Local $aRegionChars[$MAP_CAMPAIGN_COUNT]
     Local $aMapChars[$MAP_CAMPAIGN_COUNT]
 
@@ -316,17 +341,17 @@ Func _ResizeMapListColumns()
         EndIf
 
         Local $iX = 20
-        Local $iY = 92
+        Local $iY = 84
         If $i = 1 Then
             $iX = 580
         ElseIf $i = 2 Then
-            $iY = 372
+            $iY = 324
         ElseIf $i = 3 Then
             $iX = 580
-            $iY = 372
+            $iY = 324
         EndIf
 
-        GUICtrlSetPos($g_aCampaignLists[$i], $iX, $iY, $iListWidth, 220)
+        GUICtrlSetPos($g_aCampaignLists[$i], $iX, $iY, $iListWidth, $iMapListHeight)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 0, $iCheckWidth)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 1, $iRegionWidth)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 2, $iMapWidth)
@@ -430,6 +455,8 @@ Func _RebuildCampaignMapList($sCampaign)
     Local $idList = _GetCampaignListView($sCampaign)
     If $idList = 0 Then Return
 
+    _GUICtrlListView_BeginUpdate($idList)
+
     For $i = 0 To UBound($g_aMapEntries) - 1
         If $g_aMapEntries[$i][0] <> $sCampaign Then ContinueLoop
 
@@ -445,14 +472,21 @@ Func _RebuildCampaignMapList($sCampaign)
         _GUICtrlListView_SetItemText($idList, $iRow, $sStatus, 3)
         _GUICtrlListView_SetItemChecked($idList, $iRow, (Not $g_aMapEntries[$i][5]) And $g_aMapEntries[$i][3])
         If $g_aMapEntries[$i][5] Then
+            _GUICtrlListView_SetItemChecked($idList, $iRow, False)
             _GUICtrlListView_SetItemSelected($idList, $iRow, False, False)
             _GUICtrlListView_SetItemCut($idList, $iRow, True)
+            _GUICtrlListView_SetItemState($idList, $iRow, $LVIS_CUT, $LVIS_CUT)
             GUICtrlSetColor($iItem, 0x808080)
+            GUICtrlSetBkColor($iItem, 0xE8E8E8)
         Else
             _GUICtrlListView_SetItemCut($idList, $iRow, False)
+            _GUICtrlListView_SetItemState($idList, $iRow, 0, $LVIS_CUT)
             GUICtrlSetColor($iItem, 0x000000)
+            GUICtrlSetBkColor($iItem, 0xFFFFFF)
         EndIf
     Next
+
+    _GUICtrlListView_EndUpdate($idList)
 EndFunc
 
 Func _SyncVisibleMapChecks()
@@ -608,13 +642,39 @@ Func _UpdateMapGroupButtons()
 EndFunc
 
 Func _Log($sText)
+    _AppendConsoleLine("[" & @HOUR & ":" & @MIN & ":" & @SEC & "] " & $sText)
+EndFunc
+
+Func _AppendConsoleLine($sLine)
     Local $sExisting = GUICtrlRead($console)
-    Local $sLine = "[" & @HOUR & ":" & @MIN & ":" & @SEC & "] " & $sText
     If $sExisting = "" Then
         GUICtrlSetData($console, $sLine)
     Else
         GUICtrlSetData($console, $sExisting & @CRLF & $sLine)
     EndIf
+EndFunc
+
+Func _GetConsoleTextWidth()
+    ; Estimate visible monospace characters from the configured control width.
+    Local $iWidth = Int(($CONSOLE_WIDTH - 20) / 8)
+    If $iWidth < 24 Then $iWidth = 24
+    Return $iWidth
+EndFunc
+
+Func _CenterConsoleText($sText, $iWidth = 72)
+    Local $sTrimmed = StringStripWS($sText, 3)
+    If $sTrimmed = "" Then Return ""
+
+    Local $iPadding = Int(($iWidth - StringLen($sTrimmed)) / 2)
+    If $iPadding < 0 Then $iPadding = 0
+    Return _StringRepeat(" ", $iPadding) & $sTrimmed
+EndFunc
+
+Func _LogStartupBanner()
+    _AppendConsoleLine("--Initialising--")
+    _AppendConsoleLine("--Guild Wars Vanquish Bot--")
+    _AppendConsoleLine("--Brought to you by MrDomRocks--")
+    _AppendConsoleLine("")
 EndFunc
 
 Func _VB_LogCallback($sMessage, $iMsgType, $sAuthor)

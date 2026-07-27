@@ -4,10 +4,11 @@
 
 
 Func GoOutArborBay()
-	MoveTo(16129.67, 14160.49)
-	Move(15545.26, 12675.66)
-	RndSleep(2000)
-	WaitForLoad()
+        Local $aGoOutRoute[2][2] = [ [16129.67, 14160.49] _
+                , [15545.26, 12675.66] _
+                ]
+
+        _Vanquisher_RunPathfinderPortalRoute($aGoOutRoute, $vqrange, "ArborBay exit ", 2000)
 EndFunc
 
 Func VQArborBay()

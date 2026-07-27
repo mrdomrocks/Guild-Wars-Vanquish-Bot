@@ -4,11 +4,11 @@
 
 
 Func GoOutMagusStones()
-	MoveTo(16448.44, 14224.86)
-	RndSleep(500)
-	Move(16183.18, 13655.50)
-	RndSleep(3000)
-	WaitForLoad()
+        Local $aGoOutRoute[2][2] = [ [16448.44, 14224.86] _
+                , [16183.18, 13655.50] _
+                ]
+
+        _Vanquisher_RunPathfinderPortalRoute($aGoOutRoute, $vqrange, "MagusStones exit ", 3000)
 EndFunc
 
 Func VQMagusStones() ;Add VQ name
@@ -26,9 +26,9 @@ Do
 
 	$DeadOnTheRun = 0
 	If $DeadOnTheRun = 0 Then CurrentAction("Moving")
-	If $DeadOnTheRun = 0 Then MoveTo(16722, 11774)
+        If $DeadOnTheRun = 0 Then AggroMoveTo(16722, 11774)
 	If $DeadOnTheRun = 0 Then CurrentAction("Moving")
-	If $DeadOnTheRun = 0 Then MoveTo(17383, 8685)
+        If $DeadOnTheRun = 0 Then AggroMoveTo(17383, 8685)
 
 	If GetAreaVanquished() = False Then AggroMoveTo(18824.87, 6179.76)
 	If GetAreaVanquished() = False Then AggroMoveTo(18447, 4537)
@@ -101,7 +101,7 @@ Do
 	If GetAreaVanquished() = False Then AggroMoveTo(-5228, 12475)
 	If GetAreaVanquished() = False Then AggroMoveTo(-3468, 10837)
 
-        MoveTo(-2037, 10758)
+        AggroMoveTo(-2037, 10758)
 	RndSleep(2000)
 
 	If GetAreaVanquished() = False Then AggroMoveTo(-3804, 8017)
@@ -118,7 +118,7 @@ Do
 	If GetAreaVanquished() = False Then AggroMoveTo(6341, 3029)
 	If GetAreaVanquished() = False Then AggroMoveTo(7097, 92)
 
-	MoveTo(4893, 445)
+        AggroMoveTo(4893, 445)
 	RndSleep(2000)
 	If GetAreaVanquished() = False Then AggroMoveTo(8943, -985)
 	If GetAreaVanquished() = False Then AggroMoveTo(10949, -2056)
@@ -137,7 +137,7 @@ Do
 	If GetAreaVanquished() = False Then AggroMoveTo(-3195, -1538)
 	If GetAreaVanquished() = False Then AggroMoveTo(-6322, -2565)
 
-	MoveTo(-9231, -2629)
+        AggroMoveTo(-9231, -2629)
 	RndSleep(4000)
 
 	If GetAreaVanquished() = False Then AggroMoveTo(-11414, 4055)

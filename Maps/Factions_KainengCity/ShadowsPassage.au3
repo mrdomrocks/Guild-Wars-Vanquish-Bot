@@ -3,10 +3,12 @@ Global $vqrange = 1450
 Global $ActionCounter = 1
 
 Func GoOutShadowsPassage()
-	MoveTo(-12290, 7648)
-	MoveTo(-12193, 8409)
-	Move(-12182, 8800)
-	WaitForLoad()
+        Local $aGoOutRoute[3][2] = [ [-12290, 7648] _
+                , [-12193, 8409] _
+                , [-12182, 8800] _
+                ]
+
+        _Vanquisher_RunPathfinderPortalRoute($aGoOutRoute, $vqrange, "ShadowsPassage exit ")
 EndFunc
 
 Func VQShadowsPassage()
@@ -18,15 +20,19 @@ Func VQShadowsPassage()
 
 	If GetMapID() = $ShadowsPassage_Map Then    
 
-		Local $aWaypoints[6][4] = [ [3396, 16639, " ", $vqrange] _
-		, [2094, 18885, " ", $vqrange] _
-		, [61, 18889, " ", $vqrange] _
-		, [-682, 13737, " ", $vqrange] _
-		, [-3699, 14519, " ", $vqrange] _
-		, [-4255, 16101, " ", $vqrange] ]
 		
-		MoveandAggroVQ($aWaypoints)
-		MoveAndAggroVQReverse($aWaypoints)
+		If GetAreaVanquished() = False Then AggroMoveTo(3396, 16639)
+		If GetAreaVanquished() = False Then AggroMoveTo(2094, 18885)
+		If GetAreaVanquished() = False Then AggroMoveTo(61, 18889)
+		If GetAreaVanquished() = False Then AggroMoveTo(-682, 13737)
+		If GetAreaVanquished() = False Then AggroMoveTo(-3699, 14519)
+		If GetAreaVanquished() = False Then AggroMoveTo(-4255, 16101)
+		If GetAreaVanquished() = False Then AggroMoveTo(-4255, 16101)
+		If GetAreaVanquished() = False Then AggroMoveTo(-3699, 14519)
+		If GetAreaVanquished() = False Then AggroMoveTo(-682, 13737)
+		If GetAreaVanquished() = False Then AggroMoveTo(61, 18889)
+		If GetAreaVanquished() = False Then AggroMoveTo(2094, 18885)
+		If GetAreaVanquished() = False Then AggroMoveTo(3396, 16639)
         
     EndIf
 EndFunc

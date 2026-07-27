@@ -189,21 +189,35 @@ Func VQAscalonFoothills()
 
 	CurrentAction("Starting AscalonFoothills vanquish route.")
 
-	Local $aWaypoints[14][4] = [ _
-		[-5785, 1558, " ", $vqrange], _
-		[-2684, 2006, " ", $vqrange], _
-		[-5544, -1613, " ", $vqrange], _
-		[-3428, -5729, " ", $vqrange], _
-		[373, -3274, " ", $vqrange], _
-		[-3156, -2098, " ", $vqrange], _
-		[-1639, 751, " ", $vqrange], _
-		[621, -735, " ", $vqrange], _
-		[2040, 2078, " ", $vqrange], _
-		[240, 5077, " ", $vqrange], _
-		[4885, 5096, " ", $vqrange], _
-		[5939, 1126, " ", $vqrange], _
-		[3321, -3531, " ", $vqrange], _
-		[7394, -6932, " ", $vqrange] ]
 
-	MoveandAggroVQFullRoute($aWaypoints)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5785, 1558)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2684, 2006)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5544, -1613)
+	If GetAreaVanquished() = False Then AggroMoveTo(-3428, -5729)
+	If GetAreaVanquished() = False Then AggroMoveTo(373, -3274)
+	If GetAreaVanquished() = False Then AggroMoveTo(-3156, -2098)
+	If GetAreaVanquished() = False Then AggroMoveTo(-1639, 751)
+	If GetAreaVanquished() = False Then AggroMoveTo(621, -735)
+	If GetAreaVanquished() = False Then AggroMoveTo(2040, 2078)
+	If GetAreaVanquished() = False Then AggroMoveTo(240, 5077)
+	If GetAreaVanquished() = False Then AggroMoveTo(4885, 5096)
+	If GetAreaVanquished() = False Then AggroMoveTo(5939, 1126)
+	If GetAreaVanquished() = False Then AggroMoveTo(3321, -3531)
+	If GetAreaVanquished() = False Then AggroMoveTo(7394, -6932)
+
+	; reverse
+	If GetAreaVanquished() = False Then AggroMoveTo(7394, -6932)
+	If GetAreaVanquished() = False Then AggroMoveTo(3321, -3531)
+	If GetAreaVanquished() = False Then AggroMoveTo(5939, 1126)
+	If GetAreaVanquished() = False Then AggroMoveTo(4885, 5096)
+	If GetAreaVanquished() = False Then AggroMoveTo(240, 5077)
+	If GetAreaVanquished() = False Then AggroMoveTo(2040, 2078)
+	If GetAreaVanquished() = False Then AggroMoveTo(621, -735)
+	If GetAreaVanquished() = False Then AggroMoveTo(-1639, 751)
+	If GetAreaVanquished() = False Then AggroMoveTo(-3156, -2098)
+	If GetAreaVanquished() = False Then AggroMoveTo(373, -3274)
+	If GetAreaVanquished() = False Then AggroMoveTo(-3428, -5729)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5544, -1613)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2684, 2006)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5785, 1558)
 EndFunc

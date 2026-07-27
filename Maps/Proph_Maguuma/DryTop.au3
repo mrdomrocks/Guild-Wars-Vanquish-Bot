@@ -74,53 +74,98 @@ Func VQDryTop()
 
 	CurrentAction("Starting DryTop vanquish route.")
 
-	Local $aWaypoints[45][4] = [ _
-		[4726, -6046, " ", $vqrange], _
-		[3652, -6357, " ", $vqrange], _
-		[1709, -6960, " ", $vqrange], _
-		[150, -6957, " ", $vqrange], _
-		[-1465, -6071, " ", $vqrange], _
-		[-2973, -6180, " ", $vqrange], _
-		[-4743, -4626, " ", $vqrange], _
-		[-5546, -3189, " ", $vqrange], _
-		[-6116, -1455, " ", $vqrange], _
-		[-6942, 221, " ", $vqrange], _
-		[-7052, 1744, " ", $vqrange], _
-		[-6870, 3675, " ", $vqrange], _
-		[-6762, 4836, " ", $vqrange], _
-		[-6246, 7872, " ", $vqrange], _
-		[-6666, 5394, " ", $vqrange], _
-		[-4459, 6750, " ", $vqrange], _
-		[-2761, 7679, " ", $vqrange], _
-		[-2045, 6834, " ", $vqrange], _
-		[-401, 6976, " ", $vqrange], _
-		[1153, 6953, " ", $vqrange], _
-		[2522, 6652, " ", $vqrange], _
-		[1794, 5353, " ", $vqrange], _
-		[3262, 3513, " ", $vqrange], _
-		[3107, 2892, " ", $vqrange], _
-		[6138, 2248, " ", $vqrange], _
-		[6528, 4224, " ", $vqrange], _
-		[3646, 1677, " ", $vqrange], _
-		[1775, 1367, " ", $vqrange], _
-		[1210, -191, " ", $vqrange], _
-		[2669, -2336, " ", $vqrange], _
-		[5369, -2187, " ", $vqrange], _
-		[6427, -3114, " ", $vqrange], _
-		[5919, -5577, " ", $vqrange], _
-		[1639, -7009, " ", $vqrange], _
-		[-2905, -6831, " ", $vqrange], _
-		[-1896, -6216, " ", $vqrange], _
-		[-4104, -3672, " ", $vqrange], _
-		[-5428, -3241, " ", $vqrange], _
-		[-6134, -1119, " ", $vqrange], _
-		[-7154, 3174, " ", $vqrange], _
-		[-6772, 5855, " ", $vqrange], _
-		[-5742, 6064, " ", $vqrange], _
-		[-2241, 7155, " ", $vqrange], _
-		[1724, 6378, " ", $vqrange], _
-		[4813, 4913, " ", $vqrange] ]
 
-	MoveandAggroVQFullRoute($aWaypoints)
+	If GetAreaVanquished() = False Then AggroMoveTo(4726, -6046)
+	If GetAreaVanquished() = False Then AggroMoveTo(3652, -6357)
+	If GetAreaVanquished() = False Then AggroMoveTo(1709, -6960)
+	If GetAreaVanquished() = False Then AggroMoveTo(150, -6957)
+	If GetAreaVanquished() = False Then AggroMoveTo(-1465, -6071)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2973, -6180)
+	If GetAreaVanquished() = False Then AggroMoveTo(-4743, -4626)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5546, -3189)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6116, -1455)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6942, 221)
+	If GetAreaVanquished() = False Then AggroMoveTo(-7052, 1744)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6870, 3675)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6762, 4836)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6246, 7872)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6666, 5394)
+	If GetAreaVanquished() = False Then AggroMoveTo(-4459, 6750)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2761, 7679)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2045, 6834)
+	If GetAreaVanquished() = False Then AggroMoveTo(-401, 6976)
+	If GetAreaVanquished() = False Then AggroMoveTo(1153, 6953)
+	If GetAreaVanquished() = False Then AggroMoveTo(2522, 6652)
+	If GetAreaVanquished() = False Then AggroMoveTo(1794, 5353)
+	If GetAreaVanquished() = False Then AggroMoveTo(3262, 3513)
+	If GetAreaVanquished() = False Then AggroMoveTo(3107, 2892)
+	If GetAreaVanquished() = False Then AggroMoveTo(6138, 2248)
+	If GetAreaVanquished() = False Then AggroMoveTo(6528, 4224)
+	If GetAreaVanquished() = False Then AggroMoveTo(3646, 1677)
+	If GetAreaVanquished() = False Then AggroMoveTo(1775, 1367)
+	If GetAreaVanquished() = False Then AggroMoveTo(1210, -191)
+	If GetAreaVanquished() = False Then AggroMoveTo(2669, -2336)
+	If GetAreaVanquished() = False Then AggroMoveTo(5369, -2187)
+	If GetAreaVanquished() = False Then AggroMoveTo(6427, -3114)
+	If GetAreaVanquished() = False Then AggroMoveTo(5919, -5577)
+	If GetAreaVanquished() = False Then AggroMoveTo(1639, -7009)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2905, -6831)
+	If GetAreaVanquished() = False Then AggroMoveTo(-1896, -6216)
+	If GetAreaVanquished() = False Then AggroMoveTo(-4104, -3672)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5428, -3241)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6134, -1119)
+	If GetAreaVanquished() = False Then AggroMoveTo(-7154, 3174)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6772, 5855)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5742, 6064)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2241, 7155)
+	If GetAreaVanquished() = False Then AggroMoveTo(1724, 6378)
+	If GetAreaVanquished() = False Then AggroMoveTo(4813, 4913)
+
+	; reverse
+	If GetAreaVanquished() = False Then AggroMoveTo(4813, 4913)
+	If GetAreaVanquished() = False Then AggroMoveTo(1724, 6378)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2241, 7155)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5742, 6064)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6772, 5855)
+	If GetAreaVanquished() = False Then AggroMoveTo(-7154, 3174)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6134, -1119)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5428, -3241)
+	If GetAreaVanquished() = False Then AggroMoveTo(-4104, -3672)
+	If GetAreaVanquished() = False Then AggroMoveTo(-1896, -6216)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2905, -6831)
+	If GetAreaVanquished() = False Then AggroMoveTo(1639, -7009)
+	If GetAreaVanquished() = False Then AggroMoveTo(5919, -5577)
+	If GetAreaVanquished() = False Then AggroMoveTo(6427, -3114)
+	If GetAreaVanquished() = False Then AggroMoveTo(5369, -2187)
+	If GetAreaVanquished() = False Then AggroMoveTo(2669, -2336)
+	If GetAreaVanquished() = False Then AggroMoveTo(1210, -191)
+	If GetAreaVanquished() = False Then AggroMoveTo(1775, 1367)
+	If GetAreaVanquished() = False Then AggroMoveTo(3646, 1677)
+	If GetAreaVanquished() = False Then AggroMoveTo(6528, 4224)
+	If GetAreaVanquished() = False Then AggroMoveTo(6138, 2248)
+	If GetAreaVanquished() = False Then AggroMoveTo(3107, 2892)
+	If GetAreaVanquished() = False Then AggroMoveTo(3262, 3513)
+	If GetAreaVanquished() = False Then AggroMoveTo(1794, 5353)
+	If GetAreaVanquished() = False Then AggroMoveTo(2522, 6652)
+	If GetAreaVanquished() = False Then AggroMoveTo(1153, 6953)
+	If GetAreaVanquished() = False Then AggroMoveTo(-401, 6976)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2045, 6834)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2761, 7679)
+	If GetAreaVanquished() = False Then AggroMoveTo(-4459, 6750)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6666, 5394)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6246, 7872)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6762, 4836)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6870, 3675)
+	If GetAreaVanquished() = False Then AggroMoveTo(-7052, 1744)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6942, 221)
+	If GetAreaVanquished() = False Then AggroMoveTo(-6116, -1455)
+	If GetAreaVanquished() = False Then AggroMoveTo(-5546, -3189)
+	If GetAreaVanquished() = False Then AggroMoveTo(-4743, -4626)
+	If GetAreaVanquished() = False Then AggroMoveTo(-2973, -6180)
+	If GetAreaVanquished() = False Then AggroMoveTo(-1465, -6071)
+	If GetAreaVanquished() = False Then AggroMoveTo(150, -6957)
+	If GetAreaVanquished() = False Then AggroMoveTo(1709, -6960)
+	If GetAreaVanquished() = False Then AggroMoveTo(3652, -6357)
+	If GetAreaVanquished() = False Then AggroMoveTo(4726, -6046)
 EndFunc
 

@@ -48,6 +48,7 @@
 ; Kryta
 #include "..\Maps\Proph_Kryta\CursedLands.au3"
 #include "..\Maps\Proph_Kryta\KessexPeak.au3"
+#include "..\Maps\Proph_Kryta\LionsGate.au3"
 #include "..\Maps\Proph_Kryta\MajestysRest.au3"
 #include "..\Maps\Proph_Kryta\NeboTerrace.au3"
 #include "..\Maps\Proph_Kryta\NorthKrytaProvince.au3"

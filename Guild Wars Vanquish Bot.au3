@@ -20,7 +20,7 @@ Global $g_iDetectedClientPid = 0
 Global $g_iDetectedCharacterCount = 0
 Global $g_sActiveMapGroup = "EOTN"
 Global $boolrun = True
-Global $g_aMapEntries[0][8] ; campaign, region, map name, checked, map id, vanquished, outpost id, max party size
+Global $g_aMapEntries[0][10] ; campaign, region, map name, checked, map id, vanquished, outpost id, max party size, script name, route function
 Global $g_s_MainCharName = ""
 Global $ProcessID = ""
 Global $Bot_Core_Initialized = False
@@ -32,6 +32,7 @@ Global $g_iLastKnownGold = -1
 Global $g_bWasPlayerDead = False
 Global $g_bConnectionStatePrimed = False
 Global $g_bVanquishHistoryLoaded = False
+Global $g_bMapScanInProgress = False
 Global $g_bPendingMapStateLoad = False
 Global $g_bPendingPostConnectRefresh = False
 Global $g_hPostConnectRefreshTimer = TimerInit()
@@ -39,6 +40,13 @@ Global $g_sLastHeroTeamState = ""
 Global $g_sHeroList = _BuildHeroList()
 Global $g_iHeroDropdownWidth = _EstimateHeroDropdownWidth()
 Global $g_sHelmetImagePath = @ScriptDir & "\GUi\Vanquish.png"
+Global $g_sGuiSourcePath = @ScriptDir & "\GUi\GW_Vanquish_Bot_GUI.au3"
+Global $g_sGuiSourceStamp = _GetFileModifiedStamp($g_sGuiSourcePath)
+Global $g_hGuiReloadTimer = TimerInit()
+Global $g_bGuiReloadPending = False
+Global $g_bGuiReloadNotified = False
+Global $g_bScriptReloadRequested = False
+Global $g_sScriptReloadCommand = ""
 Global $g_sConfigPath = @ScriptDir & "\vanquish_config.ini"
 Global $g_sMapsRoot = @ScriptDir & "\Maps"
 Global $g_bBotRunning = False
@@ -53,6 +61,7 @@ If IsDeclared("g_b_AutoUpdate") Then $g_b_AutoUpdate = False
 If IsDeclared("g_bCore_AutoUpdate") Then $g_bCore_AutoUpdate = False
 
 _VB_CreateGUI()
+_LogStartupBanner()
 
 _LoadMapEntries()
 _InitializeMapListItems()
@@ -72,9 +81,11 @@ While 1
     Local $msg = GUIGetMsg()
     If Not _HandleGuiMessage($msg) Then ExitLoop
     _RunGuiMaintenance()
+    If $g_bScriptReloadRequested Then ExitLoop
 WEnd
 
 _VB_DestroyGUI()
+If $g_bScriptReloadRequested And $g_sScriptReloadCommand <> "" Then Run($g_sScriptReloadCommand, @ScriptDir)
 
 Func _ConnectToDetectedClient()
     Local $bInitOK = False
@@ -217,21 +228,35 @@ Func _RunDeferredPostConnectRefresh()
 EndFunc
 
 Func _ScanConnectedCharacterVanquishHistory()
+    If $g_bMapScanInProgress Then
+        _UpdateMapScanStatusDisplay("scan already in progress")
+        Return False
+    EndIf
+
+    $g_bMapScanInProgress = True
+    _UpdateStartButtonState()
+
     If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
         _UpdateMapScanStatusDisplay("connect a client first")
         _Log("Scan failed: connect to a running Guild Wars client first.")
+        $g_bMapScanInProgress = False
+        _UpdateStartButtonState()
         Return False
     EndIf
 
     If Not _PrimeConnectedClientState(True) Then
         _UpdateMapScanStatusDisplay("waiting for in-game state")
         _Log("Scan failed: wait for the character to finish loading into the world.")
+        $g_bMapScanInProgress = False
+        _UpdateStartButtonState()
         Return False
     EndIf
 
     If Not _CanQueryLiveClientState() Then
         _UpdateMapScanStatusDisplay("client is still loading")
         _Log("Scan failed: Guild Wars is still loading the current character.")
+        $g_bMapScanInProgress = False
+        _UpdateStartButtonState()
         Return False
     EndIf
 
@@ -242,6 +267,7 @@ Func _ScanConnectedCharacterVanquishHistory()
     _Log("Scanning vanquish history for " & $sCharacter & ".")
     _UpdateMapScanStatusDisplay("scanning...")
     $g_bVanquishHistoryLoaded = _RefreshHistoricalVanquishStates()
+    $g_bMapScanInProgress = False
     $g_bPendingMapStateLoad = False
     _UpdateStartButtonState()
     If $g_bVanquishHistoryLoaded Then
@@ -610,7 +636,50 @@ EndFunc
 
 Func _Vanquisher_ZoneTitle($iMapIndex)
     If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then Return ""
-    Return StringReplace($g_aMapEntries[$iMapIndex][2], " ", "")
+    Local $sTitle = $g_aMapEntries[$iMapIndex][8]
+    If $sTitle = "" Then $sTitle = StringReplace($g_aMapEntries[$iMapIndex][2], " ", "")
+    Switch $sTitle
+        Case "IceDome"
+            Return "Icedome"
+    EndSwitch
+    Return $sTitle
+EndFunc
+
+Func _ApplyQueuedMapContext($iMapIndex)
+    Global $Title, $Map_To_Farm, $Map_To_Zone
+    If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then Return False
+
+    $Title = _Vanquisher_ZoneTitle($iMapIndex)
+    $Map_To_Farm = $g_aMapEntries[$iMapIndex][4]
+    $Map_To_Zone = $g_aMapEntries[$iMapIndex][6]
+    Return True
+EndFunc
+
+Func _PrepareQueuedMapStart($iMapIndex)
+    If Not _ApplyQueuedMapContext($iMapIndex) Then Return False
+
+    Local $sMapName = _Vanquisher_ZoneDisplay($iMapIndex)
+    Local $iRequiredPartySize = $g_aMapEntries[$iMapIndex][7]
+    Local $iOutpostID = $g_aMapEntries[$iMapIndex][6]
+    Local $iTargetMapID = $g_aMapEntries[$iMapIndex][4]
+
+    If Not Map_GetInstanceInfo("IsExplorable") And $iOutpostID > 0 And GetMapID() <> $iOutpostID And GetMapID() <> $iTargetMapID Then
+        CurrentAction("Traveling to outpost for " & $sMapName & ".")
+        TravelTo($iOutpostID)
+        WaitForLoad()
+    EndIf
+
+    If $iRequiredPartySize <= 0 Then
+        _Log("Start failed: could not resolve party size for " & $sMapName & ".")
+        Return False
+    EndIf
+
+    If Not SetupTeamForPartySize($iRequiredPartySize) Then
+        _Log("Start failed: hero team setup did not complete for " & $sMapName & ".")
+        Return False
+    EndIf
+
+    Return True
 EndFunc
 
 Func _Vanquisher_ZoneDisplay($iMapIndex)
@@ -727,7 +796,7 @@ Func _PrepareSelectedVanquishQueue()
         _Log("Team " & $iRequiredPartySize & " has only " & $iConfiguredHeroes & " hero slot(s) configured. Empty slots will stay empty.")
     EndIf
 
-    $Title = _Vanquisher_ZoneTitle($g_a_VanquisherZoneQueue[0])
+    _ApplyQueuedMapContext($g_a_VanquisherZoneQueue[0])
     $NumberRun = 0
     $boolrun = True
     $g_b_Vanquisher_AbortRoute = False
@@ -735,20 +804,14 @@ Func _PrepareSelectedVanquishQueue()
 
     _Log("Preparing vanquish queue with " & UBound($g_a_VanquisherZoneQueue) & " map(s).")
     _LogSelectedMapQueue($g_a_VanquisherZoneQueue)
-    _Log("Initial hero team: Team " & $iRequiredPartySize & " based on the first checked map.")
-
-    If Not SetupTeamForPartySize($iRequiredPartySize) Then
-        _Log("Start failed: hero team setup did not complete.")
-        Return False
-    EndIf
-
-    _Log("Start preparation complete. First queued map: " & _Vanquisher_ZoneDisplay($g_a_VanquisherZoneQueue[0]) & ".")
-    _Log("Route execution is not wired yet; the Start button currently completes validation, queue setup, and hero setup only.")
+    _Log("Initial target: " & _Vanquisher_ZoneDisplay($g_a_VanquisherZoneQueue[0]) & " (Team " & $iRequiredPartySize & ").")
+    _Log("Start preparation complete. Travel to the first outpost and team setup will happen as the route starts.")
     Return True
 EndFunc
 
 Func _LoadMapEntries()
-    ReDim $g_aMapEntries[0][8]
+    ReDim $g_aMapEntries[0][10]
+    Local $iSkippedMissingMapIDs = 0
 
     Local $hSearch = FileFindFirstFile($g_sMapsRoot & "\*")
     If $hSearch = -1 Then
@@ -778,9 +841,14 @@ Func _LoadMapEntries()
             If $sMapName = "" Then ContinueLoop
 
             Local $iMapID = _ResolveMapIDFromScriptName($sMapName)
+            If $iMapID <= 0 Then
+                $iSkippedMissingMapIDs += 1
+                ContinueLoop
+            EndIf
+
             Local $iOutpostID = _ResolveOutpostIDFromScriptName($sMapName)
             Local $iNext = UBound($g_aMapEntries)
-            ReDim $g_aMapEntries[$iNext + 1][8]
+            ReDim $g_aMapEntries[$iNext + 1][10]
             $g_aMapEntries[$iNext][0] = $sCampaign
             $g_aMapEntries[$iNext][1] = $sRegion
             $g_aMapEntries[$iNext][2] = _HumanizeMapName($sMapName)
@@ -789,12 +857,23 @@ Func _LoadMapEntries()
             $g_aMapEntries[$iNext][5] = False
             $g_aMapEntries[$iNext][6] = $iOutpostID
             $g_aMapEntries[$iNext][7] = _ResolveMaxPartySizeForMap($iMapID, $iOutpostID)
+            $g_aMapEntries[$iNext][8] = $sMapName
+            $g_aMapEntries[$iNext][9] = _ResolveRouteFunctionFromScriptName($sMapName)
         WEnd
 
         FileClose($hFileSearch)
     WEnd
 
     FileClose($hSearch)
+
+EndFunc
+
+Func _ResolveRouteFunctionFromScriptName($sMapName)
+    Switch $sMapName
+        Case "IceDome"
+            Return "VQIcedome"
+    EndSwitch
+    Return "VQ" & $sMapName
 EndFunc
 
 Func _ResolveMapIDFromScriptName($sMapName)
@@ -881,13 +960,11 @@ Func _RefreshHistoricalVanquishStates()
     EndIf
 
     Local $iMarked = 0
-    Local $iMissingMapIDs = 0
 
     For $i = 0 To UBound($g_aMapEntries) - 1
         Local $iMapID = $g_aMapEntries[$i][4]
         If $iMapID <= 0 Then
             $g_aMapEntries[$i][5] = False
-            $iMissingMapIDs += 1
             ContinueLoop
         EndIf
 
@@ -900,9 +977,6 @@ Func _RefreshHistoricalVanquishStates()
 
     _PopulateMapList("ALL")
     _Log("Loaded vanquish history: " & $iMarked & " completed map(s) found.")
-    If $iMissingMapIDs > 0 Then
-        _Log("Skipped history lookup for " & $iMissingMapIDs & " map(s) with no known map ID.")
-    EndIf
     Return True
 EndFunc
 
@@ -999,6 +1073,7 @@ Func _RunGuiMaintenance()
     _RefreshHeroTeamSelectionState()
     _UpdateVisibleSelectionToggleButton()
     _UpdateConnectedCharacterDisplay()
+    _CheckForGuiSourceChanges()
 
     If Not $g_bClientConnected And TimerDiff($g_hClientScanTimer) >= 2000 Then
         _RefreshDetectedClient()
@@ -1012,6 +1087,65 @@ Func _RunGuiMaintenance()
         _UpdateLiveRunStats()
         $g_hCharacterRefreshTimer = TimerInit()
     EndIf
+EndFunc
+
+Func _CheckForGuiSourceChanges()
+    If TimerDiff($g_hGuiReloadTimer) < 1000 Then Return
+    $g_hGuiReloadTimer = TimerInit()
+
+    Local $sCurrentStamp = _GetFileModifiedStamp($g_sGuiSourcePath)
+    If $sCurrentStamp = "" Then Return
+
+    If $g_sGuiSourceStamp = "" Then
+        $g_sGuiSourceStamp = $sCurrentStamp
+        Return
+    EndIf
+
+    If $sCurrentStamp = $g_sGuiSourceStamp Then
+        If $g_bGuiReloadPending And Not $g_bBotRunning And Not $g_bMapScanInProgress Then
+            _RequestScriptReload("Applying updated GUI layout.")
+        EndIf
+        Return
+    EndIf
+
+    $g_sGuiSourceStamp = $sCurrentStamp
+    If $g_bBotRunning Or $g_bMapScanInProgress Then
+        $g_bGuiReloadPending = True
+        If Not $g_bGuiReloadNotified Then
+            _Log("GUI source changed. Reload will run once the bot is idle.")
+            $g_bGuiReloadNotified = True
+        EndIf
+        Return
+    EndIf
+
+    _RequestScriptReload("Applying updated GUI layout.")
+EndFunc
+
+Func _RequestScriptReload($sReason = "Reloading script.")
+    If $g_bScriptReloadRequested Then Return
+
+    If @Compiled Then
+        $g_sScriptReloadCommand = '"' & @ScriptFullPath & '"'
+    Else
+        $g_sScriptReloadCommand = '"' & @AutoItExe & '" "' & @ScriptFullPath & '"'
+    EndIf
+
+    If $g_sScriptReloadCommand = "" Then
+        _Log("GUI reload failed: restart command could not be built.")
+        Return
+    EndIf
+
+    $g_bGuiReloadPending = False
+    $g_bGuiReloadNotified = False
+    $g_bScriptReloadRequested = True
+    _Log($sReason)
+EndFunc
+
+Func _GetFileModifiedStamp($sPath)
+    Local $aTime = FileGetTime($sPath, 0, 1)
+    If @error Or Not IsArray($aTime) Then Return ""
+
+    Return $aTime[0] & $aTime[1] & $aTime[2] & $aTime[3] & $aTime[4] & $aTime[5]
 EndFunc
 
 Func _StartSelectedMapRoutine()
@@ -1079,10 +1213,11 @@ Func _RunSelectedMapQueue()
         Local $iQueueIndex = $g_i_VanquisherZoneQueueIndex
         Local $iMapIndex = $g_a_VanquisherZoneQueue[$iQueueIndex]
         Local $sRouteFunc = _GetRouteFunctionNameForMapIndex($iMapIndex)
-        If $sRouteFunc = "" Or Not IsFunc($sRouteFunc) Then
-            _Log("Start failed: no route function is available for " & _Vanquisher_ZoneDisplay($iMapIndex) & ".")
+        If $sRouteFunc = "" Then
+            _Log("Start failed: no route function is available for " & _Vanquisher_ZoneDisplay($iMapIndex) & " (expected " & $sRouteFunc & ").")
             Return False
         EndIf
+        If Not _PrepareQueuedMapStart($iMapIndex) Then Return False
 
         $g_b_Vanquisher_QueueAdvanced = False
         _UpdateRunControlStatusDisplay("running " & _Vanquisher_ZoneDisplay($iMapIndex))
@@ -1090,6 +1225,12 @@ Func _RunSelectedMapQueue()
 
         While $boolrun And Not $g_b_Vanquisher_AbortRoute And $g_i_VanquisherZoneQueueIndex = $iQueueIndex
             Call($sRouteFunc)
+            Local $iCallError = @error
+            Local $iCallExtended = @extended
+            If $iCallError = 0xDEAD And $iCallExtended = 0xBEEF Then
+                _Log("Start failed: route function call failed for " & _Vanquisher_ZoneDisplay($iMapIndex) & " (" & $sRouteFunc & ").")
+                Return False
+            EndIf
             If $g_b_Vanquisher_QueueAdvanced Or $g_b_Vanquisher_RunFinished Then ExitLoop
             _Vanquisher_PumpGUI()
             Sleep(50)
@@ -1113,7 +1254,9 @@ EndFunc
 
 Func _GetRouteFunctionNameForMapIndex($iMapIndex)
     If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then Return ""
-    Return "VQ" & _Vanquisher_ZoneTitle($iMapIndex)
+    Local $sRouteFunc = $g_aMapEntries[$iMapIndex][9]
+    If $sRouteFunc <> "" Then Return $sRouteFunc
+    Return _ResolveRouteFunctionFromScriptName(_Vanquisher_ZoneTitle($iMapIndex))
 EndFunc
 
 Func _Vanquisher_PumpGUI()

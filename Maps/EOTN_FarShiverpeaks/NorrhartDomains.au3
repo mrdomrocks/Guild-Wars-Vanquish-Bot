@@ -4,10 +4,11 @@
 
 
 Func GoOutNorrhartDomains()
-	; Outpost exit not yet mapped - placeholder coords
-	MoveTo(1683, -1594)
-	Move(4600, -27863)
-	WaitForLoad()
+        Local $aGoOutRoute[2][2] = [ [1683, -1594] _
+                , [4600, -27863] _
+                ]
+
+        _Vanquisher_RunPathfinderPortalRoute($aGoOutRoute, $vqrange, "NorrhartDomains exit ")
 EndFunc
 
 Func VQNorrhartDomains() ;Add VQ name
