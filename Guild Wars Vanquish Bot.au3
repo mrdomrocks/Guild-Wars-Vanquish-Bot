@@ -666,7 +666,7 @@ Func _PrepareQueuedMapStart($iMapIndex)
     If Not Map_GetInstanceInfo("IsExplorable") And $iOutpostID > 0 And GetMapID() <> $iOutpostID And GetMapID() <> $iTargetMapID Then
         CurrentAction("Traveling to outpost for " & $sMapName & ".")
         TravelTo($iOutpostID)
-        WaitForLoad()
+        WaitMapLoading($iOutpostID, 30000)
     EndIf
 
     If $iRequiredPartySize <= 0 Then
