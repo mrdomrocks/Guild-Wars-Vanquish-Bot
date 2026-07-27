@@ -1,5 +1,7 @@
 Global Const $CHECK_INTERVAL = 1500
 Global Const $REWARD_WAIT_TIME = 1800000 ; 30 minuti
+Global Const $VANQUISHER_PATHFINDER_REPATH_MS = 1000
+Global Const $VANQUISHER_PATHFINDER_REACHED_DISTANCE = 250
 Global $ActionCounter = 0
 Global $BlockCount = 20
 Global $RangeLimit = 1450
@@ -378,88 +380,272 @@ Func _Vanquisher_HandlePartyResurrection($a_i_MaxWaitMs = $VANQUISHER_REZ_COMBAT
     Until _Vanquisher_CountAvailableResurrections() = 0 Or _Vanquisher_CountDeadPartyMembers() = 0 Or TimerDiff($l_h_Timer) > $a_i_MaxWaitMs
 EndFunc
 
+Func _Vanquisher_ShouldUsePathfinder()
+    If _Vanquisher_IsInJunundu() Then Return False
+    If Agent_GetAgentPtr(-2) = 0 Then Return False
+    If GetMapID() = 0 Then Return False
+    If Map_GetInstanceInfo("Type") = $GC_I_MAP_TYPE_LOADING Then Return False
+    Return True
+EndFunc
+
+Func _Vanquisher_EnsurePathfinderReady()
+    If $DLL_PATH = "" Then
+        $DLL_PATH = @ScriptDir & "\..\..\API\Plugins\Pathfinder\GWPathfinder.dll"
+    EndIf
+    If Not FileExists($DLL_PATH) Then Return False
+
+    If IsDeclared("g_bPathfinder_CheckForMapUpdates") Then $g_bPathfinder_CheckForMapUpdates = False
+
+    If $g_hPathfinderDLL <> 0 And $g_hPathfinderDLL <> -1 Then Return True
+
+    Local $l_i_InitResult = Pathfinder_Initialize()
+    If $l_i_InitResult = 0 Then Return False
+    If Not Pathfinder_IsMapAvailable(GetMapID()) Then Return False
+
+    Pathfinder_SetWaypointReachedDistance($VANQUISHER_PATHFINDER_REACHED_DISTANCE)
+    Pathfinder_SetSimplifyRange(1250)
+    Return True
+EndFunc
+
+Func _Vanquisher_PathfinderBuildPath($a_f_DestX, $a_f_DestY)
+    Local $l_i_MapID = GetMapID()
+    Local $l_f_X = Agent_GetAgentInfo(-2, "X")
+    Local $l_f_Y = Agent_GetAgentInfo(-2, "Y")
+    Local $l_i_Layer = Agent_GetAgentInfo(-2, "Plane")
+    Local $l_a_Path = Pathfinder_FindPath($l_i_MapID, $l_f_X, $l_f_Y, $l_i_Layer, $a_f_DestX, $a_f_DestY, -1, 0, 1250)
+    If @error Or Not IsArray($l_a_Path) Then Return 0
+    Return $l_a_Path
+EndFunc
+
+Func _Vanquisher_PathfinderSelectMoveTarget(ByRef $a_a_Path, ByRef $a_i_PathIndex, $a_f_CurrentX, $a_f_CurrentY, $a_f_DestX, $a_f_DestY, ByRef $a_f_MoveX, ByRef $a_f_MoveY, ByRef $a_i_MoveLayer)
+    If IsArray($a_a_Path) Then
+        While $a_i_PathIndex < UBound($a_a_Path) And ComputeDistance($a_f_CurrentX, $a_f_CurrentY, $a_a_Path[$a_i_PathIndex][0], $a_a_Path[$a_i_PathIndex][1]) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE
+            $a_i_PathIndex += 1
+        WEnd
+
+        If $a_i_PathIndex < UBound($a_a_Path) Then
+            $a_f_MoveX = $a_a_Path[$a_i_PathIndex][0]
+            $a_f_MoveY = $a_a_Path[$a_i_PathIndex][1]
+            $a_i_MoveLayer = $a_a_Path[$a_i_PathIndex][2]
+            Return
+        EndIf
+    EndIf
+
+    $a_f_MoveX = $a_f_DestX
+    $a_f_MoveY = $a_f_DestY
+    $a_i_MoveLayer = Agent_GetAgentInfo(-2, "Plane")
+EndFunc
+
+Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450)
+    If Not _Vanquisher_EnsurePathfinderReady() Then Return False
+
+    Local $iBlocked = 0
+    Local $boolOpenChests = _IsOpenChestsEnabled()
+    Local $hRepathTimer = TimerInit()
+    Local $aPath = _Vanquisher_PathfinderBuildPath($x, $y)
+    If Not IsArray($aPath) Then Return False
+
+    Local $iPathIndex = 0
+    Local $coordsX = Agent_GetAgentInfo(-2, "X")
+    Local $coordsY = Agent_GetAgentInfo(-2, "Y")
+    Local $moveX = $x
+    Local $moveY = $y
+    Local $moveLayer = Agent_GetAgentInfo(-2, "Plane")
+
+    _Vanquisher_PathfinderSelectMoveTarget($aPath, $iPathIndex, $coordsX, $coordsY, $x, $y, $moveX, $moveY, $moveLayer)
+    Map_MoveLayer($moveX, $moveY, $moveLayer)
+
+    Do
+        If $DeadOnTheRun Or _Vanquisher_ShouldStop() Then ExitLoop
+
+        If _Vanquisher_CountDeadPartyMembers() > 0 Then
+            If _Vanquisher_IsInJunundu() Then
+                _Vanquisher_JununduTryWail()
+            ElseIf _Vanquisher_ShouldAttemptResurrection() Then
+                _Vanquisher_HandlePartyResurrection($VANQUISHER_REZ_COMBAT_WAIT_MS)
+            EndIf
+            If GetPartyDead() Then $DeadOnTheRun = 1
+        EndIf
+
+        If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+            _Vanquisher_OnVanquishComplete(" (move)")
+            Pathfinder_Shutdown()
+            Return True
+        EndIf
+
+        If _Vanquisher_ShouldPollConsumables() Then
+            _Vanquisher_ApplyConsumables()
+            Map_MoveLayer($moveX, $moveY, $moveLayer)
+        EndIf
+
+        RndSleep(250)
+
+        Local $oldCoordsX = $coordsX
+        Local $oldCoordsY = $coordsY
+        Local $nearestenemy = GetNearestEnemyToAgent(-2, $z)
+        If $nearestenemy <> 0 Then
+            Local $lDistance = GetDistance($nearestenemy, -2)
+            If $lDistance < $z And _Vanquisher_AgentID($nearestenemy) <> 0 Then
+                Fight($z, $s)
+                If _Vanquisher_ShouldStop() Then
+                    Pathfinder_Shutdown()
+                    Return True
+                EndIf
+                _Vanquisher_ApplyConsumables()
+                UpdateVanquish()
+                If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+                    _Vanquisher_OnVanquishComplete(" (after fight)")
+                    Pathfinder_Shutdown()
+                    Return True
+                EndIf
+
+                $iBlocked = 0
+                $aPath = _Vanquisher_PathfinderBuildPath($x, $y)
+                If Not IsArray($aPath) Then
+                    Pathfinder_Shutdown()
+                    Return False
+                EndIf
+                $iPathIndex = 0
+                $hRepathTimer = TimerInit()
+                $coordsX = Agent_GetAgentInfo(-2, "X")
+                $coordsY = Agent_GetAgentInfo(-2, "Y")
+                _Vanquisher_PathfinderSelectMoveTarget($aPath, $iPathIndex, $coordsX, $coordsY, $x, $y, $moveX, $moveY, $moveLayer)
+                Map_MoveLayer($moveX, $moveY, $moveLayer)
+            EndIf
+        EndIf
+
+        If $boolOpenChests Then CheckForChest()
+        If $DeadOnTheRun Then ExitLoop
+
+        RndSleep(250)
+        $coordsX = Agent_GetAgentInfo(-2, "X")
+        $coordsY = Agent_GetAgentInfo(-2, "Y")
+
+        If TimerDiff($hRepathTimer) >= $VANQUISHER_PATHFINDER_REPATH_MS Then
+            $aPath = _Vanquisher_PathfinderBuildPath($x, $y)
+            If IsArray($aPath) Then
+                $iPathIndex = 0
+            EndIf
+            $hRepathTimer = TimerInit()
+        EndIf
+
+        _Vanquisher_PathfinderSelectMoveTarget($aPath, $iPathIndex, $coordsX, $coordsY, $x, $y, $moveX, $moveY, $moveLayer)
+        If ComputeDistance($coordsX, $coordsY, $x, $y) >= $VANQUISHER_PATHFINDER_REACHED_DISTANCE Then
+            Map_MoveLayer($moveX, $moveY, $moveLayer)
+        EndIf
+
+        If $oldCoordsX = $coordsX And $oldCoordsY = $coordsY Then
+            $iBlocked += 1
+            Move($coordsX, $coordsY, 500)
+            RndSleep(350)
+
+            $aPath = _Vanquisher_PathfinderBuildPath($x, $y)
+            If IsArray($aPath) Then
+                $iPathIndex = 0
+                _Vanquisher_PathfinderSelectMoveTarget($aPath, $iPathIndex, $coordsX, $coordsY, $x, $y, $moveX, $moveY, $moveLayer)
+                Map_MoveLayer($moveX, $moveY, $moveLayer)
+            EndIf
+        EndIf
+
+        If $boolOpenChests Then CheckForChest()
+    Until ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE Or $iBlocked > $BlockCount
+
+    Local $bReached = ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE
+    Pathfinder_Shutdown()
+    Return $bReached
+EndFunc
+
 Func AggroMoveTo($x, $y, $s = "", $z = 1450)
-	If _Vanquisher_ShouldStop() Then Return
-	If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
-		_Vanquisher_OnVanquishComplete(" (waypoint)")
-		Return
-	EndIf
+    If _Vanquisher_ShouldStop() Then Return
+    If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+        _Vanquisher_OnVanquishComplete(" (waypoint)")
+        Return
+    EndIf
 
-	CurrentAction("Moving to Waypoint:" & $s)
-	$random = 50
-	$iBlocked = 0
-	$boolOpenChests = _IsOpenChestsEnabled()
+    CurrentAction("Moving to Waypoint:" & $s)
 
-	Move($x, $y, $random)
+    If _Vanquisher_ShouldUsePathfinder() Then
+        If _Vanquisher_PathfinderAggroMoveTo($x, $y, $s, $z) Then Return
+    EndIf
 
-	$lMe = GetAgentByID(-2)
-	$coordsX = DllStructGetData($lMe, "X")
-	$coordsY = DllStructGetData($lMe, "Y")
-
-	Do
-		If $DeadOnTheRun Or _Vanquisher_ShouldStop() Then ExitLoop
-		If _Vanquisher_CountDeadPartyMembers() > 0 Then
-			If _Vanquisher_IsInJunundu() Then
-				_Vanquisher_JununduTryWail()
-			ElseIf _Vanquisher_ShouldAttemptResurrection() Then
-				_Vanquisher_HandlePartyResurrection($VANQUISHER_REZ_COMBAT_WAIT_MS)
-			EndIf
-			If GetPartyDead() Then $DeadOnTheRun = 1
-		EndIf
-		If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
-			_Vanquisher_OnVanquishComplete(" (move)")
-			Return
-		EndIf
-		If _Vanquisher_ShouldPollConsumables() Then
-			_Vanquisher_ApplyConsumables()
-			Move($x, $y, $random)
-		EndIf
-		RndSleep(250)
-		$oldCoordsX = $coordsX
-		$oldCoordsY = $coordsY
-		$nearestenemy = GetNearestEnemyToAgent(-2, $z)
-		If $nearestenemy = 0 And _Vanquisher_IsInJunundu() And ComputeDistance($coordsX, $coordsY, $x, $y) >= 600 Then
-			_Vanquisher_JununduTryTunnel()
-		EndIf
-		If $nearestenemy <> 0 Then
-			$lDistance = GetDistance($nearestenemy, -2)
-			If $lDistance < $z And _Vanquisher_AgentID($nearestenemy) <> 0 Then
-				Fight($z, $s)
-				If _Vanquisher_ShouldStop() Then Return
-				_Vanquisher_ApplyConsumables()
-				UpdateVanquish()
-				If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
-					_Vanquisher_OnVanquishComplete(" (after fight)")
-					Return
-				EndIf
-				$iBlocked = 0
-				Move($x, $y, $random)
-			EndIf
-		EndIf
-		If $boolOpenChests Then 
-			CheckForChest()
-		EndIf
-
-
-		If $DeadOnTheRun Then ExitLoop
-		RndSleep(250)
-		$lMe = GetAgentByID(-2)
-		$coordsX = DllStructGetData($lMe, "X")
-		$coordsY = DllStructGetData($lMe, "Y")
-		If ComputeDistance($coordsX, $coordsY, $x, $y) >= 250 Then
-			Move($x, $y, $random)
-		EndIf
-		If $oldCoordsX = $coordsX And $oldCoordsY = $coordsY Then
-			$iBlocked += 1
-			Move($coordsX, $coordsY, 500)
-			RndSleep(350)
-			Move($x, $y, $random)
-		EndIf
-		If $boolOpenChests Then 
-			CheckForChest()
-		EndIf
-	Until ComputeDistance($coordsX, $coordsY, $x, $y) < 250 Or $iBlocked > $BlockCount
+    _Vanquisher_AggroMoveToLegacy($x, $y, $s, $z)
 EndFunc   ;==>AggroMoveTo
+
+Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450)
+        Local $random = 50
+        Local $iBlocked = 0
+        Local $boolOpenChests = _IsOpenChestsEnabled()
+
+        Move($x, $y, $random)
+
+        Local $lMe = GetAgentByID(-2)
+        Local $coordsX = DllStructGetData($lMe, "X")
+        Local $coordsY = DllStructGetData($lMe, "Y")
+
+        Do
+                If $DeadOnTheRun Or _Vanquisher_ShouldStop() Then ExitLoop
+                If _Vanquisher_CountDeadPartyMembers() > 0 Then
+                        If _Vanquisher_IsInJunundu() Then
+                                _Vanquisher_JununduTryWail()
+                        ElseIf _Vanquisher_ShouldAttemptResurrection() Then
+                                _Vanquisher_HandlePartyResurrection($VANQUISHER_REZ_COMBAT_WAIT_MS)
+                        EndIf
+                        If GetPartyDead() Then $DeadOnTheRun = 1
+                EndIf
+                If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+                        _Vanquisher_OnVanquishComplete(" (move)")
+                        Return
+                EndIf
+                If _Vanquisher_ShouldPollConsumables() Then
+                        _Vanquisher_ApplyConsumables()
+                        Move($x, $y, $random)
+                EndIf
+                RndSleep(250)
+                Local $oldCoordsX = $coordsX
+                Local $oldCoordsY = $coordsY
+                Local $nearestenemy = GetNearestEnemyToAgent(-2, $z)
+                If $nearestenemy = 0 And _Vanquisher_IsInJunundu() And ComputeDistance($coordsX, $coordsY, $x, $y) >= 600 Then
+                        _Vanquisher_JununduTryTunnel()
+                EndIf
+                If $nearestenemy <> 0 Then
+                        Local $lDistance = GetDistance($nearestenemy, -2)
+                        If $lDistance < $z And _Vanquisher_AgentID($nearestenemy) <> 0 Then
+                                Fight($z, $s)
+                                If _Vanquisher_ShouldStop() Then Return
+                                _Vanquisher_ApplyConsumables()
+                                UpdateVanquish()
+                                If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+                                        _Vanquisher_OnVanquishComplete(" (after fight)")
+                                        Return
+                                EndIf
+                                $iBlocked = 0
+                                Move($x, $y, $random)
+                        EndIf
+                EndIf
+                If $boolOpenChests Then
+                        CheckForChest()
+                EndIf
+
+
+                If $DeadOnTheRun Then ExitLoop
+                RndSleep(250)
+                $lMe = GetAgentByID(-2)
+                $coordsX = DllStructGetData($lMe, "X")
+                $coordsY = DllStructGetData($lMe, "Y")
+                If ComputeDistance($coordsX, $coordsY, $x, $y) >= 250 Then
+                        Move($x, $y, $random)
+                EndIf
+                If $oldCoordsX = $coordsX And $oldCoordsY = $coordsY Then
+                        $iBlocked += 1
+                        Move($coordsX, $coordsY, 500)
+                        RndSleep(350)
+                        Move($x, $y, $random)
+                EndIf
+                If $boolOpenChests Then
+                        CheckForChest()
+                EndIf
+        Until ComputeDistance($coordsX, $coordsY, $x, $y) < 250 Or $iBlocked > $BlockCount
+EndFunc
 
 Func GetMaxPartySize($mapid)
     Local $iPartySize = 0
