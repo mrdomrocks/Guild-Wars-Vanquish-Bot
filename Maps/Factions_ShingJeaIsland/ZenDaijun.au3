@@ -1,4 +1,3 @@
-#include <Array.au3>
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
@@ -12,7 +11,7 @@ Func GoOutZenDaijun()
         Dialog(0x800009)
         Dialog(0x80000B)
         Sleep(1000)
-        WaitForLoad()
+         WaitMapLoading($ZenDaijun_Map, 30000)
 EndFunc
 
 Func VQZenDaijun()

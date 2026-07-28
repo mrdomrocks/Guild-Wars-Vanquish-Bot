@@ -20,7 +20,7 @@ Global $console
 Global $picVanquishedHelmet
 Global $lblDetectedClient, $lblDetectedCharacter, $lblConnectedCharacter
 Global $lblMapScanStatus, $lblRunControlStatus
-Global $lblRunTime, $lblDeaths, $lblVanquishStreak, $lblGoldPickedUp
+Global $lblRunTime, $lblDeaths, $lblVanquishStreak
 Global $btnConnect, $btnScanVanquishHistory, $btnStart, $btnStop, $btnSaveConfig
 Global $btnGroupEOTN, $btnGroupProphecies, $btnGroupFactions, $btnGroupNightfall
 Global $btnToggleVisibleSelection
@@ -32,12 +32,13 @@ Global $g_aMapListItemIDs[0]
 Global $g_aMapListRows[0]
 Global $g_aClientControlArray[4]
 Global $g_aMapScanControlArray[2]
-Global $g_aRunControlArray[7]
+Global $g_aRunControlArray[6]
 Global $g_idComboTeam4[3]
 Global $g_idComboTeam6[5]
 Global $g_idComboTeam8[7]
 
 Func _VB_CreateGUI()
+    Local $i = 0
     $hGUI = GUICreate("Guild Wars Vanquish Bot", 1180, 560)
     $tab = GUICtrlCreateTab(10, 10, 1160, 540)
 
@@ -65,7 +66,6 @@ Func _VB_CreateGUI()
     $lblRunTime = GUICtrlCreateLabel("Current Run Time: 00:00:00", 55, 390, 250, 18)
     $lblDeaths = GUICtrlCreateLabel("Deaths: 0", 55, 412, 250, 18)
     $lblVanquishStreak = GUICtrlCreateLabel("Maps Vanquished In A Row: 0", 55, 434, 250, 18)
-    $lblGoldPickedUp = GUICtrlCreateLabel("Gold Picked Up: 0", 55, 456, 250, 18)
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
     GUICtrlCreateGroup("Heroes", 340, 295, 740, 225)
@@ -121,7 +121,6 @@ Func _VB_CreateGUI()
     $g_aRunControlArray[3] = $lblRunTime
     $g_aRunControlArray[4] = $lblDeaths
     $g_aRunControlArray[5] = $lblVanquishStreak
-    $g_aRunControlArray[6] = $lblGoldPickedUp
 
     GUICtrlCreateTabItem("Map Selection")
     $btnToggleVisibleSelection = GUICtrlCreateButton("Select All EOTN", 890, 50, 230, 28)
@@ -190,7 +189,6 @@ Func _UpdateRunStatusDisplay()
     GUICtrlSetData($lblRunTime, "Current Run Time: " & $sRunTime)
     GUICtrlSetData($lblDeaths, "Deaths: " & $g_iRunDeaths)
     GUICtrlSetData($lblVanquishStreak, "Maps Vanquished In A Row: " & $g_iVanquishStreak)
-    GUICtrlSetData($lblGoldPickedUp, "Gold Picked Up: " & $g_iGoldPickedUp)
 EndFunc
 
 Func _SetCharacterSelectionState($bConnected)
@@ -237,6 +235,7 @@ EndFunc
 Func _UpdateMapScanStatusDisplay($sStatus = "")
     Local $iVanquished = 0
     Local $iSelectable = 0
+    Local $i = 0
 
     For $i = 0 To UBound($g_aMapEntries) - 1
         If $g_aMapEntries[$i][5] Then
@@ -311,6 +310,7 @@ Func _ResizeMapListColumns()
     Local Const $iMapListHeight = 190
     Local $aRegionChars[$MAP_CAMPAIGN_COUNT]
     Local $aMapChars[$MAP_CAMPAIGN_COUNT]
+    Local $i = 0
 
     For $i = 0 To $MAP_CAMPAIGN_COUNT - 1
         $aRegionChars[$i] = StringLen("Region")
@@ -360,12 +360,14 @@ Func _ResizeMapListColumns()
 EndFunc
 
 Func _SetHeroComboArrayState(ByRef $aComboIDs, $iState)
+    Local $i = 0
     For $i = 0 To UBound($aComboIDs) - 1
         GUICtrlSetState($aComboIDs[$i], $iState)
     Next
 EndFunc
 
 Func _GetFirstSelectedMapIndex()
+    Local $i = 0
     For $i = 0 To UBound($g_aMapEntries) - 1
         If Not $g_aMapEntries[$i][3] Or $g_aMapEntries[$i][5] Then ContinueLoop
         Return $i
@@ -398,17 +400,14 @@ Func _RefreshHeroTeamSelectionState()
             _SetHeroComboArrayState($g_idComboTeam4, $GUI_ENABLE)
             _SetHeroComboArrayState($g_idComboTeam6, $GUI_DISABLE)
             _SetHeroComboArrayState($g_idComboTeam8, $GUI_DISABLE)
-            _Log("The first checked map is linked to Team 4 hero slots.")
         Case "6"
             _SetHeroComboArrayState($g_idComboTeam4, $GUI_DISABLE)
             _SetHeroComboArrayState($g_idComboTeam6, $GUI_ENABLE)
             _SetHeroComboArrayState($g_idComboTeam8, $GUI_DISABLE)
-            _Log("The first checked map is linked to Team 6 hero slots.")
         Case "8"
             _SetHeroComboArrayState($g_idComboTeam4, $GUI_DISABLE)
             _SetHeroComboArrayState($g_idComboTeam6, $GUI_DISABLE)
             _SetHeroComboArrayState($g_idComboTeam8, $GUI_ENABLE)
-            _Log("The first checked map is linked to Team 8 hero slots.")
         Case Else
             _SetHeroComboArrayState($g_idComboTeam4, $GUI_ENABLE)
             _SetHeroComboArrayState($g_idComboTeam6, $GUI_ENABLE)
@@ -417,6 +416,7 @@ Func _RefreshHeroTeamSelectionState()
 EndFunc
 
 Func _GetCampaignIndex($sCampaign)
+    Local $i = 0
     For $i = 0 To $MAP_CAMPAIGN_COUNT - 1
         If $g_aCampaignNames[$i] = $sCampaign Then Return $i
     Next
@@ -432,6 +432,8 @@ EndFunc
 Func _InitializeMapListItems()
     ReDim $g_aMapListItemIDs[UBound($g_aMapEntries)]
     ReDim $g_aMapListRows[UBound($g_aMapEntries)]
+    Local $iCampaign = 0
+    Local $i = 0
 
     For $iCampaign = 0 To $MAP_CAMPAIGN_COUNT - 1
         _GUICtrlListView_DeleteAllItems($g_aCampaignLists[$iCampaign])
@@ -454,6 +456,7 @@ EndFunc
 Func _RebuildCampaignMapList($sCampaign)
     Local $idList = _GetCampaignListView($sCampaign)
     If $idList = 0 Then Return
+    Local $i = 0
 
     _GUICtrlListView_BeginUpdate($idList)
 
@@ -490,6 +493,8 @@ Func _RebuildCampaignMapList($sCampaign)
 EndFunc
 
 Func _SyncVisibleMapChecks()
+    Local $iCampaign = 0
+    Local $i = 0
     For $iCampaign = 0 To $MAP_CAMPAIGN_COUNT - 1
         Local $idList = $g_aCampaignLists[$iCampaign]
         Local $iItemCount = _GUICtrlListView_GetItemCount($idList)
@@ -514,6 +519,8 @@ Func _SyncAllMapChecks()
 EndFunc
 
 Func _EnforceVisibleMapSelectionRules()
+    Local $iCampaign = 0
+    Local $i = 0
     For $iCampaign = 0 To $MAP_CAMPAIGN_COUNT - 1
         Local $idList = $g_aCampaignLists[$iCampaign]
         Local $iItemCount = _GUICtrlListView_GetItemCount($idList)
@@ -542,6 +549,7 @@ Func _HasVisibleSelectableMaps()
     If $idList = 0 Then Return False
 
     Local $iItemCount = _GUICtrlListView_GetItemCount($idList)
+    Local $i = 0
     For $i = 0 To $iItemCount - 1
         Local $iMapIndex = _GUICtrlListView_GetItemParam($idList, $i)
         If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then ContinueLoop
@@ -556,6 +564,7 @@ Func _AreAllVisibleSelectableMapsChecked()
     If $idList = 0 Then Return False
 
     Local $iItemCount = _GUICtrlListView_GetItemCount($idList)
+    Local $i = 0
     For $i = 0 To $iItemCount - 1
         Local $iMapIndex = _GUICtrlListView_GetItemParam($idList, $i)
         If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then ContinueLoop
@@ -594,6 +603,7 @@ EndFunc
 Func _PopulateMapList($sCampaign, $sSubgroup = "")
     #forceref $sSubgroup
     _SyncVisibleMapChecks()
+    Local $iCampaign = 0
     If $sCampaign = "ALL" Then
         For $iCampaign = 0 To $MAP_CAMPAIGN_COUNT - 1
             _RebuildCampaignMapList($g_aCampaignNames[$iCampaign])
@@ -617,6 +627,7 @@ Func _SetVisibleMapChecks($bChecked)
     If $idList = 0 Then Return
 
     Local $iItemCount = _GUICtrlListView_GetItemCount($idList)
+    Local $i = 0
     For $i = 0 To $iItemCount - 1
         Local $iMapIndex = _GUICtrlListView_GetItemParam($idList, $i)
         If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then ContinueLoop
@@ -633,6 +644,7 @@ Func _SetVisibleMapChecks($bChecked)
 EndFunc
 
 Func _UpdateMapGroupButtons()
+    Local $i = 0
     For $i = 0 To $MAP_CAMPAIGN_COUNT - 1
         GUICtrlSetState($g_aCampaignButtons[$i], $GUI_ENABLE)
     Next

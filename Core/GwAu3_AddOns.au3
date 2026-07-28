@@ -874,8 +874,8 @@ Func StayAlive()
     Local $PendingSkills[0]
 
     ; Repop Imp
-    If Not Agent_GetAgentEffectInfo(-2, 2886, "HasEffect") And Not HasImp(-2) Then
-        UseSummoningStone()
+            If Not Agent_GetAgentEffectInfo(-2, 2886, "HasEffect") And Not HasImp(-2) Then
+                _Vanquisher_UseStonesBuffered(True)
     EndIf
 
     ; Upkeep these skills
@@ -940,7 +940,7 @@ Func StayAlive_Kill($refX, $refY, $filterFunc = "EnemyFilter", $range = 2500)
     Do
         ; Repop Imp
         If Not Agent_GetAgentEffectInfo(-2, 2886, "HasEffect") And Not HasImp(-2) Then
-            UseSummoningStone()
+            _Vanquisher_UseStonesBuffered(True)
         EndIf
 
         ; Upkeep these skills
@@ -4555,9 +4555,9 @@ Global $RunTime = 0
 ; Model IDs live in Vanquisher_Globals.au3 ($VANQUISHER_*). Coords stay in map routes.
 
 ; --- GUI toggles (snapshotted at run start) ---------------------------------
-Global $Bool_Conset = False
-Global $Bool_Stones = False
-Global $Bool_Bu = False
+Global $Bool_Conset = True
+Global $Bool_Stones = True
+Global $Bool_Bu = True
 Global $Bool_OpenChests = False
 Global $Bool_Donate = False
 
@@ -4577,27 +4577,30 @@ Global Const $EffectArmor = 2520   ; Armor of Salvation item effect
 Global Const $EffectGrail = 2521   ; Grail of Might item effect
 
 Func _Vanquisher_SyncConsumableFlagsFromGUI()
-    $Bool_Conset = False
-    $Bool_Stones = False
-    $Bool_Bu = False
+    $Bool_Conset = True
+    $Bool_Stones = True
+    $Bool_Bu = True
     $Bool_OpenChests = False
     $Bool_Donate = False
-    If BitAND(GUICtrlRead($Gui_Conset), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Conset = True
-    If BitAND(GUICtrlRead($Gui_Legio), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Stones = True
-    If BitAND(GUICtrlRead($Gui_Bu), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Bu = True
-    If BitAND(GUICtrlRead($Gui_OpenChests), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_OpenChests = True
-    If BitAND(GUICtrlRead($Gui_Donate), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Donate = True
+    If $Gui_Conset Then $Bool_Conset = (BitAND(GUICtrlRead($Gui_Conset), $GUI_CHECKED) = $GUI_CHECKED)
+    If $Gui_Legio Then $Bool_Stones = (BitAND(GUICtrlRead($Gui_Legio), $GUI_CHECKED) = $GUI_CHECKED)
+    If $Gui_Bu Then $Bool_Bu = (BitAND(GUICtrlRead($Gui_Bu), $GUI_CHECKED) = $GUI_CHECKED)
+    If $Gui_OpenChests Then $Bool_OpenChests = (BitAND(GUICtrlRead($Gui_OpenChests), $GUI_CHECKED) = $GUI_CHECKED)
+    If $Gui_Donate Then $Bool_Donate = (BitAND(GUICtrlRead($Gui_Donate), $GUI_CHECKED) = $GUI_CHECKED)
 EndFunc
 
 Func _IsConsetEnabled()
+    If $Gui_Conset Then Return BitAND(GUICtrlRead($Gui_Conset), $GUI_CHECKED) = $GUI_CHECKED
     Return $Bool_Conset
 EndFunc
 
 Func _IsBuEnabled()
+    If $Gui_Bu Then Return BitAND(GUICtrlRead($Gui_Bu), $GUI_CHECKED) = $GUI_CHECKED
     Return $Bool_Bu
 EndFunc
 
 Func _IsStonesEnabled()
+    If $Gui_Legio Then Return BitAND(GUICtrlRead($Gui_Legio), $GUI_CHECKED) = $GUI_CHECKED
     Return $Bool_Stones
 EndFunc
 
@@ -4663,8 +4666,10 @@ EndFunc
 Func _Vanquisher_ApplyConsumablesOnFarmEntry()
     Global $Map_To_Farm
     If $g_b_Vanquisher_TransitOnly Then Return False
+    If $g_b_Vanquisher_ConsumablesAppliedThisZone Then Return True
     If $Map_To_Farm > 0 And GetMapID() <> $Map_To_Farm And Not _Vanquisher_IsTravelersValeMap() Then Return False
     If Not _Vanquisher_WaitForExplorable() Then Return False
+    $g_b_Vanquisher_ConsumablesAppliedThisZone = True
     _Vanquisher_ApplyConsumables(True)
     Return True
 EndFunc
@@ -4778,11 +4783,7 @@ Func _Vanquisher_UseConsetBuffered($a_b_Force = False)
         Return
     EndIf
 
-    If $l_i_After > $l_i_Before Then
-        CurrentAction("ConSets partially applied (" & $l_i_After & "/3 effects active).")
-    ElseIf $a_b_Force And $l_i_Before = 0 And Not FindConset() Then
-        CurrentAction("ConSets missing — need Essence, Armor, and Grail in bags 1–4.")
-    EndIf
+    If $l_i_After > $l_i_Before Then CurrentAction("ConSets partially applied (" & $l_i_After & "/3 effects active).")
 EndFunc
 
 Func _Vanquisher_UseBUBuffered()
@@ -4794,11 +4795,19 @@ Func _Vanquisher_UseBUBuffered()
             If Agent_GetAgentEffectInfo(-2, $l_i_Effect, "HasEffect") Then ContinueLoop
             If _Vanquisher_ConsumableDebounce($g_a_Vanquisher_BULastUsed[$l_i_Idx]) Then ContinueLoop
         Else
-            If $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] Then ContinueLoop
+            Local $l_i_TargetUses = $VANQUISHER_BU_START_USE_COUNTS[$l_i_Idx]
+            While $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] < $l_i_TargetUses
+                If Not _Vanquisher_UseItemModelID($VANQUISHER_BU_MODEL_IDS[$l_i_Idx]) Then ExitLoop
+                $g_a_Vanquisher_BULastUsed[$l_i_Idx] = TimerInit()
+                $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] += 1
+                $l_i_Used += 1
+                If $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] < $l_i_TargetUses Then Sleep(250)
+            WEnd
+            ContinueLoop
         EndIf
         If _Vanquisher_UseItemModelID($VANQUISHER_BU_MODEL_IDS[$l_i_Idx]) Then
             $g_a_Vanquisher_BULastUsed[$l_i_Idx] = TimerInit()
-            $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] = True
+            $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] += 1
             $l_i_Used += 1
         EndIf
     Next
@@ -4807,29 +4816,28 @@ Func _Vanquisher_UseBUBuffered()
     EndIf
 EndFunc
 
-Func _Vanquisher_UseStonesBuffered()
+Func _Vanquisher_UseStonesBuffered($a_b_Quiet = False)
     If GetPartyDead() Then Return
     If Not _Vanquisher_IsInVanquishArea() Then Return
+    If $g_b_Vanquisher_StoneHandledThisZone Then Return
+    $g_b_Vanquisher_StoneHandledThisZone = True
     If Agent_GetAgentEffectInfo(-2, 2886, "HasEffect") Then Return
     If HasImp(-2) And _Vanquisher_ConsumableOnCooldown($g_h_Vanquisher_StoneTimer) Then Return
     If UseSummoningStone() Then
         CurrentAction("Summoning stone used.")
         $g_h_Vanquisher_StoneTimer = TimerInit()
-    ElseIf Not FindSummoningStone() Then
+    ElseIf Not $a_b_Quiet And Not FindSummoningStone() Then
         CurrentAction("No summoning stone found in bags 1–4.")
     EndIf
 EndFunc
 
 Func _Vanquisher_ApplyConsumables($a_b_Force = False)
+    If Not $a_b_Force Then Return
     If Not _Vanquisher_CanUseConsumables() Then
-        If Not $a_b_Force Then Return
         If Not _Vanquisher_WaitForExplorable() Then
             CurrentAction("Consumables skipped — not in explorable area yet.")
             Return
         EndIf
-    EndIf
-    If Not $a_b_Force Then
-        If Not _Vanquisher_ShouldPollConsumables() Then Return
     EndIf
     $g_h_Vanquisher_ConsumablePollTimer = TimerInit()
     Local $l_b_Any = False
@@ -4843,7 +4851,7 @@ Func _Vanquisher_ApplyConsumables($a_b_Force = False)
     EndIf
     If _IsStonesEnabled() Then
         $l_b_Any = True
-        _Vanquisher_UseStonesBuffered()
+        _Vanquisher_UseStonesBuffered($a_b_Force)
     EndIf
     If Not $l_b_Any And $a_b_Force Then
         CurrentAction("No consumables enabled in General Configurator.")
@@ -4989,7 +4997,7 @@ EndFunc
 Func _Vanquisher_TravelToZoneOutpost()
     CurrentAction("Traveling to outpost for " & $Title & ".")
     TravelTo($Map_To_Zone)
-    WaitForLoad()
+    WaitMapLoading($Map_To_Zone, 30000)
     _Vanquisher_ApplyDifficulty()
     GoOut()
 EndFunc

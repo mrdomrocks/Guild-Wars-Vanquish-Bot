@@ -1,4 +1,3 @@
-#include <Array.au3>
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
@@ -10,7 +9,7 @@ Func GoOutBahdokCaverns()
         Sleep(1000)
         Dialog(0x00000081)
         Dialog(0x00000084)
-        WaitForLoad()
+         WaitMapLoading($BahdokCaverns_Map, 30000)
 EndFunc
 
 Func VQBahdokCaverns()

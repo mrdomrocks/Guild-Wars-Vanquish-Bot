@@ -1,4 +1,3 @@
-#include <Array.au3>
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
@@ -29,7 +28,7 @@ Func VQGardenOfSeborhin()
 		Dialog(0x00000081)
 		Dialog(0x00000084)
 		Sleep(5000)		
-		WaitForLoad()		
+                  WaitMapLoading($GardenOfSeborhin_Map, 30000)
 		
 		GoNearestNPCToCoords(3960, -14652)
 		Sleep(1000)

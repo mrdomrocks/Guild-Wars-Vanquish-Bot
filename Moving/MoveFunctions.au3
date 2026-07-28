@@ -103,6 +103,7 @@ Func MoveandAggroVQ($aWaypoints)
 	$g_b_Vanquisher_HasRunRoute = True
 	_Vanquisher_ApplyConsumablesOnFarmEntry()
     Local $timer = TimerInit()
+    Local $Index = 0
     $BlockCount = 20
     $ActionCounter = 1
     CurrentAction("Vanquish route forward — " & UBound($aWaypoints) & " waypoints.")
@@ -134,6 +135,7 @@ Func MoveandAggroVQWurm($aWaypoints)
     If _Vanquisher_ExitRouteIfDone(" (wurm skip)") Then Return
     $g_b_Vanquisher_HasRunRoute = True
     Local $timer = TimerInit()
+    Local $Index = 0
     For $Index = 0 To UBound($aWaypoints) - 1
         If _Vanquisher_ShouldStop() Then Return
         If _Vanquisher_CheckVanquishDuringRoute($timer, " (wurm)") Then Return
@@ -154,6 +156,7 @@ Func MoveandAggroVQReverse($aWaypoints)
     If _Vanquisher_ExitRouteIfDone(" (reverse skip)") Then Return
     $g_b_Vanquisher_HasRunRoute = True
     Local $timer = TimerInit()
+    Local $Index = 0
     $ActionCounter = 1
     CurrentAction("Vanquish route reverse — " & UBound($aWaypoints) & " waypoints.")
     For $Index = UBound($aWaypoints) - 1 To 0 Step -1

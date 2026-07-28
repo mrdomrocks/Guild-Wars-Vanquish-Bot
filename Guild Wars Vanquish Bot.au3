@@ -13,6 +13,7 @@
 
 Global $g_hCharacterRefreshTimer = TimerInit()
 Global $g_hClientScanTimer = TimerInit()
+Global $g_hConnectedStatePollTimer = TimerInit()
 Global $g_bClientConnected = False
 Global $g_sConnectedCharacter = ""
 Global $g_sDetectedCharacter = ""
@@ -27,12 +28,12 @@ Global $Bot_Core_Initialized = False
 Global $g_hRunTimer = 0
 Global $g_iRunDeaths = 0
 Global $g_iVanquishStreak = 0
-Global $g_iGoldPickedUp = 0
-Global $g_iLastKnownGold = -1
 Global $g_bWasPlayerDead = False
 Global $g_bConnectionStatePrimed = False
 Global $g_bVanquishHistoryLoaded = False
 Global $g_bMapScanInProgress = False
+Global $g_bPendingClientPrime = False
+Global $g_bPendingVanquishScan = False
 Global $g_bPendingMapStateLoad = False
 Global $g_bPendingPostConnectRefresh = False
 Global $g_hPostConnectRefreshTimer = TimerInit()
@@ -50,6 +51,10 @@ Global $g_sScriptReloadCommand = ""
 Global $g_sConfigPath = @ScriptDir & "\vanquish_config.ini"
 Global $g_sMapsRoot = @ScriptDir & "\Maps"
 Global $g_bBotRunning = False
+Global Const $CLIENT_SCAN_INTERVAL_NONE_MS = 3000
+Global Const $CLIENT_SCAN_INTERVAL_SINGLE_MS = 10000
+Global Const $CLIENT_SCAN_INTERVAL_MULTIPLE_MS = 5000
+Global Const $CONNECTED_STATE_POLL_INTERVAL_MS = 750
 
 If FileExists(@ScriptDir & "\Vanquish.png") Then
     $g_sHelmetImagePath = @ScriptDir & "\Vanquish.png"
@@ -100,6 +105,8 @@ Func _ConnectToDetectedClient()
         $Bot_Core_Initialized = False
         $g_bConnectionStatePrimed = False
         $g_bVanquishHistoryLoaded = False
+        $g_bPendingClientPrime = False
+        $g_bPendingVanquishScan = False
         $g_bPendingMapStateLoad = False
         $g_bPendingPostConnectRefresh = False
         _SetCharacterSelectionState(False)
@@ -129,6 +136,8 @@ Func _ConnectToDetectedClient()
         $Bot_Core_Initialized = False
         $g_bConnectionStatePrimed = False
         $g_bVanquishHistoryLoaded = False
+        $g_bPendingClientPrime = False
+        $g_bPendingVanquishScan = False
         $g_bPendingMapStateLoad = False
         $g_bPendingPostConnectRefresh = False
         _SetCharacterSelectionState(False)
@@ -148,8 +157,11 @@ Func _ConnectToDetectedClient()
     $Bot_Core_Initialized = True
     $g_bConnectionStatePrimed = False
     $g_bVanquishHistoryLoaded = False
+    $g_bPendingClientPrime = True
+    $g_bPendingVanquishScan = False
     $g_bPendingMapStateLoad = False
     $g_bPendingPostConnectRefresh = False
+    $g_hConnectedStatePollTimer = TimerInit()
     $g_sConnectedCharacter = $sCharacter
     _SetCharacterSelectionState(True)
     _ResetRunStats()
@@ -171,6 +183,7 @@ Func _RefreshDetectedClient($bLogChanges = False)
     Local $iOldPid = $g_iDetectedClientPid
     Local $sOldCharacter = $g_sDetectedCharacter
     Local $iOldCount = $g_iDetectedCharacterCount
+    Local $i = 0
 
     Local $aProcessList = Scanner_ListGWProcesses()
     Local $iDetectedPid = 0
@@ -227,6 +240,66 @@ Func _RunDeferredPostConnectRefresh()
     $g_bPendingMapStateLoad = True
 EndFunc
 
+Func _GetClientDetectionInterval()
+    If $g_iDetectedCharacterCount > 1 Then Return $CLIENT_SCAN_INTERVAL_MULTIPLE_MS
+    If $g_iDetectedClientPid > 0 And $g_sDetectedCharacter <> "" Then Return $CLIENT_SCAN_INTERVAL_SINGLE_MS
+    Return $CLIENT_SCAN_INTERVAL_NONE_MS
+EndFunc
+
+Func _ScheduleConnectedStatePoll($bScanHistory = False)
+    $g_bPendingClientPrime = True
+    If $bScanHistory Then $g_bPendingVanquishScan = True
+    $g_hConnectedStatePollTimer = TimerInit()
+EndFunc
+
+Func _FinalizeVanquishHistoryScan()
+    Local $sCharacter = _GetAttachedCharacterName()
+    If $sCharacter = "" Then $sCharacter = $g_sConnectedCharacter
+    If $sCharacter = "" Then $sCharacter = "current character"
+
+    _Log("Scanning vanquish history for " & $sCharacter & ".")
+    _UpdateMapScanStatusDisplay("scanning...")
+    $g_bVanquishHistoryLoaded = _RefreshHistoricalVanquishStates()
+    $g_bPendingVanquishScan = False
+    $g_bMapScanInProgress = False
+    $g_bPendingMapStateLoad = False
+    _UpdateStartButtonState()
+    If $g_bVanquishHistoryLoaded Then
+        _ShowMainMenuTab()
+        _UpdateMapScanStatusDisplay()
+        _UpdateRunControlStatusDisplay("ready to start")
+    Else
+        _UpdateMapScanStatusDisplay("scan unavailable")
+    EndIf
+    Return $g_bVanquishHistoryLoaded
+EndFunc
+
+Func _ProcessConnectedStatePoll()
+    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
+        $g_bPendingClientPrime = False
+        $g_bPendingVanquishScan = False
+        $g_bMapScanInProgress = False
+        _UpdateStartButtonState()
+        Return False
+    EndIf
+
+    If Not _PrimeConnectedClientState(False) Then
+        If $g_bPendingVanquishScan Then _UpdateMapScanStatusDisplay("waiting for in-game state")
+        Return False
+    EndIf
+
+    $g_bPendingClientPrime = False
+    _RefreshHeroTeamSelectionState()
+    _UpdateStartButtonState()
+
+    If Not $g_bPendingVanquishScan Then
+        _UpdateMapScanStatusDisplay()
+        Return True
+    EndIf
+
+    Return _FinalizeVanquishHistoryScan()
+EndFunc
+
 Func _ScanConnectedCharacterVanquishHistory()
     If $g_bMapScanInProgress Then
         _UpdateMapScanStatusDisplay("scan already in progress")
@@ -246,38 +319,21 @@ Func _ScanConnectedCharacterVanquishHistory()
 
     If Not _PrimeConnectedClientState(True) Then
         _UpdateMapScanStatusDisplay("waiting for in-game state")
-        _Log("Scan failed: wait for the character to finish loading into the world.")
-        $g_bMapScanInProgress = False
-        _UpdateStartButtonState()
-        Return False
+        _UpdateRunControlStatusDisplay("waiting for client")
+        _Log("Scan queued. Waiting for the character to finish loading before reading vanquish history.")
+        _ScheduleConnectedStatePoll(True)
+        Return True
     EndIf
 
     If Not _CanQueryLiveClientState() Then
         _UpdateMapScanStatusDisplay("client is still loading")
-        _Log("Scan failed: Guild Wars is still loading the current character.")
-        $g_bMapScanInProgress = False
-        _UpdateStartButtonState()
-        Return False
+        _UpdateRunControlStatusDisplay("waiting for client")
+        _Log("Scan queued. Guild Wars is still loading the current character.")
+        _ScheduleConnectedStatePoll(True)
+        Return True
     EndIf
 
-    Local $sCharacter = _GetAttachedCharacterName()
-    If $sCharacter = "" Then $sCharacter = $g_sConnectedCharacter
-    If $sCharacter = "" Then $sCharacter = "current character"
-
-    _Log("Scanning vanquish history for " & $sCharacter & ".")
-    _UpdateMapScanStatusDisplay("scanning...")
-    $g_bVanquishHistoryLoaded = _RefreshHistoricalVanquishStates()
-    $g_bMapScanInProgress = False
-    $g_bPendingMapStateLoad = False
-    _UpdateStartButtonState()
-    If $g_bVanquishHistoryLoaded Then
-        _ShowMainMenuTab()
-        _UpdateMapScanStatusDisplay()
-        _UpdateRunControlStatusDisplay("ready to start")
-    Else
-        _UpdateMapScanStatusDisplay("scan unavailable")
-    EndIf
-    Return $g_bVanquishHistoryLoaded
+    Return _FinalizeVanquishHistoryScan()
 EndFunc
 
 Func _RefreshConnectedMapState($bLogWaiting = False)
@@ -314,6 +370,9 @@ EndFunc
 Func _FindSoleGuildWarsPid()
     Local $aCandidates[0]
     Local $aProcessNames[2] = ["Gw.exe", "gw.exe"]
+    Local $iName = 0
+    Local $i = 0
+    Local $j = 0
 
     For $iName = 0 To 1
         Local $aProcessList = ProcessList($aProcessNames[$iName])
@@ -344,8 +403,6 @@ Func _ResetRunStats()
     $g_hRunTimer = 0
     $g_iRunDeaths = 0
     $g_iVanquishStreak = 0
-    $g_iGoldPickedUp = 0
-    $g_iLastKnownGold = -1
     $g_bWasPlayerDead = False
     _UpdateStartButtonState()
     _UpdateRunStatusDisplay()
@@ -354,6 +411,9 @@ EndFunc
 Func _V2_CountGWClients()
     Local $aCandidates[0]
     Local $aProcessNames[2] = ["Gw.exe", "gw.exe"]
+    Local $iName = 0
+    Local $i = 0
+    Local $j = 0
 
     For $iName = 0 To 1
         Local $aProcessList = ProcessList($aProcessNames[$iName])
@@ -433,7 +493,6 @@ Func _PrimeConnectedClientState($bLogWaiting = False)
     Local $sLiveCharacter = Player_GetCharName()
     If $sLiveCharacter <> "" Then $g_sConnectedCharacter = $sLiveCharacter
 
-    $g_iLastKnownGold = GetGoldCharacter()
     $g_bWasPlayerDead = GetIsDead(-2)
     _RefreshMapPartySizeRequirements()
     $g_bConnectionStatePrimed = True
@@ -478,17 +537,12 @@ Func _UpdateLiveRunStats()
     If $bIsDead And Not $g_bWasPlayerDead Then $g_iRunDeaths += 1
     $g_bWasPlayerDead = $bIsDead
 
-    Local $iCurrentGold = GetGoldCharacter()
-    If $g_iLastKnownGold >= 0 And $iCurrentGold > $g_iLastKnownGold Then
-        $g_iGoldPickedUp += ($iCurrentGold - $g_iLastKnownGold)
-    EndIf
-    $g_iLastKnownGold = $iCurrentGold
-
     _UpdateRunStatusDisplay()
 EndFunc
 
 Func _BuildHeroList()
     Local $sHeroList = ""
+    Local $i = 0
 
     For $i = 1 To $GC_AM2_HERO_DATA[0][0]
         If $sHeroList <> "" Then $sHeroList &= "|"
@@ -511,6 +565,7 @@ Func _ResolveSavedHeroName($sValue)
 EndFunc
 
 Func _SaveHeroConfig()
+    Local $i = 0
     For $i = 0 To 2
         IniWrite($g_sConfigPath, "Team4", "Hero" & ($i + 1), StringStripWS(GUICtrlRead($g_idComboTeam4[$i]), 3))
     Next
@@ -523,11 +578,11 @@ Func _SaveHeroConfig()
         IniWrite($g_sConfigPath, "Team8", "Hero" & ($i + 1), StringStripWS(GUICtrlRead($g_idComboTeam8[$i]), 3))
     Next
 
-    _Log("Hero team configuration saved.")
     Return True
 EndFunc
 
 Func _LoadHeroConfig()
+    Local $i = 0
     If Not FileExists($g_sConfigPath) Then Return False
 
     For $i = 0 To 2
@@ -548,12 +603,12 @@ Func _LoadHeroConfig()
         If $sHeroName <> "" Then GUICtrlSetData($g_idComboTeam8[$i], "|" & $g_sHeroList, $sHeroName)
     Next
 
-    _Log("Hero team configuration loaded.")
     Return True
 EndFunc
 
 Func _EstimateHeroDropdownWidth()
     Local $iMaxChars = 0
+    Local $i = 0
 
     For $i = 1 To $GC_AM2_HERO_DATA[0][0]
         Local $iNameLength = StringLen($GC_AM2_HERO_DATA[$i][1])
@@ -568,6 +623,7 @@ EndFunc
 
 Func _GetHeroIDForSelection($sHeroName)
     If $sHeroName = "" Then Return 0
+    Local $i = 0
 
     For $i = 1 To $GC_AM2_HERO_DATA[0][0]
         If StringCompare($GC_AM2_HERO_DATA[$i][1], $sHeroName, 0) = 0 Then Return $GC_AM2_HERO_DATA[$i][0]
@@ -587,6 +643,7 @@ Func SetupTeamForPartySize($iMaxPartySize)
 
     Local $aComboIDs
     Local $iHeroCount = 0
+    Local $i = 0
 
     Switch $iMaxPartySize
         Case 4
@@ -611,16 +668,15 @@ Func SetupTeamForPartySize($iMaxPartySize)
         If $iHeroID <= 0 Then ContinueLoop
 
         Ui_AddHero($iHeroID)
-        _Log("Adding hero: " & $sHeroName)
         Sleep(250)
     Next
 
-    _Log("Team setup complete for party size " & $iMaxPartySize & ".")
     Return True
 EndFunc
 
 Func _GetCheckedMapIndexes()
     Local $aChecked[0]
+    Local $i = 0
 
     For $i = 0 To UBound($g_aMapEntries) - 1
         If Not $g_aMapEntries[$i][3] Then ContinueLoop
@@ -669,6 +725,10 @@ Func _PrepareQueuedMapStart($iMapIndex)
         WaitMapLoading($iOutpostID, 30000)
     EndIf
 
+    If Not Map_GetInstanceInfo("IsExplorable") Then
+        _Vanquisher_ApplyDifficulty()
+    EndIf
+
     If $iRequiredPartySize <= 0 Then
         _Log("Start failed: could not resolve party size for " & $sMapName & ".")
         Return False
@@ -703,6 +763,7 @@ EndFunc
 Func _GetConfiguredHeroCountForPartySize($iMaxPartySize)
     Local $aComboIDs
     Local $iHeroCount = 0
+    Local $i = 0
 
     Switch $iMaxPartySize
         Case 4
@@ -738,6 +799,7 @@ Func _GetRequiredPartySizeForQueue(ByRef $aQueue)
 EndFunc
 
 Func _LogSelectedMapQueue(ByRef $aQueue)
+    Local $i = 0
     For $i = 0 To UBound($aQueue) - 1
         Local $iMapIndex = $aQueue[$i]
         If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then ContinueLoop
@@ -931,6 +993,7 @@ Func _RefreshMapPartySizeRequirements()
     Local $iTeam4Count = 0
     Local $iTeam6Count = 0
     Local $iTeam8Count = 0
+    Local $i = 0
 
     For $i = 0 To UBound($g_aMapEntries) - 1
         $g_aMapEntries[$i][7] = _ResolveMaxPartySizeForMap($g_aMapEntries[$i][4], $g_aMapEntries[$i][6])
@@ -945,17 +1008,30 @@ Func _RefreshMapPartySizeRequirements()
         EndSwitch
     Next
 
-    _Log("Resolved party-size limits: Team 4=" & $iTeam4Count & ", Team 6=" & $iTeam6Count & ", Team 8=" & $iTeam8Count & ".")
     Return True
 EndFunc
 
 Func _RefreshHistoricalVanquishStates()
     Local $pArray = World_GetWorldInfo("VanquishedAreasArray")
     Local $iArraySize = World_GetWorldInfo("VanquishedAreasArraySize")
+    Local $i = 0
 
     If $pArray = 0 Or $iArraySize <= 0 Then
         _ClearHistoricalVanquishStates(False)
         _Log("Vanquish history array is unavailable for the connected client.")
+        Return False
+    EndIf
+
+    Local $dVanquishWords = DllStructCreate("dword[" & $iArraySize & "]")
+    Local $aReadResult = DllCall($g_h_Kernel32, "bool", "ReadProcessMemory", _
+        "handle", $g_h_GWProcess, _
+        "ptr", $pArray, _
+        "struct*", $dVanquishWords, _
+        "ulong_ptr", 4 * $iArraySize, _
+        "ulong_ptr*", 0)
+    If @error Or Not IsArray($aReadResult) Or Not $aReadResult[0] Then
+        _ClearHistoricalVanquishStates(False)
+        _Log("Vanquish history array could not be read for the connected client.")
         Return False
     EndIf
 
@@ -968,7 +1044,16 @@ Func _RefreshHistoricalVanquishStates()
             ContinueLoop
         EndIf
 
-        $g_aMapEntries[$i][5] = World_IsAreaVanquished($iMapID)
+        Local $iWordIndex = Floor($iMapID / 32)
+        Local $bVanquished = False
+        If $iWordIndex < $iArraySize Then
+            Local $iBitOffset = Mod($iMapID, 32)
+            Local $iBitMask = BitShift(1, -$iBitOffset)
+            Local $iWordValue = DllStructGetData($dVanquishWords, 1, $iWordIndex + 1)
+            $bVanquished = BitAND($iWordValue, $iBitMask) <> 0
+        EndIf
+
+        $g_aMapEntries[$i][5] = $bVanquished
         If $g_aMapEntries[$i][5] Then
             $g_aMapEntries[$i][3] = False
             $iMarked += 1
@@ -981,6 +1066,7 @@ Func _RefreshHistoricalVanquishStates()
 EndFunc
 
 Func _ClearHistoricalVanquishStates($bRefreshList = True)
+    Local $i = 0
     For $i = 0 To UBound($g_aMapEntries) - 1
         $g_aMapEntries[$i][5] = False
     Next
@@ -1075,9 +1161,14 @@ Func _RunGuiMaintenance()
     _UpdateConnectedCharacterDisplay()
     _CheckForGuiSourceChanges()
 
-    If Not $g_bClientConnected And TimerDiff($g_hClientScanTimer) >= 2000 Then
+    If Not $g_bClientConnected And TimerDiff($g_hClientScanTimer) >= _GetClientDetectionInterval() Then
         _RefreshDetectedClient()
         $g_hClientScanTimer = TimerInit()
+    EndIf
+
+    If ($g_bPendingClientPrime Or $g_bPendingVanquishScan) And TimerDiff($g_hConnectedStatePollTimer) >= $CONNECTED_STATE_POLL_INTERVAL_MS Then
+        _ProcessConnectedStatePoll()
+        $g_hConnectedStatePollTimer = TimerInit()
     EndIf
 
     If $g_bPendingPostConnectRefresh And TimerDiff($g_hPostConnectRefreshTimer) >= 250 Then _RunDeferredPostConnectRefresh()
@@ -1155,6 +1246,7 @@ Func _StartSelectedMapRoutine()
         Return False
     EndIf
 
+    _Log("Start pressed. Hard Mode will be enabled before going out.")
     $g_bBotRunning = True
     $boolrun = True
     $g_b_Vanquisher_AbortRoute = False

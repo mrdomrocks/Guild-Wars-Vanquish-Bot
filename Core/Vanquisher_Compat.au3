@@ -1,5 +1,7 @@
 #include-once
 
+Global $DeadOnTheRun = 0
+
 ; Central stop check used by movement and GoOut routines.
 ; Keeps routes from continuing after the GUI/run state has been stopped.
 Func _Vanquisher_ShouldStop()
@@ -727,9 +729,9 @@ Func _Vanquisher_RefreshVanquishBaseline()
     $g_i_StingrayRoute_LastMapHandled = -1
     $g_h_Vanquisher_ConsumablePollTimer = 0
     $g_b_Vanquisher_ConsetAppliedThisZone = False
-    For $l_i_Idx = 0 To 6
+    For $l_i_Idx = 0 To UBound($g_a_Vanquisher_BULastUsed) - 1
         $g_a_Vanquisher_BULastUsed[$l_i_Idx] = 0
-        $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] = False
+        $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] = 0
     Next
     For $l_i_Idx = 0 To 2
         $g_a_Vanquisher_ConsetLastUsed[$l_i_Idx] = 0
@@ -808,7 +810,6 @@ Func GetAreaVanquished()
 EndFunc
 
 Func _Vanquisher_ResetZoneRouteState()
-    Global $DeadOnTheRun
     $g_i_Vanquisher_GoOutLastMapHandled = -1
     $g_i_TearsRoute_LastMapHandled = -1
     $g_i_StingrayRoute_LastMapHandled = -1
@@ -821,6 +822,18 @@ Func _Vanquisher_ResetZoneRouteState()
     $g_i_Vanquisher_InitialFoesToKill = -1
     $g_i_Vanquisher_InitialFoesKilled = 0
     $g_b_Vanquisher_CounterUnreliable = False
+    $g_h_Vanquisher_ConsumablePollTimer = 0
+    $g_h_Vanquisher_StoneTimer = 0
+    $g_b_Vanquisher_ConsetAppliedThisZone = False
+    $g_b_Vanquisher_ConsumablesAppliedThisZone = False
+    $g_b_Vanquisher_StoneHandledThisZone = False
+    For $l_i_Idx = 0 To UBound($g_a_Vanquisher_BULastUsed) - 1
+        $g_a_Vanquisher_BULastUsed[$l_i_Idx] = 0
+        $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] = 0
+    Next
+    For $l_i_Idx = 0 To UBound($g_a_Vanquisher_ConsetLastUsed) - 1
+        $g_a_Vanquisher_ConsetLastUsed[$l_i_Idx] = 0
+    Next
     $DeadOnTheRun = 0
 EndFunc
 
@@ -877,12 +890,15 @@ Func _Vanquisher_ResignToOutpost()
     CurrentAction("Resigning to outpost.")
     Chat_SendChat("resign", "/")
     Sleep(3000)
-    WaitForLoad()
+    If $Map_To_Zone > 0 Then
+        WaitMapLoading($Map_To_Zone, 30000)
+    Else
+        Map_WaitMapLoading(30000)
+    EndIf
     Return Not Map_GetInstanceInfo("IsExplorable")
 EndFunc
 
 Func _Vanquisher_AbortCurrentRouteToZoneEntry()
-    Global $DeadOnTheRun
     $g_b_Vanquisher_AbortRoute = True
     $DeadOnTheRun = 0
     _Vanquisher_ResetGoOutRouteProgress()
@@ -930,7 +946,11 @@ Func _Vanquisher_ReturnToOutpost()
     CurrentAction("Returning to outpost after vanquish.")
     If Not GetIsDead(-2) And Death() <> 1 Then
         Map_ReturnToOutpost()
-        WaitForLoad()
+        If $Map_To_Zone > 0 Then
+            WaitMapLoading($Map_To_Zone, 30000)
+        Else
+            Map_WaitMapLoading(30000)
+        EndIf
     EndIf
 
     Local $l_i_Tries = 0
@@ -940,7 +960,7 @@ Func _Vanquisher_ReturnToOutpost()
         If Not Map_GetInstanceInfo("IsExplorable") Then ExitLoop
         If $Map_To_Zone > 0 Then
             RndTravel($Map_To_Zone)
-            WaitForLoad()
+            WaitMapLoading($Map_To_Zone, 30000)
         EndIf
         $l_i_Tries += 1
     WEnd

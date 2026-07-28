@@ -1,4 +1,3 @@
-#include <Array.au3>
 Global $vqrange = 1450
 Global $ActionCounter = 1
 

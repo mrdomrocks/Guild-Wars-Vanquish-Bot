@@ -1,5 +1,4 @@
 ;Mapped by Crux, updated by Incognito
-#include <Array.au3>
 Global $vqrange = 1450
 Global $ActionCounter = 1
 

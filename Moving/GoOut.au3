@@ -334,6 +334,9 @@ Func GoOut()
 			Case "VerdantCascades"
 				GoOutVerdantCascades()
 		EndSwitch
-		RndSleep(2000)
-	Until GetMapID() = $Map_To_Farm Or _Vanquisher_ShouldStop()
+                RndSleep(2000)
+        Until GetMapID() = $Map_To_Farm Or _Vanquisher_ShouldStop()
+
+        If _Vanquisher_ShouldStop() Then Return
+        If GetMapID() = $Map_To_Farm Then _Vanquisher_ApplyConsumablesOnFarmEntry()
 EndFunc
