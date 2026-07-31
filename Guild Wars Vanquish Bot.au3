@@ -65,6 +65,7 @@ Global Const $CLIENT_SCAN_INTERVAL_SINGLE_MS = 10000
 Global Const $CLIENT_SCAN_INTERVAL_MULTIPLE_MS = 5000
 Global Const $CONNECTED_STATE_POLL_INTERVAL_MS = 750
 Global Const $CLIENT_UNRESPONSIVE_TIMEOUT_MS = 30000
+Global Const $GUI_LOOP_SLEEP_MS = 25
 
 If FileExists(@ScriptDir & "\Vanquish.png") Then
     $g_sHelmetImagePath = @ScriptDir & "\Vanquish.png"
@@ -98,6 +99,7 @@ While 1
     If Not _HandleGuiMessage($msg) Then ExitLoop
     _RunGuiMaintenance()
     If $g_bScriptReloadRequested Then ExitLoop
+    Sleep($GUI_LOOP_SLEEP_MS)
 WEnd
 
 _VB_DestroyGUI()
@@ -909,13 +911,11 @@ Func _PrepareQueuedMapStart($iMapIndex)
 
     If Map_GetInstanceInfo("IsExplorable") Then Return True
 
-    If Not Map_GetInstanceInfo("IsExplorable") And $iOutpostID > 0 And GetMapID() <> $iOutpostID And GetMapID() <> $iTargetMapID Then
-        CurrentAction("Traveling to outpost for " & $sMapName & ".")
-        TravelTo($iOutpostID)
-        WaitMapLoading($iOutpostID, 30000)
-    EndIf
-
     If Not Map_GetInstanceInfo("IsExplorable") Then
+        If Not _EnsureQueuedMapOutpostReady($iOutpostID, $iTargetMapID, $sMapName) Then
+            _Log("Start failed: could not travel to the required outpost for " & $sMapName & ".")
+            Return False
+        EndIf
         _Vanquisher_ApplyDifficulty()
     EndIf
 
@@ -930,6 +930,25 @@ Func _PrepareQueuedMapStart($iMapIndex)
     EndIf
 
     Return True
+EndFunc
+
+Func _EnsureQueuedMapOutpostReady($iOutpostID, $iTargetMapID, $sMapName)
+    If Map_GetInstanceInfo("IsExplorable") Then Return False
+    If $iOutpostID <= 0 Then Return True
+
+    Local $iCurrentMapID = GetMapID()
+    If $iCurrentMapID = $iOutpostID Or $iCurrentMapID = $iTargetMapID Then Return True
+
+    Local $iTry = 0
+    For $iTry = 1 To 3
+        CurrentAction("Traveling to outpost for " & $sMapName & " (" & $iTry & "/3).")
+        If TravelTo($iOutpostID) And WaitMapLoading($iOutpostID, 30000) Then
+            If Not Map_GetInstanceInfo("IsExplorable") And GetMapID() = $iOutpostID Then Return True
+        EndIf
+        Sleep(500)
+    Next
+
+    Return Not Map_GetInstanceInfo("IsExplorable") And GetMapID() = $iOutpostID
 EndFunc
 
 Func _Vanquisher_ZoneDisplay($iMapIndex)
@@ -1377,7 +1396,6 @@ Func _RunGuiMaintenance()
     _EnforceVisibleMapSelectionRules()
     _RefreshHeroTeamSelectionState()
     _UpdateVisibleSelectionToggleButton()
-    _UpdateConnectedCharacterDisplay()
     _CheckForGuiSourceChanges()
 
     If $g_bClientConnected Then

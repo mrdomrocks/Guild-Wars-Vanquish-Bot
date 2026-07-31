@@ -1108,6 +1108,14 @@ Func GetVanguardTitle()
 EndFunc
 
 Func TravelTo($a_i_MapID, $a_i_District = 0)
+    If $a_i_MapID <= 0 Then Return False
+    If GetMapID() = $a_i_MapID And Map_GetInstanceInfo("IsOutpost") Then Return True
+
+    If Map_TravelTo($a_i_MapID, Map_GetCharacterInfo("Language"), Map_GetCharacterInfo("Region"), $a_i_District, True) Then
+        _Vanquisher_CacheCombatAIForCurrentMap()
+        If GetMapID() = $a_i_MapID Then Return True
+    EndIf
+
     Return OutpostTravel($a_i_MapID)
 EndFunc
 

@@ -34,6 +34,9 @@ Global $g_aRunControlArray[6]
 Global $g_idComboTeam4[3]
 Global $g_idComboTeam6[5]
 Global $g_idComboTeam8[7]
+Global $g_sLastDetectedClientLabel = ""
+Global $g_sLastDetectedCharacterLabel = ""
+Global $g_sLastConnectedCharacterLabel = ""
 
 Func _VB_CreateGUI()
     Local $i = 0
@@ -217,9 +220,20 @@ Func _UpdateDetectedCharacterDisplay($sCharacter, $iDetectedCount)
         $sClientLabel = "Detected Client: none"
     EndIf
 
-    GUICtrlSetData($lblDetectedClient, $sClientLabel)
-    GUICtrlSetData($lblDetectedCharacter, $sLabel)
-    _SetCharacterSelectionState($g_bClientConnected)
+    Local $bLabelChanged = False
+
+    If $sClientLabel <> $g_sLastDetectedClientLabel Then
+        GUICtrlSetData($lblDetectedClient, $sClientLabel)
+        $g_sLastDetectedClientLabel = $sClientLabel
+        $bLabelChanged = True
+    EndIf
+
+    If $sLabel <> $g_sLastDetectedCharacterLabel Then
+        GUICtrlSetData($lblDetectedCharacter, $sLabel)
+        $g_sLastDetectedCharacterLabel = $sLabel
+        $bLabelChanged = True
+    EndIf
+    If $bLabelChanged Then _SetCharacterSelectionState($g_bClientConnected)
 EndFunc
 
 Func _UpdateConnectedCharacterDisplay()
@@ -227,7 +241,9 @@ Func _UpdateConnectedCharacterDisplay()
     If $g_bClientConnected And StringStripWS($g_sConnectedCharacter, 3) <> "" Then
         $sLabel = "Connected Character: " & $g_sConnectedCharacter
     EndIf
+    If $sLabel = $g_sLastConnectedCharacterLabel Then Return
     GUICtrlSetData($lblConnectedCharacter, $sLabel)
+    $g_sLastConnectedCharacterLabel = $sLabel
 EndFunc
 
 Func _UpdateMapScanStatusDisplay($sStatus = "")
