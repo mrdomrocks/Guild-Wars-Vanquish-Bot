@@ -164,7 +164,7 @@ Func _RefreshDetectedClient($bLogChanges = False)
     Local $iOldCount = $g_iDetectedCharacterCount
     Local $i = 0
 
-    Local $aProcessList = Scanner_ListGWProcesses()
+    Local $aProcessList = ProcessList("gw.exe")
     Local $iDetectedPid = 0
     Local $sDetectedCharacter = ""
     Local $iDetectedCount = 0
