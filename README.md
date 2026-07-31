@@ -6,7 +6,6 @@ This is the active vanquish workflow in this repo. The bot detects a logged-in G
 
 ## Files
 
-- `GW Vanquish Bot.au3`: launcher entry point
 - `Guild Wars Vanquish Bot.au3`: main GUI, queue builder, and runtime controller
 - `vanquish_config.ini`: saved hero selections
 - `Core/Vanquish_Routes.au3`: shared include list for all route scripts
@@ -55,7 +54,7 @@ The caravan system has been refactored into dedicated controllers and now suppor
 
 1. Launch Guild Wars and log into one character.
 2. Open `Scripts/Guild Wars Vanquish Bot/`.
-3. Run `GW Vanquish Bot.au3`.
+3. Run `Guild Wars Vanquish Bot.au3`.
 4. Wait for the bot to detect the logged-in character.
 5. Click `Connect To Client`.
 6. Click `Scan Vanquish Maps` to load completed-zone status from the live character.
@@ -106,15 +105,9 @@ Hero7=Master of Whispers
 ## Running Notes
 
 - run the script from this folder because it relies on relative paths for config, GUI assets, and map loading
-- `GW Vanquish Bot.au3` simply includes `Guild Wars Vanquish Bot.au3`
 - the script uses `#RequireAdmin`
 - connection is intended for one detected logged-in Guild Wars client
 - combat handling includes smart casting during the fight routine, while some healing logic stays separate
-- in pre-searing, these skills are still excluded from smart casting due to known compatibility issues:
-  - `Glyph of Lesser Energy`
-  - `Ignite Arrows`
-  - `Read the Wind`
-  - `Frenzy`
 
 ## Linux / Wine Notes
 
