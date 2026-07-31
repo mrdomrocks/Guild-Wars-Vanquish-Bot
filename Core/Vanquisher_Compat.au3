@@ -277,17 +277,18 @@ Func _Vanquisher_SyncLegacyHandles()
 EndFunc
 
 Func Initialize($a_s_GW, $a_b_ChangeTitle = True, $a_b_Unused = True)
-    If Not _Vanquisher_GWIsRunning() Then Return False
+    #forceref $a_b_Unused
 
+    Local $vTarget = $a_s_GW
     If IsString($a_s_GW) And $a_s_GW <> "" Then
         Local $l_i_Pid = _Gwen_FindPidByCharName($a_s_GW)
-        If $l_i_Pid Then
-            Core_Initialize($l_i_Pid, $a_b_ChangeTitle)
-        Else
-            Core_Initialize($a_s_GW, $a_b_ChangeTitle)
-        EndIf
-    Else
-        Core_Initialize($a_s_GW, $a_b_ChangeTitle)
+        If $l_i_Pid > 0 Then $vTarget = $l_i_Pid
+    EndIf
+
+    Local $l_i_Result = Core_Initialize($vTarget, $a_b_ChangeTitle)
+    If $l_i_Result = 0 Then
+        _Vanquisher_SyncLegacyHandles()
+        Return False
     EndIf
 
     If Not $g_h_GWProcess Then

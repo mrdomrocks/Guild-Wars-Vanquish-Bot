@@ -120,7 +120,8 @@ Func _ConnectToDetectedClient()
     $g_p_BasePointer = 0
 
     _Log("Connecting to Guild Wars character: " & $sCharacter & ".")
-    $bInitOK = _InitializeDetectedClient("", $iAttachPid)
+    Local $iInitResult = Core_Initialize($iAttachPid, False)
+    $bInitOK = ($iInitResult <> 0 And $g_h_GWProcess <> 0 And $g_p_BasePointer <> 0)
     If $bInitOK And $g_i_GWProcessId > 0 Then $ProcessID = String($g_i_GWProcessId)
 
     If Not $bInitOK Then
@@ -146,14 +147,38 @@ Func _ConnectToDetectedClient()
     _ResetRunStats()
     $g_hRunTimer = TimerInit()
 
-    ; Connection should stay on the client side only until the user explicitly scans maps.
     _ShowMainMenuTab()
     _UpdateRunStatusDisplay()
     _UpdateConnectedCharacterDisplay()
-    _UpdateMapScanStatusDisplay("connected - scan pending")
-    _UpdateRunControlStatusDisplay("ready to scan")
-    _Log("Connection established. Map actions are idle until Scan Maps is pressed.")
+    _UpdateMapScanStatusDisplay("initializing scan...")
+    _UpdateRunControlStatusDisplay("scanning maps")
+    _Log("Connection established. Starting map and vanquish scan.")
+    _ScanConnectedCharacterVanquishHistory()
     Return True
+EndFunc
+
+Func _ReadGuildWarsCharacterName($iPid)
+    If $iPid <= 0 Then Return ""
+
+    Local $sCharacter = ""
+    Memory_Open($iPid)
+
+    Local $bInitSections = False
+    If $g_h_GWProcess <> 0 Then
+        $bInitSections = Scanner_InitializeSections()
+    EndIf
+
+    If $g_h_GWProcess <> 0 And $bInitSections Then
+        Scanner_ScanForCharname()
+        $sCharacter = StringStripWS(Player_GetCharName(), 3)
+    EndIf
+
+    Memory_Close()
+    $g_h_GWProcess = 0
+    $g_i_GWProcessId = 0
+    $g_p_BasePointer = 0
+
+    Return $sCharacter
 EndFunc
 
 Func _RefreshDetectedClient($bLogChanges = False)
@@ -173,17 +198,7 @@ Func _RefreshDetectedClient($bLogChanges = False)
         Local $iPid = Number($aProcessList[$i][1], 2)
         If $iPid <= 0 Then ContinueLoop
 
-        Memory_Open($iPid)
-        Local $sCharacter = ""
-        If $g_h_GWProcess <> 0 And Scanner_InitializeSections() Then
-            Scanner_ScanForCharname()
-            $sCharacter = StringStripWS(Player_GetCharName(), 3)
-        EndIf
-        Memory_Close()
-        $g_h_GWProcess = 0
-        $g_i_GWProcessId = 0
-        $g_p_BasePointer = 0
-
+        Local $sCharacter = _ReadGuildWarsCharacterName($iPid)
         If $sCharacter = "" Then ContinueLoop
 
         $iDetectedCount += 1
@@ -259,6 +274,127 @@ Func _FinalizeVanquishHistoryScan()
         _ClearClientRecoveryState()
     EndIf
     Return $g_bVanquishHistoryLoaded
+EndFunc
+
+Func _ResetRunStats()
+    $g_hRunTimer = 0
+    $g_iRunDeaths = 0
+    $g_iVanquishStreak = 0
+    $g_bWasPlayerDead = False
+    _UpdateStartButtonState()
+    _UpdateRunStatusDisplay()
+EndFunc
+
+Func _ResetConnectedClientState($sMapStatus = "waiting for client", $sRunStatus = "idle")
+    If $g_h_GWProcess Then Memory_Close()
+    $g_h_GWProcess = 0
+    $g_i_GWProcessId = 0
+    $g_p_BasePointer = 0
+
+    $g_bClientConnected = False
+    $g_sConnectedCharacter = ""
+    $g_s_MainCharName = ""
+    $ProcessID = ""
+    $Bot_Core_Initialized = False
+    $g_bConnectionStatePrimed = False
+    $g_bVanquishHistoryLoaded = False
+    $g_bMapScanInProgress = False
+    $g_bPendingClientPrime = False
+    $g_bPendingVanquishScan = False
+    $g_bPendingMapStateLoad = False
+    $g_bPendingPostConnectRefresh = False
+
+    _SetCharacterSelectionState(False)
+    _ResetRunStats()
+    _ClearHistoricalVanquishStates(False)
+    _UpdateConnectedCharacterDisplay()
+    _UpdateMapScanStatusDisplay($sMapStatus)
+    _UpdateRunControlStatusDisplay($sRunStatus)
+EndFunc
+
+Func _ClearClientRecoveryState()
+    $g_bClientRecoveryPending = False
+    $g_bClientRecoveryAutoScanPending = False
+    $g_sRecoveryCharacter = ""
+EndFunc
+
+Func _IsConnectedClientProcessAlive()
+    If Not $g_bClientConnected Then Return False
+    Local $iPid = $g_i_GWProcessId
+    Return $iPid > 0 And ProcessExists($iPid)
+EndFunc
+
+Func _EnsureConnectedClientAlive($bLogLoss = False)
+    If Not $g_bClientConnected Then Return False
+    If _IsConnectedClientProcessAlive() Then Return True
+
+    _ResetConnectedClientState("client disconnected", "idle")
+    If $bLogLoss Then _Log("Lost connection to the attached Guild Wars client.")
+    Return False
+EndFunc
+
+Func _HandleClientRecoveryLoss($sReason)
+    If $g_bClientRecoveryPending Then Return False
+
+    $g_bClientRecoveryPending = True
+    $g_bClientRecoveryAutoScanPending = False
+    $g_sRecoveryCharacter = $g_sConnectedCharacter
+    If $g_sRecoveryCharacter = "" Then $g_sRecoveryCharacter = _GetAttachedCharacterName()
+
+    If $g_bBotRunning Then
+        $boolrun = False
+        $g_b_Vanquisher_AbortRoute = True
+    EndIf
+
+    _ResetConnectedClientState("waiting for client reconnect", "waiting for client")
+    _UpdateRunControlStatusDisplay("waiting for client reconnect")
+    _Log($sReason)
+    Return True
+EndFunc
+
+Func _CanQueryLiveClientState()
+    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then Return False
+    If Not _EnsureConnectedClientAlive() Then Return False
+    If $g_h_GWProcess = 0 Or $g_p_BasePointer = 0 Then Return False
+    If Core_GetStatusError() Then Return False
+    If Not Core_IsIngame() Then Return False
+    If Map_GetInstanceInfo("IsLoading") Then Return False
+    Return True
+EndFunc
+
+Func _PrimeConnectedClientState($bLogWaiting = False)
+    If $g_bConnectionStatePrimed Then Return True
+    If Not _CanQueryLiveClientState() Then
+        If $bLogWaiting Then _Log("Connected to client. Waiting for in-game character data before reading map and world state.")
+        Return False
+    EndIf
+
+    Local $sLiveCharacter = Player_GetCharName()
+    If $sLiveCharacter <> "" Then $g_sConnectedCharacter = $sLiveCharacter
+
+    $g_bWasPlayerDead = GetIsDead(-2)
+    _RefreshMapPartySizeRequirements()
+    $g_bConnectionStatePrimed = True
+    $g_hClientResponsiveTimer = TimerInit()
+    _UpdateStartButtonState()
+
+    _Log("Connected to Guild Wars client: " & $g_sConnectedCharacter)
+    Return True
+EndFunc
+
+Func _GetAttachedCharacterName()
+    If $g_h_GWProcess = 0 Or $g_p_BasePointer = 0 Then Return ""
+    Return StringStripWS(Player_GetCharName(), 3)
+EndFunc
+
+Func _ResolveConnectedCharacterName($sFallback = "", $iTimeoutMs = 5000)
+    #forceref $iTimeoutMs
+    $sFallback = StringStripWS($sFallback, 3)
+
+    Local $sCharacter = _GetAttachedCharacterName()
+    If $sCharacter <> "" Then Return $sCharacter
+    If $sFallback <> "" Then Return $sFallback
+    Return ""
 EndFunc
 
 Func _ProcessConnectedStatePoll()
@@ -338,240 +474,6 @@ Func _RefreshConnectedMapState($bLogWaiting = False)
     _UpdateStartButtonState()
     _UpdateMapScanStatusDisplay()
     Return $g_bVanquishHistoryLoaded
-EndFunc
-
-Func _InitializeDetectedClient($sCharacter = "", $iAttachPid = 0)
-    Local $vTarget = $sCharacter
-    If $iAttachPid > 0 Then
-        $vTarget = Number($iAttachPid, 2)
-        _Log("Attaching to Guild Wars client PID " & $iAttachPid & ".")
-    Else
-        _Log("Attaching to Guild Wars client by character name.")
-    EndIf
-
-    Local $iResult = Core_Initialize($vTarget, False)
-    If $iResult = 0 Or Not $g_h_GWProcess Or $g_p_BasePointer = 0 Then Return False
-    _V2_SyncLegacyHandles()
-    Return True
-EndFunc
-
-Func _FindSoleGuildWarsPid()
-    Local $aCandidates[0]
-    Local $aProcessNames[2] = ["Gw.exe", "gw.exe"]
-    Local $iName = 0
-    Local $i = 0
-    Local $j = 0
-
-    For $iName = 0 To 1
-        Local $aProcessList = ProcessList($aProcessNames[$iName])
-        For $i = 1 To $aProcessList[0][0]
-            Local $iPid = Number($aProcessList[$i][1], 2)
-            If $iPid <= 0 Then ContinueLoop
-
-            Local $bExists = False
-            For $j = 0 To UBound($aCandidates) - 1
-                If $aCandidates[$j] = $iPid Then
-                    $bExists = True
-                    ExitLoop
-                EndIf
-            Next
-
-            If $bExists Then ContinueLoop
-            Local $iNext = UBound($aCandidates)
-            ReDim $aCandidates[$iNext + 1]
-            $aCandidates[$iNext] = $iPid
-        Next
-    Next
-
-    If UBound($aCandidates) = 1 Then Return $aCandidates[0]
-    Return 0
-EndFunc
-
-Func _ResetRunStats()
-    $g_hRunTimer = 0
-    $g_iRunDeaths = 0
-    $g_iVanquishStreak = 0
-    $g_bWasPlayerDead = False
-    _UpdateStartButtonState()
-    _UpdateRunStatusDisplay()
-EndFunc
-
-Func _ResetConnectedClientState($sMapStatus = "waiting for client", $sRunStatus = "idle")
-    If $g_h_GWProcess Then Memory_Close()
-    $g_h_GWProcess = 0
-    $g_i_GWProcessId = 0
-    $g_p_BasePointer = 0
-
-    $g_bClientConnected = False
-    $g_sConnectedCharacter = ""
-    $g_s_MainCharName = ""
-    $ProcessID = ""
-    $Bot_Core_Initialized = False
-    $g_bConnectionStatePrimed = False
-    $g_bVanquishHistoryLoaded = False
-    $g_bMapScanInProgress = False
-    $g_bPendingClientPrime = False
-    $g_bPendingVanquishScan = False
-    $g_bPendingMapStateLoad = False
-    $g_bPendingPostConnectRefresh = False
-
-    _SetCharacterSelectionState(False)
-    _ResetRunStats()
-    _ClearHistoricalVanquishStates(False)
-    _UpdateConnectedCharacterDisplay()
-    _UpdateMapScanStatusDisplay($sMapStatus)
-    _UpdateRunControlStatusDisplay($sRunStatus)
-EndFunc
-
-Func _ClearClientRecoveryState()
-    $g_bClientRecoveryPending = False
-    $g_bClientRecoveryAutoScanPending = False
-    $g_sRecoveryCharacter = ""
-EndFunc
-
-Func _IsConnectedClientProcessAlive()
-    If Not $g_bClientConnected Then Return False
-    Local $iPid = $g_i_GWProcessId
-    Return $iPid > 0 And ProcessExists($iPid)
-EndFunc
-
-Func _EnsureConnectedClientAlive($bLogLoss = False)
-    If Not $g_bClientConnected Then Return False
-    If _IsConnectedClientProcessAlive() Then Return True
-
-    _ResetConnectedClientState("client disconnected", "idle")
-    If $bLogLoss Then _Log("Lost connection to the attached Guild Wars client.")
-    Return False
-EndFunc
-
-Func _HandleClientRecoveryLoss($sReason)
-    If $g_bClientRecoveryPending Then Return False
-
-    $g_bClientRecoveryPending = True
-    $g_bClientRecoveryAutoScanPending = False
-    $g_sRecoveryCharacter = $g_sConnectedCharacter
-    If $g_sRecoveryCharacter = "" Then $g_sRecoveryCharacter = _GetAttachedCharacterName()
-
-    If $g_bBotRunning Then
-        $boolrun = False
-        $g_b_Vanquisher_AbortRoute = True
-    EndIf
-
-    _ResetConnectedClientState("waiting for client reconnect", "waiting for client")
-    _UpdateRunControlStatusDisplay("waiting for client reconnect")
-    _Log($sReason)
-    Return True
-EndFunc
-
-Func _V2_CountGWClients()
-    Local $aCandidates[0]
-    Local $aProcessNames[2] = ["Gw.exe", "gw.exe"]
-    Local $iName = 0
-    Local $i = 0
-    Local $j = 0
-
-    For $iName = 0 To 1
-        Local $aProcessList = ProcessList($aProcessNames[$iName])
-        For $i = 1 To $aProcessList[0][0]
-            Local $iPid = Number($aProcessList[$i][1], 2)
-            If $iPid <= 0 Then ContinueLoop
-
-            Local $bExists = False
-            For $j = 0 To UBound($aCandidates) - 1
-                If $aCandidates[$j] = $iPid Then
-                    $bExists = True
-                    ExitLoop
-                EndIf
-            Next
-
-            If $bExists Then ContinueLoop
-            Local $iNext = UBound($aCandidates)
-            ReDim $aCandidates[$iNext + 1]
-            $aCandidates[$iNext] = $iPid
-        Next
-    Next
-
-    Return UBound($aCandidates)
-EndFunc
-
-Func _V2_GWIsRunning()
-    Return _V2_CountGWClients() > 0
-EndFunc
-
-Func _V2_SyncLegacyHandles()
-    $nHandle = $g_h_GWProcess
-    $nPID = $g_i_GWProcessId
-EndFunc
-
-Func _V2_IsAttached()
-    Return $g_h_GWProcess <> 0 And $g_p_BasePointer <> 0
-EndFunc
-
-Func _CanQueryLiveClientState()
-    Local $bReady = True
-    Local $bAttached = _V2_IsAttached()
-    Local $bStatusError = False
-    Local $bInGame = False
-    Local $bIsLoading = False
-
-    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
-        $bReady = False
-    Else
-        If Not _EnsureConnectedClientAlive() Then Return False
-        If Not $bAttached Then
-            $bReady = False
-        Else
-            $bStatusError = Core_GetStatusError()
-            If $bStatusError Then
-                $bReady = False
-            Else
-                $bInGame = Core_IsIngame()
-                If Not $bInGame Then
-                    $bReady = False
-                Else
-                    $bIsLoading = Map_GetInstanceInfo("IsLoading")
-                    If $bIsLoading Then $bReady = False
-                EndIf
-            EndIf
-        EndIf
-    EndIf
-
-    Return $bReady
-EndFunc
-
-Func _PrimeConnectedClientState($bLogWaiting = False)
-    If $g_bConnectionStatePrimed Then Return True
-    If Not _CanQueryLiveClientState() Then
-        If $bLogWaiting Then _Log("Connected to client. Waiting for in-game character data before reading map and world state.")
-        Return False
-    EndIf
-
-    Local $sLiveCharacter = Player_GetCharName()
-    If $sLiveCharacter <> "" Then $g_sConnectedCharacter = $sLiveCharacter
-
-    $g_bWasPlayerDead = GetIsDead(-2)
-    _RefreshMapPartySizeRequirements()
-    $g_bConnectionStatePrimed = True
-    $g_hClientResponsiveTimer = TimerInit()
-    _UpdateStartButtonState()
-
-    _Log("Connected to Guild Wars client: " & $g_sConnectedCharacter)
-    Return True
-EndFunc
-
-Func _GetAttachedCharacterName()
-    If Not _V2_IsAttached() Then Return ""
-    Return StringStripWS(Player_GetCharName(), 3)
-EndFunc
-
-Func _ResolveConnectedCharacterName($sFallback = "", $iTimeoutMs = 5000)
-    #forceref $iTimeoutMs
-    $sFallback = StringStripWS($sFallback, 3)
-
-    Local $sCharacter = _GetAttachedCharacterName()
-    If $sCharacter <> "" Then Return $sCharacter
-    If $sFallback <> "" Then Return $sFallback
-    Return ""
 EndFunc
 
 Func _UpdateLiveRunStats()
@@ -1376,7 +1278,6 @@ Func _RunGuiMaintenance()
     _SyncAllMapChecks()
     _EnforceVisibleMapSelectionRules()
     _RefreshHeroTeamSelectionState()
-    _UpdateVisibleSelectionToggleButton()
     _UpdateConnectedCharacterDisplay()
     _CheckForGuiSourceChanges()
 
@@ -1407,15 +1308,10 @@ Func _RunGuiMaintenance()
                 If $g_sRecoveryCharacter = "" Or StringCompare($g_sDetectedCharacter, $g_sRecoveryCharacter, 0) = 0 Then
                     _Log("Recovered Guild Wars client detected. Reconnecting.")
                     If _ConnectToDetectedClient() Then
-                        $g_bClientRecoveryAutoScanPending = True
                         $g_hClientResponsiveTimer = TimerInit()
                     EndIf
                 EndIf
             EndIf
-        ElseIf $g_bClientRecoveryAutoScanPending And Not $g_bMapScanInProgress And Not $g_bPendingVanquishScan Then
-            $g_bClientRecoveryAutoScanPending = False
-            _Log("Client reconnected. Rescanning map and vanquish state.")
-            _ScanConnectedCharacterVanquishHistory()
         EndIf
     EndIf
 
