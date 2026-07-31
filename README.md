@@ -2,51 +2,78 @@
 
 GUI-based Guild Wars vanquishing bot built on top of **GwAu3**.
 
-This script is the current vanquish-focused workflow in this workspace. It scans for a logged-in Guild Wars client, connects to a single detected character, lets you choose maps by campaign, and starts a queued vanquish route from the GUI.
+This is the active vanquish workflow in this repo. The bot detects a logged-in Guild Wars client, connects to one character, scans completed vanquishes from live game memory, builds a checked-map queue from the GUI, and runs each route with automatic team setup and shared caravan logic.
 
 ## Files
 
-- `GW Vanquish Bot.au3`: small launcher file
-- `Guild Wars Vanquish Bot.au3`: main script and controller
-- `vanquish_config.ini`: saved character and hero team configuration
-- `Core/`: globals, addons, and shared vanquish helpers
-- `GUi/`: GUI layout and assets
-- `Maps/`: campaign map scripts and templates
-- `Moving/`: movement helpers
+- `GW Vanquish Bot.au3`: launcher entry point
+- `Guild Wars Vanquish Bot.au3`: main GUI, queue builder, and runtime controller
+- `vanquish_config.ini`: saved hero selections
+- `Core/Vanquish_Routes.au3`: shared include list for all route scripts
+- `Core/Caravan_Controller.au3`: compatibility entry for caravan flow
+- `Core/Caravan_RouteController.au3`: route-profile and caravan readiness checks
+- `Core/Caravan_VanquishManager.au3`: delayed completion logic for caravan maps
+- `Core/Caravan_PortalController.au3`: dynamic portal routing and caravan transitions
+- `GUi/`: tabbed interface and assets
+- `Maps/`: vanquish scripts, caravan route scripts, and templates
 
 ## Features
 
-- automatic detection of the logged-in Guild Wars character
-- guarded single-client connect flow
-- campaign tabs for `EOTN`, `Prophecies`, `Factions`, and `Nightfall`
-- bulk visible-map selection per campaign
-- hero team configuration for `Team4`, `Team6`, and `Team8`
-- vanquish history scan from the connected character
+- automatic detection of a single logged-in Guild Wars character
+- guarded connect flow that refuses to auto-attach when multiple clients are logged in
+- campaign tabs for `EOTN`, `Prophecies`, `Caravan Routes`, `Factions`, and `Nightfall`
+- per-campaign checked-map queue building from the GUI
+- live vanquish history scan that marks completed zones and prevents re-checking them
+- hero team configuration for `Team4`, `Team6`, and `Team8`, with automatic team setup based on the first queued map
+- queue logging, run timer, death counter, and vanquish streak tracking
+- automatic consumable use on farm-map entry before movement starts
 - smart casting integrated into the fight routine for automated combat skill usage
-- deferred map-state refresh behavior to keep the GUI stable
+- deferred map-state refresh and GUI reload handling for better runtime stability
+
+## Caravan Routing
+
+The caravan system has been refactored into dedicated controllers and now supports shared routing behavior instead of per-map hardcoded portal arrays.
+
+- caravan map scripts are exposed in the `Caravan Routes` tab
+- special Temple of the Ages entries expand into full caravan queues
+- current special routes:
+  - `TOA Ascalon Caravan`
+  - `TOA Maguuma Caravan`
+- dynamic portal travel uses `Map_GetPathWithPortalCoords()` and `_Vanquisher_RunDynamicCaravanGoOut()`
+- caravan maps continue their full coordinate list even after the vanquish flag flips
+- direct explorable-to-next-map caravan catch-up is supported when a valid shared portal path exists
+- portal progression only advances after the map actually changes, which avoids transit-zone loop issues
 
 ## Requirements
 
-- Guild Wars running and already logged into a character
+- Guild Wars running and already logged into one character
 - AutoIt3 `3.3.16.1` or newer, 32-bit
 - GwAu3 API available in the repository `API/` folder
-- Administrator privileges if Guild Wars is running elevated
+- administrator privileges if Guild Wars is running elevated
 
 ## Quick Start
 
 1. Launch Guild Wars and log into one character.
-2. Open this folder: `Scripts/Guild Wars Vanquish Bot/`
+2. Open `Scripts/Guild Wars Vanquish Bot/`.
 3. Run `GW Vanquish Bot.au3`.
 4. Wait for the bot to detect the logged-in character.
-5. Click `Connect`.
-6. Click `Scan Vanquish History` if you want the status column updated from the live character.
-7. Set your heroes for `Team4`, `Team6`, and `Team8`.
-8. Choose maps from `EOTN`, `Prophecies`, `Factions`, or `Nightfall`.
-9. Click `Start Bot`.
+5. Click `Connect To Client`.
+6. Click `Scan Vanquish Maps` to load completed-zone status from the live character.
+7. Set heroes for `Team4`, `Team6`, and `Team8`, then click `Save Config` if you want to persist them.
+8. Check the maps you want to run from the campaign tabs.
+9. Return to an outpost if needed, then click `Start Checked Maps`.
+
+## Queue Behavior
+
+- the bot only starts from an outpost
+- already-vanquished maps are greyed out, unchecked, and skipped from queue building
+- special caravan entries expand into their full ordered route automatically
+- the first queued map decides which hero-team size must be available
+- when the queue advances, the bot reuses the shared caravan transition logic where possible instead of always returning to an outpost
 
 ## Configuration
 
-Hero team selections and the last character name are stored in:
+Hero selections are stored in:
 
 ```ini
 vanquish_config.ini
@@ -57,7 +84,6 @@ Current sections:
 - `[Team4]`
 - `[Team6]`
 - `[Team8]`
-- `[General]`
 
 Example:
 
@@ -67,36 +93,47 @@ Hero1=Norgu
 Hero2=Gwen
 Hero3=Olias
 
-[General]
-Character=Insert Character Name Here
+[Team8]
+Hero1=Gwen
+Hero2=Olias
+Hero3=Norgu
+Hero4=Razah
+Hero5=Xandra
+Hero6=Livia
+Hero7=Master of Whispers
 ```
 
 ## Running Notes
 
-- Run the script from this folder. It uses relative paths for the config file, GUI image, and map script loading.
-- The launcher `GW Vanquish Bot.au3` simply includes `Guild Wars Vanquish Bot.au3`.
-- The script uses `#RequireAdmin`.
-- Connection is intended for a single detected logged-in Guild Wars client. If multiple characters are detected, the bot will not auto-attach.
-- Combat handling includes smart casting during the fight routine, so the bot can cycle offensive skills automatically while keeping healing skills handled separately.
-- In pre-searing, a few skills are still excluded from smart casting due to known compatibility issues: `Glyph of Lesser Energy`, `Ignite Arrows`, `Read the Wind`, and `Frenzy`.
+- run the script from this folder because it relies on relative paths for config, GUI assets, and map loading
+- `GW Vanquish Bot.au3` simply includes `Guild Wars Vanquish Bot.au3`
+- the script uses `#RequireAdmin`
+- connection is intended for one detected logged-in Guild Wars client
+- combat handling includes smart casting during the fight routine, while some healing logic stays separate
+- in pre-searing, these skills are still excluded from smart casting due to known compatibility issues:
+  - `Glyph of Lesser Energy`
+  - `Ignite Arrows`
+  - `Read the Wind`
+  - `Frenzy`
 
 ## Linux / Wine Notes
 
-This bot is being used under Linux with Wine as well as Windows.
+This bot is used under Linux with Wine as well as Windows.
 
-- A 32-bit Wine prefix is recommended.
-- The script disables GwAu3 auto-update flags at startup to avoid hangs under Wine.
-- Some GUI refresh operations are intentionally deferred because heavy immediate list rebuilds can blank or stall the interface under Wine.
-- Live memory-heavy reads should only be used after the client is fully in game.
+- a 32-bit Wine prefix is recommended
+- GwAu3 auto-update flags are disabled at startup to avoid Wine hangs
+- some GUI refresh work is intentionally deferred because aggressive list rebuilds can blank or stall the interface under Wine
+- memory-heavy reads should be done only after the client is fully in game
 
 ## Map Coverage
 
-The `Maps/` folder contains campaign-specific vanquish scripts, along with reusable templates in `Maps/_Templates/`.
+The `Maps/` folder contains campaign-specific vanquish scripts, caravan route scripts, and reusable templates in `Maps/_Templates/`.
 
 Campaign groups currently exposed by the GUI:
 
 - `EOTN`
 - `Prophecies`
+- `Caravan Routes`
 - `Factions`
 - `Nightfall`
 

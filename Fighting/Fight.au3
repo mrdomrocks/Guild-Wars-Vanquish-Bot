@@ -1,7 +1,7 @@
 Func _Vanquisher_FightExitCallback()
     If $g_h_Vanquisher_FightTimer <> 0 And TimerDiff($g_h_Vanquisher_FightTimer) > 120000 Then Return True
     If $DeadOnTheRun Or $g_b_Vanquisher_AbortRoute Then Return True
-    If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then Return True
+    If _Vanquisher_ShouldCompleteCurrentZoneNow() Then Return True
     Return False
 EndFunc
 
@@ -25,7 +25,6 @@ Func _Vanquisher_JununduTryMelee($a_i_EnemyID)
 EndFunc
 
 Func FightJunundu($a_i_AggroRange = $JUNUNDU_RANGE_AGGRO, $a_s_Label = "")
-    CurrentAction("Fighting Junundu #:" & $a_s_Label)
     If GetPartyDead() Then Return
 
     $g_h_Vanquisher_FightTimer = TimerInit()
@@ -62,15 +61,13 @@ Func FightJunundu($a_i_AggroRange = $JUNUNDU_RANGE_AGGRO, $a_s_Label = "")
     Until GetNumberOfFoesInRangeOfAgent(-2, $a_i_AggroRange) = 0 Or _Vanquisher_FightExitCallback() Or GetIsDead(-2)
 
     UpdateVanquish()
-    If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+    If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
         _Vanquisher_OnVanquishComplete(" (junundu fight)")
         Return
     EndIf
     If $g_b_Vanquisher_AbortRoute Then Return
 
-    CurrentAction("Junundu combat ended after: " & StringFormat("%d", TimerDiff($g_h_Vanquisher_FightTimer) / 1000) & "s")
     PingSleep(3000)
-    CurrentAction("Picking up items")
     PickUpLoot()
 EndFunc   ;==>FightJunundu
 
@@ -80,7 +77,6 @@ Func Fight($a_i_AggroRange, $a_s_Label = "")
         Return
     EndIf
 
-    CurrentAction("Fighting Group #:" & $a_s_Label)
     If GetPartyDead() Then Return
 
     _Vanquisher_InitCombatAI()
@@ -101,14 +97,12 @@ Func Fight($a_i_AggroRange, $a_s_Label = "")
     UAI_Fight($l_f_AnchorX, $l_f_AnchorY, $a_i_AggroRange, 3500, $g_i_FinisherMode, True, 0, False, "_Vanquisher_FightExitCallback")
 
     UpdateVanquish()
-    If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+    If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
         _Vanquisher_OnVanquishComplete(" (fight)")
         Return
     EndIf
     If $g_b_Vanquisher_AbortRoute Then Return
 
-    CurrentAction("Combat ended after: " & StringFormat("%d", TimerDiff($g_h_Vanquisher_FightTimer) / 1000) & "s")
     PingSleep(3000)
-    CurrentAction("Picking up items")
     PickUpLoot()
 EndFunc   ;==>Fight

@@ -77,6 +77,40 @@
 ; Ring of Fire Islands
 #include "..\Maps\Proph_RingOfFireIsland\PerditionRock.au3"
 
+; Caravan Routes - Ascalon
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_TheBlackCurtain.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_CursedLands.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_NeboTerrace.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_NorthKrytaProvince.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_ScoundrelsRise.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_GriffonsMouth.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_DeldrimorBowl.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_AnvilRock.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_IronHorseMine.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_TravelersVale.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_AscalonFoothills.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_DiessaLowlands.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_FlameTempleCorridor.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_DragonsGullet.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_TheBreach.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_OldAscalon.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_RegentValley.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_PockmarkFlats.au3"
+#include "..\Maps\Caravan_Ascalon\CaravanAscalon_EasternFrontier.au3"
+
+; Caravan Routes - Maguuma
+#include "..\Maps\Caravan_Maguuma\SpecialRoute_TempleOfTheAgesMaguumaCaravan.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_TalmarkWilderness.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_MajestysRest.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_SageLands.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_MamnoonLagoon.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_Silverwood.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_EttinsBack.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_ReedBog.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_TheFalls.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_DryTop.au3"
+#include "..\Maps\Caravan_Maguuma\CaravanMaguuma_TangleRoot.au3"
+
 ; Shing Jea Island
 #include "..\Maps\Factions_ShingJeaIsland\HaijuLagoon.au3"
 #include "..\Maps\Factions_ShingJeaIsland\JayaBluffs.au3"

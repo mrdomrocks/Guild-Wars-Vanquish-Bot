@@ -377,6 +377,7 @@ EndFunc
 Func Disconnected()
     Out("Waiting for map load...")
     Map_WaitMapLoading(60000)
+    _Vanquisher_CacheCombatAIForCurrentMap()
 EndFunc
 #EndRegion
 
@@ -699,15 +700,39 @@ Func _Vanquisher_TryCaptureVanquishBaseline()
     Return False
 EndFunc
 
+Func _Vanquisher_InvalidateCombatAI()
+    $g_b_Vanquisher_CombatAIReady = False
+    $g_i_Vanquisher_CombatAIReadyMapID = 0
+EndFunc
+
 ; GwAu3 Utility AI requires Cache_SkillBar() once per explorable zone before UAI_Fight can cast or auto-attack.
-Func _Vanquisher_InitCombatAI()
-    If $g_b_Vanquisher_CombatAIReady Then Return
-    If Not Map_GetInstanceInfo("IsExplorable") Then Return
-    If Map_GetInstanceInfo("IsLoading") Then Return
+Func _Vanquisher_CacheCombatAIForCurrentMap($a_b_Announce = False, $a_b_Force = False)
+    If Map_GetInstanceInfo("IsLoading") Then
+        _Vanquisher_InvalidateCombatAI()
+        Return False
+    EndIf
+
+    If Not Map_GetInstanceInfo("IsExplorable") Then
+        _Vanquisher_InvalidateCombatAI()
+        Return False
+    EndIf
+
+    Local $l_i_MapID = GetMapID()
+    If $l_i_MapID <= 0 Then Return False
+
+    If Not $a_b_Force And $g_b_Vanquisher_CombatAIReady And $g_i_Vanquisher_CombatAIReadyMapID = $l_i_MapID Then Return True
+
     $g_b_CacheWeaponSet = True
-    Cache_SkillBar()
+    If Not Cache_SkillBar() Then Return False
+
     $g_b_Vanquisher_CombatAIReady = True
-    CurrentAction("Utility AI skill bar cached.")
+    $g_i_Vanquisher_CombatAIReadyMapID = $l_i_MapID
+    If $a_b_Announce Then CurrentAction("Utility AI skill bar cached.")
+    Return True
+EndFunc
+
+Func _Vanquisher_InitCombatAI()
+    _Vanquisher_CacheCombatAIForCurrentMap(True)
 EndFunc
 
 Func _Vanquisher_ResetGoOutRouteProgress()
@@ -722,7 +747,7 @@ Func _Vanquisher_RefreshVanquishBaseline()
     $g_b_Vanquisher_HasRunRoute = False
     $g_b_Vanquisher_RunFinished = False
     $g_b_Vanquisher_AbortRoute = False
-    $g_b_Vanquisher_CombatAIReady = False
+    _Vanquisher_InvalidateCombatAI()
     $g_b_Vanquisher_TransitOnly = False
     $g_i_Vanquisher_GoOutLastMapHandled = -1
     $g_i_TearsRoute_LastMapHandled = -1
@@ -817,7 +842,7 @@ Func _Vanquisher_ResetZoneRouteState()
     $g_b_Vanquisher_RunFinished = False
     $g_b_Vanquisher_AbortRoute = False
     $g_b_Vanquisher_DeathResignPending = False
-    $g_b_Vanquisher_CombatAIReady = False
+    _Vanquisher_InvalidateCombatAI()
     $g_h_Vanquisher_FightTimer = 0
     $g_i_Vanquisher_InitialFoesToKill = -1
     $g_i_Vanquisher_InitialFoesKilled = 0
@@ -859,10 +884,10 @@ Func _Vanquisher_FinishRun()
     Global $boolrun
     If $g_b_Vanquisher_RunFinished Then Return
     $g_b_Vanquisher_RunFinished = True
-    $g_b_Vanquisher_AbortRoute = True
-    If _Vanquisher_IsAscalonCaravanZone() Then
-        CurrentAction("Vanquish complete — staying on map (Ascalon caravan).")
+    If IsFunc("_ShouldStayInExplorableForQueuedRoute") And _ShouldStayInExplorableForQueuedRoute() Then
+        CurrentAction("Vanquish complete — continuing caravan route.")
     Else
+        $g_b_Vanquisher_AbortRoute = True
         CurrentAction("Vanquish complete — returning to outpost.")
         _Vanquisher_ReturnToOutpost()
     EndIf
@@ -894,6 +919,7 @@ Func _Vanquisher_ResignToOutpost()
         WaitMapLoading($Map_To_Zone, 30000)
     Else
         Map_WaitMapLoading(30000)
+        _Vanquisher_CacheCombatAIForCurrentMap()
     EndIf
     Return Not Map_GetInstanceInfo("IsExplorable")
 EndFunc
@@ -950,6 +976,7 @@ Func _Vanquisher_ReturnToOutpost()
             WaitMapLoading($Map_To_Zone, 30000)
         Else
             Map_WaitMapLoading(30000)
+            _Vanquisher_CacheCombatAIForCurrentMap()
         EndIf
     EndIf
 

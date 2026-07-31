@@ -71,7 +71,9 @@ EndFunc   ;==> CalculateFastestTime
 
 #Region Travel
 Func WaitMapLoading($a_i_MapID, $a_i_Timeout = 15000)
-    Return Map_WaitMapLoading($a_i_MapID, 0, $a_i_Timeout)
+    Local $l_b_Loaded = Map_WaitMapLoading($a_i_MapID, 0, $a_i_Timeout)
+    _Vanquisher_CacheCombatAIForCurrentMap()
+    Return $l_b_Loaded
 EndFunc   ;==>WaitMapLoading
 
 Func OutpostTravel($a_i_MapID)
@@ -95,7 +97,12 @@ Func RndTravel($a_i_MapID, $a_WaitToLoad = True, $a_b_SwitchDistrict = True)
 
     Map_InitMapIsLoaded()
     Map_MoveMap($a_i_MapID, $aRegion[$iRandom], 0, $aLanguage[$iRandom])
-    If $a_WaitToLoad Then Map_WaitMapLoading($a_i_MapID)
+    If $a_WaitToLoad Then
+        Map_WaitMapLoading($a_i_MapID)
+        _Vanquisher_CacheCombatAIForCurrentMap()
+    Else
+        _Vanquisher_InvalidateCombatAI()
+    EndIf
     Sleep(875)
 EndFunc   ;==>RndTravel
 #EndRegion Travel
@@ -162,7 +169,6 @@ Func MoveTo($aX, $aY, $aRandom = 50, $aFightBack = False)
             Local $nearestEnemy = GetNearestEnemyToAgent(-2, 1500, $GC_I_AGENT_TYPE_LIVING, 1, "EnemyFilter")
             If $nearestEnemy <> 0 Then
                 If Agent_GetAgentInfo($nearestEnemy, "IsAttacking") Then
-                    LogWarn("Enemy is attacking us!")
                     AggroMoveSmartFilter(Agent_GetAgentInfo($nearestEnemy, "X"), Agent_GetAgentInfo($nearestEnemy, "Y"), 1000, 1000)
                 EndIf
             EndIf
@@ -309,14 +315,11 @@ Func UseHeal()
     If $healSlot = 0 Then Return False
 
     Local $skillID = Skill_GetSkillbarInfo($healSlot, "SkillID")
-    Local $skillName = Skill_GetSkillInfo($skillID, "SkillName")
     Local $energyCost = Skill_GetSkillInfo($skillID, "EnergyCost")
 
     Do
         Sleep(250)
     Until GetEnergy(-2) >= $energyCost
-
-    LogWarn("Using healing skill: " & $skillName)
 
     UseSkillEx($healSlot, -2)
 

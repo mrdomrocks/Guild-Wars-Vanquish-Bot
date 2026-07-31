@@ -12,8 +12,9 @@
 ; UI-only module for the GW Vanquish Bot.
 ; Run the top-level launcher from the bot root folder.
 
-Global Const $MAP_CAMPAIGN_COUNT = 4
+Global Const $MAP_CAMPAIGN_COUNT = 5
 Global Const $CONSOLE_WIDTH = 360
+Global Const $MAP_CAMPAIGN_FIRST_TAB_INDEX = 1
 
 Global $hGUI, $tab, $camp
 Global $console
@@ -22,12 +23,9 @@ Global $lblDetectedClient, $lblDetectedCharacter, $lblConnectedCharacter
 Global $lblMapScanStatus, $lblRunControlStatus
 Global $lblRunTime, $lblDeaths, $lblVanquishStreak
 Global $btnConnect, $btnScanVanquishHistory, $btnStart, $btnStop, $btnSaveConfig
-Global $btnGroupEOTN, $btnGroupProphecies, $btnGroupFactions, $btnGroupNightfall
-Global $btnToggleVisibleSelection
-Global $lvMapsEOTN, $lvMapsProphecies, $lvMapsFactions, $lvMapsNightfall
-Global $g_aCampaignButtons[$MAP_CAMPAIGN_COUNT]
+Global $lvMapsEOTN, $lvMapsProphecies, $lvMapsCaravan, $lvMapsFactions, $lvMapsNightfall
 Global $g_aCampaignLists[$MAP_CAMPAIGN_COUNT]
-Global $g_aCampaignNames[$MAP_CAMPAIGN_COUNT] = ["EOTN", "Prophecies", "Factions", "Nightfall"]
+Global $g_aCampaignNames[$MAP_CAMPAIGN_COUNT] = ["EOTN", "Prophecies", "Caravan Routes", "Factions", "Nightfall"]
 Global $g_aMapListItemIDs[0]
 Global $g_aMapListRows[0]
 Global $g_aClientControlArray[4]
@@ -60,7 +58,7 @@ Func _VB_CreateGUI()
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
     GUICtrlCreateGroup("Run Control", 40, 295, 280, 185)
-    $btnStart = GUICtrlCreateButton("Start Selected Maps", 55, 325, 120, 34)
+    $btnStart = GUICtrlCreateButton("Start Checked Maps", 55, 325, 120, 34)
     $btnStop = GUICtrlCreateButton("Stop", 185, 325, 120, 34)
     $lblRunControlStatus = GUICtrlCreateLabel("Run Status: idle", 55, 368, 250, 18)
     $lblRunTime = GUICtrlCreateLabel("Current Run Time: 00:00:00", 55, 390, 250, 18)
@@ -122,26 +120,26 @@ Func _VB_CreateGUI()
     $g_aRunControlArray[4] = $lblDeaths
     $g_aRunControlArray[5] = $lblVanquishStreak
 
-    GUICtrlCreateTabItem("Map Selection")
-    $btnToggleVisibleSelection = GUICtrlCreateButton("Select All EOTN", 890, 50, 230, 28)
-    $btnGroupEOTN = GUICtrlCreateButton("EOTN", 20, 50, 150, 28, $BS_DEFPUSHBUTTON)
-    $btnGroupProphecies = GUICtrlCreateButton("Prophecies", 580, 50, 150, 28)
-    $btnGroupFactions = GUICtrlCreateButton("Factions", 20, 290, 150, 28)
-    $btnGroupNightfall = GUICtrlCreateButton("Nightfall", 580, 290, 150, 28)
+    GUICtrlCreateTabItem("EOTN")
+    $lvMapsEOTN = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
-    $lvMapsEOTN = GUICtrlCreateListView(" |Region|Map|Status", 20, 84, 540, 190, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
-    $lvMapsProphecies = GUICtrlCreateListView(" |Region|Map|Status", 580, 84, 540, 190, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
-    $lvMapsFactions = GUICtrlCreateListView(" |Region|Map|Status", 20, 324, 540, 190, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
-    $lvMapsNightfall = GUICtrlCreateListView(" |Region|Map|Status", 580, 324, 540, 190, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    GUICtrlCreateTabItem("Prophecies")
+    $lvMapsProphecies = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
-    $g_aCampaignButtons[0] = $btnGroupEOTN
-    $g_aCampaignButtons[1] = $btnGroupProphecies
-    $g_aCampaignButtons[2] = $btnGroupFactions
-    $g_aCampaignButtons[3] = $btnGroupNightfall
+    GUICtrlCreateTabItem("Caravan Routes")
+    $lvMapsCaravan = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+
+    GUICtrlCreateTabItem("Factions")
+    $lvMapsFactions = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+
+    GUICtrlCreateTabItem("Nightfall")
+    $lvMapsNightfall = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+
     $g_aCampaignLists[0] = $lvMapsEOTN
     $g_aCampaignLists[1] = $lvMapsProphecies
-    $g_aCampaignLists[2] = $lvMapsFactions
-    $g_aCampaignLists[3] = $lvMapsNightfall
+    $g_aCampaignLists[2] = $lvMapsCaravan
+    $g_aCampaignLists[3] = $lvMapsFactions
+    $g_aCampaignLists[4] = $lvMapsNightfall
 
     For $i = 0 To $MAP_CAMPAIGN_COUNT - 1
         _GUICtrlListView_SetExtendedListViewStyle($g_aCampaignLists[$i], BitOR($LVS_EX_CHECKBOXES, $LVS_EX_FULLROWSELECT, $LVS_EX_GRIDLINES, $LVS_EX_DOUBLEBUFFER))
@@ -238,6 +236,7 @@ Func _UpdateMapScanStatusDisplay($sStatus = "")
     Local $i = 0
 
     For $i = 0 To UBound($g_aMapEntries) - 1
+        If $g_aMapEntries[$i][0] = "Caravan Internal" Then ContinueLoop
         If $g_aMapEntries[$i][5] Then
             $iVanquished += 1
         Else
@@ -306,8 +305,11 @@ EndFunc
 Func _ResizeMapListColumns()
     Local $iCheckWidth = 34
     Local $iStatusChars = StringLen("Vanquished")
-    Local Const $iMapListMaxWidth = 540
-    Local Const $iMapListHeight = 190
+    Local Const $iMapListMaxWidth = 1060
+    Local Const $iMapListHeight = 440
+    Local Const $iMapSelectionPaneLeft = 30
+    Local Const $iMapSelectionPaneWidth = 1100
+    Local Const $iMapSelectionPaneTop = 50
     Local $aRegionChars[$MAP_CAMPAIGN_COUNT]
     Local $aMapChars[$MAP_CAMPAIGN_COUNT]
     Local $i = 0
@@ -332,7 +334,7 @@ Func _ResizeMapListColumns()
         If $iRegionWidth > 170 Then $iRegionWidth = 170
 
         Local $iMapWidth = _EstimateMapListColumnWidth($aMapChars[$i], 24)
-        If $iMapWidth < 220 Then $iMapWidth = 220
+        If $iMapWidth > 260 Then $iMapWidth = 260
 
         Local $iListWidth = $iCheckWidth + $iRegionWidth + $iMapWidth + $iStatusWidth + 24
         If $iListWidth > $iMapListMaxWidth Then
@@ -340,23 +342,17 @@ Func _ResizeMapListColumns()
             $iMapWidth = $iListWidth - $iCheckWidth - $iRegionWidth - $iStatusWidth - 24
         EndIf
 
-        Local $iX = 20
-        Local $iY = 84
-        If $i = 1 Then
-            $iX = 580
-        ElseIf $i = 2 Then
-            $iY = 324
-        ElseIf $i = 3 Then
-            $iX = 580
-            $iY = 324
-        EndIf
-
-        GUICtrlSetPos($g_aCampaignLists[$i], $iX, $iY, $iListWidth, $iMapListHeight)
+        Local $iListX = $iMapSelectionPaneLeft + Int(($iMapSelectionPaneWidth - $iListWidth) / 2)
+        GUICtrlSetPos($g_aCampaignLists[$i], $iListX, $iMapSelectionPaneTop, $iListWidth, $iMapListHeight)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 0, $iCheckWidth)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 1, $iRegionWidth)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 2, $iMapWidth)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 3, $iStatusWidth)
     Next
+EndFunc
+
+Func _UpdateCampaignListVisibility()
+    Return
 EndFunc
 
 Func _SetHeroComboArrayState(ByRef $aComboIDs, $iState)
@@ -427,6 +423,19 @@ Func _GetCampaignListView($sCampaign)
     Local $iCampaignIndex = _GetCampaignIndex($sCampaign)
     If $iCampaignIndex = -1 Then Return 0
     Return $g_aCampaignLists[$iCampaignIndex]
+EndFunc
+
+Func _GetCampaignTabIndex($sCampaign)
+    Local $iCampaignIndex = _GetCampaignIndex($sCampaign)
+    If $iCampaignIndex = -1 Then Return -1
+    Return $MAP_CAMPAIGN_FIRST_TAB_INDEX + $iCampaignIndex
+EndFunc
+
+Func _SyncActiveMapGroupFromSelectedTab()
+    Local $iTabIndex = _GetCurrentTabIndex()
+    Local $iCampaignIndex = $iTabIndex - $MAP_CAMPAIGN_FIRST_TAB_INDEX
+    If $iCampaignIndex < 0 Or $iCampaignIndex >= $MAP_CAMPAIGN_COUNT Then Return
+    $g_sActiveMapGroup = $g_aCampaignNames[$iCampaignIndex]
 EndFunc
 
 Func _InitializeMapListItems()
@@ -540,7 +549,8 @@ Func _ShowMapCampaign($sCampaign)
     If _GetCampaignIndex($sCampaign) = -1 Then Return
     $g_sActiveMapGroup = $sCampaign
     _RebuildCampaignMapList($sCampaign)
-    _UpdateMapGroupButtons()
+    Local $iTabIndex = _GetCampaignTabIndex($sCampaign)
+    If $iTabIndex <> -1 Then _SetCurrentTabIndex($iTabIndex)
     _UpdateVisibleSelectionToggleButton()
 EndFunc
 
@@ -583,21 +593,7 @@ Func _ToggleVisibleMapChecks()
 EndFunc
 
 Func _UpdateVisibleSelectionToggleButton()
-    Local $sSelectLabel = "Select All " & $g_sActiveMapGroup
-    Local $sUnselectLabel = "Unselect All " & $g_sActiveMapGroup
-
-    If Not _HasVisibleSelectableMaps() Then
-        GUICtrlSetState($btnToggleVisibleSelection, $GUI_DISABLE)
-        GUICtrlSetData($btnToggleVisibleSelection, $sSelectLabel)
-        Return
-    EndIf
-
-    GUICtrlSetState($btnToggleVisibleSelection, $GUI_ENABLE)
-    If _AreAllVisibleSelectableMapsChecked() Then
-        GUICtrlSetData($btnToggleVisibleSelection, $sUnselectLabel)
-    Else
-        GUICtrlSetData($btnToggleVisibleSelection, $sSelectLabel)
-    EndIf
+    Return
 EndFunc
 
 Func _PopulateMapList($sCampaign, $sSubgroup = "")
@@ -608,8 +604,7 @@ Func _PopulateMapList($sCampaign, $sSubgroup = "")
         For $iCampaign = 0 To $MAP_CAMPAIGN_COUNT - 1
             _RebuildCampaignMapList($g_aCampaignNames[$iCampaign])
         Next
-
-        _UpdateMapGroupButtons()
+        _SyncActiveMapGroupFromSelectedTab()
         _UpdateVisibleSelectionToggleButton()
         Return
     EndIf
@@ -618,7 +613,8 @@ Func _PopulateMapList($sCampaign, $sSubgroup = "")
 
     $g_sActiveMapGroup = $sCampaign
     _RebuildCampaignMapList($sCampaign)
-    _UpdateMapGroupButtons()
+    Local $iTabIndex = _GetCampaignTabIndex($sCampaign)
+    If $iTabIndex <> -1 Then _SetCurrentTabIndex($iTabIndex)
     _UpdateVisibleSelectionToggleButton()
 EndFunc
 
@@ -644,13 +640,7 @@ Func _SetVisibleMapChecks($bChecked)
 EndFunc
 
 Func _UpdateMapGroupButtons()
-    Local $i = 0
-    For $i = 0 To $MAP_CAMPAIGN_COUNT - 1
-        GUICtrlSetState($g_aCampaignButtons[$i], $GUI_ENABLE)
-    Next
-
-    Local $iCampaignIndex = _GetCampaignIndex($g_sActiveMapGroup)
-    If $iCampaignIndex <> -1 Then GUICtrlSetState($g_aCampaignButtons[$iCampaignIndex], $GUI_DISABLE)
+    Return
 EndFunc
 
 Func _Log($sText)

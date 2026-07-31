@@ -175,6 +175,7 @@ Global $g_b_Vanquisher_RunFinished = False
 Global $g_b_Vanquisher_AbortRoute = False
 Global $g_b_Vanquisher_DeathResignPending = False
 Global $g_b_Vanquisher_CombatAIReady = False
+Global $g_i_Vanquisher_CombatAIReadyMapID = 0
 Global $g_b_Vanquisher_TransitOnly = False
 Global $g_i_Vanquisher_GoOutLastMapHandled = -1
 Global $g_i_TearsRoute_LastMapHandled = -1
@@ -184,7 +185,10 @@ Global $g_b_Vanquisher_ClientRecoveryInProgress = False
 
 ; Multi-zone queue (checked zones on Areas tab, run in order)
 Global $g_a_VanquisherZoneQueue[0]
+Global $g_a_VanquisherZoneRouteProfile[0]
 Global $g_i_VanquisherZoneQueueIndex = -1
 Global $g_b_Vanquisher_QueueAdvanced = False
 Global $g_b_Vanquisher_SessionStarted = False
 Global $g_b_AscalonCaravan_VisitedDG = False
+Global $g_b_Vanquisher_CombinedMaguumaCaravanActive = False
+Global $g_i_Vanquisher_CombinedMaguumaStage = 0

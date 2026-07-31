@@ -39,6 +39,7 @@
 #include "../../../API/_GwAu3.au3"
 #include "Vanquisher_Globals.au3"
 #include "Vanquisher_Compat.au3"
+#include "Caravan_Controller.au3"
 #include "GwAu3_AddOns.au3"
 
 ; Command line: -character <name> (AscEnd-style auto-attach)

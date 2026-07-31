@@ -9,7 +9,7 @@ Global $RangeLimit = 1450
 ; All maps use these route helpers — vanquish complete / abort is handled here globally.
 Func _Vanquisher_ExitRouteIfDone($a_s_Phase = "")
     If _Vanquisher_ShouldStop() Then Return True
-    If _Vanquisher_IsVanquishComplete() Then
+    If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
         _Vanquisher_OnVanquishComplete($a_s_Phase)
         Return True
     EndIf
@@ -19,23 +19,43 @@ EndFunc
 ; Move through path with combat; last point is a portal (AggroMoveTo then Move + Wait).
 Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_Label = "", $a_i_PostMoveDelayMs = 0, $a_s_WaitFunc = "WaitForLoad")
     Local $l_i_Count = UBound($a_a_Points)
-    If $l_i_Count < 1 Then Return
+    If $l_i_Count < 1 Then Return False
     Local $l_i_Last = $l_i_Count - 1
     For $l_i_Idx = 0 To $l_i_Last - 1
-        If _Vanquisher_ShouldStop() Then Return
+        If _Vanquisher_ShouldStop() Then Return False
         AggroMoveTo($a_a_Points[$l_i_Idx][0], $a_a_Points[$l_i_Idx][1], $a_s_Label & ($l_i_Idx + 1), $a_i_AggroRange)
     Next
-    If _Vanquisher_ShouldStop() Then Return
+    If _Vanquisher_ShouldStop() Then Return False
     AggroMoveTo($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1], $a_s_Label & " portal", $a_i_AggroRange)
     Local $l_i_MapBefore = GetMapID()
-    Move($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1])
-    If $a_i_PostMoveDelayMs > 0 Then Sleep($a_i_PostMoveDelayMs)
+    Local $l_b_LoadTriggered = False
+    Local $l_i_Attempt = 0
+    For $l_i_Attempt = 1 To 4
+        Move($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1])
+        If $a_i_PostMoveDelayMs > 0 Then Sleep($a_i_PostMoveDelayMs)
+        Sleep(250)
+
+        If GetMapID() <> $l_i_MapBefore Or Map_GetInstanceInfo("IsLoading") Then
+            $l_b_LoadTriggered = True
+            ExitLoop
+        EndIf
+
+        ; Re-issue a tighter move to help fire borderline portal triggers.
+        MoveTo($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1], 60, False)
+        Sleep(250)
+
+        If GetMapID() <> $l_i_MapBefore Or Map_GetInstanceInfo("IsLoading") Then
+            $l_b_LoadTriggered = True
+            ExitLoop
+        EndIf
+    Next
+
     ; Portal fired (map changed or loading) — must wait for load before cons/VQ start.
-    If GetMapID() <> $l_i_MapBefore Or Map_GetInstanceInfo("IsLoading") Then
+    If $l_b_LoadTriggered Then
         Call($a_s_WaitFunc)
-        Return
+        Return True
     EndIf
-    Call($a_s_WaitFunc)
+    Return False
 EndFunc
 
 ; Named aliases for map files authored as route arrays instead of repeated MoveTo()/Move().
@@ -114,7 +134,7 @@ Func MoveandAggroVQ($aWaypoints)
         AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
         If _Vanquisher_IsWormSpoorWaypoint($aWaypoints[$Index][2]) Then UseWormSpoor($aWaypoints[$Index][0], $aWaypoints[$Index][1])
         $ActionCounter += 1
-        If _Vanquisher_IsVanquishComplete() Then
+        If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
             If _Vanquisher_OnVanquishComplete(" (forward)") Then Return
         EndIf
         If $DeadOnTheRun Then
@@ -125,7 +145,7 @@ Func MoveandAggroVQ($aWaypoints)
             $BlockCount = 2; let's try and get back to our spot ASAP 
         EndIf
     Next
-    If _Vanquisher_IsVanquishComplete() Then
+    If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
         _Vanquisher_OnVanquishComplete(" (forward end)")
         Return
     EndIf
@@ -142,12 +162,12 @@ Func MoveandAggroVQWurm($aWaypoints)
         AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
         If _Vanquisher_IsWormSpoorWaypoint($aWaypoints[$Index][2]) Then UseWormSpoor($aWaypoints[$Index][0], $aWaypoints[$Index][1])
         $ActionCounter += 1
-        If _Vanquisher_IsVanquishComplete() Then
+        If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
             If _Vanquisher_OnVanquishComplete(" (wurm)") Then Return
         EndIf
 		Sleep(7000)
     Next
-    If _Vanquisher_IsVanquishComplete() Then
+    If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
         _Vanquisher_OnVanquishComplete(" (wurm end)")
     EndIf
 EndFunc
@@ -165,7 +185,7 @@ Func MoveandAggroVQReverse($aWaypoints)
         AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
         If _Vanquisher_IsWormSpoorWaypoint($aWaypoints[$Index][2]) Then UseWormSpoor($aWaypoints[$Index][0], $aWaypoints[$Index][1])
         $ActionCounter += 1
-        If _Vanquisher_IsVanquishComplete() Then
+        If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
             If _Vanquisher_OnVanquishComplete(" (reverse)") Then Return
         EndIf
         If $DeadOnTheRun Then
@@ -176,7 +196,7 @@ Func MoveandAggroVQReverse($aWaypoints)
             $BlockCount = 2; let's try and get back to our spot ASAP 
         EndIf
     Next
-    If _Vanquisher_IsVanquishComplete() Then
+    If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
         _Vanquisher_OnVanquishComplete(" (reverse end)")
         Return
     EndIf
@@ -195,7 +215,7 @@ Func _Vanquisher_CheckVanquishDuringRoute(ByRef $a_h_Timer, $a_s_Phase)
     If TimerDiff($a_h_Timer) < $CHECK_INTERVAL Then Return False
     $a_h_Timer = TimerInit()
     UpdateVanquish()
-    If Not _Vanquisher_IsVanquishComplete() Then Return False
+    If Not _Vanquisher_ShouldCompleteCurrentZoneNow() Then Return False
     Return _Vanquisher_OnVanquishComplete($a_s_Phase)
 EndFunc
 
@@ -488,7 +508,7 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450)
             If GetPartyDead() Then $DeadOnTheRun = 1
         EndIf
 
-        If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+        If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
             _Vanquisher_OnVanquishComplete(" (move)")
             Pathfinder_Shutdown()
             Return True
@@ -514,7 +534,7 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450)
                 EndIf
                 _Vanquisher_ApplyConsumables()
                 UpdateVanquish()
-                If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+                If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
                     _Vanquisher_OnVanquishComplete(" (after fight)")
                     Pathfinder_Shutdown()
                     Return True
@@ -578,10 +598,12 @@ EndFunc
 
 Func AggroMoveTo($x, $y, $s = "", $z = 1450)
     If _Vanquisher_ShouldStop() Then Return
-    If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+    If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
         _Vanquisher_OnVanquishComplete(" (waypoint)")
         Return
     EndIf
+
+    _Vanquisher_ApplyConsumablesOnFarmEntry()
 
     CurrentAction("Moving to Waypoint:" & $s)
 
@@ -613,7 +635,7 @@ Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450)
                         EndIf
                         If GetPartyDead() Then $DeadOnTheRun = 1
                 EndIf
-                If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+                If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
                         _Vanquisher_OnVanquishComplete(" (move)")
                         Return
                 EndIf
@@ -635,7 +657,7 @@ Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450)
                                 If _Vanquisher_ShouldStop() Then Return
                                 _Vanquisher_ApplyConsumables()
                                 UpdateVanquish()
-                                If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
+                                If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
                                         _Vanquisher_OnVanquishComplete(" (after fight)")
                                         Return
                                 EndIf
