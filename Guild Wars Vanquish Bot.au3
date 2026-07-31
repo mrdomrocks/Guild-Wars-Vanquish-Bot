@@ -22,7 +22,8 @@ Global $g_iDetectedClientPid = 0
 Global $g_iDetectedCharacterCount = 0
 Global $g_sActiveMapGroup = "EOTN"
 Global $boolrun = True
-Global $g_aMapEntries[0][10] ; campaign, region, map name, checked, map id, vanquished, outpost id, max party size, script name, route function
+Global $g_aMapEntries[0][11] ; campaign, region, map name, checked, map id, vanquished, outpost id, max party size, script name, route function, pre-travel label
+Global $g_aLocationCommentLabels[0][2]
 Global $g_s_MainCharName = ""
 Global $ProcessID = ""
 Global $Bot_Core_Initialized = False
@@ -79,6 +80,7 @@ If IsDeclared("g_bCore_AutoUpdate") Then $g_bCore_AutoUpdate = False
 _VB_CreateGUI()
 _LogStartupBanner()
 
+_LoadLocationCommentLabels()
 _LoadMapEntries()
 _InitializeMapListItems()
 _ResizeMapListColumns()
@@ -336,6 +338,7 @@ Func _RefreshConnectedMapState($bLogWaiting = False)
     $g_bPendingMapStateLoad = False
     _Vanquisher_CacheCombatAIForCurrentMap()
     $g_bVanquishHistoryLoaded = _RefreshHistoricalVanquishStates()
+    _RefreshMapPreTravelLabels()
     _RefreshHeroTeamSelectionState()
     _UpdateStartButtonState()
     _UpdateMapScanStatusDisplay()
@@ -1082,8 +1085,7 @@ Func _PrepareSelectedVanquishQueue()
 EndFunc
 
 Func _LoadMapEntries()
-    ReDim $g_aMapEntries[0][10]
-    Local $iSkippedMissingMapIDs = 0
+    ReDim $g_aMapEntries[0][11]
 
     Local $hSearch = FileFindFirstFile($g_sMapsRoot & "\*")
     If $hSearch = -1 Then
@@ -1114,16 +1116,15 @@ Func _LoadMapEntries()
 
             Local $iMapID = _ResolveMapIDFromScriptName($sMapName)
             If $iMapID <= 0 Then
-                $iSkippedMissingMapIDs += 1
                 ContinueLoop
             EndIf
 
             Local $iOutpostID = _ResolveOutpostIDFromScriptName($sMapName)
             Local $iNext = UBound($g_aMapEntries)
-            ReDim $g_aMapEntries[$iNext + 1][10]
+            ReDim $g_aMapEntries[$iNext + 1][11]
             $g_aMapEntries[$iNext][0] = $sCampaign
             $g_aMapEntries[$iNext][1] = $sRegion
-              $g_aMapEntries[$iNext][2] = _DisplayMapNameFromScriptName($sMapName)
+            $g_aMapEntries[$iNext][2] = _DisplayMapNameFromScriptName($sMapName)
             $g_aMapEntries[$iNext][3] = False
             $g_aMapEntries[$iNext][4] = $iMapID
             $g_aMapEntries[$iNext][5] = False
@@ -1131,6 +1132,7 @@ Func _LoadMapEntries()
             $g_aMapEntries[$iNext][7] = _ResolveMaxPartySizeForMap($iMapID, $iOutpostID)
             $g_aMapEntries[$iNext][8] = $sMapName
             $g_aMapEntries[$iNext][9] = _ResolveRouteFunctionFromScriptName($sMapName)
+            $g_aMapEntries[$iNext][10] = _ResolvePreTravelLabelFromScriptName($sCampaign, $sMapName, $iOutpostID)
         WEnd
 
         FileClose($hFileSearch)
@@ -1142,10 +1144,10 @@ EndFunc
 
 Func _AppendSpecialRouteEntries()
     Local $iNext = UBound($g_aMapEntries)
-    ReDim $g_aMapEntries[$iNext + 2][10]
-      $g_aMapEntries[$iNext][0] = "Caravan Routes"
-      $g_aMapEntries[$iNext][1] = "Special Routes"
-      $g_aMapEntries[$iNext][2] = "TOA Ascalon Caravan"
+    ReDim $g_aMapEntries[$iNext + 2][11]
+    $g_aMapEntries[$iNext][0] = "Caravan Routes"
+    $g_aMapEntries[$iNext][1] = "Special Routes"
+    $g_aMapEntries[$iNext][2] = "TOA Ascalon Caravan"
     $g_aMapEntries[$iNext][3] = False
     $g_aMapEntries[$iNext][4] = 0
     $g_aMapEntries[$iNext][5] = False
@@ -1153,10 +1155,11 @@ Func _AppendSpecialRouteEntries()
     $g_aMapEntries[$iNext][7] = 8
     $g_aMapEntries[$iNext][8] = $GC_S_SPECIAL_ROUTE_TEMPLE_ASCALON_CARAVAN
     $g_aMapEntries[$iNext][9] = ""
+    $g_aMapEntries[$iNext][10] = ""
 
-      $g_aMapEntries[$iNext + 1][0] = "Caravan Routes"
-      $g_aMapEntries[$iNext + 1][1] = "Special Routes"
-      $g_aMapEntries[$iNext + 1][2] = "TOA Maguuma Caravan"
+    $g_aMapEntries[$iNext + 1][0] = "Caravan Routes"
+    $g_aMapEntries[$iNext + 1][1] = "Special Routes"
+    $g_aMapEntries[$iNext + 1][2] = "TOA Maguuma Caravan"
     $g_aMapEntries[$iNext + 1][3] = False
     $g_aMapEntries[$iNext + 1][4] = 0
     $g_aMapEntries[$iNext + 1][5] = False
@@ -1164,19 +1167,20 @@ Func _AppendSpecialRouteEntries()
     $g_aMapEntries[$iNext + 1][7] = 8
     $g_aMapEntries[$iNext + 1][8] = $GC_S_SPECIAL_ROUTE_TEMPLE_MAGUUMA_CARAVAN
     $g_aMapEntries[$iNext + 1][9] = "VQSpecialRoute_TempleOfTheAgesMaguumaCaravan"
+    $g_aMapEntries[$iNext + 1][10] = ""
 EndFunc
 
 Func _ResolveRouteFunctionFromScriptName($sMapName)
-      Switch _NormalizeMapScriptNameForLookup($sMapName)
-          Case "IceDome"
-              Return "VQIcedome"
-      EndSwitch
-      Return "VQ" & $sMapName
+    Switch _NormalizeMapScriptNameForLookup($sMapName)
+        Case "IceDome"
+            Return "VQIcedome"
+    EndSwitch
+    Return "VQ" & $sMapName
 EndFunc
 
 Func _ResolveMapIDFromScriptName($sMapName)
-      $sMapName = _NormalizeMapScriptNameForLookup($sMapName)
-      Local $sVarName = $sMapName & "_Map"
+    $sMapName = _NormalizeMapScriptNameForLookup($sMapName)
+    Local $sVarName = $sMapName & "_Map"
     If IsDeclared($sVarName) Then Return Eval($sVarName)
 
     Switch $sMapName
@@ -1189,8 +1193,8 @@ Func _ResolveMapIDFromScriptName($sMapName)
 EndFunc
 
 Func _ResolveOutpostIDFromScriptName($sMapName)
-      $sMapName = _NormalizeMapScriptNameForLookup($sMapName)
-      Local $sVarName = $sMapName & "_Outpost"
+    $sMapName = _NormalizeMapScriptNameForLookup($sMapName)
+    Local $sVarName = $sMapName & "_Outpost"
     If IsDeclared($sVarName) Then Return Eval($sVarName)
 
     Switch $sMapName
@@ -1246,6 +1250,24 @@ Func _RefreshMapPartySizeRequirements()
         EndSwitch
     Next
 
+    Return True
+EndFunc
+
+Func _RefreshMapPreTravelLabels()
+    Local $bUpdated = False
+    Local $i = 0
+
+    For $i = 0 To UBound($g_aMapEntries) - 1
+        Local $sLabel = _ResolvePreTravelLabelFromScriptName($g_aMapEntries[$i][0], $g_aMapEntries[$i][8], $g_aMapEntries[$i][6])
+        If $g_aMapEntries[$i][10] = $sLabel Then ContinueLoop
+        $g_aMapEntries[$i][10] = $sLabel
+        $bUpdated = True
+    Next
+
+    If Not $bUpdated Then Return False
+
+    _PopulateMapList("ALL")
+    _ResizeMapListColumns()
     Return True
 EndFunc
 
@@ -1319,7 +1341,7 @@ EndFunc
 Func _MapCampaignFromFolder($sFolder)
     If StringLeft($sFolder, 5) = "EOTN_" Then Return "EOTN"
     If StringLeft($sFolder, 6) = "Proph_" Then Return "Prophecies"
-      If StringLeft($sFolder, 8) = "Caravan_" Then Return "Caravan Internal"
+    If StringLeft($sFolder, 8) = "Caravan_" Then Return "Caravan Internal"
     If StringLeft($sFolder, 9) = "Factions_" Then Return "Factions"
     If StringLeft($sFolder, 3) = "NF_" Then Return "Nightfall"
     Return ""
@@ -1332,8 +1354,8 @@ Func _MapRegionFromFolder($sFolder)
             $sRegion = StringTrimLeft($sFolder, 5)
         Case "Prophecies"
             $sRegion = StringTrimLeft($sFolder, 6)
-          Case "Caravan Internal"
-              $sRegion = StringTrimLeft($sFolder, 8)
+        Case "Caravan Internal"
+            $sRegion = StringTrimLeft($sFolder, 8)
         Case "Factions"
             $sRegion = StringTrimLeft($sFolder, 9)
         Case "Nightfall"
@@ -1346,6 +1368,63 @@ Func _NormalizeMapScriptNameForLookup($sMapName)
     If StringLeft($sMapName, StringLen("CaravanAscalon_")) = "CaravanAscalon_" Then Return StringTrimLeft($sMapName, StringLen("CaravanAscalon_"))
     If StringLeft($sMapName, StringLen("CaravanMaguuma_")) = "CaravanMaguuma_" Then Return StringTrimLeft($sMapName, StringLen("CaravanMaguuma_"))
     Return $sMapName
+EndFunc
+
+Func _LoadLocationCommentLabels()
+    ReDim $g_aLocationCommentLabels[0][2]
+
+    Local $hFile = FileOpen(@ScriptDir & "\Maps\LocationsIDS.au3", 0)
+    If $hFile = -1 Then Return False
+
+    While 1
+        Local $sLine = FileReadLine($hFile)
+        If @error = -1 Then ExitLoop
+
+        Local $aMatch = StringRegExp($sLine, '^\s*Global\s+\$([A-Za-z0-9_]+)\s*=.*?;\s*(.+?)\s*$', 1)
+        If Not IsArray($aMatch) Then ContinueLoop
+
+        Local $sLabel = _NormalizeLocationCommentLabel($aMatch[1])
+        If $sLabel = "" Then ContinueLoop
+
+        Local $iNext = UBound($g_aLocationCommentLabels)
+        ReDim $g_aLocationCommentLabels[$iNext + 1][2]
+        $g_aLocationCommentLabels[$iNext][0] = $aMatch[0]
+        $g_aLocationCommentLabels[$iNext][1] = $sLabel
+    WEnd
+
+    FileClose($hFile)
+    Return UBound($g_aLocationCommentLabels) > 0
+EndFunc
+
+Func _NormalizeLocationCommentLabel($sLabel)
+    $sLabel = StringStripWS($sLabel, 3)
+    $sLabel = StringRegExpReplace($sLabel, '^\d+\s*[-–—:]\s*', '')
+    Return StringStripWS($sLabel, 3)
+EndFunc
+
+Func _GetLocationCommentLabel($sVarName)
+    Local $i = 0
+    For $i = 0 To UBound($g_aLocationCommentLabels) - 1
+        If StringCompare($g_aLocationCommentLabels[$i][0], $sVarName, 1) = 0 Then Return $g_aLocationCommentLabels[$i][1]
+    Next
+    Return ""
+EndFunc
+
+Func _ResolvePreTravelLabelFromScriptName($sCampaign, $sMapName, $iOutpostID)
+    If $iOutpostID <= 0 Then Return ""
+    If $sCampaign = "Caravan Routes" Or $sCampaign = "Caravan Internal" Then Return ""
+    If _IsSpecialRouteScriptName($sMapName) Then Return ""
+
+    Local $sVarName = _NormalizeMapScriptNameForLookup($sMapName) & "_Outpost"
+    Local $sLabel = _GetLocationCommentLabel($sVarName)
+    If $sLabel <> "" Then Return $sLabel
+
+    If $g_bClientConnected And $Bot_Core_Initialized Then
+        $sLabel = StringStripWS(Map_GetAreaInfo($iOutpostID, "Name"), 3)
+        If $sLabel <> "" Then Return $sLabel
+    EndIf
+
+    Return ""
 EndFunc
 
 Func _DisplayMapNameFromScriptName($sMapName)
