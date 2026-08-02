@@ -2,6 +2,74 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+Global $aNF_TheDesolation_TheSulfurousWastesRoute01[1][2] = [ _
+        [25522, -4436] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute02[1][2] = [ _
+        [24325, -2826] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute03[1][2] = [ _
+        [24948, 259] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute04[1][2] = [ _
+        [22699, 2364] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute05[1][2] = [ _
+        [22264, 3884] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute06[1][2] = [ _
+        [21187, 4286] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute07[1][2] = [ _
+        [22449, 324] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute08[1][2] = [ _
+        [20662, -1404] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute09[1][2] = [ _
+        [16996, -1145] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute10[1][2] = [ _
+        [18136, -4457] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute11[1][2] = [ _
+        [15832, -5071] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute12[1][2] = [ _
+        [17250, -8849] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute13[1][2] = [ _
+        [16039, -9571] _
+]
+
+Global $aNF_TheDesolation_TheSulfurousWastesRoute14[13][2] = [ _
+        [16039, -9571], _
+        [17250, -8849], _
+        [15832, -5071], _
+        [18136, -4457], _
+        [16996, -1145], _
+        [20662, -1404], _
+        [22449, 324], _
+        [21187, 4286], _
+        [22264, 3884], _
+        [22699, 2364], _
+        [24948, 259], _
+        [24325, -2826], _
+        [25522, -4436] _
+]
+
 Func GoOutTheSulfurousWastes()
         Local $aGoOutRoute[4][2] = [ [903, 345] _
                 , [-3659, 3475] _
@@ -34,46 +102,34 @@ Func VQTheSulfurousWastes()
 
 		UseWormSpoor(24080, -5864)
 
-		If GetAreaVanquished() = False Then AggroMoveTo(25522, -4436)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute01)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(24325, -2826)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute02)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(24948, 259)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute03)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(22699, 2364)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute04)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(22264, 3884)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute05)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(21187, 4286)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute06)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(22449, 324)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute07)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(20662, -1404)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute08)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(16996, -1145)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute09)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(18136, -4457)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute10)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(15832, -5071)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute11)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(17250, -8849)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute12)
 		If GetAreaVanquished() = False Then Sleep(7000)
-		If GetAreaVanquished() = False Then AggroMoveTo(16039, -9571)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute13)
 		If GetAreaVanquished() = False Then Sleep(7000)
 
-		If GetAreaVanquished() = False Then AggroMoveTo(16039, -9571)
-		If GetAreaVanquished() = False Then AggroMoveTo(17250, -8849)
-		If GetAreaVanquished() = False Then AggroMoveTo(15832, -5071)
-		If GetAreaVanquished() = False Then AggroMoveTo(18136, -4457)
-		If GetAreaVanquished() = False Then AggroMoveTo(16996, -1145)
-		If GetAreaVanquished() = False Then AggroMoveTo(20662, -1404)
-		If GetAreaVanquished() = False Then AggroMoveTo(22449, 324)
-		If GetAreaVanquished() = False Then AggroMoveTo(21187, 4286)
-		If GetAreaVanquished() = False Then AggroMoveTo(22264, 3884)
-		If GetAreaVanquished() = False Then AggroMoveTo(22699, 2364)
-		If GetAreaVanquished() = False Then AggroMoveTo(24948, 259)
-		If GetAreaVanquished() = False Then AggroMoveTo(24325, -2826)
-		If GetAreaVanquished() = False Then AggroMoveTo(25522, -4436)
+		_Vanquisher_RunVanquishRoute($aNF_TheDesolation_TheSulfurousWastesRoute14)
 
     EndIf
 EndFunc

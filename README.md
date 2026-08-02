@@ -22,6 +22,7 @@ This is the active vanquish workflow in this repo. The bot detects a logged-in G
 - guarded connect flow that refuses to auto-attach when multiple clients are logged in
 - campaign tabs for `EOTN`, `Prophecies`, `Caravan Routes`, `Factions`, and `Nightfall`
 - per-campaign checked-map queue building from the GUI
+- pre-travel outpost visibility for non-caravan maps in the campaign lists
 - live vanquish history scan that marks completed zones and prevents re-checking them
 - hero team configuration for `Team4`, `Team6`, and `Team8`, with automatic team setup based on the first queued map
 - queue logging, run timer, death counter, and vanquish streak tracking

@@ -24,6 +24,50 @@ Global $aIcedomeTransitPath[15][2] = [ _
 	[24083, 16716] _
 ]
 
+Global $aProph_SouthernShiverpeaks_IceDomeRoute01[19][2] = [ _
+        [-4580, -5658], _
+        [-7099, -3889], _
+        [-8209, -2275], _
+        [-6907, -750], _
+        [-7084, 1085], _
+        [-3831, 1230], _
+        [-4262, 3600], _
+        [-3086, 5099], _
+        [-2743, 7372], _
+        [797, 6193], _
+        [562, 2616], _
+        [1049, -595], _
+        [3969, 573], _
+        [5717, 5604], _
+        [7635, 3729], _
+        [7537, 1108], _
+        [7073, -101], _
+        [5970, -1117], _
+        [7847, -3201] _
+]
+
+Global $aProph_SouthernShiverpeaks_IceDomeRoute02[19][2] = [ _
+        [7847, -3201], _
+        [5970, -1117], _
+        [7073, -101], _
+        [7537, 1108], _
+        [7635, 3729], _
+        [5717, 5604], _
+        [3969, 573], _
+        [1049, -595], _
+        [562, 2616], _
+        [797, 6193], _
+        [-2743, 7372], _
+        [-3086, 5099], _
+        [-4262, 3600], _
+        [-3831, 1230], _
+        [-7084, 1085], _
+        [-6907, -750], _
+        [-8209, -2275], _
+        [-7099, -3889], _
+        [-4580, -5658] _
+]
+
 Func GoOutIcedome()
 	Local $l_i_Map = GetMapID()
 
@@ -75,44 +119,8 @@ Func VQIcedome()
 	CurrentAction("Starting Icedome vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(-4580, -5658)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7099, -3889)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8209, -2275)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6907, -750)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7084, 1085)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3831, 1230)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4262, 3600)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3086, 5099)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2743, 7372)
-	If GetAreaVanquished() = False Then AggroMoveTo(797, 6193)
-	If GetAreaVanquished() = False Then AggroMoveTo(562, 2616)
-	If GetAreaVanquished() = False Then AggroMoveTo(1049, -595)
-	If GetAreaVanquished() = False Then AggroMoveTo(3969, 573)
-	If GetAreaVanquished() = False Then AggroMoveTo(5717, 5604)
-	If GetAreaVanquished() = False Then AggroMoveTo(7635, 3729)
-	If GetAreaVanquished() = False Then AggroMoveTo(7537, 1108)
-	If GetAreaVanquished() = False Then AggroMoveTo(7073, -101)
-	If GetAreaVanquished() = False Then AggroMoveTo(5970, -1117)
-	If GetAreaVanquished() = False Then AggroMoveTo(7847, -3201)
+	_Vanquisher_RunVanquishRoute($aProph_SouthernShiverpeaks_IceDomeRoute01)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(7847, -3201)
-	If GetAreaVanquished() = False Then AggroMoveTo(5970, -1117)
-	If GetAreaVanquished() = False Then AggroMoveTo(7073, -101)
-	If GetAreaVanquished() = False Then AggroMoveTo(7537, 1108)
-	If GetAreaVanquished() = False Then AggroMoveTo(7635, 3729)
-	If GetAreaVanquished() = False Then AggroMoveTo(5717, 5604)
-	If GetAreaVanquished() = False Then AggroMoveTo(3969, 573)
-	If GetAreaVanquished() = False Then AggroMoveTo(1049, -595)
-	If GetAreaVanquished() = False Then AggroMoveTo(562, 2616)
-	If GetAreaVanquished() = False Then AggroMoveTo(797, 6193)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2743, 7372)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3086, 5099)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4262, 3600)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3831, 1230)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7084, 1085)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6907, -750)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8209, -2275)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7099, -3889)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4580, -5658)
+	_Vanquisher_RunVanquishRoute($aProph_SouthernShiverpeaks_IceDomeRoute02)
 EndFunc

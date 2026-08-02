@@ -80,7 +80,7 @@ Func OutpostTravel($a_i_MapID)
     For $i = 1 To 5
         LogInfo("Travel Attempt #" & $i)
         RndTravel($a_i_MapID)
-        If GetMapID() = $a_i_MapID Then Return True
+        If GetMapID() = $a_i_MapID And Not Map_GetInstanceInfo("IsExplorable") Then Return True
         Sleep(1000)
     Next
     Return False

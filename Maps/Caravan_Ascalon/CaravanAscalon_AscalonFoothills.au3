@@ -1,3 +1,37 @@
+Global $aCaravan_Ascalon_CaravanAscalon_AscalonFoothillsRoute01[14][2] = [ _
+        [-5785, 1558], _
+        [-2684, 2006], _
+        [-5544, -1613], _
+        [-3428, -5729], _
+        [373, -3274], _
+        [-3156, -2098], _
+        [-1639, 751], _
+        [621, -735], _
+        [2040, 2078], _
+        [240, 5077], _
+        [4885, 5096], _
+        [5939, 1126], _
+        [3321, -3531], _
+        [7394, -6932] _
+]
+
+Global $aCaravan_Ascalon_CaravanAscalon_AscalonFoothillsRoute02[14][2] = [ _
+        [7394, -6932], _
+        [3321, -3531], _
+        [5939, 1126], _
+        [4885, 5096], _
+        [240, 5077], _
+        [2040, 2078], _
+        [621, -735], _
+        [-1639, 751], _
+        [-3156, -2098], _
+        [373, -3274], _
+        [-3428, -5729], _
+        [-5544, -1613], _
+        [-2684, 2006], _
+        [-5785, 1558] _
+]
+
 Func GoOutCaravanAscalon_AscalonFoothills()
         _Vanquisher_RunDynamicCaravanGoOut($AscalonFoothills_Map, "AscalonFoothills")
 EndFunc
@@ -26,34 +60,8 @@ Func VQCaravanAscalon_AscalonFoothills()
 	CurrentAction("Starting AscalonFoothills vanquish route.")
 
 
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-5785, 1558)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-2684, 2006)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-5544, -1613)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-3428, -5729)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(373, -3274)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-3156, -2098)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-1639, 751)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(621, -735)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(2040, 2078)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(240, 5077)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(4885, 5096)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(5939, 1126)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(3321, -3531)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(7394, -6932)
+	_Vanquisher_RunCaravanRoute($aCaravan_Ascalon_CaravanAscalon_AscalonFoothillsRoute01)
 
 	; reverse
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(7394, -6932)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(3321, -3531)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(5939, 1126)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(4885, 5096)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(240, 5077)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(2040, 2078)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(621, -735)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-1639, 751)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-3156, -2098)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(373, -3274)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-3428, -5729)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-5544, -1613)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-2684, 2006)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-5785, 1558)
+	_Vanquisher_RunCaravanRoute($aCaravan_Ascalon_CaravanAscalon_AscalonFoothillsRoute02)
 EndFunc

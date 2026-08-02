@@ -1,6 +1,96 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+Global $aFactions_EchovaldForest_TheEternalGroveRoute01[42][2] = [ _
+        [14380.2, -674.562], _
+        [12437.5, -1727.91], _
+        [9123.92, 729.996], _
+        [4736.91, 5926.64], _
+        [481.706, 4060.73], _
+        [-4227.9, 7190.21], _
+        [-666.852, 9355.51], _
+        [6694.72, 13251.7], _
+        [4043.05, 8245.06], _
+        [-6433.92, 7347.38], _
+        [-5590.98, 5023.76], _
+        [-8564.03, 4743.28], _
+        [-10295.88, 2547.11], _
+        [-11559.7, 5709.07], _
+        [-12625.2, 5400.72], _
+        [-14734.1, 6554.66], _
+        [-14244.2, 10454.8], _
+        [-18444, 7943.79], _
+        [-18678.9, 903.827], _
+        [-21752.6, 2728.14], _
+        [-18540.7, -865.82], _
+        [-14451.5, -2656.05], _
+        [-12513.4, -3655.56], _
+        [-13045.5, 1118.3], _
+        [-9326.44, -2388.4], _
+        [-8431.99, -4342.06], _
+        [-4769.11, -3564.89], _
+        [-6334.89, 2809.35], _
+        [-3708.65, -3428.09], _
+        [-2289.25, -2768.47], _
+        [-1106.36, -1834.79], _
+        [1705.19, -2907.84], _
+        [3616.41, -2523.71], _
+        [3300.95, 181.991], _
+        [2536.94, 1598.65], _
+        [5022.31, -5489.66], _
+        [7467.85, -3996.19], _
+        [10458.1, -7461.93], _
+        [9199.96, -2569.42], _
+        [16640.2, -2953.63], _
+        [20062.1, -4508.37], _
+        [20392.4, -2128.2] _
+]
+
+Global $aFactions_EchovaldForest_TheEternalGroveRoute02[42][2] = [ _
+        [20392.4, -2128.2], _
+        [20062.1, -4508.37], _
+        [16640.2, -2953.63], _
+        [9199.96, -2569.42], _
+        [10458.1, -7461.93], _
+        [7467.85, -3996.19], _
+        [5022.31, -5489.66], _
+        [2536.94, 1598.65], _
+        [3300.95, 181.991], _
+        [3616.41, -2523.71], _
+        [1705.19, -2907.84], _
+        [-1106.36, -1834.79], _
+        [-2289.25, -2768.47], _
+        [-3708.65, -3428.09], _
+        [-6334.89, 2809.35], _
+        [-4769.11, -3564.89], _
+        [-8431.99, -4342.06], _
+        [-9326.44, -2388.4], _
+        [-13045.5, 1118.3], _
+        [-12513.4, -3655.56], _
+        [-14451.5, -2656.05], _
+        [-18540.7, -865.82], _
+        [-21752.6, 2728.14], _
+        [-18678.9, 903.827], _
+        [-18444, 7943.79], _
+        [-14244.2, 10454.8], _
+        [-14734.1, 6554.66], _
+        [-12625.2, 5400.72], _
+        [-11559.7, 5709.07], _
+        [-10295.88, 2547.11], _
+        [-8564.03, 4743.28], _
+        [-5590.98, 5023.76], _
+        [-6433.92, 7347.38], _
+        [4043.05, 8245.06], _
+        [6694.72, 13251.7], _
+        [-666.852, 9355.51], _
+        [-4227.9, 7190.21], _
+        [481.706, 4060.73], _
+        [4736.91, 5926.64], _
+        [9123.92, 729.996], _
+        [12437.5, -1727.91], _
+        [14380.2, -674.562] _
+]
+
 Func GoOutTheEternalGrove()
         Local $aGoOutRoute[3][2] = [ [19629.66, 5725.48] _
                 , [18761, 2360] _
@@ -37,90 +127,8 @@ Func VQTheEternalGrove()
                 Sleep(1000)
         EndIf
 
-		If GetAreaVanquished() = False Then AggroMoveTo(14380.2, -674.562)
-		If GetAreaVanquished() = False Then AggroMoveTo(12437.5, -1727.91)
-		If GetAreaVanquished() = False Then AggroMoveTo(9123.92, 729.996)
-		If GetAreaVanquished() = False Then AggroMoveTo(4736.91, 5926.64)
-		If GetAreaVanquished() = False Then AggroMoveTo(481.706, 4060.73)
-		If GetAreaVanquished() = False Then AggroMoveTo(-4227.9, 7190.21)
-		If GetAreaVanquished() = False Then AggroMoveTo(-666.852, 9355.51)
-		If GetAreaVanquished() = False Then AggroMoveTo(6694.72, 13251.7)
-		If GetAreaVanquished() = False Then AggroMoveTo(4043.05, 8245.06)
-		If GetAreaVanquished() = False Then AggroMoveTo(-6433.92, 7347.38)
-		If GetAreaVanquished() = False Then AggroMoveTo(-5590.98, 5023.76)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8564.03, 4743.28)
-		If GetAreaVanquished() = False Then AggroMoveTo(-10295.88, 2547.11)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11559.7, 5709.07)
-		If GetAreaVanquished() = False Then AggroMoveTo(-12625.2, 5400.72)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14734.1, 6554.66)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14244.2, 10454.8)
-		If GetAreaVanquished() = False Then AggroMoveTo(-18444, 7943.79)
-		If GetAreaVanquished() = False Then AggroMoveTo(-18678.9, 903.827)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21752.6, 2728.14)
-		If GetAreaVanquished() = False Then AggroMoveTo(-18540.7, -865.82)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14451.5, -2656.05)
-		If GetAreaVanquished() = False Then AggroMoveTo(-12513.4, -3655.56)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13045.5, 1118.3)
-		If GetAreaVanquished() = False Then AggroMoveTo(-9326.44, -2388.4)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8431.99, -4342.06)
-		If GetAreaVanquished() = False Then AggroMoveTo(-4769.11, -3564.89)
-		If GetAreaVanquished() = False Then AggroMoveTo(-6334.89, 2809.35)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3708.65, -3428.09)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2289.25, -2768.47)
-		If GetAreaVanquished() = False Then AggroMoveTo(-1106.36, -1834.79)
-		If GetAreaVanquished() = False Then AggroMoveTo(1705.19, -2907.84)
-		If GetAreaVanquished() = False Then AggroMoveTo(3616.41, -2523.71)
-		If GetAreaVanquished() = False Then AggroMoveTo(3300.95, 181.991)
-		If GetAreaVanquished() = False Then AggroMoveTo(2536.94, 1598.65)
-		If GetAreaVanquished() = False Then AggroMoveTo(5022.31, -5489.66)
-		If GetAreaVanquished() = False Then AggroMoveTo(7467.85, -3996.19)
-		If GetAreaVanquished() = False Then AggroMoveTo(10458.1, -7461.93)
-		If GetAreaVanquished() = False Then AggroMoveTo(9199.96, -2569.42)
-		If GetAreaVanquished() = False Then AggroMoveTo(16640.2, -2953.63)
-		If GetAreaVanquished() = False Then AggroMoveTo(20062.1, -4508.37)
-		If GetAreaVanquished() = False Then AggroMoveTo(20392.4, -2128.2)
-      		If GetAreaVanquished() = False Then AggroMoveTo(20392.4, -2128.2)
-      		If GetAreaVanquished() = False Then AggroMoveTo(20062.1, -4508.37)
-      		If GetAreaVanquished() = False Then AggroMoveTo(16640.2, -2953.63)
-      		If GetAreaVanquished() = False Then AggroMoveTo(9199.96, -2569.42)
-      		If GetAreaVanquished() = False Then AggroMoveTo(10458.1, -7461.93)
-      		If GetAreaVanquished() = False Then AggroMoveTo(7467.85, -3996.19)
-      		If GetAreaVanquished() = False Then AggroMoveTo(5022.31, -5489.66)
-      		If GetAreaVanquished() = False Then AggroMoveTo(2536.94, 1598.65)
-      		If GetAreaVanquished() = False Then AggroMoveTo(3300.95, 181.991)
-      		If GetAreaVanquished() = False Then AggroMoveTo(3616.41, -2523.71)
-      		If GetAreaVanquished() = False Then AggroMoveTo(1705.19, -2907.84)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-1106.36, -1834.79)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-2289.25, -2768.47)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-3708.65, -3428.09)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-6334.89, 2809.35)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-4769.11, -3564.89)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-8431.99, -4342.06)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-9326.44, -2388.4)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-13045.5, 1118.3)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-12513.4, -3655.56)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-14451.5, -2656.05)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-18540.7, -865.82)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-21752.6, 2728.14)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-18678.9, 903.827)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-18444, 7943.79)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-14244.2, 10454.8)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-14734.1, 6554.66)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-12625.2, 5400.72)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-11559.7, 5709.07)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-10295.88, 2547.11)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-8564.03, 4743.28)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-5590.98, 5023.76)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-6433.92, 7347.38)
-      		If GetAreaVanquished() = False Then AggroMoveTo(4043.05, 8245.06)
-      		If GetAreaVanquished() = False Then AggroMoveTo(6694.72, 13251.7)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-666.852, 9355.51)
-      		If GetAreaVanquished() = False Then AggroMoveTo(-4227.9, 7190.21)
-      		If GetAreaVanquished() = False Then AggroMoveTo(481.706, 4060.73)
-      		If GetAreaVanquished() = False Then AggroMoveTo(4736.91, 5926.64)
-      		If GetAreaVanquished() = False Then AggroMoveTo(9123.92, 729.996)
-      		If GetAreaVanquished() = False Then AggroMoveTo(12437.5, -1727.91)
-      		If GetAreaVanquished() = False Then AggroMoveTo(14380.2, -674.562)
+		_Vanquisher_RunVanquishRoute($aFactions_EchovaldForest_TheEternalGroveRoute01)
+      		_Vanquisher_RunVanquishRoute($aFactions_EchovaldForest_TheEternalGroveRoute02)
 		
     EndIf
 EndFunc

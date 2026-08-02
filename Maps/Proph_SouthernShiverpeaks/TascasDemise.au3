@@ -6,6 +6,58 @@ Global $aTascasDemiseOutpostPath[2][2] = [ _
 	[-9797, 19027] _
 ]
 
+Global $aProph_SouthernShiverpeaks_TascasDemiseRoute01[23][2] = [ _
+        [-7318, 20765], _
+        [-4967, 20426], _
+        [-1199, 17061], _
+        [534, 17369], _
+        [1271, 20404], _
+        [6097, 21830], _
+        [4555, 25630], _
+        [4131, 27041], _
+        [5634, 28532], _
+        [6247, 27996], _
+        [7535, 26067], _
+        [10512, 26634], _
+        [12902, 24369], _
+        [13015, 21309], _
+        [10944, 18776], _
+        [9210, 15807], _
+        [8611, 15439], _
+        [7336, 17215], _
+        [6205, 17276], _
+        [8441, 15381], _
+        [5275, 14300], _
+        [3529, 14567], _
+        [1176, 16920] _
+]
+
+Global $aProph_SouthernShiverpeaks_TascasDemiseRoute02[23][2] = [ _
+        [1176, 16920], _
+        [3529, 14567], _
+        [5275, 14300], _
+        [8441, 15381], _
+        [6205, 17276], _
+        [7336, 17215], _
+        [8611, 15439], _
+        [9210, 15807], _
+        [10944, 18776], _
+        [13015, 21309], _
+        [12902, 24369], _
+        [10512, 26634], _
+        [7535, 26067], _
+        [6247, 27996], _
+        [5634, 28532], _
+        [4131, 27041], _
+        [4555, 25630], _
+        [6097, 21830], _
+        [1271, 20404], _
+        [534, 17369], _
+        [-1199, 17061], _
+        [-4967, 20426], _
+        [-7318, 20765] _
+]
+
 Func GoOutTascasDemise()
 	Local $l_i_Map = GetMapID()
 
@@ -47,53 +99,9 @@ Func VQTascasDemise()
 	CurrentAction("Starting TascasDemise vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(-7318, 20765)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4967, 20426)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1199, 17061)
-	If GetAreaVanquished() = False Then AggroMoveTo(534, 17369)
-	If GetAreaVanquished() = False Then AggroMoveTo(1271, 20404)
-	If GetAreaVanquished() = False Then AggroMoveTo(6097, 21830)
-	If GetAreaVanquished() = False Then AggroMoveTo(4555, 25630)
-	If GetAreaVanquished() = False Then AggroMoveTo(4131, 27041)
-	If GetAreaVanquished() = False Then AggroMoveTo(5634, 28532)
-	If GetAreaVanquished() = False Then AggroMoveTo(6247, 27996)
-	If GetAreaVanquished() = False Then AggroMoveTo(7535, 26067)
-	If GetAreaVanquished() = False Then AggroMoveTo(10512, 26634)
-	If GetAreaVanquished() = False Then AggroMoveTo(12902, 24369)
-	If GetAreaVanquished() = False Then AggroMoveTo(13015, 21309)
-	If GetAreaVanquished() = False Then AggroMoveTo(10944, 18776)
-	If GetAreaVanquished() = False Then AggroMoveTo(9210, 15807)
-	If GetAreaVanquished() = False Then AggroMoveTo(8611, 15439)
-	If GetAreaVanquished() = False Then AggroMoveTo(7336, 17215)
-	If GetAreaVanquished() = False Then AggroMoveTo(6205, 17276)
-	If GetAreaVanquished() = False Then AggroMoveTo(8441, 15381)
-	If GetAreaVanquished() = False Then AggroMoveTo(5275, 14300)
-	If GetAreaVanquished() = False Then AggroMoveTo(3529, 14567)
-	If GetAreaVanquished() = False Then AggroMoveTo(1176, 16920)
+	_Vanquisher_RunVanquishRoute($aProph_SouthernShiverpeaks_TascasDemiseRoute01)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(1176, 16920)
-	If GetAreaVanquished() = False Then AggroMoveTo(3529, 14567)
-	If GetAreaVanquished() = False Then AggroMoveTo(5275, 14300)
-	If GetAreaVanquished() = False Then AggroMoveTo(8441, 15381)
-	If GetAreaVanquished() = False Then AggroMoveTo(6205, 17276)
-	If GetAreaVanquished() = False Then AggroMoveTo(7336, 17215)
-	If GetAreaVanquished() = False Then AggroMoveTo(8611, 15439)
-	If GetAreaVanquished() = False Then AggroMoveTo(9210, 15807)
-	If GetAreaVanquished() = False Then AggroMoveTo(10944, 18776)
-	If GetAreaVanquished() = False Then AggroMoveTo(13015, 21309)
-	If GetAreaVanquished() = False Then AggroMoveTo(12902, 24369)
-	If GetAreaVanquished() = False Then AggroMoveTo(10512, 26634)
-	If GetAreaVanquished() = False Then AggroMoveTo(7535, 26067)
-	If GetAreaVanquished() = False Then AggroMoveTo(6247, 27996)
-	If GetAreaVanquished() = False Then AggroMoveTo(5634, 28532)
-	If GetAreaVanquished() = False Then AggroMoveTo(4131, 27041)
-	If GetAreaVanquished() = False Then AggroMoveTo(4555, 25630)
-	If GetAreaVanquished() = False Then AggroMoveTo(6097, 21830)
-	If GetAreaVanquished() = False Then AggroMoveTo(1271, 20404)
-	If GetAreaVanquished() = False Then AggroMoveTo(534, 17369)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1199, 17061)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4967, 20426)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7318, 20765)
+	_Vanquisher_RunVanquishRoute($aProph_SouthernShiverpeaks_TascasDemiseRoute02)
 EndFunc
 

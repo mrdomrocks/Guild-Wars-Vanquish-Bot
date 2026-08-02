@@ -1,11 +1,24 @@
+#RequireAdmin
+#include <GUIConstantsEx.au3>
+#include <TabConstants.au3>
+#include <EditConstants.au3>
+#include <ButtonConstants.au3>
+#include <ComboConstants.au3>
+#include <GuiEdit.au3>
+#include <ListViewConstants.au3>
+#include <GuiListView.au3>
+#include <GuiTab.au3>
+#include <WindowsConstants.au3>
+
 ; UI-only module for the GW Vanquish Bot.
 ; Run the top-level launcher from the bot root folder.
 
 Global Const $MAP_CAMPAIGN_COUNT = 5
 Global Const $CONSOLE_WIDTH = 360
+Global Const $CONSOLE_MAX_LINES = 250
 Global Const $MAP_CAMPAIGN_FIRST_TAB_INDEX = 1
 
-Global $hGUI, $tab
+Global $hGUI, $tab, $camp
 Global $console
 Global $picVanquishedHelmet
 Global $lblDetectedClient, $lblDetectedCharacter, $lblConnectedCharacter
@@ -20,6 +33,12 @@ Global $g_aMapListRows[0]
 Global $g_idComboTeam4[3]
 Global $g_idComboTeam6[5]
 Global $g_idComboTeam8[7]
+Global $g_iConsoleLineCount = 0
+Global $g_sLastDetectedClientLabel = ""
+Global $g_sLastDetectedCharacterLabel = ""
+Global $g_sLastConnectedCharacterLabel = ""
+Global $g_sLastMapScanStatusLabel = ""
+Global $g_sLastRunControlStatusLabel = ""
 
 Func _VB_CreateGUI()
     Local $i = 0
@@ -27,7 +46,7 @@ Func _VB_CreateGUI()
     $tab = GUICtrlCreateTab(10, 10, 1160, 540)
 
     GUICtrlCreateTabItem("Main Menu")
-    $console = GUICtrlCreateEdit("", 40, 50, $CONSOLE_WIDTH, 230, BitOR($ES_CENTER, $ES_READONLY, $ES_AUTOVSCROLL, $ES_MULTILINE, $WS_VSCROLL))
+    $console = GUICtrlCreateEdit("", 40, 50, $CONSOLE_WIDTH, 230, BitOR($ES_READONLY, $ES_AUTOVSCROLL, $ES_MULTILINE, $WS_VSCROLL))
     GUICtrlSetFont($console, 10, 400, 0, "Consolas")
     $picVanquishedHelmet = GUICtrlCreatePic($g_sHelmetImagePath, 840, 55, 210, 210)
 
@@ -94,19 +113,19 @@ Func _VB_CreateGUI()
     $btnSaveConfig = GUICtrlCreateButton("Save Config", 790, 475, 160, 28)
 
     GUICtrlCreateTabItem("EOTN")
-    $lvMapsEOTN = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsEOTN = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     GUICtrlCreateTabItem("Prophecies")
-    $lvMapsProphecies = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsProphecies = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     GUICtrlCreateTabItem("Caravan Routes")
-    $lvMapsCaravan = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsCaravan = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     GUICtrlCreateTabItem("Factions")
-    $lvMapsFactions = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsFactions = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     GUICtrlCreateTabItem("Nightfall")
-    $lvMapsNightfall = GUICtrlCreateListView(" |Region|Map|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsNightfall = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     $g_aCampaignLists[0] = $lvMapsEOTN
     $g_aCampaignLists[1] = $lvMapsProphecies
@@ -190,9 +209,20 @@ Func _UpdateDetectedCharacterDisplay($sCharacter, $iDetectedCount)
         $sClientLabel = "Detected Client: none"
     EndIf
 
-    GUICtrlSetData($lblDetectedClient, $sClientLabel)
-    GUICtrlSetData($lblDetectedCharacter, $sLabel)
-    _SetCharacterSelectionState($g_bClientConnected)
+    Local $bLabelChanged = False
+
+    If $sClientLabel <> $g_sLastDetectedClientLabel Then
+        GUICtrlSetData($lblDetectedClient, $sClientLabel)
+        $g_sLastDetectedClientLabel = $sClientLabel
+        $bLabelChanged = True
+    EndIf
+
+    If $sLabel <> $g_sLastDetectedCharacterLabel Then
+        GUICtrlSetData($lblDetectedCharacter, $sLabel)
+        $g_sLastDetectedCharacterLabel = $sLabel
+        $bLabelChanged = True
+    EndIf
+    If $bLabelChanged Then _SetCharacterSelectionState($g_bClientConnected)
 EndFunc
 
 Func _UpdateConnectedCharacterDisplay()
@@ -200,7 +230,9 @@ Func _UpdateConnectedCharacterDisplay()
     If $g_bClientConnected And StringStripWS($g_sConnectedCharacter, 3) <> "" Then
         $sLabel = "Connected Character: " & $g_sConnectedCharacter
     EndIf
+    If $sLabel = $g_sLastConnectedCharacterLabel Then Return
     GUICtrlSetData($lblConnectedCharacter, $sLabel)
+    $g_sLastConnectedCharacterLabel = $sLabel
 EndFunc
 
 Func _UpdateMapScanStatusDisplay($sStatus = "")
@@ -229,7 +261,10 @@ Func _UpdateMapScanStatusDisplay($sStatus = "")
         EndIf
     EndIf
 
-    GUICtrlSetData($lblMapScanStatus, "Map Scan Status: " & $sStatus)
+    Local $sLabel = "Map Scan Status: " & $sStatus
+    If $sLabel = $g_sLastMapScanStatusLabel Then Return
+    GUICtrlSetData($lblMapScanStatus, $sLabel)
+    $g_sLastMapScanStatusLabel = $sLabel
 EndFunc
 
 Func _UpdateRunControlStatusDisplay($sStatus = "")
@@ -246,7 +281,10 @@ Func _UpdateRunControlStatusDisplay($sStatus = "")
             $sStatus = "idle"
         EndIf
     EndIf
-    GUICtrlSetData($lblRunControlStatus, "Run Status: " & $sStatus)
+    Local $sLabel = "Run Status: " & $sStatus
+    If $sLabel = $g_sLastRunControlStatusLabel Then Return
+    GUICtrlSetData($lblRunControlStatus, $sLabel)
+    $g_sLastRunControlStatusLabel = $sLabel
 EndFunc
 
 Func _UpdateStartButtonState()
@@ -285,11 +323,13 @@ Func _ResizeMapListColumns()
     Local Const $iMapSelectionPaneTop = 50
     Local $aRegionChars[$MAP_CAMPAIGN_COUNT]
     Local $aMapChars[$MAP_CAMPAIGN_COUNT]
+    Local $aPreTravelChars[$MAP_CAMPAIGN_COUNT]
     Local $i = 0
 
     For $i = 0 To $MAP_CAMPAIGN_COUNT - 1
         $aRegionChars[$i] = StringLen("Region")
         $aMapChars[$i] = StringLen("Map")
+        $aPreTravelChars[$i] = StringLen("Pre-Travel")
     Next
 
     For $i = 0 To UBound($g_aMapEntries) - 1
@@ -297,6 +337,7 @@ Func _ResizeMapListColumns()
         If $iCampaignIndex = -1 Then ContinueLoop
         If StringLen($g_aMapEntries[$i][1]) > $aRegionChars[$iCampaignIndex] Then $aRegionChars[$iCampaignIndex] = StringLen($g_aMapEntries[$i][1])
         If StringLen($g_aMapEntries[$i][2]) > $aMapChars[$iCampaignIndex] Then $aMapChars[$iCampaignIndex] = StringLen($g_aMapEntries[$i][2])
+        If StringLen($g_aMapEntries[$i][10]) > $aPreTravelChars[$iCampaignIndex] Then $aPreTravelChars[$iCampaignIndex] = StringLen($g_aMapEntries[$i][10])
     Next
 
     Local $iStatusWidth = _EstimateMapListColumnWidth($iStatusChars, 20)
@@ -309,10 +350,13 @@ Func _ResizeMapListColumns()
         Local $iMapWidth = _EstimateMapListColumnWidth($aMapChars[$i], 24)
         If $iMapWidth > 260 Then $iMapWidth = 260
 
-        Local $iListWidth = $iCheckWidth + $iRegionWidth + $iMapWidth + $iStatusWidth + 24
+        Local $iPreTravelWidth = _EstimateMapListColumnWidth($aPreTravelChars[$i], 24)
+        If $iPreTravelWidth > 210 Then $iPreTravelWidth = 210
+
+        Local $iListWidth = $iCheckWidth + $iRegionWidth + $iMapWidth + $iPreTravelWidth + $iStatusWidth + 24
         If $iListWidth > $iMapListMaxWidth Then
             $iListWidth = $iMapListMaxWidth
-            $iMapWidth = $iListWidth - $iCheckWidth - $iRegionWidth - $iStatusWidth - 24
+            $iMapWidth = $iListWidth - $iCheckWidth - $iRegionWidth - $iPreTravelWidth - $iStatusWidth - 24
         EndIf
 
         Local $iListX = $iMapSelectionPaneLeft + Int(($iMapSelectionPaneWidth - $iListWidth) / 2)
@@ -320,8 +364,13 @@ Func _ResizeMapListColumns()
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 0, $iCheckWidth)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 1, $iRegionWidth)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 2, $iMapWidth)
-        _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 3, $iStatusWidth)
+        _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 3, $iPreTravelWidth)
+        _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 4, $iStatusWidth)
     Next
+EndFunc
+
+Func _UpdateCampaignListVisibility()
+    Return
 EndFunc
 
 Func _SetHeroComboArrayState(ByRef $aComboIDs, $iState)
@@ -422,7 +471,7 @@ Func _InitializeMapListItems()
         If $idList = 0 Then ContinueLoop
 
         Local $iRow = _GUICtrlListView_GetItemCount($idList)
-        Local $iItem = GUICtrlCreateListViewItem("|" & $g_aMapEntries[$i][1] & "|" & $g_aMapEntries[$i][2] & "|", $idList)
+        Local $iItem = GUICtrlCreateListViewItem("|" & $g_aMapEntries[$i][1] & "|" & $g_aMapEntries[$i][2] & "|" & $g_aMapEntries[$i][10] & "|", $idList)
         $g_aMapListItemIDs[$i] = $iItem
         $g_aMapListRows[$i] = $iRow
         _GUICtrlListView_SetItemParam($idList, $iRow, $i)
@@ -450,7 +499,8 @@ Func _RebuildCampaignMapList($sCampaign)
         _GUICtrlListView_SetItemText($idList, $iRow, "", 0)
         _GUICtrlListView_SetItemText($idList, $iRow, $g_aMapEntries[$i][1], 1)
         _GUICtrlListView_SetItemText($idList, $iRow, $g_aMapEntries[$i][2], 2)
-        _GUICtrlListView_SetItemText($idList, $iRow, $sStatus, 3)
+        _GUICtrlListView_SetItemText($idList, $iRow, $g_aMapEntries[$i][10], 3)
+        _GUICtrlListView_SetItemText($idList, $iRow, $sStatus, 4)
         _GUICtrlListView_SetItemChecked($idList, $iRow, (Not $g_aMapEntries[$i][5]) And $g_aMapEntries[$i][3])
         If $g_aMapEntries[$i][5] Then
             _GUICtrlListView_SetItemChecked($idList, $iRow, False)
@@ -520,6 +570,49 @@ Func _ShowMapCampaign($sCampaign)
     _RebuildCampaignMapList($sCampaign)
     Local $iTabIndex = _GetCampaignTabIndex($sCampaign)
     If $iTabIndex <> -1 Then _SetCurrentTabIndex($iTabIndex)
+    _UpdateVisibleSelectionToggleButton()
+EndFunc
+
+Func _HasVisibleSelectableMaps()
+    Local $idList = _GetCampaignListView($g_sActiveMapGroup)
+    If $idList = 0 Then Return False
+
+    Local $iItemCount = _GUICtrlListView_GetItemCount($idList)
+    Local $i = 0
+    For $i = 0 To $iItemCount - 1
+        Local $iMapIndex = _GUICtrlListView_GetItemParam($idList, $i)
+        If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then ContinueLoop
+        If Not $g_aMapEntries[$iMapIndex][5] Then Return True
+    Next
+    Return False
+EndFunc
+
+Func _AreAllVisibleSelectableMapsChecked()
+    Local $bHasSelectableMap = False
+    Local $idList = _GetCampaignListView($g_sActiveMapGroup)
+    If $idList = 0 Then Return False
+
+    Local $iItemCount = _GUICtrlListView_GetItemCount($idList)
+    Local $i = 0
+    For $i = 0 To $iItemCount - 1
+        Local $iMapIndex = _GUICtrlListView_GetItemParam($idList, $i)
+        If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then ContinueLoop
+        If $g_aMapEntries[$iMapIndex][5] Then ContinueLoop
+
+        $bHasSelectableMap = True
+        If Not _GUICtrlListView_GetItemChecked($idList, $i) Then Return False
+    Next
+
+    Return $bHasSelectableMap
+EndFunc
+
+Func _ToggleVisibleMapChecks()
+    _SetVisibleMapChecks(Not _AreAllVisibleSelectableMapsChecked())
+    _UpdateVisibleSelectionToggleButton()
+EndFunc
+
+Func _UpdateVisibleSelectionToggleButton()
+    Return
 EndFunc
 
 Func _PopulateMapList($sCampaign, $sSubgroup = "")
@@ -531,6 +624,7 @@ Func _PopulateMapList($sCampaign, $sSubgroup = "")
             _RebuildCampaignMapList($g_aCampaignNames[$iCampaign])
         Next
         _SyncActiveMapGroupFromSelectedTab()
+        _UpdateVisibleSelectionToggleButton()
         Return
     EndIf
 
@@ -540,6 +634,32 @@ Func _PopulateMapList($sCampaign, $sSubgroup = "")
     _RebuildCampaignMapList($sCampaign)
     Local $iTabIndex = _GetCampaignTabIndex($sCampaign)
     If $iTabIndex <> -1 Then _SetCurrentTabIndex($iTabIndex)
+    _UpdateVisibleSelectionToggleButton()
+EndFunc
+
+Func _SetVisibleMapChecks($bChecked)
+    Local $idList = _GetCampaignListView($g_sActiveMapGroup)
+    If $idList = 0 Then Return
+
+    Local $iItemCount = _GUICtrlListView_GetItemCount($idList)
+    Local $i = 0
+    For $i = 0 To $iItemCount - 1
+        Local $iMapIndex = _GUICtrlListView_GetItemParam($idList, $i)
+        If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then ContinueLoop
+
+        If $g_aMapEntries[$iMapIndex][5] Then
+            _GUICtrlListView_SetItemChecked($idList, $i, False)
+            $g_aMapEntries[$iMapIndex][3] = False
+            ContinueLoop
+        EndIf
+
+        _GUICtrlListView_SetItemChecked($idList, $i, $bChecked)
+        $g_aMapEntries[$iMapIndex][3] = $bChecked
+    Next
+EndFunc
+
+Func _UpdateMapGroupButtons()
+    Return
 EndFunc
 
 Func _Log($sText)
@@ -547,34 +667,40 @@ Func _Log($sText)
 EndFunc
 
 Func _AppendConsoleLine($sLine)
-    Local $sExisting = GUICtrlRead($console)
-    If $sExisting = "" Then
+    Local $hConsole = GUICtrlGetHandle($console)
+    If $g_iConsoleLineCount <= 0 Then
         GUICtrlSetData($console, $sLine)
-    Else
-        GUICtrlSetData($console, $sExisting & @CRLF & $sLine)
+        $g_iConsoleLineCount = 1
+        Return
     EndIf
-EndFunc
 
-Func _GetConsoleTextWidth()
-    ; Estimate visible monospace characters from the configured control width.
-    Local $iWidth = Int(($CONSOLE_WIDTH - 20) / 8)
-    If $iWidth < 24 Then $iWidth = 24
-    Return $iWidth
-EndFunc
+    _GUICtrlEdit_AppendText($hConsole, @CRLF & $sLine)
+    $g_iConsoleLineCount += 1
 
-Func _CenterConsoleText($sText, $iWidth = 72)
-    Local $sTrimmed = StringStripWS($sText, 3)
-    If $sTrimmed = "" Then Return ""
+    If $g_iConsoleLineCount > $CONSOLE_MAX_LINES Then
+        Local $sConsoleText = GUICtrlRead($console)
+        Local $aLines = StringSplit($sConsoleText, @CRLF, 1)
+        If IsArray($aLines) Then
+            Local $iStart = $aLines[0] - $CONSOLE_MAX_LINES + 1
+            Local $sTrimmed = ""
+            Local $i = 0
+            If $iStart < 1 Then $iStart = 1
+            For $i = $iStart To $aLines[0]
+                If $sTrimmed <> "" Then $sTrimmed &= @CRLF
+                $sTrimmed &= $aLines[$i]
+            Next
+            GUICtrlSetData($console, $sTrimmed)
+            $g_iConsoleLineCount = $aLines[0] - $iStart + 1
+            $hConsole = GUICtrlGetHandle($console)
+        EndIf
+    EndIf
 
-    Local $iPadding = Int(($iWidth - StringLen($sTrimmed)) / 2)
-    If $iPadding < 0 Then $iPadding = 0
-    Return _StringRepeat(" ", $iPadding) & $sTrimmed
+    _GUICtrlEdit_LineScroll($hConsole, 0, _GUICtrlEdit_GetLineCount($hConsole))
 EndFunc
 
 Func _LogStartupBanner()
-    _AppendConsoleLine("--Initialising--")
-    _AppendConsoleLine("--Guild Wars Vanquish Bot--")
-    _AppendConsoleLine("--Brought to you by MrDomRocks--")
+    _AppendConsoleLine("Initialising Guild Wars Vanquish Bot.")
+    _AppendConsoleLine("Author: MrDomRocks")
     _AppendConsoleLine("")
 EndFunc
 

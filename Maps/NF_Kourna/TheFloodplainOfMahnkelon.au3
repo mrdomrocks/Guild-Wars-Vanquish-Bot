@@ -1,6 +1,185 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute01[7][2] = [ _
+        [-15002, -14809], _
+        [-13711, -13165], _
+        [-13385, -12015], _
+        [-13173, -8565], _
+        [-9704, -9111], _
+        [-11439, -12825], _
+        [-8739, -10848] _
+]
+
+Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute02[25][2] = [ _
+        [-4454, -9503], _
+        [-2484, -8955], _
+        [-1935, -7149], _
+        [-2595, -10695], _
+        [-2331, -13007], _
+        [-511, -12793], _
+        [353, -11430], _
+        [3430, -12920], _
+        [5147, -13075], _
+        [7074, -14268], _
+        [8594, -13808], _
+        [8743, -10970], _
+        [11714, -10487], _
+        [13180, -9292], _
+        [13926, -10058], _
+        [12216, -12517], _
+        [15616, -13087], _
+        [15351, -11217], _
+        [17381, -8652], _
+        [18898, -7978], _
+        [19081, -5370], _
+        [17185, -2602], _
+        [16911, -1560], _
+        [17211, 307], _
+        [18625, -524] _
+]
+
+Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute03[9][2] = [ _
+        [15402, 4672], _
+        [15109, 7002], _
+        [12692, 10020], _
+        [9017, 12587], _
+        [10553, 15520], _
+        [6654, 15143], _
+        [5156, 14175], _
+        [3270, 15741], _
+        [1748, 14823] _
+]
+
+Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute04[41][2] = [ _
+        [-2909, 9103], _
+        [-802, 12067], _
+        [-3218, 15914], _
+        [-6169, 13747], _
+        [-7971, 12263], _
+        [-11514, 10236], _
+        [-14537, 7999], _
+        [-16396, 5848], _
+        [-18000, 3885], _
+        [-19002, 3657], _
+        [-16316, 1894], _
+        [-14257, -1695], _
+        [-14333, -5207], _
+        [-18549, -5887], _
+        [-21613, -5643], _
+        [-16874, -6362], _
+        [-12440, -7346], _
+        [-9350, -5174], _
+        [-8485, -3520], _
+        [-8690, -1186], _
+        [-7487, 3425], _
+        [-3607, -35], _
+        [-1068, -3052], _
+        [2196, -5259], _
+        [-2269, -646], _
+        [39, 1585], _
+        [1881, 711], _
+        [5916, -1120], _
+        [2242, 2087], _
+        [-1650, 7398], _
+        [1698, 3370], _
+        [3288, 4817], _
+        [4603, 3700], _
+        [1952, 5949], _
+        [2948, 8823], _
+        [4547, 9903], _
+        [5346, 9063], _
+        [7785, 8337], _
+        [6663, 6444], _
+        [6791, 4867], _
+        [4495, 3693] _
+]
+
+Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute05[82][2] = [ _
+        [4495, 3693], _
+        [6791, 4867], _
+        [6663, 6444], _
+        [7785, 8337], _
+        [5346, 9063], _
+        [4547, 9903], _
+        [2948, 8823], _
+        [1952, 5949], _
+        [4603, 3700], _
+        [3288, 4817], _
+        [1698, 3370], _
+        [-1650, 7398], _
+        [2242, 2087], _
+        [5916, -1120], _
+        [1881, 711], _
+        [39, 1585], _
+        [-2269, -646], _
+        [2196, -5259], _
+        [-1068, -3052], _
+        [-3607, -35], _
+        [-7487, 3425], _
+        [-8690, -1186], _
+        [-8485, -3520], _
+        [-9350, -5174], _
+        [-12440, -7346], _
+        [-16874, -6362], _
+        [-21613, -5643], _
+        [-18549, -5887], _
+        [-14333, -5207], _
+        [-14257, -1695], _
+        [-16316, 1894], _
+        [-19002, 3657], _
+        [-18000, 3885], _
+        [-16396, 5848], _
+        [-14537, 7999], _
+        [-11514, 10236], _
+        [-7971, 12263], _
+        [-6169, 13747], _
+        [-3218, 15914], _
+        [-802, 12067], _
+        [-2909, 9103], _
+        [1748, 14823], _
+        [3270, 15741], _
+        [5156, 14175], _
+        [6654, 15143], _
+        [10553, 15520], _
+        [9017, 12587], _
+        [12692, 10020], _
+        [15109, 7002], _
+        [15402, 4672], _
+        [18625, -524], _
+        [17211, 307], _
+        [16911, -1560], _
+        [17185, -2602], _
+        [19081, -5370], _
+        [18898, -7978], _
+        [17381, -8652], _
+        [15351, -11217], _
+        [15616, -13087], _
+        [12216, -12517], _
+        [13926, -10058], _
+        [13180, -9292], _
+        [11714, -10487], _
+        [8743, -10970], _
+        [8594, -13808], _
+        [7074, -14268], _
+        [5147, -13075], _
+        [3430, -12920], _
+        [353, -11430], _
+        [-511, -12793], _
+        [-2331, -13007], _
+        [-2595, -10695], _
+        [-1935, -7149], _
+        [-2484, -8955], _
+        [-4454, -9503], _
+        [-8739, -10848], _
+        [-11439, -12825], _
+        [-9704, -9111], _
+        [-13173, -8565], _
+        [-13385, -12015], _
+        [-13711, -13165], _
+        [-15002, -14809] _
+]
+
 Func GoOutTheFloodplainOfMahnkelon()
         Local $aGoOutRoute[3][2] = [ [2369, 3332] _
                 , [4406, 4058] _
@@ -29,59 +208,21 @@ Func VQTheFloodplainOfMahnkelon()
 		Dialog(0x00000084)
 		Dialog(0x00000085)
 		Sleep(1000)
-		If GetAreaVanquished() = False Then AggroMoveTo(-15002, -14809)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13711, -13165)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13385, -12015)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13173, -8565)
-		If GetAreaVanquished() = False Then AggroMoveTo(-9704, -9111)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11439, -12825)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8739, -10848)
+		_Vanquisher_RunVanquishRoute($aNF_Kourna_TheFloodplainOfMahnkelonRoute01)
 		
 		GoNearestNPCToCoords(-5912, -11262)
 		Sleep(1000)
 		Dialog(0x00000084)
 		Dialog(0x00000085)
 		Sleep(1000)
-		If GetAreaVanquished() = False Then AggroMoveTo(-4454, -9503)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2484, -8955)
-		If GetAreaVanquished() = False Then AggroMoveTo(-1935, -7149)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2595, -10695)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2331, -13007)
-		If GetAreaVanquished() = False Then AggroMoveTo(-511, -12793)
-		If GetAreaVanquished() = False Then AggroMoveTo(353, -11430)
-		If GetAreaVanquished() = False Then AggroMoveTo(3430, -12920)
-		If GetAreaVanquished() = False Then AggroMoveTo(5147, -13075)
-		If GetAreaVanquished() = False Then AggroMoveTo(7074, -14268)
-		If GetAreaVanquished() = False Then AggroMoveTo(8594, -13808)
-		If GetAreaVanquished() = False Then AggroMoveTo(8743, -10970)
-		If GetAreaVanquished() = False Then AggroMoveTo(11714, -10487)
-		If GetAreaVanquished() = False Then AggroMoveTo(13180, -9292)
-		If GetAreaVanquished() = False Then AggroMoveTo(13926, -10058)
-		If GetAreaVanquished() = False Then AggroMoveTo(12216, -12517)
-		If GetAreaVanquished() = False Then AggroMoveTo(15616, -13087)
-		If GetAreaVanquished() = False Then AggroMoveTo(15351, -11217)
-		If GetAreaVanquished() = False Then AggroMoveTo(17381, -8652)
-		If GetAreaVanquished() = False Then AggroMoveTo(18898, -7978)
-		If GetAreaVanquished() = False Then AggroMoveTo(19081, -5370)
-		If GetAreaVanquished() = False Then AggroMoveTo(17185, -2602)
-		If GetAreaVanquished() = False Then AggroMoveTo(16911, -1560)
-		If GetAreaVanquished() = False Then AggroMoveTo(17211, 307)
-		If GetAreaVanquished() = False Then AggroMoveTo(18625, -524)
+		_Vanquisher_RunVanquishRoute($aNF_Kourna_TheFloodplainOfMahnkelonRoute02)
 		
 		GoNearestNPCToCoords(13534, 1442)
 		Sleep(1000)
 		Dialog(0x00000084)
 		Dialog(0x00000085)
 		Sleep(1000)
-		If GetAreaVanquished() = False Then AggroMoveTo(15402, 4672)
-		If GetAreaVanquished() = False Then AggroMoveTo(15109, 7002)
-		If GetAreaVanquished() = False Then AggroMoveTo(12692, 10020)
-		If GetAreaVanquished() = False Then AggroMoveTo(9017, 12587)
-		If GetAreaVanquished() = False Then AggroMoveTo(10553, 15520)
-		If GetAreaVanquished() = False Then AggroMoveTo(6654, 15143)
-		If GetAreaVanquished() = False Then AggroMoveTo(5156, 14175)
-		If GetAreaVanquished() = False Then AggroMoveTo(3270, 15741)
-		If GetAreaVanquished() = False Then AggroMoveTo(1748, 14823)
+		_Vanquisher_RunVanquishRoute($aNF_Kourna_TheFloodplainOfMahnkelonRoute03)
 		
 		GoNearestNPCToCoords(-701, 11798)
 		Sleep(1000)
@@ -89,130 +230,9 @@ Func VQTheFloodplainOfMahnkelon()
 		Dialog(0x00000085)
 		Sleep(1000)
 		Sleep(20000)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2909, 9103)
-		If GetAreaVanquished() = False Then AggroMoveTo(-802, 12067)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3218, 15914)
-		If GetAreaVanquished() = False Then AggroMoveTo(-6169, 13747)
-		If GetAreaVanquished() = False Then AggroMoveTo(-7971, 12263)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11514, 10236)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14537, 7999)
-		If GetAreaVanquished() = False Then AggroMoveTo(-16396, 5848)
-		If GetAreaVanquished() = False Then AggroMoveTo(-18000, 3885)
-		If GetAreaVanquished() = False Then AggroMoveTo(-19002, 3657)
-		If GetAreaVanquished() = False Then AggroMoveTo(-16316, 1894)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14257, -1695)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14333, -5207)
-		If GetAreaVanquished() = False Then AggroMoveTo(-18549, -5887)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21613, -5643)
-		If GetAreaVanquished() = False Then AggroMoveTo(-16874, -6362)
-		If GetAreaVanquished() = False Then AggroMoveTo(-12440, -7346)
-		If GetAreaVanquished() = False Then AggroMoveTo(-9350, -5174)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8485, -3520)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8690, -1186)
-		If GetAreaVanquished() = False Then AggroMoveTo(-7487, 3425)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3607, -35)
-		If GetAreaVanquished() = False Then AggroMoveTo(-1068, -3052)
-		If GetAreaVanquished() = False Then AggroMoveTo(2196, -5259)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2269, -646)
-		If GetAreaVanquished() = False Then AggroMoveTo(39, 1585)
-		If GetAreaVanquished() = False Then AggroMoveTo(1881, 711)
-		If GetAreaVanquished() = False Then AggroMoveTo(5916, -1120)
-		If GetAreaVanquished() = False Then AggroMoveTo(2242, 2087)
-		If GetAreaVanquished() = False Then AggroMoveTo(-1650, 7398)
-		If GetAreaVanquished() = False Then AggroMoveTo(1698, 3370)
-		If GetAreaVanquished() = False Then AggroMoveTo(3288, 4817)
-		If GetAreaVanquished() = False Then AggroMoveTo(4603, 3700)
-		If GetAreaVanquished() = False Then AggroMoveTo(1952, 5949)
-		If GetAreaVanquished() = False Then AggroMoveTo(2948, 8823)
-		If GetAreaVanquished() = False Then AggroMoveTo(4547, 9903)
-		If GetAreaVanquished() = False Then AggroMoveTo(5346, 9063)
-		If GetAreaVanquished() = False Then AggroMoveTo(7785, 8337)
-		If GetAreaVanquished() = False Then AggroMoveTo(6663, 6444)
-		If GetAreaVanquished() = False Then AggroMoveTo(6791, 4867)
-		If GetAreaVanquished() = False Then AggroMoveTo(4495, 3693)
+		_Vanquisher_RunVanquishRoute($aNF_Kourna_TheFloodplainOfMahnkelonRoute04)
 		
-		If GetAreaVanquished() = False Then AggroMoveTo(4495, 3693)
-		If GetAreaVanquished() = False Then AggroMoveTo(6791, 4867)
-		If GetAreaVanquished() = False Then AggroMoveTo(6663, 6444)
-		If GetAreaVanquished() = False Then AggroMoveTo(7785, 8337)
-		If GetAreaVanquished() = False Then AggroMoveTo(5346, 9063)
-		If GetAreaVanquished() = False Then AggroMoveTo(4547, 9903)
-		If GetAreaVanquished() = False Then AggroMoveTo(2948, 8823)
-		If GetAreaVanquished() = False Then AggroMoveTo(1952, 5949)
-		If GetAreaVanquished() = False Then AggroMoveTo(4603, 3700)
-		If GetAreaVanquished() = False Then AggroMoveTo(3288, 4817)
-		If GetAreaVanquished() = False Then AggroMoveTo(1698, 3370)
-		If GetAreaVanquished() = False Then AggroMoveTo(-1650, 7398)
-		If GetAreaVanquished() = False Then AggroMoveTo(2242, 2087)
-		If GetAreaVanquished() = False Then AggroMoveTo(5916, -1120)
-		If GetAreaVanquished() = False Then AggroMoveTo(1881, 711)
-		If GetAreaVanquished() = False Then AggroMoveTo(39, 1585)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2269, -646)
-		If GetAreaVanquished() = False Then AggroMoveTo(2196, -5259)
-		If GetAreaVanquished() = False Then AggroMoveTo(-1068, -3052)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3607, -35)
-		If GetAreaVanquished() = False Then AggroMoveTo(-7487, 3425)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8690, -1186)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8485, -3520)
-		If GetAreaVanquished() = False Then AggroMoveTo(-9350, -5174)
-		If GetAreaVanquished() = False Then AggroMoveTo(-12440, -7346)
-		If GetAreaVanquished() = False Then AggroMoveTo(-16874, -6362)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21613, -5643)
-		If GetAreaVanquished() = False Then AggroMoveTo(-18549, -5887)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14333, -5207)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14257, -1695)
-		If GetAreaVanquished() = False Then AggroMoveTo(-16316, 1894)
-		If GetAreaVanquished() = False Then AggroMoveTo(-19002, 3657)
-		If GetAreaVanquished() = False Then AggroMoveTo(-18000, 3885)
-		If GetAreaVanquished() = False Then AggroMoveTo(-16396, 5848)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14537, 7999)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11514, 10236)
-		If GetAreaVanquished() = False Then AggroMoveTo(-7971, 12263)
-		If GetAreaVanquished() = False Then AggroMoveTo(-6169, 13747)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3218, 15914)
-		If GetAreaVanquished() = False Then AggroMoveTo(-802, 12067)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2909, 9103)
-		If GetAreaVanquished() = False Then AggroMoveTo(1748, 14823)
-		If GetAreaVanquished() = False Then AggroMoveTo(3270, 15741)
-		If GetAreaVanquished() = False Then AggroMoveTo(5156, 14175)
-		If GetAreaVanquished() = False Then AggroMoveTo(6654, 15143)
-		If GetAreaVanquished() = False Then AggroMoveTo(10553, 15520)
-		If GetAreaVanquished() = False Then AggroMoveTo(9017, 12587)
-		If GetAreaVanquished() = False Then AggroMoveTo(12692, 10020)
-		If GetAreaVanquished() = False Then AggroMoveTo(15109, 7002)
-		If GetAreaVanquished() = False Then AggroMoveTo(15402, 4672)
-		If GetAreaVanquished() = False Then AggroMoveTo(18625, -524)
-		If GetAreaVanquished() = False Then AggroMoveTo(17211, 307)
-		If GetAreaVanquished() = False Then AggroMoveTo(16911, -1560)
-		If GetAreaVanquished() = False Then AggroMoveTo(17185, -2602)
-		If GetAreaVanquished() = False Then AggroMoveTo(19081, -5370)
-		If GetAreaVanquished() = False Then AggroMoveTo(18898, -7978)
-		If GetAreaVanquished() = False Then AggroMoveTo(17381, -8652)
-		If GetAreaVanquished() = False Then AggroMoveTo(15351, -11217)
-		If GetAreaVanquished() = False Then AggroMoveTo(15616, -13087)
-		If GetAreaVanquished() = False Then AggroMoveTo(12216, -12517)
-		If GetAreaVanquished() = False Then AggroMoveTo(13926, -10058)
-		If GetAreaVanquished() = False Then AggroMoveTo(13180, -9292)
-		If GetAreaVanquished() = False Then AggroMoveTo(11714, -10487)
-		If GetAreaVanquished() = False Then AggroMoveTo(8743, -10970)
-		If GetAreaVanquished() = False Then AggroMoveTo(8594, -13808)
-		If GetAreaVanquished() = False Then AggroMoveTo(7074, -14268)
-		If GetAreaVanquished() = False Then AggroMoveTo(5147, -13075)
-		If GetAreaVanquished() = False Then AggroMoveTo(3430, -12920)
-		If GetAreaVanquished() = False Then AggroMoveTo(353, -11430)
-		If GetAreaVanquished() = False Then AggroMoveTo(-511, -12793)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2331, -13007)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2595, -10695)
-		If GetAreaVanquished() = False Then AggroMoveTo(-1935, -7149)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2484, -8955)
-		If GetAreaVanquished() = False Then AggroMoveTo(-4454, -9503)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8739, -10848)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11439, -12825)
-		If GetAreaVanquished() = False Then AggroMoveTo(-9704, -9111)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13173, -8565)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13385, -12015)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13711, -13165)
-		If GetAreaVanquished() = False Then AggroMoveTo(-15002, -14809)
+		_Vanquisher_RunVanquishRoute($aNF_Kourna_TheFloodplainOfMahnkelonRoute05)
 		
     EndIf
 EndFunc

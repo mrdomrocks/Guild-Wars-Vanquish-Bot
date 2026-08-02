@@ -6,6 +6,98 @@ Global $aScoundrelsRiseOutpostPath[2][2] = [ _
 	[-4334.29, 26859.33] _
 ]
 
+Global $aProph_Kryta_ScoundrelsRiseRoute01[43][2] = [ _
+        [-2529, -5002], _
+        [-470, -2966], _
+        [2763, -2033], _
+        [4006, -1526], _
+        [4030, -1364], _
+        [4333, -1079], _
+        [5013, -591], _
+        [4648, -167], _
+        [3978, 494], _
+        [2655, 1441], _
+        [2199, 2371], _
+        [2159, 2464], _
+        [2892, 2837], _
+        [3772, 3968], _
+        [3751, 4621], _
+        [5106, 4888], _
+        [6761, 4999], _
+        [7683, 6114], _
+        [6914, 7092], _
+        [6540, 7500], _
+        [4766, 8885], _
+        [4359, 8553], _
+        [3501, 7961], _
+        [2428, 5685], _
+        [2327, 5658], _
+        [791, 5064], _
+        [-37, 6023], _
+        [-672, 7194], _
+        [-2283, 7737], _
+        [-4571, 8588], _
+        [-5158, 8757], _
+        [-5737, 9153], _
+        [-3183, 8086], _
+        [-2535, 6465], _
+        [-2394, 5688], _
+        [-3686, 4096], _
+        [-4695, 2122], _
+        [-5057, 416], _
+        [-3522, 4099], _
+        [-2551, 5576], _
+        [-668, 4943], _
+        [1202, 3009], _
+        [5940, 1835] _
+]
+
+Global $aProph_Kryta_ScoundrelsRiseRoute02[43][2] = [ _
+        [5940, 1835], _
+        [1202, 3009], _
+        [-668, 4943], _
+        [-2551, 5576], _
+        [-3522, 4099], _
+        [-5057, 416], _
+        [-4695, 2122], _
+        [-3686, 4096], _
+        [-2394, 5688], _
+        [-2535, 6465], _
+        [-3183, 8086], _
+        [-5737, 9153], _
+        [-5158, 8757], _
+        [-4571, 8588], _
+        [-2283, 7737], _
+        [-672, 7194], _
+        [-37, 6023], _
+        [791, 5064], _
+        [2327, 5658], _
+        [2428, 5685], _
+        [3501, 7961], _
+        [4359, 8553], _
+        [4766, 8885], _
+        [6540, 7500], _
+        [6914, 7092], _
+        [7683, 6114], _
+        [6761, 4999], _
+        [5106, 4888], _
+        [3751, 4621], _
+        [3772, 3968], _
+        [2892, 2837], _
+        [2159, 2464], _
+        [2199, 2371], _
+        [2655, 1441], _
+        [3978, 494], _
+        [4648, -167], _
+        [5013, -591], _
+        [4333, -1079], _
+        [4030, -1364], _
+        [4006, -1526], _
+        [2763, -2033], _
+        [-470, -2966], _
+        [-2529, -5002] _
+]
+
 Func GoOutScoundrelsRise()
 	Local $l_i_Map = GetMapID()
 
@@ -47,93 +139,9 @@ Func VQScoundrelsRise()
 	CurrentAction("Starting ScoundrelsRise vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(-2529, -5002)
-	If GetAreaVanquished() = False Then AggroMoveTo(-470, -2966)
-	If GetAreaVanquished() = False Then AggroMoveTo(2763, -2033)
-	If GetAreaVanquished() = False Then AggroMoveTo(4006, -1526)
-	If GetAreaVanquished() = False Then AggroMoveTo(4030, -1364)
-	If GetAreaVanquished() = False Then AggroMoveTo(4333, -1079)
-	If GetAreaVanquished() = False Then AggroMoveTo(5013, -591)
-	If GetAreaVanquished() = False Then AggroMoveTo(4648, -167)
-	If GetAreaVanquished() = False Then AggroMoveTo(3978, 494)
-	If GetAreaVanquished() = False Then AggroMoveTo(2655, 1441)
-	If GetAreaVanquished() = False Then AggroMoveTo(2199, 2371)
-	If GetAreaVanquished() = False Then AggroMoveTo(2159, 2464)
-	If GetAreaVanquished() = False Then AggroMoveTo(2892, 2837)
-	If GetAreaVanquished() = False Then AggroMoveTo(3772, 3968)
-	If GetAreaVanquished() = False Then AggroMoveTo(3751, 4621)
-	If GetAreaVanquished() = False Then AggroMoveTo(5106, 4888)
-	If GetAreaVanquished() = False Then AggroMoveTo(6761, 4999)
-	If GetAreaVanquished() = False Then AggroMoveTo(7683, 6114)
-	If GetAreaVanquished() = False Then AggroMoveTo(6914, 7092)
-	If GetAreaVanquished() = False Then AggroMoveTo(6540, 7500)
-	If GetAreaVanquished() = False Then AggroMoveTo(4766, 8885)
-	If GetAreaVanquished() = False Then AggroMoveTo(4359, 8553)
-	If GetAreaVanquished() = False Then AggroMoveTo(3501, 7961)
-	If GetAreaVanquished() = False Then AggroMoveTo(2428, 5685)
-	If GetAreaVanquished() = False Then AggroMoveTo(2327, 5658)
-	If GetAreaVanquished() = False Then AggroMoveTo(791, 5064)
-	If GetAreaVanquished() = False Then AggroMoveTo(-37, 6023)
-	If GetAreaVanquished() = False Then AggroMoveTo(-672, 7194)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2283, 7737)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4571, 8588)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5158, 8757)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5737, 9153)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3183, 8086)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2535, 6465)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2394, 5688)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3686, 4096)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4695, 2122)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5057, 416)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3522, 4099)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2551, 5576)
-	If GetAreaVanquished() = False Then AggroMoveTo(-668, 4943)
-	If GetAreaVanquished() = False Then AggroMoveTo(1202, 3009)
-	If GetAreaVanquished() = False Then AggroMoveTo(5940, 1835)
+	_Vanquisher_RunVanquishRoute($aProph_Kryta_ScoundrelsRiseRoute01)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(5940, 1835)
-	If GetAreaVanquished() = False Then AggroMoveTo(1202, 3009)
-	If GetAreaVanquished() = False Then AggroMoveTo(-668, 4943)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2551, 5576)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3522, 4099)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5057, 416)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4695, 2122)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3686, 4096)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2394, 5688)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2535, 6465)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3183, 8086)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5737, 9153)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5158, 8757)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4571, 8588)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2283, 7737)
-	If GetAreaVanquished() = False Then AggroMoveTo(-672, 7194)
-	If GetAreaVanquished() = False Then AggroMoveTo(-37, 6023)
-	If GetAreaVanquished() = False Then AggroMoveTo(791, 5064)
-	If GetAreaVanquished() = False Then AggroMoveTo(2327, 5658)
-	If GetAreaVanquished() = False Then AggroMoveTo(2428, 5685)
-	If GetAreaVanquished() = False Then AggroMoveTo(3501, 7961)
-	If GetAreaVanquished() = False Then AggroMoveTo(4359, 8553)
-	If GetAreaVanquished() = False Then AggroMoveTo(4766, 8885)
-	If GetAreaVanquished() = False Then AggroMoveTo(6540, 7500)
-	If GetAreaVanquished() = False Then AggroMoveTo(6914, 7092)
-	If GetAreaVanquished() = False Then AggroMoveTo(7683, 6114)
-	If GetAreaVanquished() = False Then AggroMoveTo(6761, 4999)
-	If GetAreaVanquished() = False Then AggroMoveTo(5106, 4888)
-	If GetAreaVanquished() = False Then AggroMoveTo(3751, 4621)
-	If GetAreaVanquished() = False Then AggroMoveTo(3772, 3968)
-	If GetAreaVanquished() = False Then AggroMoveTo(2892, 2837)
-	If GetAreaVanquished() = False Then AggroMoveTo(2159, 2464)
-	If GetAreaVanquished() = False Then AggroMoveTo(2199, 2371)
-	If GetAreaVanquished() = False Then AggroMoveTo(2655, 1441)
-	If GetAreaVanquished() = False Then AggroMoveTo(3978, 494)
-	If GetAreaVanquished() = False Then AggroMoveTo(4648, -167)
-	If GetAreaVanquished() = False Then AggroMoveTo(5013, -591)
-	If GetAreaVanquished() = False Then AggroMoveTo(4333, -1079)
-	If GetAreaVanquished() = False Then AggroMoveTo(4030, -1364)
-	If GetAreaVanquished() = False Then AggroMoveTo(4006, -1526)
-	If GetAreaVanquished() = False Then AggroMoveTo(2763, -2033)
-	If GetAreaVanquished() = False Then AggroMoveTo(-470, -2966)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2529, -5002)
+	_Vanquisher_RunVanquishRoute($aProph_Kryta_ScoundrelsRiseRoute02)
 EndFunc
 

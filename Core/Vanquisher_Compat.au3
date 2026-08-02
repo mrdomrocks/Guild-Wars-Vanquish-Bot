@@ -277,18 +277,17 @@ Func _Vanquisher_SyncLegacyHandles()
 EndFunc
 
 Func Initialize($a_s_GW, $a_b_ChangeTitle = True, $a_b_Unused = True)
-    #forceref $a_b_Unused
+    If Not _Vanquisher_GWIsRunning() Then Return False
 
-    Local $vTarget = $a_s_GW
     If IsString($a_s_GW) And $a_s_GW <> "" Then
         Local $l_i_Pid = _Gwen_FindPidByCharName($a_s_GW)
-        If $l_i_Pid > 0 Then $vTarget = $l_i_Pid
-    EndIf
-
-    Local $l_i_Result = Core_Initialize($vTarget, $a_b_ChangeTitle)
-    If $l_i_Result = 0 Then
-        _Vanquisher_SyncLegacyHandles()
-        Return False
+        If $l_i_Pid Then
+            Core_Initialize($l_i_Pid, $a_b_ChangeTitle)
+        Else
+            Core_Initialize($a_s_GW, $a_b_ChangeTitle)
+        EndIf
+    Else
+        Core_Initialize($a_s_GW, $a_b_ChangeTitle)
     EndIf
 
     If Not $g_h_GWProcess Then
@@ -1109,6 +1108,14 @@ Func GetVanguardTitle()
 EndFunc
 
 Func TravelTo($a_i_MapID, $a_i_District = 0)
+    If $a_i_MapID <= 0 Then Return False
+    If GetMapID() = $a_i_MapID And Map_GetInstanceInfo("IsOutpost") Then Return True
+
+    If Map_TravelTo($a_i_MapID, Map_GetCharacterInfo("Language"), Map_GetCharacterInfo("Region"), $a_i_District, True) Then
+        _Vanquisher_CacheCombatAIForCurrentMap()
+        If GetMapID() = $a_i_MapID Then Return True
+    EndIf
+
     Return OutpostTravel($a_i_MapID)
 EndFunc
 

@@ -47,6 +47,102 @@ Global $aDreadnoughtsDriftTransitPath[38][2] = [ _
 	[-7091, 45561] _
 ]
 
+Global $aProph_SouthernShiverpeaks_DreadnoughtsDriftRoute01[45][2] = [ _
+        [-5119, -5407], _
+        [-4427, -4775], _
+        [-4446, -2638], _
+        [-4555, -5927], _
+        [-2949, -7679], _
+        [-2050, -6796], _
+        [-1308, -1897], _
+        [106, -103], _
+        [514, 176], _
+        [3533, 498], _
+        [4356, -3346], _
+        [4207, -4303], _
+        [3699, -6090], _
+        [4471, -5998], _
+        [7167, -5819], _
+        [6078, -2889], _
+        [6326, -1135], _
+        [6525, -355], _
+        [6602, -227], _
+        [5077, 1710], _
+        [5045, 2476], _
+        [5045, 2476], _
+        [4953, 3191], _
+        [6067, 5643], _
+        [3323, 825], _
+        [-1930, 112], _
+        [-1997, 919], _
+        [-1170, 2400], _
+        [-783, 3165], _
+        [-738, 3773], _
+        [-1796, 7507], _
+        [-4843, 6735], _
+        [-6772, 3979], _
+        [-6108, 2572], _
+        [-5394, 1659], _
+        [-4355, 1206], _
+        [-3584, 1138], _
+        [-1491, 2807], _
+        [-1006, 3799], _
+        [-828, 4909], _
+        [-1219, 5993], _
+        [-2209, 7086], _
+        [-3361, 7077], _
+        [-4223, 6917], _
+        [-5167, 7362] _
+]
+
+Global $aProph_SouthernShiverpeaks_DreadnoughtsDriftRoute02[45][2] = [ _
+        [-5167, 7362], _
+        [-4223, 6917], _
+        [-3361, 7077], _
+        [-2209, 7086], _
+        [-1219, 5993], _
+        [-828, 4909], _
+        [-1006, 3799], _
+        [-1491, 2807], _
+        [-3584, 1138], _
+        [-4355, 1206], _
+        [-5394, 1659], _
+        [-6108, 2572], _
+        [-6772, 3979], _
+        [-4843, 6735], _
+        [-1796, 7507], _
+        [-738, 3773], _
+        [-783, 3165], _
+        [-1170, 2400], _
+        [-1997, 919], _
+        [-1930, 112], _
+        [3323, 825], _
+        [6067, 5643], _
+        [4953, 3191], _
+        [5045, 2476], _
+        [5045, 2476], _
+        [5077, 1710], _
+        [6602, -227], _
+        [6525, -355], _
+        [6326, -1135], _
+        [6078, -2889], _
+        [7167, -5819], _
+        [4471, -5998], _
+        [3699, -6090], _
+        [4207, -4303], _
+        [4356, -3346], _
+        [3533, 498], _
+        [514, 176], _
+        [106, -103], _
+        [-1308, -1897], _
+        [-2050, -6796], _
+        [-2949, -7679], _
+        [-4555, -5927], _
+        [-4446, -2638], _
+        [-4427, -4775], _
+        [-5119, -5407] _
+]
+
 Func GoOutDreadnoughtsDrift()
 	Local $l_i_Map = GetMapID()
 
@@ -98,97 +194,9 @@ Func VQDreadnoughtsDrift()
 	CurrentAction("Starting DreadnoughtsDrift vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(-5119, -5407)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4427, -4775)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4446, -2638)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4555, -5927)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2949, -7679)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2050, -6796)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1308, -1897)
-	If GetAreaVanquished() = False Then AggroMoveTo(106, -103)
-	If GetAreaVanquished() = False Then AggroMoveTo(514, 176)
-	If GetAreaVanquished() = False Then AggroMoveTo(3533, 498)
-	If GetAreaVanquished() = False Then AggroMoveTo(4356, -3346)
-	If GetAreaVanquished() = False Then AggroMoveTo(4207, -4303)
-	If GetAreaVanquished() = False Then AggroMoveTo(3699, -6090)
-	If GetAreaVanquished() = False Then AggroMoveTo(4471, -5998)
-	If GetAreaVanquished() = False Then AggroMoveTo(7167, -5819)
-	If GetAreaVanquished() = False Then AggroMoveTo(6078, -2889)
-	If GetAreaVanquished() = False Then AggroMoveTo(6326, -1135)
-	If GetAreaVanquished() = False Then AggroMoveTo(6525, -355)
-	If GetAreaVanquished() = False Then AggroMoveTo(6602, -227)
-	If GetAreaVanquished() = False Then AggroMoveTo(5077, 1710)
-	If GetAreaVanquished() = False Then AggroMoveTo(5045, 2476)
-	If GetAreaVanquished() = False Then AggroMoveTo(5045, 2476)
-	If GetAreaVanquished() = False Then AggroMoveTo(4953, 3191)
-	If GetAreaVanquished() = False Then AggroMoveTo(6067, 5643)
-	If GetAreaVanquished() = False Then AggroMoveTo(3323, 825)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1930, 112)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1997, 919)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1170, 2400)
-	If GetAreaVanquished() = False Then AggroMoveTo(-783, 3165)
-	If GetAreaVanquished() = False Then AggroMoveTo(-738, 3773)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1796, 7507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4843, 6735)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6772, 3979)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6108, 2572)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5394, 1659)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4355, 1206)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3584, 1138)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1491, 2807)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1006, 3799)
-	If GetAreaVanquished() = False Then AggroMoveTo(-828, 4909)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1219, 5993)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2209, 7086)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3361, 7077)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4223, 6917)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5167, 7362)
+	_Vanquisher_RunVanquishRoute($aProph_SouthernShiverpeaks_DreadnoughtsDriftRoute01)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(-5167, 7362)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4223, 6917)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3361, 7077)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2209, 7086)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1219, 5993)
-	If GetAreaVanquished() = False Then AggroMoveTo(-828, 4909)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1006, 3799)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1491, 2807)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3584, 1138)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4355, 1206)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5394, 1659)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6108, 2572)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6772, 3979)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4843, 6735)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1796, 7507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-738, 3773)
-	If GetAreaVanquished() = False Then AggroMoveTo(-783, 3165)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1170, 2400)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1997, 919)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1930, 112)
-	If GetAreaVanquished() = False Then AggroMoveTo(3323, 825)
-	If GetAreaVanquished() = False Then AggroMoveTo(6067, 5643)
-	If GetAreaVanquished() = False Then AggroMoveTo(4953, 3191)
-	If GetAreaVanquished() = False Then AggroMoveTo(5045, 2476)
-	If GetAreaVanquished() = False Then AggroMoveTo(5045, 2476)
-	If GetAreaVanquished() = False Then AggroMoveTo(5077, 1710)
-	If GetAreaVanquished() = False Then AggroMoveTo(6602, -227)
-	If GetAreaVanquished() = False Then AggroMoveTo(6525, -355)
-	If GetAreaVanquished() = False Then AggroMoveTo(6326, -1135)
-	If GetAreaVanquished() = False Then AggroMoveTo(6078, -2889)
-	If GetAreaVanquished() = False Then AggroMoveTo(7167, -5819)
-	If GetAreaVanquished() = False Then AggroMoveTo(4471, -5998)
-	If GetAreaVanquished() = False Then AggroMoveTo(3699, -6090)
-	If GetAreaVanquished() = False Then AggroMoveTo(4207, -4303)
-	If GetAreaVanquished() = False Then AggroMoveTo(4356, -3346)
-	If GetAreaVanquished() = False Then AggroMoveTo(3533, 498)
-	If GetAreaVanquished() = False Then AggroMoveTo(514, 176)
-	If GetAreaVanquished() = False Then AggroMoveTo(106, -103)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1308, -1897)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2050, -6796)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2949, -7679)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4555, -5927)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4446, -2638)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4427, -4775)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5119, -5407)
+	_Vanquisher_RunVanquishRoute($aProph_SouthernShiverpeaks_DreadnoughtsDriftRoute02)
 EndFunc
 

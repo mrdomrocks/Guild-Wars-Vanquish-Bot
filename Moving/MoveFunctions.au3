@@ -71,6 +71,36 @@ Func _Vanquisher_RunPathfinderRoute($a_a_Points, $a_i_AggroRange = 1450, $a_s_La
     Next
 EndFunc
 
+Func _Vanquisher_RunVanquishRoute($a_a_Points, $a_i_AggroRange = 1450)
+    Local $l_i_Count = UBound($a_a_Points)
+    If $l_i_Count < 1 Then Return
+
+    For $l_i_Idx = 0 To $l_i_Count - 1
+        If _Vanquisher_ShouldStop() Then Return
+        If GetAreaVanquished() = False Then AggroMoveTo($a_a_Points[$l_i_Idx][0], $a_a_Points[$l_i_Idx][1], "", $a_i_AggroRange)
+    Next
+EndFunc
+
+Func _Vanquisher_RunCaravanRoute($a_a_Points, $a_i_AggroRange = 1450)
+    Local $l_i_Count = UBound($a_a_Points)
+    If $l_i_Count < 1 Then Return
+
+    For $l_i_Idx = 0 To $l_i_Count - 1
+        If _Vanquisher_ShouldStop() Then Return
+        If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo($a_a_Points[$l_i_Idx][0], $a_a_Points[$l_i_Idx][1], "", $a_i_AggroRange)
+    Next
+EndFunc
+
+Func _Vanquisher_RunDeadOnTheRunRoute($a_a_Points, $a_i_AggroRange = 1450)
+    Local $l_i_Count = UBound($a_a_Points)
+    If $l_i_Count < 1 Then Return
+
+    For $l_i_Idx = 0 To $l_i_Count - 1
+        If _Vanquisher_ShouldStop() Then Return
+        If $DeadOnTheRun = 0 Then AggroMoveTo($a_a_Points[$l_i_Idx][0], $a_a_Points[$l_i_Idx][1], "", $a_i_AggroRange)
+    Next
+EndFunc
+
 Func _Vanquisher_RunPathfinderPortalRoute($a_a_Points, $a_i_AggroRange = 1450, $a_s_Label = "", $a_i_PostMoveDelayMs = 0, $a_s_WaitFunc = "WaitForLoad")
     _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange, $a_s_Label, $a_i_PostMoveDelayMs, $a_s_WaitFunc)
 EndFunc
