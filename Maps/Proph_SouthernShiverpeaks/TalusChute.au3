@@ -6,6 +6,232 @@ Global $aTalusChuteOutpostPath[2][2] = [ _
 	[-23133, -5519] _
 ]
 
+Global $aProph_SouthernShiverpeaks_TalusChuteRoute01[110][2] = [ _
+        [19939, -13283], _
+        [18445, -8103], _
+        [13525, -8366], _
+        [12822, -10463], _
+        [10771, -9239], _
+        [4930, -13914], _
+        [2139, -13287], _
+        [-1325, -15498], _
+        [-4648, -16571], _
+        [-5772, -15020], _
+        [-8239, -13539], _
+        [-6977, -9431], _
+        [-8469, -13612], _
+        [-10339, -16935], _
+        [-14403, -15930], _
+        [-20364, -15310], _
+        [-22378, -12916], _
+        [-20768, -9615], _
+        [-17950, -9216], _
+        [-16388, -6887], _
+        [-18527, -6290], _
+        [-21585, -6661], _
+        [-21640, -3785], _
+        [-21724, 1402], _
+        [-21593, 7552], _
+        [-17477, 2444], _
+        [-17561, 7076], _
+        [-16916, 4218], _
+        [-15151, 4597], _
+        [-12824, 7232], _
+        [-15128, 10934], _
+        [-17746, 13853], _
+        [-22066, 15112], _
+        [-19068, 14722], _
+        [-16971, 10651], _
+        [-12239, 9797], _
+        [-13826, 14722], _
+        [-11191, 16516], _
+        [-8629, 14177], _
+        [-9768, 11323], _
+        [-8682, 9529], _
+        [-6694, 12712], _
+        [-8181, 14298], _
+        [-2132, 15196], _
+        [1789, 14579], _
+        [3214, 14912], _
+        [9084, 15087], _
+        [3769, 14159], _
+        [4414, 12354], _
+        [2392, 10875], _
+        [2035, 11365], _
+        [-1644, 11074], _
+        [-2030, 7909], _
+        [-4837, 8460], _
+        [-7500, 4738], _
+        [-5018, 1697], _
+        [-7548, -2251], _
+        [-10619, 425], _
+        [-13294, 2963], _
+        [-13781, -612], _
+        [-15137, 1468], _
+        [-19399, 168], _
+        [-17147, -4282], _
+        [-12591, -4378], _
+        [-11431, -7128], _
+        [-7415, -5303], _
+        [-1127, -7648], _
+        [4316, -5175], _
+        [2859, -325], _
+        [-235, 886], _
+        [-1916, 5929], _
+        [162, 564], _
+        [8, -4980], _
+        [-361, 203], _
+        [1976, 1347], _
+        [2882, 5770], _
+        [5468, 7840], _
+        [9738, 7871], _
+        [11664, 11950], _
+        [9814, 8080], _
+        [14234, 10705], _
+        [15982, 16169], _
+        [19543, 14862], _
+        [21604, 14424], _
+        [23152, 11283], _
+        [22157, 6943], _
+        [21413, 246], _
+        [20031, 1521], _
+        [14953, 1730], _
+        [15981, 5844], _
+        [16906, 7952], _
+        [20938, 10089], _
+        [16247, 5309], _
+        [15261, 1694], _
+        [16405, -1630], _
+        [20051, 1454], _
+        [20017, -933], _
+        [16117, -5733], _
+        [14125, -7231], _
+        [12437, -6272], _
+        [7781, 529], _
+        [8564, 4635], _
+        [11519, 405], _
+        [12843, -7920], _
+        [14917, -5320], _
+        [14245, -1580], _
+        [13496, 661], _
+        [12865, 1686], _
+        [13929, 7587], _
+        [18772, 11402] _
+]
+
+Global $aProph_SouthernShiverpeaks_TalusChuteRoute02[110][2] = [ _
+        [18772, 11402], _
+        [13929, 7587], _
+        [12865, 1686], _
+        [13496, 661], _
+        [14245, -1580], _
+        [14917, -5320], _
+        [12843, -7920], _
+        [11519, 405], _
+        [8564, 4635], _
+        [7781, 529], _
+        [12437, -6272], _
+        [14125, -7231], _
+        [16117, -5733], _
+        [20017, -933], _
+        [20051, 1454], _
+        [16405, -1630], _
+        [15261, 1694], _
+        [16247, 5309], _
+        [20938, 10089], _
+        [16906, 7952], _
+        [15981, 5844], _
+        [14953, 1730], _
+        [20031, 1521], _
+        [21413, 246], _
+        [22157, 6943], _
+        [23152, 11283], _
+        [21604, 14424], _
+        [19543, 14862], _
+        [15982, 16169], _
+        [14234, 10705], _
+        [9814, 8080], _
+        [11664, 11950], _
+        [9738, 7871], _
+        [5468, 7840], _
+        [2882, 5770], _
+        [1976, 1347], _
+        [-361, 203], _
+        [8, -4980], _
+        [162, 564], _
+        [-1916, 5929], _
+        [-235, 886], _
+        [2859, -325], _
+        [4316, -5175], _
+        [-1127, -7648], _
+        [-7415, -5303], _
+        [-11431, -7128], _
+        [-12591, -4378], _
+        [-17147, -4282], _
+        [-19399, 168], _
+        [-15137, 1468], _
+        [-13781, -612], _
+        [-13294, 2963], _
+        [-10619, 425], _
+        [-7548, -2251], _
+        [-5018, 1697], _
+        [-7500, 4738], _
+        [-4837, 8460], _
+        [-2030, 7909], _
+        [-1644, 11074], _
+        [2035, 11365], _
+        [2392, 10875], _
+        [4414, 12354], _
+        [3769, 14159], _
+        [9084, 15087], _
+        [3214, 14912], _
+        [1789, 14579], _
+        [-2132, 15196], _
+        [-8181, 14298], _
+        [-6694, 12712], _
+        [-8682, 9529], _
+        [-9768, 11323], _
+        [-8629, 14177], _
+        [-11191, 16516], _
+        [-13826, 14722], _
+        [-12239, 9797], _
+        [-16971, 10651], _
+        [-19068, 14722], _
+        [-22066, 15112], _
+        [-17746, 13853], _
+        [-15128, 10934], _
+        [-12824, 7232], _
+        [-15151, 4597], _
+        [-16916, 4218], _
+        [-17561, 7076], _
+        [-17477, 2444], _
+        [-21593, 7552], _
+        [-21724, 1402], _
+        [-21640, -3785], _
+        [-21585, -6661], _
+        [-18527, -6290], _
+        [-16388, -6887], _
+        [-17950, -9216], _
+        [-20768, -9615], _
+        [-22378, -12916], _
+        [-20364, -15310], _
+        [-14403, -15930], _
+        [-10339, -16935], _
+        [-8469, -13612], _
+        [-6977, -9431], _
+        [-8239, -13539], _
+        [-5772, -15020], _
+        [-4648, -16571], _
+        [-1325, -15498], _
+        [2139, -13287], _
+        [4930, -13914], _
+        [10771, -9239], _
+        [12822, -10463], _
+        [13525, -8366], _
+        [18445, -8103], _
+        [19939, -13283] _
+]
+
 Func GoOutTalusChute()
 	Local $l_i_Map = GetMapID()
 
@@ -47,227 +273,9 @@ Func VQTalusChute()
 	CurrentAction("Starting TalusChute vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(19939, -13283)
-	If GetAreaVanquished() = False Then AggroMoveTo(18445, -8103)
-	If GetAreaVanquished() = False Then AggroMoveTo(13525, -8366)
-	If GetAreaVanquished() = False Then AggroMoveTo(12822, -10463)
-	If GetAreaVanquished() = False Then AggroMoveTo(10771, -9239)
-	If GetAreaVanquished() = False Then AggroMoveTo(4930, -13914)
-	If GetAreaVanquished() = False Then AggroMoveTo(2139, -13287)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1325, -15498)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4648, -16571)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5772, -15020)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8239, -13539)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6977, -9431)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8469, -13612)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10339, -16935)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14403, -15930)
-	If GetAreaVanquished() = False Then AggroMoveTo(-20364, -15310)
-	If GetAreaVanquished() = False Then AggroMoveTo(-22378, -12916)
-	If GetAreaVanquished() = False Then AggroMoveTo(-20768, -9615)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17950, -9216)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16388, -6887)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18527, -6290)
-	If GetAreaVanquished() = False Then AggroMoveTo(-21585, -6661)
-	If GetAreaVanquished() = False Then AggroMoveTo(-21640, -3785)
-	If GetAreaVanquished() = False Then AggroMoveTo(-21724, 1402)
-	If GetAreaVanquished() = False Then AggroMoveTo(-21593, 7552)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17477, 2444)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17561, 7076)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16916, 4218)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15151, 4597)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12824, 7232)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15128, 10934)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17746, 13853)
-	If GetAreaVanquished() = False Then AggroMoveTo(-22066, 15112)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19068, 14722)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16971, 10651)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12239, 9797)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13826, 14722)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11191, 16516)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8629, 14177)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9768, 11323)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8682, 9529)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6694, 12712)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8181, 14298)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2132, 15196)
-	If GetAreaVanquished() = False Then AggroMoveTo(1789, 14579)
-	If GetAreaVanquished() = False Then AggroMoveTo(3214, 14912)
-	If GetAreaVanquished() = False Then AggroMoveTo(9084, 15087)
-	If GetAreaVanquished() = False Then AggroMoveTo(3769, 14159)
-	If GetAreaVanquished() = False Then AggroMoveTo(4414, 12354)
-	If GetAreaVanquished() = False Then AggroMoveTo(2392, 10875)
-	If GetAreaVanquished() = False Then AggroMoveTo(2035, 11365)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1644, 11074)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2030, 7909)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4837, 8460)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7500, 4738)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5018, 1697)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7548, -2251)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10619, 425)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13294, 2963)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13781, -612)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15137, 1468)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19399, 168)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17147, -4282)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12591, -4378)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11431, -7128)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7415, -5303)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1127, -7648)
-	If GetAreaVanquished() = False Then AggroMoveTo(4316, -5175)
-	If GetAreaVanquished() = False Then AggroMoveTo(2859, -325)
-	If GetAreaVanquished() = False Then AggroMoveTo(-235, 886)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1916, 5929)
-	If GetAreaVanquished() = False Then AggroMoveTo(162, 564)
-	If GetAreaVanquished() = False Then AggroMoveTo(8, -4980)
-	If GetAreaVanquished() = False Then AggroMoveTo(-361, 203)
-	If GetAreaVanquished() = False Then AggroMoveTo(1976, 1347)
-	If GetAreaVanquished() = False Then AggroMoveTo(2882, 5770)
-	If GetAreaVanquished() = False Then AggroMoveTo(5468, 7840)
-	If GetAreaVanquished() = False Then AggroMoveTo(9738, 7871)
-	If GetAreaVanquished() = False Then AggroMoveTo(11664, 11950)
-	If GetAreaVanquished() = False Then AggroMoveTo(9814, 8080)
-	If GetAreaVanquished() = False Then AggroMoveTo(14234, 10705)
-	If GetAreaVanquished() = False Then AggroMoveTo(15982, 16169)
-	If GetAreaVanquished() = False Then AggroMoveTo(19543, 14862)
-	If GetAreaVanquished() = False Then AggroMoveTo(21604, 14424)
-	If GetAreaVanquished() = False Then AggroMoveTo(23152, 11283)
-	If GetAreaVanquished() = False Then AggroMoveTo(22157, 6943)
-	If GetAreaVanquished() = False Then AggroMoveTo(21413, 246)
-	If GetAreaVanquished() = False Then AggroMoveTo(20031, 1521)
-	If GetAreaVanquished() = False Then AggroMoveTo(14953, 1730)
-	If GetAreaVanquished() = False Then AggroMoveTo(15981, 5844)
-	If GetAreaVanquished() = False Then AggroMoveTo(16906, 7952)
-	If GetAreaVanquished() = False Then AggroMoveTo(20938, 10089)
-	If GetAreaVanquished() = False Then AggroMoveTo(16247, 5309)
-	If GetAreaVanquished() = False Then AggroMoveTo(15261, 1694)
-	If GetAreaVanquished() = False Then AggroMoveTo(16405, -1630)
-	If GetAreaVanquished() = False Then AggroMoveTo(20051, 1454)
-	If GetAreaVanquished() = False Then AggroMoveTo(20017, -933)
-	If GetAreaVanquished() = False Then AggroMoveTo(16117, -5733)
-	If GetAreaVanquished() = False Then AggroMoveTo(14125, -7231)
-	If GetAreaVanquished() = False Then AggroMoveTo(12437, -6272)
-	If GetAreaVanquished() = False Then AggroMoveTo(7781, 529)
-	If GetAreaVanquished() = False Then AggroMoveTo(8564, 4635)
-	If GetAreaVanquished() = False Then AggroMoveTo(11519, 405)
-	If GetAreaVanquished() = False Then AggroMoveTo(12843, -7920)
-	If GetAreaVanquished() = False Then AggroMoveTo(14917, -5320)
-	If GetAreaVanquished() = False Then AggroMoveTo(14245, -1580)
-	If GetAreaVanquished() = False Then AggroMoveTo(13496, 661)
-	If GetAreaVanquished() = False Then AggroMoveTo(12865, 1686)
-	If GetAreaVanquished() = False Then AggroMoveTo(13929, 7587)
-	If GetAreaVanquished() = False Then AggroMoveTo(18772, 11402)
+	_Vanquisher_RunVanquishRoute($aProph_SouthernShiverpeaks_TalusChuteRoute01)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(18772, 11402)
-	If GetAreaVanquished() = False Then AggroMoveTo(13929, 7587)
-	If GetAreaVanquished() = False Then AggroMoveTo(12865, 1686)
-	If GetAreaVanquished() = False Then AggroMoveTo(13496, 661)
-	If GetAreaVanquished() = False Then AggroMoveTo(14245, -1580)
-	If GetAreaVanquished() = False Then AggroMoveTo(14917, -5320)
-	If GetAreaVanquished() = False Then AggroMoveTo(12843, -7920)
-	If GetAreaVanquished() = False Then AggroMoveTo(11519, 405)
-	If GetAreaVanquished() = False Then AggroMoveTo(8564, 4635)
-	If GetAreaVanquished() = False Then AggroMoveTo(7781, 529)
-	If GetAreaVanquished() = False Then AggroMoveTo(12437, -6272)
-	If GetAreaVanquished() = False Then AggroMoveTo(14125, -7231)
-	If GetAreaVanquished() = False Then AggroMoveTo(16117, -5733)
-	If GetAreaVanquished() = False Then AggroMoveTo(20017, -933)
-	If GetAreaVanquished() = False Then AggroMoveTo(20051, 1454)
-	If GetAreaVanquished() = False Then AggroMoveTo(16405, -1630)
-	If GetAreaVanquished() = False Then AggroMoveTo(15261, 1694)
-	If GetAreaVanquished() = False Then AggroMoveTo(16247, 5309)
-	If GetAreaVanquished() = False Then AggroMoveTo(20938, 10089)
-	If GetAreaVanquished() = False Then AggroMoveTo(16906, 7952)
-	If GetAreaVanquished() = False Then AggroMoveTo(15981, 5844)
-	If GetAreaVanquished() = False Then AggroMoveTo(14953, 1730)
-	If GetAreaVanquished() = False Then AggroMoveTo(20031, 1521)
-	If GetAreaVanquished() = False Then AggroMoveTo(21413, 246)
-	If GetAreaVanquished() = False Then AggroMoveTo(22157, 6943)
-	If GetAreaVanquished() = False Then AggroMoveTo(23152, 11283)
-	If GetAreaVanquished() = False Then AggroMoveTo(21604, 14424)
-	If GetAreaVanquished() = False Then AggroMoveTo(19543, 14862)
-	If GetAreaVanquished() = False Then AggroMoveTo(15982, 16169)
-	If GetAreaVanquished() = False Then AggroMoveTo(14234, 10705)
-	If GetAreaVanquished() = False Then AggroMoveTo(9814, 8080)
-	If GetAreaVanquished() = False Then AggroMoveTo(11664, 11950)
-	If GetAreaVanquished() = False Then AggroMoveTo(9738, 7871)
-	If GetAreaVanquished() = False Then AggroMoveTo(5468, 7840)
-	If GetAreaVanquished() = False Then AggroMoveTo(2882, 5770)
-	If GetAreaVanquished() = False Then AggroMoveTo(1976, 1347)
-	If GetAreaVanquished() = False Then AggroMoveTo(-361, 203)
-	If GetAreaVanquished() = False Then AggroMoveTo(8, -4980)
-	If GetAreaVanquished() = False Then AggroMoveTo(162, 564)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1916, 5929)
-	If GetAreaVanquished() = False Then AggroMoveTo(-235, 886)
-	If GetAreaVanquished() = False Then AggroMoveTo(2859, -325)
-	If GetAreaVanquished() = False Then AggroMoveTo(4316, -5175)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1127, -7648)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7415, -5303)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11431, -7128)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12591, -4378)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17147, -4282)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19399, 168)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15137, 1468)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13781, -612)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13294, 2963)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10619, 425)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7548, -2251)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5018, 1697)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7500, 4738)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4837, 8460)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2030, 7909)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1644, 11074)
-	If GetAreaVanquished() = False Then AggroMoveTo(2035, 11365)
-	If GetAreaVanquished() = False Then AggroMoveTo(2392, 10875)
-	If GetAreaVanquished() = False Then AggroMoveTo(4414, 12354)
-	If GetAreaVanquished() = False Then AggroMoveTo(3769, 14159)
-	If GetAreaVanquished() = False Then AggroMoveTo(9084, 15087)
-	If GetAreaVanquished() = False Then AggroMoveTo(3214, 14912)
-	If GetAreaVanquished() = False Then AggroMoveTo(1789, 14579)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2132, 15196)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8181, 14298)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6694, 12712)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8682, 9529)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9768, 11323)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8629, 14177)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11191, 16516)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13826, 14722)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12239, 9797)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16971, 10651)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19068, 14722)
-	If GetAreaVanquished() = False Then AggroMoveTo(-22066, 15112)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17746, 13853)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15128, 10934)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12824, 7232)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15151, 4597)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16916, 4218)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17561, 7076)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17477, 2444)
-	If GetAreaVanquished() = False Then AggroMoveTo(-21593, 7552)
-	If GetAreaVanquished() = False Then AggroMoveTo(-21724, 1402)
-	If GetAreaVanquished() = False Then AggroMoveTo(-21640, -3785)
-	If GetAreaVanquished() = False Then AggroMoveTo(-21585, -6661)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18527, -6290)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16388, -6887)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17950, -9216)
-	If GetAreaVanquished() = False Then AggroMoveTo(-20768, -9615)
-	If GetAreaVanquished() = False Then AggroMoveTo(-22378, -12916)
-	If GetAreaVanquished() = False Then AggroMoveTo(-20364, -15310)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14403, -15930)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10339, -16935)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8469, -13612)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6977, -9431)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8239, -13539)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5772, -15020)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4648, -16571)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1325, -15498)
-	If GetAreaVanquished() = False Then AggroMoveTo(2139, -13287)
-	If GetAreaVanquished() = False Then AggroMoveTo(4930, -13914)
-	If GetAreaVanquished() = False Then AggroMoveTo(10771, -9239)
-	If GetAreaVanquished() = False Then AggroMoveTo(12822, -10463)
-	If GetAreaVanquished() = False Then AggroMoveTo(13525, -8366)
-	If GetAreaVanquished() = False Then AggroMoveTo(18445, -8103)
-	If GetAreaVanquished() = False Then AggroMoveTo(19939, -13283)
+	_Vanquisher_RunVanquishRoute($aProph_SouthernShiverpeaks_TalusChuteRoute02)
 EndFunc
 

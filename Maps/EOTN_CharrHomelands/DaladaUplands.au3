@@ -5,6 +5,452 @@ Global $ActionCounter = 1
 Local $aDaladaUplandsOutpostPath[1][2] = [ _
 	[-15789, 14108]]
 
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute01[1][2] = [ _
+        [-14310, 12724] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute02[30][2] = [ _
+        [-14971, 11013], _
+        [-17460, 10298], _
+        [-19296, 9646], _
+        [-17622, 7650], _
+        [-17027, 5210], _
+        [-18952, 3847], _
+        [-17988, 3429], _
+        [-15575, 4376], _
+        [-13273, 5414], _
+        [-10931, 4347], _
+        [-8672, 5620], _
+        [-7569, 3340], _
+        [-9868, 2151], _
+        [-12081, 3420], _
+        [-13326, 1162], _
+        [-11668, 112], _
+        [-12003, -303], _
+        [-13838, -1316], _
+        [-14913, -3685], _
+        [-12458, -3055], _
+        [-10009, -3694], _
+        [-7467, -3254], _
+        [-7781, -699], _
+        [-9450, -2685], _
+        [-11064, -4741], _
+        [-12818, -6627], _
+        [-14100, -8039], _
+        [-15384, -6564], _
+        [-17154, -4690], _
+        [-17557, -2144] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute03[20][2] = [ _
+        [-17566, 440], _
+        [-19745, 164], _
+        [-17632, -1374], _
+        [-17819, -3962], _
+        [-18321, -6480], _
+        [-18204, -9027], _
+        [-17805, -11564], _
+        [-16757, -13891], _
+        [-13857, -12093], _
+        [-15127, -14371], _
+        [-15769, -16810], _
+        [-14196, -18255], _
+        [-13368, -16913], _
+        [-14094, -18217], _
+        [-12501, -18709], _
+        [-12078, -16205], _
+        [-9829, -15054], _
+        [-7879, -13483], _
+        [-7683, -11792], _
+        [-5633, -12278] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute04[15][2] = [ _
+        [-3977, -11438], _
+        [-4354, -14049], _
+        [-5205, -16425], _
+        [-7334, -17769], _
+        [-9187, -15978], _
+        [-10192, -13607], _
+        [-11383, -11227], _
+        [-12405, -8918], _
+        [-10563, -7079], _
+        [-8685, -5363], _
+        [-6757, -3638], _
+        [-4888, -1896], _
+        [-5275, 681], _
+        [-2610, -1663], _
+        [-3101, -32] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute05[10][2] = [ _
+        [-2641, 449], _
+        [-4223, 1414], _
+        [-2779, 2954], _
+        [-315, 3380], _
+        [1007, 1249], _
+        [1516, -1231], _
+        [1838, -1532], _
+        [4062, -1698], _
+        [4657, -4137], _
+        [7207, -4360] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute06[26][2] = [ _
+        [8655, -3971], _
+        [9179, -1430], _
+        [10411, 859], _
+        [10176, 3360], _
+        [12637, 2831], _
+        [15210, 3037], _
+        [16385, 726], _
+        [18566, 239], _
+        [16036, 423], _
+        [13467, 236], _
+        [13489, -2342], _
+        [14135, -4758], _
+        [16716, -4464], _
+        [18941, -4296], _
+        [16402, -4392], _
+        [14313, -5820], _
+        [13048, -7983], _
+        [14888, -9691], _
+        [16850, -11362], _
+        [19358, -11851], _
+        [19355, -11874], _
+        [17142, -13109], _
+        [14787, -13985], _
+        [13953, -11520], _
+        [13068, -13929], _
+        [13910, -16372] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute07[58][2] = [ _
+        [14918, -18156], _
+        [12584, -17093], _
+        [10138, -16176], _
+        [7701, -16812], _
+        [5223, -17445], _
+        [2659, -17284], _
+        [101, -16937], _
+        [-2211, -15915], _
+        [-3631, -14259], _
+        [-983, -14324], _
+        [1497, -13629], _
+        [3297, -11834], _
+        [1836, -9699], _
+        [4109, -8643], _
+        [7141, -9282], _
+        [8757, -11269], _
+        [7268, -9197], _
+        [6002, -7013], _
+        [3634, -8110], _
+        [1216, -8912], _
+        [-1394, -9020], _
+        [-3963, -9450], _
+        [-5550, -7444], _
+        [-6509, -9897], _
+        [-8997, -10369], _
+        [-8219, -7922], _
+        [-7292, -5438], _
+        [-4952, -4552], _
+        [-1616, -5944], _
+        [-2484, -3752], _
+        [-609, -2040], _
+        [429, 260], _
+        [531, 2850], _
+        [3036, 2520], _
+        [5658, 2252], _
+        [6458, -143], _
+        [7181, -2543], _
+        [9779, -2560], _
+        [12072, -1359], _
+        [13386, 856], _
+        [14996, 2853], _
+        [16271, 5102], _
+        [16688, 7635], _
+        [17357, 9308], _
+        [14856, 9819], _
+        [13938, 12198], _
+        [13116, 14635], _
+        [12077, 17006], _
+        [12346, 15282], _
+        [9819, 15919], _
+        [7328, 16271], _
+        [4985, 17156], _
+        [2942, 15691], _
+        [378, 15574], _
+        [-711, 16220], _
+        [992, 14336], _
+        [1833, 11911], _
+        [4421, 11850] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute08[39][2] = [ _
+        [5786, 11756], _
+        [8384, 11959], _
+        [10754, 12960], _
+        [10558, 10388], _
+        [9949, 7840], _
+        [10113, 5860], _
+        [12454, 6895], _
+        [14046, 4094], _
+        [12227, 6007], _
+        [9680, 5540], _
+        [7832, 3823], _
+        [5450, 2771], _
+        [2960, 2528], _
+        [360, 2679], _
+        [-2242, 2917], _
+        [-4454, 4119], _
+        [-5644, 6414], _
+        [-7355, 8363], _
+        [-9334, 10056], _
+        [-10316, 12413], _
+        [-10666, 14934], _
+        [-9917, 17396], _
+        [-8240, 15536], _
+        [-8053, 13025], _
+        [-5651, 12011], _
+        [-3044, 11907], _
+        [-563, 11570], _
+        [1165, 9683], _
+        [2986, 7775], _
+        [5465, 7068], _
+        [5426, 4529], _
+        [2913, 4795], _
+        [560, 5903], _
+        [-1464, 7471], _
+        [-3886, 8264], _
+        [-6375, 8767], _
+        [-8997, 8865], _
+        [-11537, 9008], _
+        [-13870, 10072] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute09[38][2] = [ _
+        [-13870, 10072], _
+        [-11537, 9008], _
+        [-8997, 8865], _
+        [-6375, 8767], _
+        [-3886, 8264], _
+        [-1464, 7471], _
+        [560, 5903], _
+        [2913, 4795], _
+        [5426, 4529], _
+        [5465, 7068], _
+        [2986, 7775], _
+        [1165, 9683], _
+        [-563, 11570], _
+        [-3044, 11907], _
+        [-5651, 12011], _
+        [-8053, 13025], _
+        [-8240, 15536], _
+        [-9917, 17396], _
+        [-10666, 14934], _
+        [-10316, 12413], _
+        [-9334, 10056], _
+        [-7355, 8363], _
+        [-5644, 6414], _
+        [-4454, 4119], _
+        [-2242, 2917], _
+        [360, 2679], _
+        [2960, 2528], _
+        [5450, 2771], _
+        [7832, 3823], _
+        [9680, 5540], _
+        [12227, 6007], _
+        [14046, 4094], _
+        [12454, 6895], _
+        [10113, 5860], _
+        [9949, 7840], _
+        [10558, 10388], _
+        [10754, 12960], _
+        [8384, 11959] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute10[58][2] = [ _
+        [5786, 11756], _
+        [4421, 11850], _
+        [1833, 11911], _
+        [992, 14336], _
+        [-711, 16220], _
+        [378, 15574], _
+        [2942, 15691], _
+        [4985, 17156], _
+        [7328, 16271], _
+        [9819, 15919], _
+        [12346, 15282], _
+        [12077, 17006], _
+        [13116, 14635], _
+        [13938, 12198], _
+        [14856, 9819], _
+        [17357, 9308], _
+        [16688, 7635], _
+        [16271, 5102], _
+        [14996, 2853], _
+        [13386, 856], _
+        [12072, -1359], _
+        [9779, -2560], _
+        [7181, -2543], _
+        [6458, -143], _
+        [5658, 2252], _
+        [3036, 2520], _
+        [531, 2850], _
+        [429, 260], _
+        [-609, -2040], _
+        [-2484, -3752], _
+        [-1616, -5944], _
+        [-4952, -4552], _
+        [-7292, -5438], _
+        [-8219, -7922], _
+        [-8997, -10369], _
+        [-6509, -9897], _
+        [-5550, -7444], _
+        [-3963, -9450], _
+        [-1394, -9020], _
+        [1216, -8912], _
+        [3634, -8110], _
+        [6002, -7013], _
+        [7268, -9197], _
+        [8757, -11269], _
+        [7141, -9282], _
+        [4109, -8643], _
+        [1836, -9699], _
+        [3297, -11834], _
+        [1497, -13629], _
+        [-983, -14324], _
+        [-3631, -14259], _
+        [-2211, -15915], _
+        [101, -16937], _
+        [2659, -17284], _
+        [5223, -17445], _
+        [7701, -16812], _
+        [10138, -16176], _
+        [12584, -17093] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute11[26][2] = [ _
+        [14918, -18156], _
+        [13910, -16372], _
+        [13068, -13929], _
+        [13953, -11520], _
+        [14787, -13985], _
+        [17142, -13109], _
+        [19355, -11874], _
+        [19358, -11851], _
+        [16850, -11362], _
+        [14888, -9691], _
+        [13048, -7983], _
+        [14313, -5820], _
+        [16402, -4392], _
+        [18941, -4296], _
+        [16716, -4464], _
+        [14135, -4758], _
+        [13489, -2342], _
+        [13467, 236], _
+        [16036, 423], _
+        [18566, 239], _
+        [16385, 726], _
+        [15210, 3037], _
+        [12637, 2831], _
+        [10176, 3360], _
+        [10411, 859], _
+        [9179, -1430] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute12[10][2] = [ _
+        [8655, -3971], _
+        [7207, -4360], _
+        [4657, -4137], _
+        [4062, -1698], _
+        [1838, -1532], _
+        [1516, -1231], _
+        [1007, 1249], _
+        [-315, 3380], _
+        [-2779, 2954], _
+        [-4223, 1414] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute13[15][2] = [ _
+        [-2641, 449], _
+        [-3101, -32], _
+        [-2610, -1663], _
+        [-5275, 681], _
+        [-4888, -1896], _
+        [-6757, -3638], _
+        [-8685, -5363], _
+        [-10563, -7079], _
+        [-12405, -8918], _
+        [-11383, -11227], _
+        [-10192, -13607], _
+        [-9187, -15978], _
+        [-7334, -17769], _
+        [-5205, -16425], _
+        [-4354, -14049] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute14[20][2] = [ _
+        [-3977, -11438], _
+        [-5633, -12278], _
+        [-7683, -11792], _
+        [-7879, -13483], _
+        [-9829, -15054], _
+        [-12078, -16205], _
+        [-12501, -18709], _
+        [-14094, -18217], _
+        [-13368, -16913], _
+        [-14196, -18255], _
+        [-15769, -16810], _
+        [-15127, -14371], _
+        [-13857, -12093], _
+        [-16757, -13891], _
+        [-17805, -11564], _
+        [-18204, -9027], _
+        [-18321, -6480], _
+        [-17819, -3962], _
+        [-17632, -1374], _
+        [-19745, 164] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute15[30][2] = [ _
+        [-17566, 440], _
+        [-17557, -2144], _
+        [-17154, -4690], _
+        [-15384, -6564], _
+        [-14100, -8039], _
+        [-12818, -6627], _
+        [-11064, -4741], _
+        [-9450, -2685], _
+        [-7781, -699], _
+        [-7467, -3254], _
+        [-10009, -3694], _
+        [-12458, -3055], _
+        [-14913, -3685], _
+        [-13838, -1316], _
+        [-12003, -303], _
+        [-11668, 112], _
+        [-13326, 1162], _
+        [-12081, 3420], _
+        [-9868, 2151], _
+        [-7569, 3340], _
+        [-8672, 5620], _
+        [-10931, 4347], _
+        [-13273, 5414], _
+        [-15575, 4376], _
+        [-17988, 3429], _
+        [-18952, 3847], _
+        [-17027, 5210], _
+        [-17622, 7650], _
+        [-19296, 9646], _
+        [-17460, 10298] _
+]
+
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute16[2][2] = [ _
+        [-14971, 11013], _
+        [-14310, 12724] _
+]
+
 Func GoOutDaladaUplands()
 	Local $l_i_Map = GetMapID()
 	If $l_i_Map = $DaladaUplands_Map Then Return
@@ -38,418 +484,36 @@ Func VQDaladaUplands()
 		Return
 	EndIf
 	CurrentAction("Starting DaladaUplands vanquish route.")
-	If GetAreaVanquished() = False Then AggroMoveTo(-14310, 12724)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute01)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-14971, 11013)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17460, 10298)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19296, 9646)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17622, 7650)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17027, 5210)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18952, 3847)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17988, 3429)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15575, 4376)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13273, 5414)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10931, 4347)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8672, 5620)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7569, 3340)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9868, 2151)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12081, 3420)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13326, 1162)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11668, 112)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12003, -303)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13838, -1316)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14913, -3685)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12458, -3055)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10009, -3694)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7467, -3254)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7781, -699)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9450, -2685)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11064, -4741)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12818, -6627)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14100, -8039)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15384, -6564)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17154, -4690)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17557, -2144)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute02)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-17566, 440)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19745, 164)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17632, -1374)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17819, -3962)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18321, -6480)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18204, -9027)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17805, -11564)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16757, -13891)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13857, -12093)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15127, -14371)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15769, -16810)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14196, -18255)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13368, -16913)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14094, -18217)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12501, -18709)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12078, -16205)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9829, -15054)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7879, -13483)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7683, -11792)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5633, -12278)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute03)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-3977, -11438)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4354, -14049)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5205, -16425)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7334, -17769)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9187, -15978)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10192, -13607)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11383, -11227)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12405, -8918)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10563, -7079)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8685, -5363)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6757, -3638)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4888, -1896)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5275, 681)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2610, -1663)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3101, -32)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute04)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-2641, 449)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4223, 1414)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2779, 2954)
-	If GetAreaVanquished() = False Then AggroMoveTo(-315, 3380)
-	If GetAreaVanquished() = False Then AggroMoveTo(1007, 1249)
-	If GetAreaVanquished() = False Then AggroMoveTo(1516, -1231)
-	If GetAreaVanquished() = False Then AggroMoveTo(1838, -1532)
-	If GetAreaVanquished() = False Then AggroMoveTo(4062, -1698)
-	If GetAreaVanquished() = False Then AggroMoveTo(4657, -4137)
-	If GetAreaVanquished() = False Then AggroMoveTo(7207, -4360)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute05)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(8655, -3971)
-	If GetAreaVanquished() = False Then AggroMoveTo(9179, -1430)
-	If GetAreaVanquished() = False Then AggroMoveTo(10411, 859)
-	If GetAreaVanquished() = False Then AggroMoveTo(10176, 3360)
-	If GetAreaVanquished() = False Then AggroMoveTo(12637, 2831)
-	If GetAreaVanquished() = False Then AggroMoveTo(15210, 3037)
-	If GetAreaVanquished() = False Then AggroMoveTo(16385, 726)
-	If GetAreaVanquished() = False Then AggroMoveTo(18566, 239)
-	If GetAreaVanquished() = False Then AggroMoveTo(16036, 423)
-	If GetAreaVanquished() = False Then AggroMoveTo(13467, 236)
-	If GetAreaVanquished() = False Then AggroMoveTo(13489, -2342)
-	If GetAreaVanquished() = False Then AggroMoveTo(14135, -4758)
-	If GetAreaVanquished() = False Then AggroMoveTo(16716, -4464)
-	If GetAreaVanquished() = False Then AggroMoveTo(18941, -4296)
-	If GetAreaVanquished() = False Then AggroMoveTo(16402, -4392)
-	If GetAreaVanquished() = False Then AggroMoveTo(14313, -5820)
-	If GetAreaVanquished() = False Then AggroMoveTo(13048, -7983)
-	If GetAreaVanquished() = False Then AggroMoveTo(14888, -9691)
-	If GetAreaVanquished() = False Then AggroMoveTo(16850, -11362)
-	If GetAreaVanquished() = False Then AggroMoveTo(19358, -11851)
-	If GetAreaVanquished() = False Then AggroMoveTo(19355, -11874)
-	If GetAreaVanquished() = False Then AggroMoveTo(17142, -13109)
-	If GetAreaVanquished() = False Then AggroMoveTo(14787, -13985)
-	If GetAreaVanquished() = False Then AggroMoveTo(13953, -11520)
-	If GetAreaVanquished() = False Then AggroMoveTo(13068, -13929)
-	If GetAreaVanquished() = False Then AggroMoveTo(13910, -16372)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute06)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(14918, -18156)
-	If GetAreaVanquished() = False Then AggroMoveTo(12584, -17093)
-	If GetAreaVanquished() = False Then AggroMoveTo(10138, -16176)
-	If GetAreaVanquished() = False Then AggroMoveTo(7701, -16812)
-	If GetAreaVanquished() = False Then AggroMoveTo(5223, -17445)
-	If GetAreaVanquished() = False Then AggroMoveTo(2659, -17284)
-	If GetAreaVanquished() = False Then AggroMoveTo(101, -16937)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2211, -15915)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3631, -14259)
-	If GetAreaVanquished() = False Then AggroMoveTo(-983, -14324)
-	If GetAreaVanquished() = False Then AggroMoveTo(1497, -13629)
-	If GetAreaVanquished() = False Then AggroMoveTo(3297, -11834)
-	If GetAreaVanquished() = False Then AggroMoveTo(1836, -9699)
-	If GetAreaVanquished() = False Then AggroMoveTo(4109, -8643)
-	If GetAreaVanquished() = False Then AggroMoveTo(7141, -9282)
-	If GetAreaVanquished() = False Then AggroMoveTo(8757, -11269)
-	If GetAreaVanquished() = False Then AggroMoveTo(7268, -9197)
-	If GetAreaVanquished() = False Then AggroMoveTo(6002, -7013)
-	If GetAreaVanquished() = False Then AggroMoveTo(3634, -8110)
-	If GetAreaVanquished() = False Then AggroMoveTo(1216, -8912)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1394, -9020)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3963, -9450)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5550, -7444)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6509, -9897)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8997, -10369)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8219, -7922)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7292, -5438)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4952, -4552)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1616, -5944)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2484, -3752)
-	If GetAreaVanquished() = False Then AggroMoveTo(-609, -2040)
-	If GetAreaVanquished() = False Then AggroMoveTo(429, 260)
-	If GetAreaVanquished() = False Then AggroMoveTo(531, 2850)
-	If GetAreaVanquished() = False Then AggroMoveTo(3036, 2520)
-	If GetAreaVanquished() = False Then AggroMoveTo(5658, 2252)
-	If GetAreaVanquished() = False Then AggroMoveTo(6458, -143)
-	If GetAreaVanquished() = False Then AggroMoveTo(7181, -2543)
-	If GetAreaVanquished() = False Then AggroMoveTo(9779, -2560)
-	If GetAreaVanquished() = False Then AggroMoveTo(12072, -1359)
-	If GetAreaVanquished() = False Then AggroMoveTo(13386, 856)
-	If GetAreaVanquished() = False Then AggroMoveTo(14996, 2853)
-	If GetAreaVanquished() = False Then AggroMoveTo(16271, 5102)
-	If GetAreaVanquished() = False Then AggroMoveTo(16688, 7635)
-	If GetAreaVanquished() = False Then AggroMoveTo(17357, 9308)
-	If GetAreaVanquished() = False Then AggroMoveTo(14856, 9819)
-	If GetAreaVanquished() = False Then AggroMoveTo(13938, 12198)
-	If GetAreaVanquished() = False Then AggroMoveTo(13116, 14635)
-	If GetAreaVanquished() = False Then AggroMoveTo(12077, 17006)
-	If GetAreaVanquished() = False Then AggroMoveTo(12346, 15282)
-	If GetAreaVanquished() = False Then AggroMoveTo(9819, 15919)
-	If GetAreaVanquished() = False Then AggroMoveTo(7328, 16271)
-	If GetAreaVanquished() = False Then AggroMoveTo(4985, 17156)
-	If GetAreaVanquished() = False Then AggroMoveTo(2942, 15691)
-	If GetAreaVanquished() = False Then AggroMoveTo(378, 15574)
-	If GetAreaVanquished() = False Then AggroMoveTo(-711, 16220)
-	If GetAreaVanquished() = False Then AggroMoveTo(992, 14336)
-	If GetAreaVanquished() = False Then AggroMoveTo(1833, 11911)
-	If GetAreaVanquished() = False Then AggroMoveTo(4421, 11850)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute07)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(5786, 11756)
-	If GetAreaVanquished() = False Then AggroMoveTo(8384, 11959)
-	If GetAreaVanquished() = False Then AggroMoveTo(10754, 12960)
-	If GetAreaVanquished() = False Then AggroMoveTo(10558, 10388)
-	If GetAreaVanquished() = False Then AggroMoveTo(9949, 7840)
-	If GetAreaVanquished() = False Then AggroMoveTo(10113, 5860)
-	If GetAreaVanquished() = False Then AggroMoveTo(12454, 6895)
-	If GetAreaVanquished() = False Then AggroMoveTo(14046, 4094)
-	If GetAreaVanquished() = False Then AggroMoveTo(12227, 6007)
-	If GetAreaVanquished() = False Then AggroMoveTo(9680, 5540)
-	If GetAreaVanquished() = False Then AggroMoveTo(7832, 3823)
-	If GetAreaVanquished() = False Then AggroMoveTo(5450, 2771)
-	If GetAreaVanquished() = False Then AggroMoveTo(2960, 2528)
-	If GetAreaVanquished() = False Then AggroMoveTo(360, 2679)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2242, 2917)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4454, 4119)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5644, 6414)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7355, 8363)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9334, 10056)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10316, 12413)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10666, 14934)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9917, 17396)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8240, 15536)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8053, 13025)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5651, 12011)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3044, 11907)
-	If GetAreaVanquished() = False Then AggroMoveTo(-563, 11570)
-	If GetAreaVanquished() = False Then AggroMoveTo(1165, 9683)
-	If GetAreaVanquished() = False Then AggroMoveTo(2986, 7775)
-	If GetAreaVanquished() = False Then AggroMoveTo(5465, 7068)
-	If GetAreaVanquished() = False Then AggroMoveTo(5426, 4529)
-	If GetAreaVanquished() = False Then AggroMoveTo(2913, 4795)
-	If GetAreaVanquished() = False Then AggroMoveTo(560, 5903)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1464, 7471)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3886, 8264)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6375, 8767)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8997, 8865)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11537, 9008)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13870, 10072)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute08)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(-13870, 10072)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11537, 9008)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8997, 8865)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6375, 8767)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3886, 8264)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1464, 7471)
-	If GetAreaVanquished() = False Then AggroMoveTo(560, 5903)
-	If GetAreaVanquished() = False Then AggroMoveTo(2913, 4795)
-	If GetAreaVanquished() = False Then AggroMoveTo(5426, 4529)
-	If GetAreaVanquished() = False Then AggroMoveTo(5465, 7068)
-	If GetAreaVanquished() = False Then AggroMoveTo(2986, 7775)
-	If GetAreaVanquished() = False Then AggroMoveTo(1165, 9683)
-	If GetAreaVanquished() = False Then AggroMoveTo(-563, 11570)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3044, 11907)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5651, 12011)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8053, 13025)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8240, 15536)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9917, 17396)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10666, 14934)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10316, 12413)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9334, 10056)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7355, 8363)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5644, 6414)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4454, 4119)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2242, 2917)
-	If GetAreaVanquished() = False Then AggroMoveTo(360, 2679)
-	If GetAreaVanquished() = False Then AggroMoveTo(2960, 2528)
-	If GetAreaVanquished() = False Then AggroMoveTo(5450, 2771)
-	If GetAreaVanquished() = False Then AggroMoveTo(7832, 3823)
-	If GetAreaVanquished() = False Then AggroMoveTo(9680, 5540)
-	If GetAreaVanquished() = False Then AggroMoveTo(12227, 6007)
-	If GetAreaVanquished() = False Then AggroMoveTo(14046, 4094)
-	If GetAreaVanquished() = False Then AggroMoveTo(12454, 6895)
-	If GetAreaVanquished() = False Then AggroMoveTo(10113, 5860)
-	If GetAreaVanquished() = False Then AggroMoveTo(9949, 7840)
-	If GetAreaVanquished() = False Then AggroMoveTo(10558, 10388)
-	If GetAreaVanquished() = False Then AggroMoveTo(10754, 12960)
-	If GetAreaVanquished() = False Then AggroMoveTo(8384, 11959)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute09)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(5786, 11756)
-	If GetAreaVanquished() = False Then AggroMoveTo(4421, 11850)
-	If GetAreaVanquished() = False Then AggroMoveTo(1833, 11911)
-	If GetAreaVanquished() = False Then AggroMoveTo(992, 14336)
-	If GetAreaVanquished() = False Then AggroMoveTo(-711, 16220)
-	If GetAreaVanquished() = False Then AggroMoveTo(378, 15574)
-	If GetAreaVanquished() = False Then AggroMoveTo(2942, 15691)
-	If GetAreaVanquished() = False Then AggroMoveTo(4985, 17156)
-	If GetAreaVanquished() = False Then AggroMoveTo(7328, 16271)
-	If GetAreaVanquished() = False Then AggroMoveTo(9819, 15919)
-	If GetAreaVanquished() = False Then AggroMoveTo(12346, 15282)
-	If GetAreaVanquished() = False Then AggroMoveTo(12077, 17006)
-	If GetAreaVanquished() = False Then AggroMoveTo(13116, 14635)
-	If GetAreaVanquished() = False Then AggroMoveTo(13938, 12198)
-	If GetAreaVanquished() = False Then AggroMoveTo(14856, 9819)
-	If GetAreaVanquished() = False Then AggroMoveTo(17357, 9308)
-	If GetAreaVanquished() = False Then AggroMoveTo(16688, 7635)
-	If GetAreaVanquished() = False Then AggroMoveTo(16271, 5102)
-	If GetAreaVanquished() = False Then AggroMoveTo(14996, 2853)
-	If GetAreaVanquished() = False Then AggroMoveTo(13386, 856)
-	If GetAreaVanquished() = False Then AggroMoveTo(12072, -1359)
-	If GetAreaVanquished() = False Then AggroMoveTo(9779, -2560)
-	If GetAreaVanquished() = False Then AggroMoveTo(7181, -2543)
-	If GetAreaVanquished() = False Then AggroMoveTo(6458, -143)
-	If GetAreaVanquished() = False Then AggroMoveTo(5658, 2252)
-	If GetAreaVanquished() = False Then AggroMoveTo(3036, 2520)
-	If GetAreaVanquished() = False Then AggroMoveTo(531, 2850)
-	If GetAreaVanquished() = False Then AggroMoveTo(429, 260)
-	If GetAreaVanquished() = False Then AggroMoveTo(-609, -2040)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2484, -3752)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1616, -5944)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4952, -4552)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7292, -5438)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8219, -7922)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8997, -10369)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6509, -9897)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5550, -7444)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3963, -9450)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1394, -9020)
-	If GetAreaVanquished() = False Then AggroMoveTo(1216, -8912)
-	If GetAreaVanquished() = False Then AggroMoveTo(3634, -8110)
-	If GetAreaVanquished() = False Then AggroMoveTo(6002, -7013)
-	If GetAreaVanquished() = False Then AggroMoveTo(7268, -9197)
-	If GetAreaVanquished() = False Then AggroMoveTo(8757, -11269)
-	If GetAreaVanquished() = False Then AggroMoveTo(7141, -9282)
-	If GetAreaVanquished() = False Then AggroMoveTo(4109, -8643)
-	If GetAreaVanquished() = False Then AggroMoveTo(1836, -9699)
-	If GetAreaVanquished() = False Then AggroMoveTo(3297, -11834)
-	If GetAreaVanquished() = False Then AggroMoveTo(1497, -13629)
-	If GetAreaVanquished() = False Then AggroMoveTo(-983, -14324)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3631, -14259)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2211, -15915)
-	If GetAreaVanquished() = False Then AggroMoveTo(101, -16937)
-	If GetAreaVanquished() = False Then AggroMoveTo(2659, -17284)
-	If GetAreaVanquished() = False Then AggroMoveTo(5223, -17445)
-	If GetAreaVanquished() = False Then AggroMoveTo(7701, -16812)
-	If GetAreaVanquished() = False Then AggroMoveTo(10138, -16176)
-	If GetAreaVanquished() = False Then AggroMoveTo(12584, -17093)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute10)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(14918, -18156)
-	If GetAreaVanquished() = False Then AggroMoveTo(13910, -16372)
-	If GetAreaVanquished() = False Then AggroMoveTo(13068, -13929)
-	If GetAreaVanquished() = False Then AggroMoveTo(13953, -11520)
-	If GetAreaVanquished() = False Then AggroMoveTo(14787, -13985)
-	If GetAreaVanquished() = False Then AggroMoveTo(17142, -13109)
-	If GetAreaVanquished() = False Then AggroMoveTo(19355, -11874)
-	If GetAreaVanquished() = False Then AggroMoveTo(19358, -11851)
-	If GetAreaVanquished() = False Then AggroMoveTo(16850, -11362)
-	If GetAreaVanquished() = False Then AggroMoveTo(14888, -9691)
-	If GetAreaVanquished() = False Then AggroMoveTo(13048, -7983)
-	If GetAreaVanquished() = False Then AggroMoveTo(14313, -5820)
-	If GetAreaVanquished() = False Then AggroMoveTo(16402, -4392)
-	If GetAreaVanquished() = False Then AggroMoveTo(18941, -4296)
-	If GetAreaVanquished() = False Then AggroMoveTo(16716, -4464)
-	If GetAreaVanquished() = False Then AggroMoveTo(14135, -4758)
-	If GetAreaVanquished() = False Then AggroMoveTo(13489, -2342)
-	If GetAreaVanquished() = False Then AggroMoveTo(13467, 236)
-	If GetAreaVanquished() = False Then AggroMoveTo(16036, 423)
-	If GetAreaVanquished() = False Then AggroMoveTo(18566, 239)
-	If GetAreaVanquished() = False Then AggroMoveTo(16385, 726)
-	If GetAreaVanquished() = False Then AggroMoveTo(15210, 3037)
-	If GetAreaVanquished() = False Then AggroMoveTo(12637, 2831)
-	If GetAreaVanquished() = False Then AggroMoveTo(10176, 3360)
-	If GetAreaVanquished() = False Then AggroMoveTo(10411, 859)
-	If GetAreaVanquished() = False Then AggroMoveTo(9179, -1430)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute11)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(8655, -3971)
-	If GetAreaVanquished() = False Then AggroMoveTo(7207, -4360)
-	If GetAreaVanquished() = False Then AggroMoveTo(4657, -4137)
-	If GetAreaVanquished() = False Then AggroMoveTo(4062, -1698)
-	If GetAreaVanquished() = False Then AggroMoveTo(1838, -1532)
-	If GetAreaVanquished() = False Then AggroMoveTo(1516, -1231)
-	If GetAreaVanquished() = False Then AggroMoveTo(1007, 1249)
-	If GetAreaVanquished() = False Then AggroMoveTo(-315, 3380)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2779, 2954)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4223, 1414)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute12)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-2641, 449)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3101, -32)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2610, -1663)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5275, 681)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4888, -1896)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6757, -3638)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8685, -5363)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10563, -7079)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12405, -8918)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11383, -11227)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10192, -13607)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9187, -15978)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7334, -17769)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5205, -16425)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4354, -14049)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute13)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-3977, -11438)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5633, -12278)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7683, -11792)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7879, -13483)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9829, -15054)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12078, -16205)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12501, -18709)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14094, -18217)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13368, -16913)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14196, -18255)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15769, -16810)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15127, -14371)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13857, -12093)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16757, -13891)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17805, -11564)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18204, -9027)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18321, -6480)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17819, -3962)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17632, -1374)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19745, 164)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute14)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-17566, 440)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17557, -2144)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17154, -4690)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15384, -6564)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14100, -8039)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12818, -6627)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11064, -4741)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9450, -2685)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7781, -699)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7467, -3254)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10009, -3694)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12458, -3055)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14913, -3685)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13838, -1316)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12003, -303)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11668, 112)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13326, 1162)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12081, 3420)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9868, 2151)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7569, 3340)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8672, 5620)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10931, 4347)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13273, 5414)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15575, 4376)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17988, 3429)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18952, 3847)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17027, 5210)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17622, 7650)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19296, 9646)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17460, 10298)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute15)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-14971, 11013)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14310, 12724)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_DaladaUplandsRoute16)
 EndFunc

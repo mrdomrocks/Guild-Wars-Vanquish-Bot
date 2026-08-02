@@ -8,6 +8,130 @@ Global $aTwinSerpentLakesOutpostPath[4][2] = [ _
 	[-16612, 13585] _
 ]
 
+Global $aProph_Kryta_TwinSerpentLakesRoute01[59][2] = [ _
+        [-3283, -19532], _
+        [-1025, -14423], _
+        [-5383, -12959], _
+        [-6837, -12938], _
+        [-5269, -10803], _
+        [-4180, -8806], _
+        [-7459, -7918], _
+        [-7314, -5004], _
+        [-7260, -1537], _
+        [-5765, -246], _
+        [-4722, 2951], _
+        [-7164, 4446], _
+        [-6170, 6072], _
+        [-5580, 4193], _
+        [-7627, 9236], _
+        [-7378, 11781], _
+        [-6985, 13468], _
+        [-6755, 14363], _
+        [-4186, 15450], _
+        [-6977, 16130], _
+        [-6759, 18749], _
+        [-7445, 22211], _
+        [-7418, 21231], _
+        [-3719, 19223], _
+        [-1495, 17257], _
+        [-225, 15508], _
+        [1851, 13088], _
+        [1284, 10680], _
+        [443, 10030], _
+        [3394, 12902], _
+        [3729, 14404], _
+        [2082, 19864], _
+        [4220, 14910], _
+        [2471, 13104], _
+        [5571, 9667], _
+        [6325, 7938], _
+        [6947, 8930], _
+        [3416, 11148], _
+        [1053, 10216], _
+        [5104, 4231], _
+        [6361, -336], _
+        [4964, -3964], _
+        [3353, -5873], _
+        [2477, -4192], _
+        [4719, -6641], _
+        [4520, -7882], _
+        [4941, -11123], _
+        [7176, -14002], _
+        [1195, -12633], _
+        [2525, -5997], _
+        [2225, -3778], _
+        [-900, -4527], _
+        [-4399, -7300], _
+        [-6666, -2761], _
+        [-4806, 901], _
+        [-1395, 3279], _
+        [-1866, 6989], _
+        [-3370, 9011], _
+        [-2252, 12553] _
+]
+
+Global $aProph_Kryta_TwinSerpentLakesRoute02[59][2] = [ _
+        [-2252, 12553], _
+        [-3370, 9011], _
+        [-1866, 6989], _
+        [-1395, 3279], _
+        [-4806, 901], _
+        [-6666, -2761], _
+        [-4399, -7300], _
+        [-900, -4527], _
+        [2225, -3778], _
+        [2525, -5997], _
+        [1195, -12633], _
+        [7176, -14002], _
+        [4941, -11123], _
+        [4520, -7882], _
+        [4719, -6641], _
+        [2477, -4192], _
+        [3353, -5873], _
+        [4964, -3964], _
+        [6361, -336], _
+        [5104, 4231], _
+        [1053, 10216], _
+        [3416, 11148], _
+        [6947, 8930], _
+        [6325, 7938], _
+        [5571, 9667], _
+        [2471, 13104], _
+        [4220, 14910], _
+        [2082, 19864], _
+        [3729, 14404], _
+        [3394, 12902], _
+        [443, 10030], _
+        [1284, 10680], _
+        [1851, 13088], _
+        [-225, 15508], _
+        [-1495, 17257], _
+        [-3719, 19223], _
+        [-7418, 21231], _
+        [-7445, 22211], _
+        [-6759, 18749], _
+        [-6977, 16130], _
+        [-4186, 15450], _
+        [-6755, 14363], _
+        [-6985, 13468], _
+        [-7378, 11781], _
+        [-7627, 9236], _
+        [-5580, 4193], _
+        [-6170, 6072], _
+        [-7164, 4446], _
+        [-4722, 2951], _
+        [-5765, -246], _
+        [-7260, -1537], _
+        [-7314, -5004], _
+        [-7459, -7918], _
+        [-4180, -8806], _
+        [-5269, -10803], _
+        [-6837, -12938], _
+        [-5383, -12959], _
+        [-1025, -14423], _
+        [-3283, -19532] _
+]
+
 Func GoOutTwinSerpentLakes()
 	Local $l_i_Map = GetMapID()
 
@@ -49,125 +173,9 @@ Func VQTwinSerpentLakes()
 	CurrentAction("Starting TwinSerpentLakes vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(-3283, -19532)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1025, -14423)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5383, -12959)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6837, -12938)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5269, -10803)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4180, -8806)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7459, -7918)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7314, -5004)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7260, -1537)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5765, -246)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4722, 2951)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7164, 4446)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6170, 6072)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5580, 4193)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7627, 9236)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7378, 11781)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6985, 13468)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6755, 14363)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4186, 15450)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6977, 16130)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6759, 18749)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7445, 22211)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7418, 21231)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3719, 19223)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1495, 17257)
-	If GetAreaVanquished() = False Then AggroMoveTo(-225, 15508)
-	If GetAreaVanquished() = False Then AggroMoveTo(1851, 13088)
-	If GetAreaVanquished() = False Then AggroMoveTo(1284, 10680)
-	If GetAreaVanquished() = False Then AggroMoveTo(443, 10030)
-	If GetAreaVanquished() = False Then AggroMoveTo(3394, 12902)
-	If GetAreaVanquished() = False Then AggroMoveTo(3729, 14404)
-	If GetAreaVanquished() = False Then AggroMoveTo(2082, 19864)
-	If GetAreaVanquished() = False Then AggroMoveTo(4220, 14910)
-	If GetAreaVanquished() = False Then AggroMoveTo(2471, 13104)
-	If GetAreaVanquished() = False Then AggroMoveTo(5571, 9667)
-	If GetAreaVanquished() = False Then AggroMoveTo(6325, 7938)
-	If GetAreaVanquished() = False Then AggroMoveTo(6947, 8930)
-	If GetAreaVanquished() = False Then AggroMoveTo(3416, 11148)
-	If GetAreaVanquished() = False Then AggroMoveTo(1053, 10216)
-	If GetAreaVanquished() = False Then AggroMoveTo(5104, 4231)
-	If GetAreaVanquished() = False Then AggroMoveTo(6361, -336)
-	If GetAreaVanquished() = False Then AggroMoveTo(4964, -3964)
-	If GetAreaVanquished() = False Then AggroMoveTo(3353, -5873)
-	If GetAreaVanquished() = False Then AggroMoveTo(2477, -4192)
-	If GetAreaVanquished() = False Then AggroMoveTo(4719, -6641)
-	If GetAreaVanquished() = False Then AggroMoveTo(4520, -7882)
-	If GetAreaVanquished() = False Then AggroMoveTo(4941, -11123)
-	If GetAreaVanquished() = False Then AggroMoveTo(7176, -14002)
-	If GetAreaVanquished() = False Then AggroMoveTo(1195, -12633)
-	If GetAreaVanquished() = False Then AggroMoveTo(2525, -5997)
-	If GetAreaVanquished() = False Then AggroMoveTo(2225, -3778)
-	If GetAreaVanquished() = False Then AggroMoveTo(-900, -4527)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4399, -7300)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6666, -2761)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4806, 901)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1395, 3279)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1866, 6989)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3370, 9011)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2252, 12553)
+	_Vanquisher_RunVanquishRoute($aProph_Kryta_TwinSerpentLakesRoute01)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(-2252, 12553)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3370, 9011)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1866, 6989)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1395, 3279)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4806, 901)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6666, -2761)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4399, -7300)
-	If GetAreaVanquished() = False Then AggroMoveTo(-900, -4527)
-	If GetAreaVanquished() = False Then AggroMoveTo(2225, -3778)
-	If GetAreaVanquished() = False Then AggroMoveTo(2525, -5997)
-	If GetAreaVanquished() = False Then AggroMoveTo(1195, -12633)
-	If GetAreaVanquished() = False Then AggroMoveTo(7176, -14002)
-	If GetAreaVanquished() = False Then AggroMoveTo(4941, -11123)
-	If GetAreaVanquished() = False Then AggroMoveTo(4520, -7882)
-	If GetAreaVanquished() = False Then AggroMoveTo(4719, -6641)
-	If GetAreaVanquished() = False Then AggroMoveTo(2477, -4192)
-	If GetAreaVanquished() = False Then AggroMoveTo(3353, -5873)
-	If GetAreaVanquished() = False Then AggroMoveTo(4964, -3964)
-	If GetAreaVanquished() = False Then AggroMoveTo(6361, -336)
-	If GetAreaVanquished() = False Then AggroMoveTo(5104, 4231)
-	If GetAreaVanquished() = False Then AggroMoveTo(1053, 10216)
-	If GetAreaVanquished() = False Then AggroMoveTo(3416, 11148)
-	If GetAreaVanquished() = False Then AggroMoveTo(6947, 8930)
-	If GetAreaVanquished() = False Then AggroMoveTo(6325, 7938)
-	If GetAreaVanquished() = False Then AggroMoveTo(5571, 9667)
-	If GetAreaVanquished() = False Then AggroMoveTo(2471, 13104)
-	If GetAreaVanquished() = False Then AggroMoveTo(4220, 14910)
-	If GetAreaVanquished() = False Then AggroMoveTo(2082, 19864)
-	If GetAreaVanquished() = False Then AggroMoveTo(3729, 14404)
-	If GetAreaVanquished() = False Then AggroMoveTo(3394, 12902)
-	If GetAreaVanquished() = False Then AggroMoveTo(443, 10030)
-	If GetAreaVanquished() = False Then AggroMoveTo(1284, 10680)
-	If GetAreaVanquished() = False Then AggroMoveTo(1851, 13088)
-	If GetAreaVanquished() = False Then AggroMoveTo(-225, 15508)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1495, 17257)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3719, 19223)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7418, 21231)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7445, 22211)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6759, 18749)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6977, 16130)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4186, 15450)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6755, 14363)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6985, 13468)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7378, 11781)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7627, 9236)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5580, 4193)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6170, 6072)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7164, 4446)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4722, 2951)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5765, -246)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7260, -1537)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7314, -5004)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7459, -7918)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4180, -8806)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5269, -10803)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6837, -12938)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5383, -12959)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1025, -14423)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3283, -19532)
+	_Vanquisher_RunVanquishRoute($aProph_Kryta_TwinSerpentLakesRoute02)
 EndFunc
 

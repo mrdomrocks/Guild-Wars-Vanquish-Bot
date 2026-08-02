@@ -1,6 +1,21 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+Global $aFactions_KainengCity_ShadowsPassageRoute01[12][2] = [ _
+        [3396, 16639], _
+        [2094, 18885], _
+        [61, 18889], _
+        [-682, 13737], _
+        [-3699, 14519], _
+        [-4255, 16101], _
+        [-4255, 16101], _
+        [-3699, 14519], _
+        [-682, 13737], _
+        [61, 18889], _
+        [2094, 18885], _
+        [3396, 16639] _
+]
+
 Func GoOutShadowsPassage()
         Local $aGoOutRoute[3][2] = [ [-12290, 7648] _
                 , [-12193, 8409] _
@@ -20,18 +35,7 @@ Func VQShadowsPassage()
 	If GetMapID() = $ShadowsPassage_Map Then    
 
 		
-		If GetAreaVanquished() = False Then AggroMoveTo(3396, 16639)
-		If GetAreaVanquished() = False Then AggroMoveTo(2094, 18885)
-		If GetAreaVanquished() = False Then AggroMoveTo(61, 18889)
-		If GetAreaVanquished() = False Then AggroMoveTo(-682, 13737)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3699, 14519)
-		If GetAreaVanquished() = False Then AggroMoveTo(-4255, 16101)
-		If GetAreaVanquished() = False Then AggroMoveTo(-4255, 16101)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3699, 14519)
-		If GetAreaVanquished() = False Then AggroMoveTo(-682, 13737)
-		If GetAreaVanquished() = False Then AggroMoveTo(61, 18889)
-		If GetAreaVanquished() = False Then AggroMoveTo(2094, 18885)
-		If GetAreaVanquished() = False Then AggroMoveTo(3396, 16639)
+		_Vanquisher_RunVanquishRoute($aFactions_KainengCity_ShadowsPassageRoute01)
         
     EndIf
 EndFunc

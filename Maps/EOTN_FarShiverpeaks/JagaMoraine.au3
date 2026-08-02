@@ -2,6 +2,296 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute01[1][2] = [ _
+        [-11548, -23727] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute02[35][2] = [ _
+        [-9144, -22742], _
+        [-10013, -18995], _
+        [-8088, -17163], _
+        [-10635, -12507], _
+        [-9065, -8846], _
+        [-11463, -2008], _
+        [-9127, -2477], _
+        [-12964, 6518], _
+        [-12761, 11514], _
+        [-12009, 12858], _
+        [-10986, 14273], _
+        [-9741, 14931], _
+        [-8634, 16881], _
+        [-8426, 18482], _
+        [-8478, 21112], _
+        [-9483, 22023], _
+        [-10926, 22072], _
+        [-11583, 23564], _
+        [-9328, 21976], _
+        [-8510, 21016], _
+        [-8035, 18108], _
+        [-7218, 15790], _
+        [-5699, 15344], _
+        [-5109, 14795], _
+        [-2793, 14640], _
+        [274, 14922], _
+        [1539, 15800], _
+        [-3394, 15100], _
+        [-3373, 17374], _
+        [-5138, 18667], _
+        [-5325, 20249], _
+        [-4091, 21650], _
+        [-2608, 23711], _
+        [-722, 24552], _
+        [621, 24594] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute03[14][2] = [ _
+        [1587, 24565], _
+        [1730, 25929], _
+        [7829, 19698], _
+        [10532, 20709], _
+        [9834, 24472], _
+        [11475, 24644], _
+        [12840, 22272], _
+        [11061, 21589], _
+        [15029, 19921], _
+        [16278, 17098], _
+        [15772, -4068], _
+        [11662, -9947], _
+        [11769, -15146], _
+        [15479, -17343] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute04[12][2] = [ _
+        [13394, -20786], _
+        [12391, -24815], _
+        [7664, -23368], _
+        [4948, -25366], _
+        [7189, -16750], _
+        [9030, -16748], _
+        [10307, -19084], _
+        [9114, -21565], _
+        [11660, -20307], _
+        [11252, -12500], _
+        [5937, -9282], _
+        [12478, -2112] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute05[10][2] = [ _
+        [10268, 5755], _
+        [12569, 4732], _
+        [12255, 10140], _
+        [8927, 13912], _
+        [10413, 15976], _
+        [7285, 15390], _
+        [4032, 17446], _
+        [3851, 19324], _
+        [1563, 19210], _
+        [992, 20065] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute06[15][2] = [ _
+        [3011, 19151], _
+        [-1148, 22041], _
+        [-915, 18230], _
+        [3556, 13049], _
+        [2649, 9270], _
+        [3636, 10119], _
+        [4538, 11033], _
+        [5617, 11307], _
+        [6873, 11609], _
+        [2496, 6441], _
+        [4514, 4967], _
+        [2957, 3356], _
+        [-3749, 3657], _
+        [-64, 12766], _
+        [-4779, 9529] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute07[18][2] = [ _
+        [-5574, 5044], _
+        [-8296, 6428], _
+        [-8635, 12723], _
+        [-6171, 12964], _
+        [-4511, 13537], _
+        [-5538, 1799], _
+        [-7742, 1293], _
+        [-801, 1865], _
+        [427, 5673], _
+        [685, 6185], _
+        [5668, 1579], _
+        [3631, -1702], _
+        [7147, -635], _
+        [8605, 112], _
+        [5875, -4001], _
+        [5054, -6700], _
+        [3045, -5454], _
+        [1552, -408] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute08[16][2] = [ _
+        [-2295, -8521], _
+        [-5887, -5229], _
+        [-4899, -2212], _
+        [760, -176], _
+        [-44, -5199], _
+        [-2683, -7327], _
+        [999, -14119], _
+        [-243, -25415], _
+        [-2508, -24472], _
+        [-2151, -15104], _
+        [-7486, -7776], _
+        [-6879, -18717], _
+        [-4307, -21104], _
+        [-3767, -19964], _
+        [-5188, -13767], _
+        [-8221, -19917] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute09[15][2] = [ _
+        [-8221, -19917], _
+        [-5188, -13767], _
+        [-3767, -19964], _
+        [-4307, -21104], _
+        [-6879, -18717], _
+        [-7486, -7776], _
+        [-2151, -15104], _
+        [-2508, -24472], _
+        [-243, -25415], _
+        [999, -14119], _
+        [-2683, -7327], _
+        [-44, -5199], _
+        [760, -176], _
+        [-4899, -2212], _
+        [-5887, -5229] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute10[18][2] = [ _
+        [-2295, -8521], _
+        [1552, -408], _
+        [3045, -5454], _
+        [5054, -6700], _
+        [5875, -4001], _
+        [8605, 112], _
+        [7147, -635], _
+        [3631, -1702], _
+        [5668, 1579], _
+        [685, 6185], _
+        [427, 5673], _
+        [-801, 1865], _
+        [-7742, 1293], _
+        [-5538, 1799], _
+        [-4511, 13537], _
+        [-6171, 12964], _
+        [-8635, 12723], _
+        [-8296, 6428] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute11[15][2] = [ _
+        [-5574, 5044], _
+        [-4779, 9529], _
+        [-64, 12766], _
+        [-3749, 3657], _
+        [2957, 3356], _
+        [4514, 4967], _
+        [2496, 6441], _
+        [6873, 11609], _
+        [5617, 11307], _
+        [4538, 11033], _
+        [3636, 10119], _
+        [2649, 9270], _
+        [3556, 13049], _
+        [-915, 18230], _
+        [-1148, 22041] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute12[10][2] = [ _
+        [3011, 19151], _
+        [992, 20065], _
+        [1563, 19210], _
+        [3851, 19324], _
+        [4032, 17446], _
+        [7285, 15390], _
+        [10413, 15976], _
+        [8927, 13912], _
+        [12255, 10140], _
+        [12569, 4732] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute13[12][2] = [ _
+        [10268, 5755], _
+        [12478, -2112], _
+        [5937, -9282], _
+        [11252, -12500], _
+        [11660, -20307], _
+        [9114, -21565], _
+        [10307, -19084], _
+        [9030, -16748], _
+        [7189, -16750], _
+        [4948, -25366], _
+        [7664, -23368], _
+        [12391, -24815] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute14[14][2] = [ _
+        [13394, -20786], _
+        [15479, -17343], _
+        [11769, -15146], _
+        [11662, -9947], _
+        [15772, -4068], _
+        [16278, 17098], _
+        [15029, 19921], _
+        [11061, 21589], _
+        [12840, 22272], _
+        [11475, 24644], _
+        [9834, 24472], _
+        [10532, 20709], _
+        [7829, 19698], _
+        [1730, 25929] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute15[35][2] = [ _
+        [1587, 24565], _
+        [621, 24594], _
+        [-722, 24552], _
+        [-2608, 23711], _
+        [-4091, 21650], _
+        [-5325, 20249], _
+        [-5138, 18667], _
+        [-3373, 17374], _
+        [-3394, 15100], _
+        [1539, 15800], _
+        [274, 14922], _
+        [-2793, 14640], _
+        [-5109, 14795], _
+        [-5699, 15344], _
+        [-7218, 15790], _
+        [-8035, 18108], _
+        [-8510, 21016], _
+        [-9328, 21976], _
+        [-11583, 23564], _
+        [-10926, 22072], _
+        [-9483, 22023], _
+        [-8478, 21112], _
+        [-8426, 18482], _
+        [-8634, 16881], _
+        [-9741, 14931], _
+        [-10986, 14273], _
+        [-12009, 12858], _
+        [-12761, 11514], _
+        [-12964, 6518], _
+        [-9127, -2477], _
+        [-11463, -2008], _
+        [-9065, -8846], _
+        [-10635, -12507], _
+        [-8088, -17163], _
+        [-10013, -18995] _
+]
+
+Global $aEOTN_FarShiverpeaks_JagaMoraineRoute16[2][2] = [ _
+        [-9144, -22742], _
+        [-11548, -23727] _
+]
+
 Func GoOutJagaMoraine()
         Local $aGoOutRoute[3][2] = [ [14800, 22958] _
                 , [15811, 22952] _
@@ -35,262 +325,36 @@ Func VQJagaMoraine()
 	CurrentAction("Starting Jaga Moraine vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(-11548, -23727)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute01)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-9144, -22742)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10013, -18995)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8088, -17163)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10635, -12507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9065, -8846)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11463, -2008)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9127, -2477)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12964, 6518)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12761, 11514)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12009, 12858)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10986, 14273)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9741, 14931)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8634, 16881)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8426, 18482)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8478, 21112)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9483, 22023)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10926, 22072)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11583, 23564)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9328, 21976)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8510, 21016)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8035, 18108)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7218, 15790)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5699, 15344)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5109, 14795)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2793, 14640)
-	If GetAreaVanquished() = False Then AggroMoveTo(274, 14922)
-	If GetAreaVanquished() = False Then AggroMoveTo(1539, 15800)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3394, 15100)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3373, 17374)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5138, 18667)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5325, 20249)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4091, 21650)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2608, 23711)
-	If GetAreaVanquished() = False Then AggroMoveTo(-722, 24552)
-	If GetAreaVanquished() = False Then AggroMoveTo(621, 24594)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute02)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(1587, 24565)
-	If GetAreaVanquished() = False Then AggroMoveTo(1730, 25929)
-	If GetAreaVanquished() = False Then AggroMoveTo(7829, 19698)
-	If GetAreaVanquished() = False Then AggroMoveTo(10532, 20709)
-	If GetAreaVanquished() = False Then AggroMoveTo(9834, 24472)
-	If GetAreaVanquished() = False Then AggroMoveTo(11475, 24644)
-	If GetAreaVanquished() = False Then AggroMoveTo(12840, 22272)
-	If GetAreaVanquished() = False Then AggroMoveTo(11061, 21589)
-	If GetAreaVanquished() = False Then AggroMoveTo(15029, 19921)
-	If GetAreaVanquished() = False Then AggroMoveTo(16278, 17098)
-	If GetAreaVanquished() = False Then AggroMoveTo(15772, -4068)
-	If GetAreaVanquished() = False Then AggroMoveTo(11662, -9947)
-	If GetAreaVanquished() = False Then AggroMoveTo(11769, -15146)
-	If GetAreaVanquished() = False Then AggroMoveTo(15479, -17343)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute03)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(13394, -20786)
-	If GetAreaVanquished() = False Then AggroMoveTo(12391, -24815)
-	If GetAreaVanquished() = False Then AggroMoveTo(7664, -23368)
-	If GetAreaVanquished() = False Then AggroMoveTo(4948, -25366)
-	If GetAreaVanquished() = False Then AggroMoveTo(7189, -16750)
-	If GetAreaVanquished() = False Then AggroMoveTo(9030, -16748)
-	If GetAreaVanquished() = False Then AggroMoveTo(10307, -19084)
-	If GetAreaVanquished() = False Then AggroMoveTo(9114, -21565)
-	If GetAreaVanquished() = False Then AggroMoveTo(11660, -20307)
-	If GetAreaVanquished() = False Then AggroMoveTo(11252, -12500)
-	If GetAreaVanquished() = False Then AggroMoveTo(5937, -9282)
-	If GetAreaVanquished() = False Then AggroMoveTo(12478, -2112)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute04)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(10268, 5755)
-	If GetAreaVanquished() = False Then AggroMoveTo(12569, 4732)
-	If GetAreaVanquished() = False Then AggroMoveTo(12255, 10140)
-	If GetAreaVanquished() = False Then AggroMoveTo(8927, 13912)
-	If GetAreaVanquished() = False Then AggroMoveTo(10413, 15976)
-	If GetAreaVanquished() = False Then AggroMoveTo(7285, 15390)
-	If GetAreaVanquished() = False Then AggroMoveTo(4032, 17446)
-	If GetAreaVanquished() = False Then AggroMoveTo(3851, 19324)
-	If GetAreaVanquished() = False Then AggroMoveTo(1563, 19210)
-	If GetAreaVanquished() = False Then AggroMoveTo(992, 20065)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute05)
 	; wait20
-	If GetAreaVanquished() = False Then AggroMoveTo(3011, 19151)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1148, 22041)
-	If GetAreaVanquished() = False Then AggroMoveTo(-915, 18230)
-	If GetAreaVanquished() = False Then AggroMoveTo(3556, 13049)
-	If GetAreaVanquished() = False Then AggroMoveTo(2649, 9270)
-	If GetAreaVanquished() = False Then AggroMoveTo(3636, 10119)
-	If GetAreaVanquished() = False Then AggroMoveTo(4538, 11033)
-	If GetAreaVanquished() = False Then AggroMoveTo(5617, 11307)
-	If GetAreaVanquished() = False Then AggroMoveTo(6873, 11609)
-	If GetAreaVanquished() = False Then AggroMoveTo(2496, 6441)
-	If GetAreaVanquished() = False Then AggroMoveTo(4514, 4967)
-	If GetAreaVanquished() = False Then AggroMoveTo(2957, 3356)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3749, 3657)
-	If GetAreaVanquished() = False Then AggroMoveTo(-64, 12766)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4779, 9529)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute06)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-5574, 5044)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8296, 6428)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8635, 12723)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6171, 12964)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4511, 13537)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5538, 1799)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7742, 1293)
-	If GetAreaVanquished() = False Then AggroMoveTo(-801, 1865)
-	If GetAreaVanquished() = False Then AggroMoveTo(427, 5673)
-	If GetAreaVanquished() = False Then AggroMoveTo(685, 6185)
-	If GetAreaVanquished() = False Then AggroMoveTo(5668, 1579)
-	If GetAreaVanquished() = False Then AggroMoveTo(3631, -1702)
-	If GetAreaVanquished() = False Then AggroMoveTo(7147, -635)
-	If GetAreaVanquished() = False Then AggroMoveTo(8605, 112)
-	If GetAreaVanquished() = False Then AggroMoveTo(5875, -4001)
-	If GetAreaVanquished() = False Then AggroMoveTo(5054, -6700)
-	If GetAreaVanquished() = False Then AggroMoveTo(3045, -5454)
-	If GetAreaVanquished() = False Then AggroMoveTo(1552, -408)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute07)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-2295, -8521)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5887, -5229)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4899, -2212)
-	If GetAreaVanquished() = False Then AggroMoveTo(760, -176)
-	If GetAreaVanquished() = False Then AggroMoveTo(-44, -5199)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2683, -7327)
-	If GetAreaVanquished() = False Then AggroMoveTo(999, -14119)
-	If GetAreaVanquished() = False Then AggroMoveTo(-243, -25415)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2508, -24472)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2151, -15104)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7486, -7776)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6879, -18717)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4307, -21104)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3767, -19964)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5188, -13767)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8221, -19917)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute08)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(-8221, -19917)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5188, -13767)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3767, -19964)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4307, -21104)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6879, -18717)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7486, -7776)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2151, -15104)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2508, -24472)
-	If GetAreaVanquished() = False Then AggroMoveTo(-243, -25415)
-	If GetAreaVanquished() = False Then AggroMoveTo(999, -14119)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2683, -7327)
-	If GetAreaVanquished() = False Then AggroMoveTo(-44, -5199)
-	If GetAreaVanquished() = False Then AggroMoveTo(760, -176)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4899, -2212)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5887, -5229)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute09)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-2295, -8521)
-	If GetAreaVanquished() = False Then AggroMoveTo(1552, -408)
-	If GetAreaVanquished() = False Then AggroMoveTo(3045, -5454)
-	If GetAreaVanquished() = False Then AggroMoveTo(5054, -6700)
-	If GetAreaVanquished() = False Then AggroMoveTo(5875, -4001)
-	If GetAreaVanquished() = False Then AggroMoveTo(8605, 112)
-	If GetAreaVanquished() = False Then AggroMoveTo(7147, -635)
-	If GetAreaVanquished() = False Then AggroMoveTo(3631, -1702)
-	If GetAreaVanquished() = False Then AggroMoveTo(5668, 1579)
-	If GetAreaVanquished() = False Then AggroMoveTo(685, 6185)
-	If GetAreaVanquished() = False Then AggroMoveTo(427, 5673)
-	If GetAreaVanquished() = False Then AggroMoveTo(-801, 1865)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7742, 1293)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5538, 1799)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4511, 13537)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6171, 12964)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8635, 12723)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8296, 6428)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute10)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-5574, 5044)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4779, 9529)
-	If GetAreaVanquished() = False Then AggroMoveTo(-64, 12766)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3749, 3657)
-	If GetAreaVanquished() = False Then AggroMoveTo(2957, 3356)
-	If GetAreaVanquished() = False Then AggroMoveTo(4514, 4967)
-	If GetAreaVanquished() = False Then AggroMoveTo(2496, 6441)
-	If GetAreaVanquished() = False Then AggroMoveTo(6873, 11609)
-	If GetAreaVanquished() = False Then AggroMoveTo(5617, 11307)
-	If GetAreaVanquished() = False Then AggroMoveTo(4538, 11033)
-	If GetAreaVanquished() = False Then AggroMoveTo(3636, 10119)
-	If GetAreaVanquished() = False Then AggroMoveTo(2649, 9270)
-	If GetAreaVanquished() = False Then AggroMoveTo(3556, 13049)
-	If GetAreaVanquished() = False Then AggroMoveTo(-915, 18230)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1148, 22041)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute11)
 	; wait20
-	If GetAreaVanquished() = False Then AggroMoveTo(3011, 19151)
-	If GetAreaVanquished() = False Then AggroMoveTo(992, 20065)
-	If GetAreaVanquished() = False Then AggroMoveTo(1563, 19210)
-	If GetAreaVanquished() = False Then AggroMoveTo(3851, 19324)
-	If GetAreaVanquished() = False Then AggroMoveTo(4032, 17446)
-	If GetAreaVanquished() = False Then AggroMoveTo(7285, 15390)
-	If GetAreaVanquished() = False Then AggroMoveTo(10413, 15976)
-	If GetAreaVanquished() = False Then AggroMoveTo(8927, 13912)
-	If GetAreaVanquished() = False Then AggroMoveTo(12255, 10140)
-	If GetAreaVanquished() = False Then AggroMoveTo(12569, 4732)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute12)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(10268, 5755)
-	If GetAreaVanquished() = False Then AggroMoveTo(12478, -2112)
-	If GetAreaVanquished() = False Then AggroMoveTo(5937, -9282)
-	If GetAreaVanquished() = False Then AggroMoveTo(11252, -12500)
-	If GetAreaVanquished() = False Then AggroMoveTo(11660, -20307)
-	If GetAreaVanquished() = False Then AggroMoveTo(9114, -21565)
-	If GetAreaVanquished() = False Then AggroMoveTo(10307, -19084)
-	If GetAreaVanquished() = False Then AggroMoveTo(9030, -16748)
-	If GetAreaVanquished() = False Then AggroMoveTo(7189, -16750)
-	If GetAreaVanquished() = False Then AggroMoveTo(4948, -25366)
-	If GetAreaVanquished() = False Then AggroMoveTo(7664, -23368)
-	If GetAreaVanquished() = False Then AggroMoveTo(12391, -24815)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute13)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(13394, -20786)
-	If GetAreaVanquished() = False Then AggroMoveTo(15479, -17343)
-	If GetAreaVanquished() = False Then AggroMoveTo(11769, -15146)
-	If GetAreaVanquished() = False Then AggroMoveTo(11662, -9947)
-	If GetAreaVanquished() = False Then AggroMoveTo(15772, -4068)
-	If GetAreaVanquished() = False Then AggroMoveTo(16278, 17098)
-	If GetAreaVanquished() = False Then AggroMoveTo(15029, 19921)
-	If GetAreaVanquished() = False Then AggroMoveTo(11061, 21589)
-	If GetAreaVanquished() = False Then AggroMoveTo(12840, 22272)
-	If GetAreaVanquished() = False Then AggroMoveTo(11475, 24644)
-	If GetAreaVanquished() = False Then AggroMoveTo(9834, 24472)
-	If GetAreaVanquished() = False Then AggroMoveTo(10532, 20709)
-	If GetAreaVanquished() = False Then AggroMoveTo(7829, 19698)
-	If GetAreaVanquished() = False Then AggroMoveTo(1730, 25929)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute14)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(1587, 24565)
-	If GetAreaVanquished() = False Then AggroMoveTo(621, 24594)
-	If GetAreaVanquished() = False Then AggroMoveTo(-722, 24552)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2608, 23711)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4091, 21650)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5325, 20249)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5138, 18667)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3373, 17374)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3394, 15100)
-	If GetAreaVanquished() = False Then AggroMoveTo(1539, 15800)
-	If GetAreaVanquished() = False Then AggroMoveTo(274, 14922)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2793, 14640)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5109, 14795)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5699, 15344)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7218, 15790)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8035, 18108)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8510, 21016)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9328, 21976)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11583, 23564)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10926, 22072)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9483, 22023)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8478, 21112)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8426, 18482)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8634, 16881)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9741, 14931)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10986, 14273)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12009, 12858)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12761, 11514)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12964, 6518)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9127, -2477)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11463, -2008)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9065, -8846)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10635, -12507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8088, -17163)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10013, -18995)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute15)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-9144, -22742)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11548, -23727)
+	_Vanquisher_RunVanquishRoute($aEOTN_FarShiverpeaks_JagaMoraineRoute16)
 EndFunc

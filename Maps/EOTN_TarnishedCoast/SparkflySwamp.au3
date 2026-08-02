@@ -2,6 +2,473 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute01[22][2] = [ _
+        [-9451, -19766], _
+        [-11712, -18545], _
+        [-12365, -16068], _
+        [-11660, -13661], _
+        [-12265, -11101], _
+        [-10178, -9506], _
+        [-8380, -7647], _
+        [-9677, -5365], _
+        [-10838, -3139], _
+        [-10546, -645], _
+        [-9785, 1837], _
+        [-11696, 3475], _
+        [-12061, 6046], _
+        [-12469, 8529], _
+        [-10427, 7063], _
+        [-9285, 4761], _
+        [-7478, 3010], _
+        [-6100, 5191], _
+        [-5366, 7681], _
+        [-5140, 10288], _
+        [-7316, 11717], _
+        [-6360, 14119] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute02[26][2] = [ _
+        [-4607, 15931], _
+        [-6890, 16963], _
+        [-9476, 16861], _
+        [-12072, 16759], _
+        [-12943, 16570], _
+        [-12733, 14016], _
+        [-12465, 11392], _
+        [-9973, 10725], _
+        [-7356, 10739], _
+        [-4804, 11036], _
+        [-2222, 10881], _
+        [-1219, 13195], _
+        [-2520, 15406], _
+        [-4231, 17302], _
+        [-5935, 19256], _
+        [-8510, 19406], _
+        [-11027, 19473], _
+        [-8626, 18600], _
+        [-6070, 18507], _
+        [-4807, 20827], _
+        [-3252, 22839], _
+        [-741, 23122], _
+        [1742, 23427], _
+        [4252, 23200], _
+        [6818, 22882], _
+        [9338, 22641] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute03[19][2] = [ _
+        [10582, 24346], _
+        [12070, 22283], _
+        [13205, 20022], _
+        [15501, 20030], _
+        [14144, 17810], _
+        [12808, 15679], _
+        [13517, 13217], _
+        [15167, 11139], _
+        [12563, 10736], _
+        [11173, 8550], _
+        [11835, 6041], _
+        [10202, 4014], _
+        [11465, 1802], _
+        [13303, 15], _
+        [14992, -1860], _
+        [15503, -4354], _
+        [14066, -6417], _
+        [11563, -7013], _
+        [9676, -8665] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute04[14][2] = [ _
+        [8685, -11066], _
+        [7378, -8894], _
+        [8976, -6820], _
+        [10804, -5068], _
+        [10294, -7618], _
+        [9888, -10192], _
+        [10661, -12636], _
+        [12261, -14654], _
+        [12476, -14760], _
+        [9955, -14083], _
+        [7488, -14885], _
+        [8653, -17130], _
+        [9292, -19567], _
+        [11046, -21529] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute05[47][2] = [ _
+        [12506, -22687], _
+        [10023, -23217], _
+        [7512, -23106], _
+        [7541, -25636], _
+        [7564, -25986], _
+        [5646, -24183], _
+        [3207, -23348], _
+        [2655, -25902], _
+        [471, -24409], _
+        [-381, -22021], _
+        [-2865, -21459], _
+        [-3867, -23896], _
+        [-5445, -25528], _
+        [-6198, -23087], _
+        [-6281, -20585], _
+        [-6335, -18023], _
+        [-7538, -15664], _
+        [-8927, -13402], _
+        [-5600, -12116], _
+        [-3097, -11885], _
+        [-555, -11404], _
+        [816, -14161], _
+        [1659, -16523], _
+        [3951, -15400], _
+        [4262, -12882], _
+        [2999, -10569], _
+        [959, -12205], _
+        [-610, -14336], _
+        [-2614, -15910], _
+        [-5021, -15098], _
+        [-2883, -16597], _
+        [-865, -18255], _
+        [1580, -19121], _
+        [3948, -20305], _
+        [6357, -20977], _
+        [6223, -18335], _
+        [5855, -15795], _
+        [8215, -14828], _
+        [10633, -14179], _
+        [9885, -11697], _
+        [7772, -10160], _
+        [5535, -9003], _
+        [3124, -8187], _
+        [675, -7255], _
+        [-1929, -7104], _
+        [-4030, -5749], _
+        [-6000, -4002] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute06[34][2] = [ _
+        [-5244, -3222], _
+        [-7579, -1970], _
+        [-5804, -34], _
+        [-3445, 810], _
+        [-1783, 2779], _
+        [-2479, 5187], _
+        [-4584, 6537], _
+        [-6638, 8016], _
+        [-9066, 9021], _
+        [-8273, 11527], _
+        [-8929, 13988], _
+        [-8407, 16506], _
+        [-9540, 18760], _
+        [-10494, 16371], _
+        [-10833, 13778], _
+        [-8293, 13185], _
+        [-5666, 13241], _
+        [-3267, 14322], _
+        [-1472, 16226], _
+        [-1361, 18794], _
+        [-2426, 21065], _
+        [-4584, 19742], _
+        [-2016, 19117], _
+        [502, 19102], _
+        [3009, 19359], _
+        [4926, 21032], _
+        [7304, 20199], _
+        [8905, 18278], _
+        [11041, 19811], _
+        [10504, 17228], _
+        [9853, 14811], _
+        [9044, 12299], _
+        [8144, 9947], _
+        [6534, 8025] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute07[49][2] = [ _
+        [4805, 6742], _
+        [5276, 9229], _
+        [4282, 11581], _
+        [2783, 13610], _
+        [1211, 15619], _
+        [3499, 16689], _
+        [5983, 17366], _
+        [6786, 14957], _
+        [6023, 12439], _
+        [3912, 10902], _
+        [1865, 9422], _
+        [-82, 7623], _
+        [1799, 5771], _
+        [3871, 4263], _
+        [5833, 2486], _
+        [7682, 703], _
+        [10097, -14], _
+        [12233, -1491], _
+        [10183, -3135], _
+        [7917, -4274], _
+        [5634, -5483], _
+        [4536, -3218], _
+        [2801, -1361], _
+        [1630, 941], _
+        [541, 3293], _
+        [60, 5755], _
+        [1892, 3957], _
+        [3723, 2037], _
+        [5481, 195], _
+        [7299, -1692], _
+        [5671, -3726], _
+        [3709, -5345], _
+        [1718, -6926], _
+        [-244, -8485], _
+        [-2689, -9373], _
+        [-5187, -10218], _
+        [-7556, -11180], _
+        [-9884, -12233], _
+        [-7460, -13107], _
+        [-5028, -13888], _
+        [-2638, -14914], _
+        [-742, -16627], _
+        [1550, -17738], _
+        [3946, -18708], _
+        [1974, -20288], _
+        [-659, -20472], _
+        [-3151, -20137], _
+        [-5704, -19833], _
+        [-8234, -19342] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute08[48][2] = [ _
+        [-8234, -19342], _
+        [-5704, -19833], _
+        [-3151, -20137], _
+        [-659, -20472], _
+        [1974, -20288], _
+        [3946, -18708], _
+        [1550, -17738], _
+        [-742, -16627], _
+        [-2638, -14914], _
+        [-5028, -13888], _
+        [-7460, -13107], _
+        [-9884, -12233], _
+        [-7556, -11180], _
+        [-5187, -10218], _
+        [-2689, -9373], _
+        [-244, -8485], _
+        [1718, -6926], _
+        [3709, -5345], _
+        [5671, -3726], _
+        [7299, -1692], _
+        [5481, 195], _
+        [3723, 2037], _
+        [1892, 3957], _
+        [60, 5755], _
+        [541, 3293], _
+        [1630, 941], _
+        [2801, -1361], _
+        [4536, -3218], _
+        [5634, -5483], _
+        [7917, -4274], _
+        [10183, -3135], _
+        [12233, -1491], _
+        [10097, -14], _
+        [7682, 703], _
+        [5833, 2486], _
+        [3871, 4263], _
+        [1799, 5771], _
+        [-82, 7623], _
+        [1865, 9422], _
+        [3912, 10902], _
+        [6023, 12439], _
+        [6786, 14957], _
+        [5983, 17366], _
+        [3499, 16689], _
+        [1211, 15619], _
+        [2783, 13610], _
+        [4282, 11581], _
+        [5276, 9229] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute09[34][2] = [ _
+        [4805, 6742], _
+        [6534, 8025], _
+        [8144, 9947], _
+        [9044, 12299], _
+        [9853, 14811], _
+        [10504, 17228], _
+        [11041, 19811], _
+        [8905, 18278], _
+        [7304, 20199], _
+        [4926, 21032], _
+        [3009, 19359], _
+        [502, 19102], _
+        [-2016, 19117], _
+        [-4584, 19742], _
+        [-2426, 21065], _
+        [-1361, 18794], _
+        [-1472, 16226], _
+        [-3267, 14322], _
+        [-5666, 13241], _
+        [-8293, 13185], _
+        [-10833, 13778], _
+        [-10494, 16371], _
+        [-9540, 18760], _
+        [-8407, 16506], _
+        [-8929, 13988], _
+        [-8273, 11527], _
+        [-9066, 9021], _
+        [-6638, 8016], _
+        [-4584, 6537], _
+        [-2479, 5187], _
+        [-1783, 2779], _
+        [-3445, 810], _
+        [-5804, -34], _
+        [-7579, -1970] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute10[47][2] = [ _
+        [-5244, -3222], _
+        [-6000, -4002], _
+        [-4030, -5749], _
+        [-1929, -7104], _
+        [675, -7255], _
+        [3124, -8187], _
+        [5535, -9003], _
+        [7772, -10160], _
+        [9885, -11697], _
+        [10633, -14179], _
+        [8215, -14828], _
+        [5855, -15795], _
+        [6223, -18335], _
+        [6357, -20977], _
+        [3948, -20305], _
+        [1580, -19121], _
+        [-865, -18255], _
+        [-2883, -16597], _
+        [-5021, -15098], _
+        [-2614, -15910], _
+        [-610, -14336], _
+        [959, -12205], _
+        [2999, -10569], _
+        [4262, -12882], _
+        [3951, -15400], _
+        [1659, -16523], _
+        [816, -14161], _
+        [-555, -11404], _
+        [-3097, -11885], _
+        [-5600, -12116], _
+        [-8927, -13402], _
+        [-7538, -15664], _
+        [-6335, -18023], _
+        [-6281, -20585], _
+        [-6198, -23087], _
+        [-5445, -25528], _
+        [-3867, -23896], _
+        [-2865, -21459], _
+        [-381, -22021], _
+        [471, -24409], _
+        [2655, -25902], _
+        [3207, -23348], _
+        [5646, -24183], _
+        [7564, -25986], _
+        [7541, -25636], _
+        [7512, -23106], _
+        [10023, -23217] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute11[14][2] = [ _
+        [12506, -22687], _
+        [11046, -21529], _
+        [9292, -19567], _
+        [8653, -17130], _
+        [7488, -14885], _
+        [9955, -14083], _
+        [12476, -14760], _
+        [12261, -14654], _
+        [10661, -12636], _
+        [9888, -10192], _
+        [10294, -7618], _
+        [10804, -5068], _
+        [8976, -6820], _
+        [7378, -8894] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute12[19][2] = [ _
+        [8685, -11066], _
+        [9676, -8665], _
+        [11563, -7013], _
+        [14066, -6417], _
+        [15503, -4354], _
+        [14992, -1860], _
+        [13303, 15], _
+        [11465, 1802], _
+        [10202, 4014], _
+        [11835, 6041], _
+        [11173, 8550], _
+        [12563, 10736], _
+        [15167, 11139], _
+        [13517, 13217], _
+        [12808, 15679], _
+        [14144, 17810], _
+        [15501, 20030], _
+        [13205, 20022], _
+        [12070, 22283] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute13[26][2] = [ _
+        [10582, 24346], _
+        [9338, 22641], _
+        [6818, 22882], _
+        [4252, 23200], _
+        [1742, 23427], _
+        [-741, 23122], _
+        [-3252, 22839], _
+        [-4807, 20827], _
+        [-6070, 18507], _
+        [-8626, 18600], _
+        [-11027, 19473], _
+        [-8510, 19406], _
+        [-5935, 19256], _
+        [-4231, 17302], _
+        [-2520, 15406], _
+        [-1219, 13195], _
+        [-2222, 10881], _
+        [-4804, 11036], _
+        [-7356, 10739], _
+        [-9973, 10725], _
+        [-12465, 11392], _
+        [-12733, 14016], _
+        [-12943, 16570], _
+        [-12072, 16759], _
+        [-9476, 16861], _
+        [-6890, 16963] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute14[22][2] = [ _
+        [-4607, 15931], _
+        [-6360, 14119], _
+        [-7316, 11717], _
+        [-5140, 10288], _
+        [-5366, 7681], _
+        [-6100, 5191], _
+        [-7478, 3010], _
+        [-9285, 4761], _
+        [-10427, 7063], _
+        [-12469, 8529], _
+        [-12061, 6046], _
+        [-11696, 3475], _
+        [-9785, 1837], _
+        [-10546, -645], _
+        [-10838, -3139], _
+        [-9677, -5365], _
+        [-8380, -7647], _
+        [-10178, -9506], _
+        [-12265, -11101], _
+        [-11660, -13661], _
+        [-12365, -16068], _
+        [-11712, -18545] _
+]
+
+Global $aEOTN_TarnishedCoast_SparkflySwampRoute15[1][2] = [ _
+        [-9451, -19766] _
+]
+
 Func GoOutSparkflySwamp()
         Local $aGoOutRoute[2][2] = [ [1683, -1594] _
                 , [4600, -27863] _
@@ -30,442 +497,35 @@ Func VQSparkflySwamp()
 	EndIf
 	CurrentAction("Starting SparkflySwamp vanquish route.")
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-9451, -19766)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11712, -18545)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12365, -16068)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11660, -13661)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12265, -11101)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10178, -9506)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8380, -7647)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9677, -5365)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10838, -3139)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10546, -645)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9785, 1837)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11696, 3475)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12061, 6046)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12469, 8529)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10427, 7063)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9285, 4761)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7478, 3010)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6100, 5191)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5366, 7681)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5140, 10288)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7316, 11717)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6360, 14119)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute01)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-4607, 15931)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6890, 16963)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9476, 16861)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12072, 16759)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12943, 16570)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12733, 14016)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12465, 11392)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9973, 10725)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7356, 10739)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4804, 11036)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2222, 10881)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1219, 13195)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2520, 15406)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4231, 17302)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5935, 19256)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8510, 19406)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11027, 19473)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8626, 18600)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6070, 18507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4807, 20827)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3252, 22839)
-	If GetAreaVanquished() = False Then AggroMoveTo(-741, 23122)
-	If GetAreaVanquished() = False Then AggroMoveTo(1742, 23427)
-	If GetAreaVanquished() = False Then AggroMoveTo(4252, 23200)
-	If GetAreaVanquished() = False Then AggroMoveTo(6818, 22882)
-	If GetAreaVanquished() = False Then AggroMoveTo(9338, 22641)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute02)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(10582, 24346)
-	If GetAreaVanquished() = False Then AggroMoveTo(12070, 22283)
-	If GetAreaVanquished() = False Then AggroMoveTo(13205, 20022)
-	If GetAreaVanquished() = False Then AggroMoveTo(15501, 20030)
-	If GetAreaVanquished() = False Then AggroMoveTo(14144, 17810)
-	If GetAreaVanquished() = False Then AggroMoveTo(12808, 15679)
-	If GetAreaVanquished() = False Then AggroMoveTo(13517, 13217)
-	If GetAreaVanquished() = False Then AggroMoveTo(15167, 11139)
-	If GetAreaVanquished() = False Then AggroMoveTo(12563, 10736)
-	If GetAreaVanquished() = False Then AggroMoveTo(11173, 8550)
-	If GetAreaVanquished() = False Then AggroMoveTo(11835, 6041)
-	If GetAreaVanquished() = False Then AggroMoveTo(10202, 4014)
-	If GetAreaVanquished() = False Then AggroMoveTo(11465, 1802)
-	If GetAreaVanquished() = False Then AggroMoveTo(13303, 15)
-	If GetAreaVanquished() = False Then AggroMoveTo(14992, -1860)
-	If GetAreaVanquished() = False Then AggroMoveTo(15503, -4354)
-	If GetAreaVanquished() = False Then AggroMoveTo(14066, -6417)
-	If GetAreaVanquished() = False Then AggroMoveTo(11563, -7013)
-	If GetAreaVanquished() = False Then AggroMoveTo(9676, -8665)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute03)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(8685, -11066)
-	If GetAreaVanquished() = False Then AggroMoveTo(7378, -8894)
-	If GetAreaVanquished() = False Then AggroMoveTo(8976, -6820)
-	If GetAreaVanquished() = False Then AggroMoveTo(10804, -5068)
-	If GetAreaVanquished() = False Then AggroMoveTo(10294, -7618)
-	If GetAreaVanquished() = False Then AggroMoveTo(9888, -10192)
-	If GetAreaVanquished() = False Then AggroMoveTo(10661, -12636)
-	If GetAreaVanquished() = False Then AggroMoveTo(12261, -14654)
-	If GetAreaVanquished() = False Then AggroMoveTo(12476, -14760)
-	If GetAreaVanquished() = False Then AggroMoveTo(9955, -14083)
-	If GetAreaVanquished() = False Then AggroMoveTo(7488, -14885)
-	If GetAreaVanquished() = False Then AggroMoveTo(8653, -17130)
-	If GetAreaVanquished() = False Then AggroMoveTo(9292, -19567)
-	If GetAreaVanquished() = False Then AggroMoveTo(11046, -21529)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute04)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(12506, -22687)
-	If GetAreaVanquished() = False Then AggroMoveTo(10023, -23217)
-	If GetAreaVanquished() = False Then AggroMoveTo(7512, -23106)
-	If GetAreaVanquished() = False Then AggroMoveTo(7541, -25636)
-	If GetAreaVanquished() = False Then AggroMoveTo(7564, -25986)
-	If GetAreaVanquished() = False Then AggroMoveTo(5646, -24183)
-	If GetAreaVanquished() = False Then AggroMoveTo(3207, -23348)
-	If GetAreaVanquished() = False Then AggroMoveTo(2655, -25902)
-	If GetAreaVanquished() = False Then AggroMoveTo(471, -24409)
-	If GetAreaVanquished() = False Then AggroMoveTo(-381, -22021)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2865, -21459)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3867, -23896)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5445, -25528)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6198, -23087)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6281, -20585)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6335, -18023)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7538, -15664)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8927, -13402)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5600, -12116)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3097, -11885)
-	If GetAreaVanquished() = False Then AggroMoveTo(-555, -11404)
-	If GetAreaVanquished() = False Then AggroMoveTo(816, -14161)
-	If GetAreaVanquished() = False Then AggroMoveTo(1659, -16523)
-	If GetAreaVanquished() = False Then AggroMoveTo(3951, -15400)
-	If GetAreaVanquished() = False Then AggroMoveTo(4262, -12882)
-	If GetAreaVanquished() = False Then AggroMoveTo(2999, -10569)
-	If GetAreaVanquished() = False Then AggroMoveTo(959, -12205)
-	If GetAreaVanquished() = False Then AggroMoveTo(-610, -14336)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2614, -15910)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5021, -15098)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2883, -16597)
-	If GetAreaVanquished() = False Then AggroMoveTo(-865, -18255)
-	If GetAreaVanquished() = False Then AggroMoveTo(1580, -19121)
-	If GetAreaVanquished() = False Then AggroMoveTo(3948, -20305)
-	If GetAreaVanquished() = False Then AggroMoveTo(6357, -20977)
-	If GetAreaVanquished() = False Then AggroMoveTo(6223, -18335)
-	If GetAreaVanquished() = False Then AggroMoveTo(5855, -15795)
-	If GetAreaVanquished() = False Then AggroMoveTo(8215, -14828)
-	If GetAreaVanquished() = False Then AggroMoveTo(10633, -14179)
-	If GetAreaVanquished() = False Then AggroMoveTo(9885, -11697)
-	If GetAreaVanquished() = False Then AggroMoveTo(7772, -10160)
-	If GetAreaVanquished() = False Then AggroMoveTo(5535, -9003)
-	If GetAreaVanquished() = False Then AggroMoveTo(3124, -8187)
-	If GetAreaVanquished() = False Then AggroMoveTo(675, -7255)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1929, -7104)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4030, -5749)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6000, -4002)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute05)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-5244, -3222)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7579, -1970)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5804, -34)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3445, 810)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1783, 2779)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2479, 5187)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4584, 6537)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6638, 8016)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9066, 9021)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8273, 11527)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8929, 13988)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8407, 16506)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9540, 18760)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10494, 16371)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10833, 13778)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8293, 13185)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5666, 13241)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3267, 14322)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1472, 16226)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1361, 18794)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2426, 21065)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4584, 19742)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2016, 19117)
-	If GetAreaVanquished() = False Then AggroMoveTo(502, 19102)
-	If GetAreaVanquished() = False Then AggroMoveTo(3009, 19359)
-	If GetAreaVanquished() = False Then AggroMoveTo(4926, 21032)
-	If GetAreaVanquished() = False Then AggroMoveTo(7304, 20199)
-	If GetAreaVanquished() = False Then AggroMoveTo(8905, 18278)
-	If GetAreaVanquished() = False Then AggroMoveTo(11041, 19811)
-	If GetAreaVanquished() = False Then AggroMoveTo(10504, 17228)
-	If GetAreaVanquished() = False Then AggroMoveTo(9853, 14811)
-	If GetAreaVanquished() = False Then AggroMoveTo(9044, 12299)
-	If GetAreaVanquished() = False Then AggroMoveTo(8144, 9947)
-	If GetAreaVanquished() = False Then AggroMoveTo(6534, 8025)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute06)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(4805, 6742)
-	If GetAreaVanquished() = False Then AggroMoveTo(5276, 9229)
-	If GetAreaVanquished() = False Then AggroMoveTo(4282, 11581)
-	If GetAreaVanquished() = False Then AggroMoveTo(2783, 13610)
-	If GetAreaVanquished() = False Then AggroMoveTo(1211, 15619)
-	If GetAreaVanquished() = False Then AggroMoveTo(3499, 16689)
-	If GetAreaVanquished() = False Then AggroMoveTo(5983, 17366)
-	If GetAreaVanquished() = False Then AggroMoveTo(6786, 14957)
-	If GetAreaVanquished() = False Then AggroMoveTo(6023, 12439)
-	If GetAreaVanquished() = False Then AggroMoveTo(3912, 10902)
-	If GetAreaVanquished() = False Then AggroMoveTo(1865, 9422)
-	If GetAreaVanquished() = False Then AggroMoveTo(-82, 7623)
-	If GetAreaVanquished() = False Then AggroMoveTo(1799, 5771)
-	If GetAreaVanquished() = False Then AggroMoveTo(3871, 4263)
-	If GetAreaVanquished() = False Then AggroMoveTo(5833, 2486)
-	If GetAreaVanquished() = False Then AggroMoveTo(7682, 703)
-	If GetAreaVanquished() = False Then AggroMoveTo(10097, -14)
-	If GetAreaVanquished() = False Then AggroMoveTo(12233, -1491)
-	If GetAreaVanquished() = False Then AggroMoveTo(10183, -3135)
-	If GetAreaVanquished() = False Then AggroMoveTo(7917, -4274)
-	If GetAreaVanquished() = False Then AggroMoveTo(5634, -5483)
-	If GetAreaVanquished() = False Then AggroMoveTo(4536, -3218)
-	If GetAreaVanquished() = False Then AggroMoveTo(2801, -1361)
-	If GetAreaVanquished() = False Then AggroMoveTo(1630, 941)
-	If GetAreaVanquished() = False Then AggroMoveTo(541, 3293)
-	If GetAreaVanquished() = False Then AggroMoveTo(60, 5755)
-	If GetAreaVanquished() = False Then AggroMoveTo(1892, 3957)
-	If GetAreaVanquished() = False Then AggroMoveTo(3723, 2037)
-	If GetAreaVanquished() = False Then AggroMoveTo(5481, 195)
-	If GetAreaVanquished() = False Then AggroMoveTo(7299, -1692)
-	If GetAreaVanquished() = False Then AggroMoveTo(5671, -3726)
-	If GetAreaVanquished() = False Then AggroMoveTo(3709, -5345)
-	If GetAreaVanquished() = False Then AggroMoveTo(1718, -6926)
-	If GetAreaVanquished() = False Then AggroMoveTo(-244, -8485)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2689, -9373)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5187, -10218)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7556, -11180)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9884, -12233)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7460, -13107)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5028, -13888)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2638, -14914)
-	If GetAreaVanquished() = False Then AggroMoveTo(-742, -16627)
-	If GetAreaVanquished() = False Then AggroMoveTo(1550, -17738)
-	If GetAreaVanquished() = False Then AggroMoveTo(3946, -18708)
-	If GetAreaVanquished() = False Then AggroMoveTo(1974, -20288)
-	If GetAreaVanquished() = False Then AggroMoveTo(-659, -20472)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3151, -20137)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5704, -19833)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8234, -19342)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute07)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(-8234, -19342)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5704, -19833)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3151, -20137)
-	If GetAreaVanquished() = False Then AggroMoveTo(-659, -20472)
-	If GetAreaVanquished() = False Then AggroMoveTo(1974, -20288)
-	If GetAreaVanquished() = False Then AggroMoveTo(3946, -18708)
-	If GetAreaVanquished() = False Then AggroMoveTo(1550, -17738)
-	If GetAreaVanquished() = False Then AggroMoveTo(-742, -16627)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2638, -14914)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5028, -13888)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7460, -13107)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9884, -12233)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7556, -11180)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5187, -10218)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2689, -9373)
-	If GetAreaVanquished() = False Then AggroMoveTo(-244, -8485)
-	If GetAreaVanquished() = False Then AggroMoveTo(1718, -6926)
-	If GetAreaVanquished() = False Then AggroMoveTo(3709, -5345)
-	If GetAreaVanquished() = False Then AggroMoveTo(5671, -3726)
-	If GetAreaVanquished() = False Then AggroMoveTo(7299, -1692)
-	If GetAreaVanquished() = False Then AggroMoveTo(5481, 195)
-	If GetAreaVanquished() = False Then AggroMoveTo(3723, 2037)
-	If GetAreaVanquished() = False Then AggroMoveTo(1892, 3957)
-	If GetAreaVanquished() = False Then AggroMoveTo(60, 5755)
-	If GetAreaVanquished() = False Then AggroMoveTo(541, 3293)
-	If GetAreaVanquished() = False Then AggroMoveTo(1630, 941)
-	If GetAreaVanquished() = False Then AggroMoveTo(2801, -1361)
-	If GetAreaVanquished() = False Then AggroMoveTo(4536, -3218)
-	If GetAreaVanquished() = False Then AggroMoveTo(5634, -5483)
-	If GetAreaVanquished() = False Then AggroMoveTo(7917, -4274)
-	If GetAreaVanquished() = False Then AggroMoveTo(10183, -3135)
-	If GetAreaVanquished() = False Then AggroMoveTo(12233, -1491)
-	If GetAreaVanquished() = False Then AggroMoveTo(10097, -14)
-	If GetAreaVanquished() = False Then AggroMoveTo(7682, 703)
-	If GetAreaVanquished() = False Then AggroMoveTo(5833, 2486)
-	If GetAreaVanquished() = False Then AggroMoveTo(3871, 4263)
-	If GetAreaVanquished() = False Then AggroMoveTo(1799, 5771)
-	If GetAreaVanquished() = False Then AggroMoveTo(-82, 7623)
-	If GetAreaVanquished() = False Then AggroMoveTo(1865, 9422)
-	If GetAreaVanquished() = False Then AggroMoveTo(3912, 10902)
-	If GetAreaVanquished() = False Then AggroMoveTo(6023, 12439)
-	If GetAreaVanquished() = False Then AggroMoveTo(6786, 14957)
-	If GetAreaVanquished() = False Then AggroMoveTo(5983, 17366)
-	If GetAreaVanquished() = False Then AggroMoveTo(3499, 16689)
-	If GetAreaVanquished() = False Then AggroMoveTo(1211, 15619)
-	If GetAreaVanquished() = False Then AggroMoveTo(2783, 13610)
-	If GetAreaVanquished() = False Then AggroMoveTo(4282, 11581)
-	If GetAreaVanquished() = False Then AggroMoveTo(5276, 9229)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute08)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(4805, 6742)
-	If GetAreaVanquished() = False Then AggroMoveTo(6534, 8025)
-	If GetAreaVanquished() = False Then AggroMoveTo(8144, 9947)
-	If GetAreaVanquished() = False Then AggroMoveTo(9044, 12299)
-	If GetAreaVanquished() = False Then AggroMoveTo(9853, 14811)
-	If GetAreaVanquished() = False Then AggroMoveTo(10504, 17228)
-	If GetAreaVanquished() = False Then AggroMoveTo(11041, 19811)
-	If GetAreaVanquished() = False Then AggroMoveTo(8905, 18278)
-	If GetAreaVanquished() = False Then AggroMoveTo(7304, 20199)
-	If GetAreaVanquished() = False Then AggroMoveTo(4926, 21032)
-	If GetAreaVanquished() = False Then AggroMoveTo(3009, 19359)
-	If GetAreaVanquished() = False Then AggroMoveTo(502, 19102)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2016, 19117)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4584, 19742)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2426, 21065)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1361, 18794)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1472, 16226)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3267, 14322)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5666, 13241)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8293, 13185)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10833, 13778)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10494, 16371)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9540, 18760)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8407, 16506)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8929, 13988)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8273, 11527)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9066, 9021)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6638, 8016)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4584, 6537)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2479, 5187)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1783, 2779)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3445, 810)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5804, -34)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7579, -1970)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute09)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-5244, -3222)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6000, -4002)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4030, -5749)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1929, -7104)
-	If GetAreaVanquished() = False Then AggroMoveTo(675, -7255)
-	If GetAreaVanquished() = False Then AggroMoveTo(3124, -8187)
-	If GetAreaVanquished() = False Then AggroMoveTo(5535, -9003)
-	If GetAreaVanquished() = False Then AggroMoveTo(7772, -10160)
-	If GetAreaVanquished() = False Then AggroMoveTo(9885, -11697)
-	If GetAreaVanquished() = False Then AggroMoveTo(10633, -14179)
-	If GetAreaVanquished() = False Then AggroMoveTo(8215, -14828)
-	If GetAreaVanquished() = False Then AggroMoveTo(5855, -15795)
-	If GetAreaVanquished() = False Then AggroMoveTo(6223, -18335)
-	If GetAreaVanquished() = False Then AggroMoveTo(6357, -20977)
-	If GetAreaVanquished() = False Then AggroMoveTo(3948, -20305)
-	If GetAreaVanquished() = False Then AggroMoveTo(1580, -19121)
-	If GetAreaVanquished() = False Then AggroMoveTo(-865, -18255)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2883, -16597)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5021, -15098)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2614, -15910)
-	If GetAreaVanquished() = False Then AggroMoveTo(-610, -14336)
-	If GetAreaVanquished() = False Then AggroMoveTo(959, -12205)
-	If GetAreaVanquished() = False Then AggroMoveTo(2999, -10569)
-	If GetAreaVanquished() = False Then AggroMoveTo(4262, -12882)
-	If GetAreaVanquished() = False Then AggroMoveTo(3951, -15400)
-	If GetAreaVanquished() = False Then AggroMoveTo(1659, -16523)
-	If GetAreaVanquished() = False Then AggroMoveTo(816, -14161)
-	If GetAreaVanquished() = False Then AggroMoveTo(-555, -11404)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3097, -11885)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5600, -12116)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8927, -13402)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7538, -15664)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6335, -18023)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6281, -20585)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6198, -23087)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5445, -25528)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3867, -23896)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2865, -21459)
-	If GetAreaVanquished() = False Then AggroMoveTo(-381, -22021)
-	If GetAreaVanquished() = False Then AggroMoveTo(471, -24409)
-	If GetAreaVanquished() = False Then AggroMoveTo(2655, -25902)
-	If GetAreaVanquished() = False Then AggroMoveTo(3207, -23348)
-	If GetAreaVanquished() = False Then AggroMoveTo(5646, -24183)
-	If GetAreaVanquished() = False Then AggroMoveTo(7564, -25986)
-	If GetAreaVanquished() = False Then AggroMoveTo(7541, -25636)
-	If GetAreaVanquished() = False Then AggroMoveTo(7512, -23106)
-	If GetAreaVanquished() = False Then AggroMoveTo(10023, -23217)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute10)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(12506, -22687)
-	If GetAreaVanquished() = False Then AggroMoveTo(11046, -21529)
-	If GetAreaVanquished() = False Then AggroMoveTo(9292, -19567)
-	If GetAreaVanquished() = False Then AggroMoveTo(8653, -17130)
-	If GetAreaVanquished() = False Then AggroMoveTo(7488, -14885)
-	If GetAreaVanquished() = False Then AggroMoveTo(9955, -14083)
-	If GetAreaVanquished() = False Then AggroMoveTo(12476, -14760)
-	If GetAreaVanquished() = False Then AggroMoveTo(12261, -14654)
-	If GetAreaVanquished() = False Then AggroMoveTo(10661, -12636)
-	If GetAreaVanquished() = False Then AggroMoveTo(9888, -10192)
-	If GetAreaVanquished() = False Then AggroMoveTo(10294, -7618)
-	If GetAreaVanquished() = False Then AggroMoveTo(10804, -5068)
-	If GetAreaVanquished() = False Then AggroMoveTo(8976, -6820)
-	If GetAreaVanquished() = False Then AggroMoveTo(7378, -8894)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute11)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(8685, -11066)
-	If GetAreaVanquished() = False Then AggroMoveTo(9676, -8665)
-	If GetAreaVanquished() = False Then AggroMoveTo(11563, -7013)
-	If GetAreaVanquished() = False Then AggroMoveTo(14066, -6417)
-	If GetAreaVanquished() = False Then AggroMoveTo(15503, -4354)
-	If GetAreaVanquished() = False Then AggroMoveTo(14992, -1860)
-	If GetAreaVanquished() = False Then AggroMoveTo(13303, 15)
-	If GetAreaVanquished() = False Then AggroMoveTo(11465, 1802)
-	If GetAreaVanquished() = False Then AggroMoveTo(10202, 4014)
-	If GetAreaVanquished() = False Then AggroMoveTo(11835, 6041)
-	If GetAreaVanquished() = False Then AggroMoveTo(11173, 8550)
-	If GetAreaVanquished() = False Then AggroMoveTo(12563, 10736)
-	If GetAreaVanquished() = False Then AggroMoveTo(15167, 11139)
-	If GetAreaVanquished() = False Then AggroMoveTo(13517, 13217)
-	If GetAreaVanquished() = False Then AggroMoveTo(12808, 15679)
-	If GetAreaVanquished() = False Then AggroMoveTo(14144, 17810)
-	If GetAreaVanquished() = False Then AggroMoveTo(15501, 20030)
-	If GetAreaVanquished() = False Then AggroMoveTo(13205, 20022)
-	If GetAreaVanquished() = False Then AggroMoveTo(12070, 22283)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute12)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(10582, 24346)
-	If GetAreaVanquished() = False Then AggroMoveTo(9338, 22641)
-	If GetAreaVanquished() = False Then AggroMoveTo(6818, 22882)
-	If GetAreaVanquished() = False Then AggroMoveTo(4252, 23200)
-	If GetAreaVanquished() = False Then AggroMoveTo(1742, 23427)
-	If GetAreaVanquished() = False Then AggroMoveTo(-741, 23122)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3252, 22839)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4807, 20827)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6070, 18507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8626, 18600)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11027, 19473)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8510, 19406)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5935, 19256)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4231, 17302)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2520, 15406)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1219, 13195)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2222, 10881)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4804, 11036)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7356, 10739)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9973, 10725)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12465, 11392)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12733, 14016)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12943, 16570)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12072, 16759)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9476, 16861)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6890, 16963)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute13)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-4607, 15931)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6360, 14119)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7316, 11717)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5140, 10288)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5366, 7681)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6100, 5191)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7478, 3010)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9285, 4761)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10427, 7063)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12469, 8529)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12061, 6046)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11696, 3475)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9785, 1837)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10546, -645)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10838, -3139)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9677, -5365)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8380, -7647)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10178, -9506)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12265, -11101)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11660, -13661)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12365, -16068)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11712, -18545)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute14)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-9451, -19766)
+	_Vanquisher_RunVanquishRoute($aEOTN_TarnishedCoast_SparkflySwampRoute15)
 EndFunc
 

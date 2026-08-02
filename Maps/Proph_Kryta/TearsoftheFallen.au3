@@ -16,6 +16,72 @@ Global $aTearsTransitPath[7][2] = [ _
 	[-13618, 20788] _
 ]
 
+Global $aProph_Kryta_TearsoftheFallenRoute01[30][2] = [ _
+        [3377, -6583], _
+        [2544, -5393], _
+        [-1324, -7624], _
+        [-2484, -3816], _
+        [-5555, -3910], _
+        [-1502, -2477], _
+        [-199, -1006], _
+        [-1151, 1396], _
+        [-2077, 3639], _
+        [-4531, 1826], _
+        [-9006, -3149], _
+        [-6171, 1949], _
+        [-4233, 3485], _
+        [-6382, 3236], _
+        [-7483, 6598], _
+        [-4805, 9037], _
+        [194, 8115], _
+        [973, 6401], _
+        [2996, 5353], _
+        [878, 5051], _
+        [3886, 6194], _
+        [4219, 4096], _
+        [6372, 2264], _
+        [5841, 850], _
+        [4948, -1917], _
+        [2742, -4146], _
+        [7656, -4505], _
+        [2390, -2661], _
+        [-2044, -1471], _
+        [-3145, 1059] _
+]
+
+Global $aProph_Kryta_TearsoftheFallenRoute02[30][2] = [ _
+        [-3145, 1059], _
+        [-2044, -1471], _
+        [2390, -2661], _
+        [7656, -4505], _
+        [2742, -4146], _
+        [4948, -1917], _
+        [5841, 850], _
+        [6372, 2264], _
+        [4219, 4096], _
+        [3886, 6194], _
+        [878, 5051], _
+        [2996, 5353], _
+        [973, 6401], _
+        [194, 8115], _
+        [-4805, 9037], _
+        [-7483, 6598], _
+        [-6382, 3236], _
+        [-4233, 3485], _
+        [-6171, 1949], _
+        [-9006, -3149], _
+        [-4531, 1826], _
+        [-2077, 3639], _
+        [-1151, 1396], _
+        [-199, -1006], _
+        [-1502, -2477], _
+        [-5555, -3910], _
+        [-2484, -3816], _
+        [-1324, -7624], _
+        [2544, -5393], _
+        [3377, -6583] _
+]
+
 Func _Vanquisher_ResetTearsRouteProgress()
 	$g_i_TearsRoute_LastMapHandled = -1
 EndFunc
@@ -71,66 +137,8 @@ Func VQTearsoftheFallen()
 	CurrentAction("Starting Tears of the Fallen vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(3377, -6583)
-	If GetAreaVanquished() = False Then AggroMoveTo(2544, -5393)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1324, -7624)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2484, -3816)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5555, -3910)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1502, -2477)
-	If GetAreaVanquished() = False Then AggroMoveTo(-199, -1006)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1151, 1396)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2077, 3639)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4531, 1826)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9006, -3149)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6171, 1949)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4233, 3485)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6382, 3236)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7483, 6598)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4805, 9037)
-	If GetAreaVanquished() = False Then AggroMoveTo(194, 8115)
-	If GetAreaVanquished() = False Then AggroMoveTo(973, 6401)
-	If GetAreaVanquished() = False Then AggroMoveTo(2996, 5353)
-	If GetAreaVanquished() = False Then AggroMoveTo(878, 5051)
-	If GetAreaVanquished() = False Then AggroMoveTo(3886, 6194)
-	If GetAreaVanquished() = False Then AggroMoveTo(4219, 4096)
-	If GetAreaVanquished() = False Then AggroMoveTo(6372, 2264)
-	If GetAreaVanquished() = False Then AggroMoveTo(5841, 850)
-	If GetAreaVanquished() = False Then AggroMoveTo(4948, -1917)
-	If GetAreaVanquished() = False Then AggroMoveTo(2742, -4146)
-	If GetAreaVanquished() = False Then AggroMoveTo(7656, -4505)
-	If GetAreaVanquished() = False Then AggroMoveTo(2390, -2661)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2044, -1471)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3145, 1059)
+	_Vanquisher_RunVanquishRoute($aProph_Kryta_TearsoftheFallenRoute01)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(-3145, 1059)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2044, -1471)
-	If GetAreaVanquished() = False Then AggroMoveTo(2390, -2661)
-	If GetAreaVanquished() = False Then AggroMoveTo(7656, -4505)
-	If GetAreaVanquished() = False Then AggroMoveTo(2742, -4146)
-	If GetAreaVanquished() = False Then AggroMoveTo(4948, -1917)
-	If GetAreaVanquished() = False Then AggroMoveTo(5841, 850)
-	If GetAreaVanquished() = False Then AggroMoveTo(6372, 2264)
-	If GetAreaVanquished() = False Then AggroMoveTo(4219, 4096)
-	If GetAreaVanquished() = False Then AggroMoveTo(3886, 6194)
-	If GetAreaVanquished() = False Then AggroMoveTo(878, 5051)
-	If GetAreaVanquished() = False Then AggroMoveTo(2996, 5353)
-	If GetAreaVanquished() = False Then AggroMoveTo(973, 6401)
-	If GetAreaVanquished() = False Then AggroMoveTo(194, 8115)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4805, 9037)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7483, 6598)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6382, 3236)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4233, 3485)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6171, 1949)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9006, -3149)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4531, 1826)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2077, 3639)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1151, 1396)
-	If GetAreaVanquished() = False Then AggroMoveTo(-199, -1006)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1502, -2477)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5555, -3910)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2484, -3816)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1324, -7624)
-	If GetAreaVanquished() = False Then AggroMoveTo(2544, -5393)
-	If GetAreaVanquished() = False Then AggroMoveTo(3377, -6583)
+	_Vanquisher_RunVanquishRoute($aProph_Kryta_TearsoftheFallenRoute02)
 EndFunc

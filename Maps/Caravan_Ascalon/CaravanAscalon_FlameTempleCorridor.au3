@@ -1,3 +1,99 @@
+Global $aCaravan_Ascalon_CaravanAscalon_FlameTempleCorridorRoute01[45][2] = [ _
+        [-18448, -11278], _
+        [-19523, -8452], _
+        [-17298, -5976], _
+        [-16657, -4503], _
+        [-16531, -3652], _
+        [-16808, -3391], _
+        [-18534, -1989], _
+        [-19133, -2480], _
+        [-18534, -1989], _
+        [-16808, -3391], _
+        [-16531, -3652], _
+        [-16315, -4578], _
+        [-16167, -6465], _
+        [-15235, -7517], _
+        [-14899, -8035], _
+        [-13857, -9107], _
+        [-12983, -8753], _
+        [-11863, -6401], _
+        [-11669, -4432], _
+        [-10411, -4387], _
+        [-11228, -2247], _
+        [-8600, -3114], _
+        [-8045, -4392], _
+        [-6407, -2886], _
+        [-8426, -4766], _
+        [-7147, -1130], _
+        [-4804, -1469], _
+        [-4528, -3762], _
+        [-6297, -5441], _
+        [-6322, -7133], _
+        [-7358, -7061], _
+        [-8074, -6424], _
+        [-10037, -7547], _
+        [-8895, -9545], _
+        [-8074, -10340], _
+        [-7931, -9197], _
+        [-6145, -9120], _
+        [-5153, -11967], _
+        [-5987, -14539], _
+        [-9011, -15721], _
+        [-10509, -14685], _
+        [-9611, -12759], _
+        [-9303, -12518], _
+        [-10359, -9564], _
+        [-11546, -9365] _
+]
+
+Global $aCaravan_Ascalon_CaravanAscalon_FlameTempleCorridorRoute02[45][2] = [ _
+        [-11546, -9365], _
+        [-10359, -9564], _
+        [-9303, -12518], _
+        [-9611, -12759], _
+        [-10509, -14685], _
+        [-9011, -15721], _
+        [-5987, -14539], _
+        [-5153, -11967], _
+        [-6145, -9120], _
+        [-7931, -9197], _
+        [-8074, -10340], _
+        [-8895, -9545], _
+        [-10037, -7547], _
+        [-8074, -6424], _
+        [-7358, -7061], _
+        [-6322, -7133], _
+        [-6297, -5441], _
+        [-4528, -3762], _
+        [-4804, -1469], _
+        [-7147, -1130], _
+        [-8426, -4766], _
+        [-6407, -2886], _
+        [-8045, -4392], _
+        [-8600, -3114], _
+        [-11228, -2247], _
+        [-10411, -4387], _
+        [-11669, -4432], _
+        [-11863, -6401], _
+        [-12983, -8753], _
+        [-13857, -9107], _
+        [-14899, -8035], _
+        [-15235, -7517], _
+        [-16167, -6465], _
+        [-16315, -4578], _
+        [-16531, -3652], _
+        [-16808, -3391], _
+        [-18534, -1989], _
+        [-19133, -2480], _
+        [-18534, -1989], _
+        [-16808, -3391], _
+        [-16531, -3652], _
+        [-16657, -4503], _
+        [-17298, -5976], _
+        [-19523, -8452], _
+        [-18448, -11278] _
+]
+
 Func GoOutCaravanAscalon_FlameTempleCorridor()
         _Vanquisher_RunDynamicCaravanGoOut($FlameTempleCorridor_Map, "FlameTempleCorridor")
 EndFunc
@@ -26,96 +122,8 @@ Func VQCaravanAscalon_FlameTempleCorridor()
 	CurrentAction("Starting FlameTempleCorridor vanquish route.")
 
 
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-18448, -11278)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-19523, -8452)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-17298, -5976)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16657, -4503)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16531, -3652)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16808, -3391)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-18534, -1989)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-19133, -2480)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-18534, -1989)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16808, -3391)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16531, -3652)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16315, -4578)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16167, -6465)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-15235, -7517)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-14899, -8035)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-13857, -9107)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-12983, -8753)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-11863, -6401)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-11669, -4432)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-10411, -4387)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-11228, -2247)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8600, -3114)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8045, -4392)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-6407, -2886)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8426, -4766)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-7147, -1130)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-4804, -1469)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-4528, -3762)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-6297, -5441)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-6322, -7133)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-7358, -7061)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8074, -6424)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-10037, -7547)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8895, -9545)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8074, -10340)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-7931, -9197)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-6145, -9120)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-5153, -11967)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-5987, -14539)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-9011, -15721)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-10509, -14685)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-9611, -12759)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-9303, -12518)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-10359, -9564)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-11546, -9365)
+	_Vanquisher_RunCaravanRoute($aCaravan_Ascalon_CaravanAscalon_FlameTempleCorridorRoute01)
 
 	; reverse
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-11546, -9365)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-10359, -9564)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-9303, -12518)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-9611, -12759)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-10509, -14685)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-9011, -15721)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-5987, -14539)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-5153, -11967)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-6145, -9120)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-7931, -9197)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8074, -10340)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8895, -9545)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-10037, -7547)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8074, -6424)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-7358, -7061)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-6322, -7133)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-6297, -5441)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-4528, -3762)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-4804, -1469)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-7147, -1130)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8426, -4766)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-6407, -2886)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8045, -4392)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-8600, -3114)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-11228, -2247)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-10411, -4387)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-11669, -4432)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-11863, -6401)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-12983, -8753)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-13857, -9107)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-14899, -8035)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-15235, -7517)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16167, -6465)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16315, -4578)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16531, -3652)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16808, -3391)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-18534, -1989)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-19133, -2480)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-18534, -1989)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16808, -3391)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16531, -3652)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-16657, -4503)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-17298, -5976)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-19523, -8452)
-	If _Vanquisher_ShouldRunCaravanWaypoint() Then AggroMoveTo(-18448, -11278)
+	_Vanquisher_RunCaravanRoute($aCaravan_Ascalon_CaravanAscalon_FlameTempleCorridorRoute02)
 EndFunc

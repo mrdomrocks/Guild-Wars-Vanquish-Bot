@@ -1,16 +1,16 @@
 ;Ascalon IDs Caravan Yack's to Traveler's Vale - Select Ascalon
-Global $AscalonFoothills_Map = 103
+Global $AscalonFoothills_Map = 103            ;Grendich Courthouse
 Global $AscalonFoothills_Transit = 99         ;Traveler's Vale
-Global $DiessaLowlands_Map = 13
+Global $DiessaLowlands_Map = 13               ;Nolani Academy
 Global $DiessaLowlands_Transit = 103          ;Ascalon Foothills
-Global $DragonsGullet_Map = 105
+Global $DragonsGullet_Map = 105                 ;Grendich Courthouse
 Global $DragonsGullet_Transit = 106           ;Flame Temple Corridor
 Global $DragonsGullet_Transit2 = 13           ;Diessa Lowlands (Diessa -> FTC)
-Global $EasternFrontier_Map = 107
+Global $EasternFrontier_Map = 107             ;Frontier Gate
 Global $EasternFrontier_Transit = 104         ;Pockmark Flats
-Global $FlameTempleCorridor_Map = 106
+Global $FlameTempleCorridor_Map = 106         ;Grendich Courthouse
 Global $FlameTempleCorridor_Transit = 13      ;Diessa Lowlands
-Global $OldAscalon_Map = 33
+Global $OldAscalon_Map = 33                  ;
 Global $OldAscalon_Transit = 102              ;The Breach
 Global $PockmarkFlats_Map = 104
 Global $PockmarkFlats_Transit = 101           ;Regent Valley

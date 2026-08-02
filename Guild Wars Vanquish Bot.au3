@@ -22,7 +22,8 @@ Global $g_iDetectedClientPid = 0
 Global $g_iDetectedCharacterCount = 0
 Global $g_sActiveMapGroup = "EOTN"
 Global $boolrun = True
-Global $g_aMapEntries[0][10] ; campaign, region, map name, checked, map id, vanquished, outpost id, max party size, script name, route function
+Global $g_aMapEntries[0][11] ; campaign, region, map name, checked, map id, vanquished, outpost id, max party size, script name, route function, pre-travel label
+Global $g_aLocationCommentLabels[0][2]
 Global $g_s_MainCharName = ""
 Global $ProcessID = ""
 Global $Bot_Core_Initialized = False
@@ -65,6 +66,7 @@ Global Const $CLIENT_SCAN_INTERVAL_SINGLE_MS = 10000
 Global Const $CLIENT_SCAN_INTERVAL_MULTIPLE_MS = 5000
 Global Const $CONNECTED_STATE_POLL_INTERVAL_MS = 750
 Global Const $CLIENT_UNRESPONSIVE_TIMEOUT_MS = 30000
+Global Const $GUI_LOOP_SLEEP_MS = 25
 
 If FileExists(@ScriptDir & "\Vanquish.png") Then
     $g_sHelmetImagePath = @ScriptDir & "\Vanquish.png"
@@ -78,6 +80,7 @@ If IsDeclared("g_bCore_AutoUpdate") Then $g_bCore_AutoUpdate = False
 _VB_CreateGUI()
 _LogStartupBanner()
 
+_LoadLocationCommentLabels()
 _LoadMapEntries()
 _InitializeMapListItems()
 _ResizeMapListColumns()
@@ -98,6 +101,7 @@ While 1
     If Not _HandleGuiMessage($msg) Then ExitLoop
     _RunGuiMaintenance()
     If $g_bScriptReloadRequested Then ExitLoop
+    Sleep($GUI_LOOP_SLEEP_MS)
 WEnd
 
 _VB_DestroyGUI()
@@ -120,8 +124,7 @@ Func _ConnectToDetectedClient()
     $g_p_BasePointer = 0
 
     _Log("Connecting to Guild Wars character: " & $sCharacter & ".")
-    Local $iInitResult = Core_Initialize($iAttachPid, False)
-    $bInitOK = ($iInitResult <> 0 And $g_h_GWProcess <> 0 And $g_p_BasePointer <> 0)
+    $bInitOK = _InitializeDetectedClient("", $iAttachPid)
     If $bInitOK And $g_i_GWProcessId > 0 Then $ProcessID = String($g_i_GWProcessId)
 
     If Not $bInitOK Then
@@ -131,7 +134,8 @@ Func _ConnectToDetectedClient()
     EndIf
 
     $g_bClientConnected = True
-    $sCharacter = _ResolveConnectedCharacterName($sCharacter, 0)
+    Local $sLiveName = _GetAttachedCharacterName()
+    If $sLiveName <> "" Then $sCharacter = $sLiveName
     If $sCharacter = "" Then $sCharacter = "Guild Wars PID " & $iAttachPid
     $g_s_MainCharName = $sCharacter
     $Bot_Core_Initialized = True
@@ -147,38 +151,14 @@ Func _ConnectToDetectedClient()
     _ResetRunStats()
     $g_hRunTimer = TimerInit()
 
+    ; Connection stays idle until the user explicitly scans maps.
     _ShowMainMenuTab()
     _UpdateRunStatusDisplay()
     _UpdateConnectedCharacterDisplay()
-    _UpdateMapScanStatusDisplay("initializing scan...")
-    _UpdateRunControlStatusDisplay("scanning maps")
-    _Log("Connection established. Starting map and vanquish scan.")
-    _ScanConnectedCharacterVanquishHistory()
+    _UpdateMapScanStatusDisplay("connected - scan pending")
+    _UpdateRunControlStatusDisplay("ready to scan")
+    _Log("Connection established. Map actions are idle until Scan Maps is pressed.")
     Return True
-EndFunc
-
-Func _ReadGuildWarsCharacterName($iPid)
-    If $iPid <= 0 Then Return ""
-
-    Local $sCharacter = ""
-    Memory_Open($iPid)
-
-    Local $bInitSections = False
-    If $g_h_GWProcess <> 0 Then
-        $bInitSections = Scanner_InitializeSections()
-    EndIf
-
-    If $g_h_GWProcess <> 0 And $bInitSections Then
-        Scanner_ScanForCharname()
-        $sCharacter = StringStripWS(Player_GetCharName(), 3)
-    EndIf
-
-    Memory_Close()
-    $g_h_GWProcess = 0
-    $g_i_GWProcessId = 0
-    $g_p_BasePointer = 0
-
-    Return $sCharacter
 EndFunc
 
 Func _RefreshDetectedClient($bLogChanges = False)
@@ -189,7 +169,7 @@ Func _RefreshDetectedClient($bLogChanges = False)
     Local $iOldCount = $g_iDetectedCharacterCount
     Local $i = 0
 
-    Local $aProcessList = Scanner_ListGWProcesses()
+    Local $aProcessList = ProcessList("gw.exe")
     Local $iDetectedPid = 0
     Local $sDetectedCharacter = ""
     Local $iDetectedCount = 0
@@ -198,7 +178,17 @@ Func _RefreshDetectedClient($bLogChanges = False)
         Local $iPid = Number($aProcessList[$i][1], 2)
         If $iPid <= 0 Then ContinueLoop
 
-        Local $sCharacter = _ReadGuildWarsCharacterName($iPid)
+        Memory_Open($iPid)
+        Local $sCharacter = ""
+        If $g_h_GWProcess <> 0 And Scanner_InitializeSections() Then
+            Scanner_ScanForCharname()
+            $sCharacter = StringStripWS(Player_GetCharName(), 3)
+        EndIf
+        Memory_Close()
+        $g_h_GWProcess = 0
+        $g_i_GWProcessId = 0
+        $g_p_BasePointer = 0
+
         If $sCharacter = "" Then ContinueLoop
 
         $iDetectedCount += 1
@@ -227,11 +217,6 @@ Func _RefreshDetectedClient($bLogChanges = False)
     EndIf
 
     Return $g_iDetectedClientPid > 0
-EndFunc
-
-Func _RunDeferredPostConnectRefresh()
-    $g_bPendingPostConnectRefresh = False
-    $g_bPendingMapStateLoad = True
 EndFunc
 
 Func _GetClientDetectionInterval()
@@ -274,6 +259,99 @@ Func _FinalizeVanquishHistoryScan()
         _ClearClientRecoveryState()
     EndIf
     Return $g_bVanquishHistoryLoaded
+EndFunc
+
+Func _ProcessConnectedStatePoll()
+    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
+        $g_bPendingClientPrime = False
+        $g_bPendingVanquishScan = False
+        $g_bMapScanInProgress = False
+        _UpdateStartButtonState()
+        Return False
+    EndIf
+
+    If Not _PrimeConnectedClientState(False) Then
+        If $g_bPendingVanquishScan Then _UpdateMapScanStatusDisplay("waiting for in-game state")
+        Return False
+    EndIf
+
+    $g_bPendingClientPrime = False
+    _RefreshHeroTeamSelectionState()
+    _UpdateStartButtonState()
+
+    If Not $g_bPendingVanquishScan Then
+        _UpdateMapScanStatusDisplay()
+        Return True
+    EndIf
+
+    Return _FinalizeVanquishHistoryScan()
+EndFunc
+
+Func _ScanConnectedCharacterVanquishHistory()
+    If $g_bMapScanInProgress Then
+        _UpdateMapScanStatusDisplay("scan already in progress")
+        Return False
+    EndIf
+
+    $g_bMapScanInProgress = True
+    _UpdateStartButtonState()
+
+    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
+        _UpdateMapScanStatusDisplay("connect a client first")
+        _Log("Scan failed: connect to a running Guild Wars client first.")
+        $g_bMapScanInProgress = False
+        _UpdateStartButtonState()
+        Return False
+    EndIf
+
+    If Not _PrimeConnectedClientState(True) Then
+        _UpdateMapScanStatusDisplay("waiting for in-game state")
+        _UpdateRunControlStatusDisplay("waiting for client")
+        _Log("Scan queued. Waiting for the character to finish loading before reading vanquish history.")
+        _ScheduleConnectedStatePoll(True)
+        Return True
+    EndIf
+
+    If Not _CanQueryLiveClientState() Then
+        _UpdateMapScanStatusDisplay("client is still loading")
+        _UpdateRunControlStatusDisplay("waiting for client")
+        _Log("Scan queued. Guild Wars is still loading the current character.")
+        _ScheduleConnectedStatePoll(True)
+        Return True
+    EndIf
+
+    Return _FinalizeVanquishHistoryScan()
+EndFunc
+
+Func _RefreshConnectedMapState($bLogWaiting = False)
+    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then Return False
+
+    If Not _PrimeConnectedClientState($bLogWaiting) Then
+        $g_bPendingMapStateLoad = True
+        Return False
+    EndIf
+
+    $g_bPendingMapStateLoad = False
+    _Vanquisher_CacheCombatAIForCurrentMap()
+    $g_bVanquishHistoryLoaded = _RefreshHistoricalVanquishStates()
+    _RefreshMapPreTravelLabels()
+    _RefreshHeroTeamSelectionState()
+    _UpdateStartButtonState()
+    _UpdateMapScanStatusDisplay()
+    Return $g_bVanquishHistoryLoaded
+EndFunc
+
+Func _InitializeDetectedClient($sCharacter = "", $iAttachPid = 0)
+    Local $vTarget = $sCharacter
+    If $iAttachPid > 0 Then
+        $vTarget = Number($iAttachPid, 2)
+        _Log("Attaching to Guild Wars client PID " & $iAttachPid & ".")
+    Else
+        _Log("Attaching to Guild Wars client by character name.")
+    EndIf
+    If Core_Initialize($vTarget, False) = 0 Or Not $g_h_GWProcess Or $g_p_BasePointer = 0 Then Return False
+    _Vanquisher_SyncLegacyHandles()
+    Return True
 EndFunc
 
 Func _ResetRunStats()
@@ -355,11 +433,10 @@ EndFunc
 Func _CanQueryLiveClientState()
     If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then Return False
     If Not _EnsureConnectedClientAlive() Then Return False
-    If $g_h_GWProcess = 0 Or $g_p_BasePointer = 0 Then Return False
+    If Not _Vanquisher_IsAttached() Then Return False
     If Core_GetStatusError() Then Return False
     If Not Core_IsIngame() Then Return False
-    If Map_GetInstanceInfo("IsLoading") Then Return False
-    Return True
+    Return Not Map_GetInstanceInfo("IsLoading")
 EndFunc
 
 Func _PrimeConnectedClientState($bLogWaiting = False)
@@ -383,119 +460,16 @@ Func _PrimeConnectedClientState($bLogWaiting = False)
 EndFunc
 
 Func _GetAttachedCharacterName()
-    If $g_h_GWProcess = 0 Or $g_p_BasePointer = 0 Then Return ""
+    If Not _Vanquisher_IsAttached() Then Return ""
     Return StringStripWS(Player_GetCharName(), 3)
 EndFunc
 
-Func _ResolveConnectedCharacterName($sFallback = "", $iTimeoutMs = 5000)
-    #forceref $iTimeoutMs
-    $sFallback = StringStripWS($sFallback, 3)
-
-    Local $sCharacter = _GetAttachedCharacterName()
-    If $sCharacter <> "" Then Return $sCharacter
-    If $sFallback <> "" Then Return $sFallback
-    Return ""
-EndFunc
-
-Func _ProcessConnectedStatePoll()
-    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
-        $g_bPendingClientPrime = False
-        $g_bPendingVanquishScan = False
-        $g_bMapScanInProgress = False
-        _UpdateStartButtonState()
-        Return False
-    EndIf
-
-    If Not _PrimeConnectedClientState(False) Then
-        If $g_bPendingVanquishScan Then _UpdateMapScanStatusDisplay("waiting for in-game state")
-        Return False
-    EndIf
-
-    $g_bPendingClientPrime = False
-    _RefreshHeroTeamSelectionState()
-    _UpdateStartButtonState()
-
-    If Not $g_bPendingVanquishScan Then
-        _UpdateMapScanStatusDisplay()
-        Return True
-    EndIf
-
-    Return _FinalizeVanquishHistoryScan()
-EndFunc
-
-Func _ScanConnectedCharacterVanquishHistory()
-    If $g_bMapScanInProgress Then
-        _UpdateMapScanStatusDisplay("scan already in progress")
-        Return False
-    EndIf
-
-    $g_bMapScanInProgress = True
-    _UpdateStartButtonState()
-
-    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
-        _UpdateMapScanStatusDisplay("connect a client first")
-        _Log("Scan failed: connect to a running Guild Wars client first.")
-        $g_bMapScanInProgress = False
-        _UpdateStartButtonState()
-        Return False
-    EndIf
-
-    If Not _PrimeConnectedClientState(True) Then
-        _UpdateMapScanStatusDisplay("waiting for in-game state")
-        _UpdateRunControlStatusDisplay("waiting for client")
-        _Log("Scan queued. Waiting for the character to finish loading before reading vanquish history.")
-        _ScheduleConnectedStatePoll(True)
-        Return True
-    EndIf
-
-    If Not _CanQueryLiveClientState() Then
-        _UpdateMapScanStatusDisplay("client is still loading")
-        _UpdateRunControlStatusDisplay("waiting for client")
-        _Log("Scan queued. Guild Wars is still loading the current character.")
-        _ScheduleConnectedStatePoll(True)
-        Return True
-    EndIf
-
-    Return _FinalizeVanquishHistoryScan()
-EndFunc
-
-Func _RefreshConnectedMapState($bLogWaiting = False)
-    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then Return False
-
-    If Not _PrimeConnectedClientState($bLogWaiting) Then
-        $g_bPendingMapStateLoad = True
-        Return False
-    EndIf
-
-    $g_bPendingMapStateLoad = False
-    _Vanquisher_CacheCombatAIForCurrentMap()
-    $g_bVanquishHistoryLoaded = _RefreshHistoricalVanquishStates()
-    _RefreshHeroTeamSelectionState()
-    _UpdateStartButtonState()
-    _UpdateMapScanStatusDisplay()
-    Return $g_bVanquishHistoryLoaded
-EndFunc
-
 Func _UpdateLiveRunStats()
-    If Not $g_bClientConnected Then
-        _UpdateRunStatusDisplay()
-        Return
+    If $g_bClientConnected And _PrimeConnectedClientState() And _CanQueryLiveClientState() Then
+        Local $bIsDead = GetIsDead(-2)
+        If $bIsDead And Not $g_bWasPlayerDead Then $g_iRunDeaths += 1
+        $g_bWasPlayerDead = $bIsDead
     EndIf
-
-    If Not _PrimeConnectedClientState() Then
-        _UpdateRunStatusDisplay()
-        Return
-    EndIf
-
-    If Not _CanQueryLiveClientState() Then
-        _UpdateRunStatusDisplay()
-        Return
-    EndIf
-
-    Local $bIsDead = GetIsDead(-2)
-    If $bIsDead And Not $g_bWasPlayerDead Then $g_iRunDeaths += 1
-    $g_bWasPlayerDead = $bIsDead
-
     _UpdateRunStatusDisplay()
 EndFunc
 
@@ -637,15 +611,6 @@ Func _IsSpecialRouteScriptName($sScriptName)
     Return StringLeft($sScriptName, 13) = "SpecialRoute_"
 EndFunc
 
-Func _IsTempleAscalonCaravanProfile($sRouteProfile)
-    Return StringCompare($sRouteProfile, $GC_S_ROUTE_PROFILE_TEMPLE_ASCALON_CARAVAN, 0) = 0
-EndFunc
-
-Func _IsTempleCaravanProfile($sRouteProfile)
-    If _IsTempleAscalonCaravanProfile($sRouteProfile) Then Return True
-    Return StringCompare($sRouteProfile, $GC_S_ROUTE_PROFILE_TEMPLE_MAGUUMA_CARAVAN, 0) = 0
-EndFunc
-
 Func _FindMapIndexByScriptName($sMapName)
     Local $i = 0
     For $i = 0 To UBound($g_aMapEntries) - 1
@@ -703,34 +668,6 @@ Func _AppendTempleAscalonCaravanQueue(ByRef $aQueue, ByRef $aRouteProfiles)
             ContinueLoop
         EndIf
         _AppendQueueMapIndex($aQueue, $aRouteProfiles, $iMapIndex, $GC_S_ROUTE_PROFILE_TEMPLE_ASCALON_CARAVAN)
-    Next
-
-    Return UBound($aQueue) > 0
-EndFunc
-
-Func _AppendTempleMaguumaCaravanQueue(ByRef $aQueue, ByRef $aRouteProfiles)
-    ; Temple of the Ages -> Kryta transition -> Maguuma -> both split branches.
-    Local $aRouteMaps[10] = [ _
-            "CaravanMaguuma_TalmarkWilderness", _
-            "CaravanMaguuma_MajestysRest", _
-            "CaravanMaguuma_SageLands", _
-            "CaravanMaguuma_MamnoonLagoon", _
-            "CaravanMaguuma_Silverwood", _
-            "CaravanMaguuma_EttinsBack", _
-            "CaravanMaguuma_ReedBog", _
-            "CaravanMaguuma_TheFalls", _
-            "CaravanMaguuma_DryTop", _
-            "CaravanMaguuma_TangleRoot" _
-    ]
-    Local $i = 0
-
-    For $i = 0 To UBound($aRouteMaps) - 1
-        Local $iMapIndex = _FindMapIndexByScriptName($aRouteMaps[$i])
-        If $iMapIndex = -1 Then
-            _Log("Special route is missing map entry: " & $aRouteMaps[$i] & ".")
-            ContinueLoop
-        EndIf
-        _AppendQueueMapIndex($aQueue, $aRouteProfiles, $iMapIndex, $GC_S_ROUTE_PROFILE_TEMPLE_MAGUUMA_CARAVAN)
     Next
 
     Return UBound($aQueue) > 0
@@ -797,8 +734,8 @@ Func _PrepareQueuedMapStart($iMapIndex)
     Local $iOutpostID = $g_aMapEntries[$iMapIndex][6]
     Local $iTargetMapID = $g_aMapEntries[$iMapIndex][4]
 
-        If Map_GetInstanceInfo("IsExplorable") And Not _IsQueuedTargetReady($Title, $iTargetMapID) Then
-            If _Vanquisher_IsTempleCaravanRouteProfile($sRouteProfile) Or _Vanquisher_IsCaravanMapIndex($iMapIndex) Then _TempleAscalonCaravanTryCatchUp($iTargetMapID)
+    If Map_GetInstanceInfo("IsExplorable") And Not _IsQueuedTargetReady($Title, $iTargetMapID) Then
+        If _Vanquisher_IsTempleCaravanRouteProfile($sRouteProfile) Or _Vanquisher_IsCaravanMapIndex($iMapIndex) Then _TempleAscalonCaravanTryCatchUp($iTargetMapID)
 
         If Map_GetInstanceInfo("IsExplorable") And Not _IsQueuedTargetReady($Title, $iTargetMapID) Then
             CurrentAction("Returning to outpost to route to " & $sMapName & ".")
@@ -811,15 +748,11 @@ Func _PrepareQueuedMapStart($iMapIndex)
 
     If Map_GetInstanceInfo("IsExplorable") Then Return True
 
-    If Not Map_GetInstanceInfo("IsExplorable") And $iOutpostID > 0 And GetMapID() <> $iOutpostID And GetMapID() <> $iTargetMapID Then
-        CurrentAction("Traveling to outpost for " & $sMapName & ".")
-        TravelTo($iOutpostID)
-        WaitMapLoading($iOutpostID, 30000)
+    If Not _EnsureQueuedMapOutpostReady($iOutpostID, $iTargetMapID, $sMapName) Then
+        _Log("Start failed: could not travel to the required outpost for " & $sMapName & ".")
+        Return False
     EndIf
-
-    If Not Map_GetInstanceInfo("IsExplorable") Then
-        _Vanquisher_ApplyDifficulty()
-    EndIf
+    _Vanquisher_ApplyDifficulty()
 
     If $iRequiredPartySize <= 0 Then
         _Log("Start failed: could not resolve party size for " & $sMapName & ".")
@@ -832,6 +765,25 @@ Func _PrepareQueuedMapStart($iMapIndex)
     EndIf
 
     Return True
+EndFunc
+
+Func _EnsureQueuedMapOutpostReady($iOutpostID, $iTargetMapID, $sMapName)
+    If Map_GetInstanceInfo("IsExplorable") Then Return False
+    If $iOutpostID <= 0 Then Return True
+
+    Local $iCurrentMapID = GetMapID()
+    If $iCurrentMapID = $iOutpostID Or $iCurrentMapID = $iTargetMapID Then Return True
+
+    Local $iTry = 0
+    For $iTry = 1 To 3
+        CurrentAction("Traveling to outpost for " & $sMapName & " (" & $iTry & "/3).")
+        If TravelTo($iOutpostID) And WaitMapLoading($iOutpostID, 30000) Then
+            If Not Map_GetInstanceInfo("IsExplorable") And GetMapID() = $iOutpostID Then Return True
+        EndIf
+        Sleep(500)
+    Next
+
+    Return Not Map_GetInstanceInfo("IsExplorable") And GetMapID() = $iOutpostID
 EndFunc
 
 Func _Vanquisher_ZoneDisplay($iMapIndex)
@@ -965,8 +917,7 @@ Func _PrepareSelectedVanquishQueue()
 EndFunc
 
 Func _LoadMapEntries()
-    ReDim $g_aMapEntries[0][10]
-    Local $iSkippedMissingMapIDs = 0
+    ReDim $g_aMapEntries[0][11]
 
     Local $hSearch = FileFindFirstFile($g_sMapsRoot & "\*")
     If $hSearch = -1 Then
@@ -996,17 +947,14 @@ Func _LoadMapEntries()
             If $sMapName = "" Then ContinueLoop
 
             Local $iMapID = _ResolveMapIDFromScriptName($sMapName)
-            If $iMapID <= 0 Then
-                $iSkippedMissingMapIDs += 1
-                ContinueLoop
-            EndIf
+            If $iMapID <= 0 Then ContinueLoop
 
             Local $iOutpostID = _ResolveOutpostIDFromScriptName($sMapName)
             Local $iNext = UBound($g_aMapEntries)
-            ReDim $g_aMapEntries[$iNext + 1][10]
+            ReDim $g_aMapEntries[$iNext + 1][11]
             $g_aMapEntries[$iNext][0] = $sCampaign
             $g_aMapEntries[$iNext][1] = $sRegion
-              $g_aMapEntries[$iNext][2] = _DisplayMapNameFromScriptName($sMapName)
+            $g_aMapEntries[$iNext][2] = _HumanizeMapName(_NormalizeMapScriptNameForLookup($sMapName))
             $g_aMapEntries[$iNext][3] = False
             $g_aMapEntries[$iNext][4] = $iMapID
             $g_aMapEntries[$iNext][5] = False
@@ -1014,6 +962,7 @@ Func _LoadMapEntries()
             $g_aMapEntries[$iNext][7] = _ResolveMaxPartySizeForMap($iMapID, $iOutpostID)
             $g_aMapEntries[$iNext][8] = $sMapName
             $g_aMapEntries[$iNext][9] = _ResolveRouteFunctionFromScriptName($sMapName)
+            $g_aMapEntries[$iNext][10] = _ResolvePreTravelLabelFromScriptName($sCampaign, $sMapName, $iOutpostID)
         WEnd
 
         FileClose($hFileSearch)
@@ -1025,10 +974,10 @@ EndFunc
 
 Func _AppendSpecialRouteEntries()
     Local $iNext = UBound($g_aMapEntries)
-    ReDim $g_aMapEntries[$iNext + 2][10]
-      $g_aMapEntries[$iNext][0] = "Caravan Routes"
-      $g_aMapEntries[$iNext][1] = "Special Routes"
-      $g_aMapEntries[$iNext][2] = "TOA Ascalon Caravan"
+    ReDim $g_aMapEntries[$iNext + 2][11]
+    $g_aMapEntries[$iNext][0] = "Caravan Routes"
+    $g_aMapEntries[$iNext][1] = "Special Routes"
+    $g_aMapEntries[$iNext][2] = "TOA Ascalon Caravan"
     $g_aMapEntries[$iNext][3] = False
     $g_aMapEntries[$iNext][4] = 0
     $g_aMapEntries[$iNext][5] = False
@@ -1036,10 +985,11 @@ Func _AppendSpecialRouteEntries()
     $g_aMapEntries[$iNext][7] = 8
     $g_aMapEntries[$iNext][8] = $GC_S_SPECIAL_ROUTE_TEMPLE_ASCALON_CARAVAN
     $g_aMapEntries[$iNext][9] = ""
+    $g_aMapEntries[$iNext][10] = ""
 
-      $g_aMapEntries[$iNext + 1][0] = "Caravan Routes"
-      $g_aMapEntries[$iNext + 1][1] = "Special Routes"
-      $g_aMapEntries[$iNext + 1][2] = "TOA Maguuma Caravan"
+    $g_aMapEntries[$iNext + 1][0] = "Caravan Routes"
+    $g_aMapEntries[$iNext + 1][1] = "Special Routes"
+    $g_aMapEntries[$iNext + 1][2] = "TOA Maguuma Caravan"
     $g_aMapEntries[$iNext + 1][3] = False
     $g_aMapEntries[$iNext + 1][4] = 0
     $g_aMapEntries[$iNext + 1][5] = False
@@ -1047,19 +997,20 @@ Func _AppendSpecialRouteEntries()
     $g_aMapEntries[$iNext + 1][7] = 8
     $g_aMapEntries[$iNext + 1][8] = $GC_S_SPECIAL_ROUTE_TEMPLE_MAGUUMA_CARAVAN
     $g_aMapEntries[$iNext + 1][9] = "VQSpecialRoute_TempleOfTheAgesMaguumaCaravan"
+    $g_aMapEntries[$iNext + 1][10] = ""
 EndFunc
 
 Func _ResolveRouteFunctionFromScriptName($sMapName)
-      Switch _NormalizeMapScriptNameForLookup($sMapName)
-          Case "IceDome"
-              Return "VQIcedome"
-      EndSwitch
-      Return "VQ" & $sMapName
+    Switch _NormalizeMapScriptNameForLookup($sMapName)
+        Case "IceDome"
+            Return "VQIcedome"
+    EndSwitch
+    Return "VQ" & $sMapName
 EndFunc
 
 Func _ResolveMapIDFromScriptName($sMapName)
-      $sMapName = _NormalizeMapScriptNameForLookup($sMapName)
-      Local $sVarName = $sMapName & "_Map"
+    $sMapName = _NormalizeMapScriptNameForLookup($sMapName)
+    Local $sVarName = $sMapName & "_Map"
     If IsDeclared($sVarName) Then Return Eval($sVarName)
 
     Switch $sMapName
@@ -1072,8 +1023,8 @@ Func _ResolveMapIDFromScriptName($sMapName)
 EndFunc
 
 Func _ResolveOutpostIDFromScriptName($sMapName)
-      $sMapName = _NormalizeMapScriptNameForLookup($sMapName)
-      Local $sVarName = $sMapName & "_Outpost"
+    $sMapName = _NormalizeMapScriptNameForLookup($sMapName)
+    Local $sVarName = $sMapName & "_Outpost"
     If IsDeclared($sVarName) Then Return Eval($sVarName)
 
     Switch $sMapName
@@ -1083,13 +1034,6 @@ Func _ResolveOutpostIDFromScriptName($sMapName)
 
     If IsDeclared($sVarName) Then Return Eval($sVarName)
     Return 0
-EndFunc
-
-Func _NormalizePartySize($iPartySize)
-    If $iPartySize <= 4 Then Return 4
-    If $iPartySize <= 6 Then Return 6
-    If $iPartySize <= 8 Then Return 8
-    Return 8
 EndFunc
 
 Func _ResolveMaxPartySizeForMap($iMapID, $iOutpostID = 0)
@@ -1105,30 +1049,35 @@ Func _ResolveMaxPartySizeForMap($iMapID, $iOutpostID = 0)
     EndIf
 
     If $iPartySize <= 0 Then Return 8
-    Return _NormalizePartySize($iPartySize)
+    If $iPartySize <= 4 Then Return 4
+    If $iPartySize <= 6 Then Return 6
+    Return 8
 EndFunc
 
 Func _RefreshMapPartySizeRequirements()
     If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then Return False
+    Local $i = 0
+    For $i = 0 To UBound($g_aMapEntries) - 1
+        $g_aMapEntries[$i][7] = _ResolveMaxPartySizeForMap($g_aMapEntries[$i][4], $g_aMapEntries[$i][6])
+    Next
+    Return True
+EndFunc
 
-    Local $iTeam4Count = 0
-    Local $iTeam6Count = 0
-    Local $iTeam8Count = 0
+Func _RefreshMapPreTravelLabels()
+    Local $bUpdated = False
     Local $i = 0
 
     For $i = 0 To UBound($g_aMapEntries) - 1
-        $g_aMapEntries[$i][7] = _ResolveMaxPartySizeForMap($g_aMapEntries[$i][4], $g_aMapEntries[$i][6])
-
-        Switch $g_aMapEntries[$i][7]
-            Case 4
-                $iTeam4Count += 1
-            Case 6
-                $iTeam6Count += 1
-            Case 8
-                $iTeam8Count += 1
-        EndSwitch
+        Local $sLabel = _ResolvePreTravelLabelFromScriptName($g_aMapEntries[$i][0], $g_aMapEntries[$i][8], $g_aMapEntries[$i][6])
+        If $g_aMapEntries[$i][10] = $sLabel Then ContinueLoop
+        $g_aMapEntries[$i][10] = $sLabel
+        $bUpdated = True
     Next
 
+    If Not $bUpdated Then Return False
+
+    _PopulateMapList("ALL")
+    _ResizeMapListColumns()
     Return True
 EndFunc
 
@@ -1202,7 +1151,7 @@ EndFunc
 Func _MapCampaignFromFolder($sFolder)
     If StringLeft($sFolder, 5) = "EOTN_" Then Return "EOTN"
     If StringLeft($sFolder, 6) = "Proph_" Then Return "Prophecies"
-      If StringLeft($sFolder, 8) = "Caravan_" Then Return "Caravan Internal"
+    If StringLeft($sFolder, 8) = "Caravan_" Then Return "Caravan Internal"
     If StringLeft($sFolder, 9) = "Factions_" Then Return "Factions"
     If StringLeft($sFolder, 3) = "NF_" Then Return "Nightfall"
     Return ""
@@ -1215,8 +1164,8 @@ Func _MapRegionFromFolder($sFolder)
             $sRegion = StringTrimLeft($sFolder, 5)
         Case "Prophecies"
             $sRegion = StringTrimLeft($sFolder, 6)
-          Case "Caravan Internal"
-              $sRegion = StringTrimLeft($sFolder, 8)
+        Case "Caravan Internal"
+            $sRegion = StringTrimLeft($sFolder, 8)
         Case "Factions"
             $sRegion = StringTrimLeft($sFolder, 9)
         Case "Nightfall"
@@ -1231,13 +1180,65 @@ Func _NormalizeMapScriptNameForLookup($sMapName)
     Return $sMapName
 EndFunc
 
-Func _DisplayMapNameFromScriptName($sMapName)
-    Return _HumanizeMapName(_NormalizeMapScriptNameForLookup($sMapName))
+Func _LoadLocationCommentLabels()
+    ReDim $g_aLocationCommentLabels[0][2]
+
+    Local $hFile = FileOpen(@ScriptDir & "\Maps\LocationsIDS.au3", 0)
+    If $hFile = -1 Then Return False
+
+    While 1
+        Local $sLine = FileReadLine($hFile)
+        If @error = -1 Then ExitLoop
+
+        Local $aMatch = StringRegExp($sLine, '^\s*Global\s+\$([A-Za-z0-9_]+)\s*=.*?;\s*(.+?)\s*$', 1)
+        If Not IsArray($aMatch) Then ContinueLoop
+
+        Local $sLabel = _NormalizeLocationCommentLabel($aMatch[1])
+        If $sLabel = "" Then ContinueLoop
+
+        Local $iNext = UBound($g_aLocationCommentLabels)
+        ReDim $g_aLocationCommentLabels[$iNext + 1][2]
+        $g_aLocationCommentLabels[$iNext][0] = $aMatch[0]
+        $g_aLocationCommentLabels[$iNext][1] = $sLabel
+    WEnd
+
+    FileClose($hFile)
+    Return UBound($g_aLocationCommentLabels) > 0
+EndFunc
+
+Func _NormalizeLocationCommentLabel($sLabel)
+    $sLabel = StringStripWS($sLabel, 3)
+    $sLabel = StringRegExpReplace($sLabel, '^\d+\s*[-–—:]\s*', '')
+    Return StringStripWS($sLabel, 3)
+EndFunc
+
+Func _GetLocationCommentLabel($sVarName)
+    Local $i = 0
+    For $i = 0 To UBound($g_aLocationCommentLabels) - 1
+        If StringCompare($g_aLocationCommentLabels[$i][0], $sVarName, 1) = 0 Then Return $g_aLocationCommentLabels[$i][1]
+    Next
+    Return ""
+EndFunc
+
+Func _ResolvePreTravelLabelFromScriptName($sCampaign, $sMapName, $iOutpostID)
+    If $iOutpostID <= 0 Then Return ""
+    If $sCampaign = "Caravan Routes" Or $sCampaign = "Caravan Internal" Then Return ""
+    If _IsSpecialRouteScriptName($sMapName) Then Return ""
+
+    Local $sVarName = _NormalizeMapScriptNameForLookup($sMapName) & "_Outpost"
+    Local $sLabel = _GetLocationCommentLabel($sVarName)
+    If $sLabel <> "" Then Return $sLabel
+
+    If $g_bClientConnected And $Bot_Core_Initialized Then
+        $sLabel = StringStripWS(Map_GetAreaInfo($iOutpostID, "Name"), 3)
+        If $sLabel <> "" Then Return $sLabel
+    EndIf
+
+    Return ""
 EndFunc
 
 Func _HumanizeMapName($sName)
     $sName = StringRegExpReplace($sName, "([a-z])([A-Z])", "$1 $2")
-    $sName = StringReplace($sName, "EOTN", "EOTN")
     Return StringStripWS($sName, 3)
 EndFunc
 
@@ -1278,7 +1279,7 @@ Func _RunGuiMaintenance()
     _SyncAllMapChecks()
     _EnforceVisibleMapSelectionRules()
     _RefreshHeroTeamSelectionState()
-    _UpdateConnectedCharacterDisplay()
+    _UpdateVisibleSelectionToggleButton()
     _CheckForGuiSourceChanges()
 
     If $g_bClientConnected Then
@@ -1308,10 +1309,15 @@ Func _RunGuiMaintenance()
                 If $g_sRecoveryCharacter = "" Or StringCompare($g_sDetectedCharacter, $g_sRecoveryCharacter, 0) = 0 Then
                     _Log("Recovered Guild Wars client detected. Reconnecting.")
                     If _ConnectToDetectedClient() Then
+                        $g_bClientRecoveryAutoScanPending = True
                         $g_hClientResponsiveTimer = TimerInit()
                     EndIf
                 EndIf
             EndIf
+        ElseIf $g_bClientRecoveryAutoScanPending And Not $g_bMapScanInProgress And Not $g_bPendingVanquishScan Then
+            $g_bClientRecoveryAutoScanPending = False
+            _Log("Client reconnected. Rescanning map and vanquish state.")
+            _ScanConnectedCharacterVanquishHistory()
         EndIf
     EndIf
 
@@ -1320,7 +1326,10 @@ Func _RunGuiMaintenance()
         $g_hConnectedStatePollTimer = TimerInit()
     EndIf
 
-    If $g_bPendingPostConnectRefresh And TimerDiff($g_hPostConnectRefreshTimer) >= 250 Then _RunDeferredPostConnectRefresh()
+    If $g_bPendingPostConnectRefresh And TimerDiff($g_hPostConnectRefreshTimer) >= 250 Then
+        $g_bPendingPostConnectRefresh = False
+        $g_bPendingMapStateLoad = True
+    EndIf
     If $g_bPendingMapStateLoad Then _RefreshConnectedMapState()
 
     If TimerDiff($g_hCharacterRefreshTimer) >= 1000 Then

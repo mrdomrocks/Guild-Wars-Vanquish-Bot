@@ -2,6 +2,348 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute01[1][2] = [ _
+        [-21449, 12487] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute02[14][2] = [ _
+        [-21747, 11494], _
+        [-19496, 12742], _
+        [-16674, 11580], _
+        [-17628, 13908], _
+        [-18275, 14549], _
+        [-16576, 12562], _
+        [-14606, 10845], _
+        [-11991, 11124], _
+        [-10967, 10495], _
+        [-8535, 9461], _
+        [-9108, 7658], _
+        [-7084, 9311], _
+        [-4535, 9710], _
+        [-2332, 8439] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute03[13][2] = [ _
+        [110, 8352], _
+        [1485, 10500], _
+        [3459, 12079], _
+        [5798, 12986], _
+        [7246, 15164], _
+        [7376, 15493], _
+        [9854, 14782], _
+        [12448, 14602], _
+        [14988, 14428], _
+        [17268, 15468], _
+        [15734, 13421], _
+        [18061, 12390], _
+        [20355, 13479] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute04[22][2] = [ _
+        [22540, 14771], _
+        [20486, 13292], _
+        [18384, 11777], _
+        [16561, 9937], _
+        [18349, 8101], _
+        [19240, 7798], _
+        [16739, 8254], _
+        [14488, 6854], _
+        [11975, 6314], _
+        [9836, 7771], _
+        [7346, 8115], _
+        [5715, 6090], _
+        [6693, 3646], _
+        [4633, 2193], _
+        [2498, 3532], _
+        [4629, 2057], _
+        [6795, 720], _
+        [6854, -1806], _
+        [6240, -4317], _
+        [7808, -2365], _
+        [8794, 52], _
+        [10715, 1708] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute05[16][2] = [ _
+        [11960, 2197], _
+        [12624, -252], _
+        [13889, -2470], _
+        [15225, -4653], _
+        [17709, -3828], _
+        [18528, -1465], _
+        [19287, 924], _
+        [19864, 3424], _
+        [18014, 3306], _
+        [18739, 909], _
+        [18986, -1688], _
+        [20622, -3701], _
+        [21971, -5821], _
+        [22795, -8222], _
+        [22521, -10732], _
+        [20956, -12690] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute06[13][2] = [ _
+        [19984, -13194], _
+        [18596, -11041], _
+        [17125, -8942], _
+        [14618, -8700], _
+        [13628, -11032], _
+        [12956, -12311], _
+        [10391, -12334], _
+        [7908, -11587], _
+        [10335, -10795], _
+        [12597, -9569], _
+        [10001, -9229], _
+        [8547, -11366], _
+        [6082, -12228] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute07[13][2] = [ _
+        [3603, -12373], _
+        [3356, -9821], _
+        [3455, -7258], _
+        [2736, -4846], _
+        [3641, -2414], _
+        [2822, -35], _
+        [474, 1023], _
+        [-2303, 1414], _
+        [-1080, 3238], _
+        [740, 4957], _
+        [2595, 6812], _
+        [4488, 8462], _
+        [2005, 7558] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute08[4][2] = [ _
+        [166, 8354], _
+        [-1554, 6509], _
+        [-3063, 4344], _
+        [-4007, 1929] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute09[28][2] = [ _
+        [-3574, -682], _
+        [-1808, -2562], _
+        [-367, -4777], _
+        [-102, -7367], _
+        [-120, -9959], _
+        [-634, -12384], _
+        [-2997, -11507], _
+        [-2997, -11507], _
+        [-5184, -12384], _
+        [-3278, -11359], _
+        [-4136, -9281], _
+        [-2810, -7012], _
+        [-3185, -4413], _
+        [-4316, -6777], _
+        [-6818, -6849], _
+        [-8335, -4784], _
+        [-9666, -2541], _
+        [-10882, -184], _
+        [-11598, 2317], _
+        [-11830, 4941], _
+        [-14367, 5427], _
+        [-16692, 6476], _
+        [-18183, 8508], _
+        [-19521, 9170], _
+        [-18913, 6648], _
+        [-18640, 4122], _
+        [-19513, 1680], _
+        [-19775, -890] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute10[17][2] = [ _
+        [-18752, -3057], _
+        [-20649, -4693], _
+        [-22461, -6520], _
+        [-23030, -9083], _
+        [-23441, -11556], _
+        [-20909, -11367], _
+        [-18884, -9805], _
+        [-17848, -7510], _
+        [-16847, -5168], _
+        [-14994, -3327], _
+        [-14947, -783], _
+        [-15732, 1745], _
+        [-14934, -667], _
+        [-14239, -3187], _
+        [-11886, -2236], _
+        [-9704, -932], _
+        [-7400, 324] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute11[16][2] = [ _
+        [-7400, 324], _
+        [-9704, -932], _
+        [-11886, -2236], _
+        [-14239, -3187], _
+        [-14934, -667], _
+        [-15732, 1745], _
+        [-14947, -783], _
+        [-14994, -3327], _
+        [-16847, -5168], _
+        [-17848, -7510], _
+        [-18884, -9805], _
+        [-20909, -11367], _
+        [-23441, -11556], _
+        [-23030, -9083], _
+        [-22461, -6520], _
+        [-20649, -4693] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute12[28][2] = [ _
+        [-18752, -3057], _
+        [-19775, -890], _
+        [-19513, 1680], _
+        [-18640, 4122], _
+        [-18913, 6648], _
+        [-19521, 9170], _
+        [-18183, 8508], _
+        [-16692, 6476], _
+        [-14367, 5427], _
+        [-11830, 4941], _
+        [-11598, 2317], _
+        [-10882, -184], _
+        [-9666, -2541], _
+        [-8335, -4784], _
+        [-6818, -6849], _
+        [-4316, -6777], _
+        [-3185, -4413], _
+        [-2810, -7012], _
+        [-4136, -9281], _
+        [-3278, -11359], _
+        [-5184, -12384], _
+        [-2997, -11507], _
+        [-2997, -11507], _
+        [-634, -12384], _
+        [-120, -9959], _
+        [-102, -7367], _
+        [-367, -4777], _
+        [-1808, -2562] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute13[4][2] = [ _
+        [-3574, -682], _
+        [-4007, 1929], _
+        [-3063, 4344], _
+        [-1554, 6509] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute14[13][2] = [ _
+        [166, 8354], _
+        [2005, 7558], _
+        [4488, 8462], _
+        [2595, 6812], _
+        [740, 4957], _
+        [-1080, 3238], _
+        [-2303, 1414], _
+        [474, 1023], _
+        [2822, -35], _
+        [3641, -2414], _
+        [2736, -4846], _
+        [3455, -7258], _
+        [3356, -9821] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute15[13][2] = [ _
+        [3603, -12373], _
+        [6082, -12228], _
+        [8547, -11366], _
+        [10001, -9229], _
+        [12597, -9569], _
+        [10335, -10795], _
+        [7908, -11587], _
+        [10391, -12334], _
+        [12956, -12311], _
+        [13628, -11032], _
+        [14618, -8700], _
+        [17125, -8942], _
+        [18596, -11041] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute16[16][2] = [ _
+        [19984, -13194], _
+        [20956, -12690], _
+        [22521, -10732], _
+        [22795, -8222], _
+        [21971, -5821], _
+        [20622, -3701], _
+        [18986, -1688], _
+        [18739, 909], _
+        [18014, 3306], _
+        [19864, 3424], _
+        [19287, 924], _
+        [18528, -1465], _
+        [17709, -3828], _
+        [15225, -4653], _
+        [13889, -2470], _
+        [12624, -252] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute17[22][2] = [ _
+        [11960, 2197], _
+        [10715, 1708], _
+        [8794, 52], _
+        [7808, -2365], _
+        [6240, -4317], _
+        [6854, -1806], _
+        [6795, 720], _
+        [4629, 2057], _
+        [2498, 3532], _
+        [4633, 2193], _
+        [6693, 3646], _
+        [5715, 6090], _
+        [7346, 8115], _
+        [9836, 7771], _
+        [11975, 6314], _
+        [14488, 6854], _
+        [16739, 8254], _
+        [19240, 7798], _
+        [18349, 8101], _
+        [16561, 9937], _
+        [18384, 11777], _
+        [20486, 13292] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute18[13][2] = [ _
+        [22540, 14771], _
+        [20355, 13479], _
+        [18061, 12390], _
+        [15734, 13421], _
+        [17268, 15468], _
+        [14988, 14428], _
+        [12448, 14602], _
+        [9854, 14782], _
+        [7376, 15493], _
+        [7246, 15164], _
+        [5798, 12986], _
+        [3459, 12079], _
+        [1485, 10500] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute19[14][2] = [ _
+        [110, 8352], _
+        [-2332, 8439], _
+        [-4535, 9710], _
+        [-7084, 9311], _
+        [-9108, 7658], _
+        [-8535, 9461], _
+        [-10967, 10495], _
+        [-11991, 11124], _
+        [-14606, 10845], _
+        [-16576, 12562], _
+        [-18275, 14549], _
+        [-17628, 13908], _
+        [-16674, 11580], _
+        [-19496, 12742] _
+]
+
+Global $aEOTN_CharrHomelands_GrothmarWardownsRoute20[2][2] = [ _
+        [-21747, 11494], _
+        [-21449, 12487] _
+]
+
 Func GoOutGrothmarWardowns()
         Local $aGoOutRoute[3][2] = [ [-22914, 14828] _
                 , [-23471, 14148] _
@@ -35,306 +377,44 @@ Func VQGrothmarWardowns()
 	CurrentAction("Starting Grothmar Wardowns vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(-21449, 12487)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute01)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-21747, 11494)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19496, 12742)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16674, 11580)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17628, 13908)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18275, 14549)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16576, 12562)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14606, 10845)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11991, 11124)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10967, 10495)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8535, 9461)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9108, 7658)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7084, 9311)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4535, 9710)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2332, 8439)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute02)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(110, 8352)
-	If GetAreaVanquished() = False Then AggroMoveTo(1485, 10500)
-	If GetAreaVanquished() = False Then AggroMoveTo(3459, 12079)
-	If GetAreaVanquished() = False Then AggroMoveTo(5798, 12986)
-	If GetAreaVanquished() = False Then AggroMoveTo(7246, 15164)
-	If GetAreaVanquished() = False Then AggroMoveTo(7376, 15493)
-	If GetAreaVanquished() = False Then AggroMoveTo(9854, 14782)
-	If GetAreaVanquished() = False Then AggroMoveTo(12448, 14602)
-	If GetAreaVanquished() = False Then AggroMoveTo(14988, 14428)
-	If GetAreaVanquished() = False Then AggroMoveTo(17268, 15468)
-	If GetAreaVanquished() = False Then AggroMoveTo(15734, 13421)
-	If GetAreaVanquished() = False Then AggroMoveTo(18061, 12390)
-	If GetAreaVanquished() = False Then AggroMoveTo(20355, 13479)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute03)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(22540, 14771)
-	If GetAreaVanquished() = False Then AggroMoveTo(20486, 13292)
-	If GetAreaVanquished() = False Then AggroMoveTo(18384, 11777)
-	If GetAreaVanquished() = False Then AggroMoveTo(16561, 9937)
-	If GetAreaVanquished() = False Then AggroMoveTo(18349, 8101)
-	If GetAreaVanquished() = False Then AggroMoveTo(19240, 7798)
-	If GetAreaVanquished() = False Then AggroMoveTo(16739, 8254)
-	If GetAreaVanquished() = False Then AggroMoveTo(14488, 6854)
-	If GetAreaVanquished() = False Then AggroMoveTo(11975, 6314)
-	If GetAreaVanquished() = False Then AggroMoveTo(9836, 7771)
-	If GetAreaVanquished() = False Then AggroMoveTo(7346, 8115)
-	If GetAreaVanquished() = False Then AggroMoveTo(5715, 6090)
-	If GetAreaVanquished() = False Then AggroMoveTo(6693, 3646)
-	If GetAreaVanquished() = False Then AggroMoveTo(4633, 2193)
-	If GetAreaVanquished() = False Then AggroMoveTo(2498, 3532)
-	If GetAreaVanquished() = False Then AggroMoveTo(4629, 2057)
-	If GetAreaVanquished() = False Then AggroMoveTo(6795, 720)
-	If GetAreaVanquished() = False Then AggroMoveTo(6854, -1806)
-	If GetAreaVanquished() = False Then AggroMoveTo(6240, -4317)
-	If GetAreaVanquished() = False Then AggroMoveTo(7808, -2365)
-	If GetAreaVanquished() = False Then AggroMoveTo(8794, 52)
-	If GetAreaVanquished() = False Then AggroMoveTo(10715, 1708)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute04)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(11960, 2197)
-	If GetAreaVanquished() = False Then AggroMoveTo(12624, -252)
-	If GetAreaVanquished() = False Then AggroMoveTo(13889, -2470)
-	If GetAreaVanquished() = False Then AggroMoveTo(15225, -4653)
-	If GetAreaVanquished() = False Then AggroMoveTo(17709, -3828)
-	If GetAreaVanquished() = False Then AggroMoveTo(18528, -1465)
-	If GetAreaVanquished() = False Then AggroMoveTo(19287, 924)
-	If GetAreaVanquished() = False Then AggroMoveTo(19864, 3424)
-	If GetAreaVanquished() = False Then AggroMoveTo(18014, 3306)
-	If GetAreaVanquished() = False Then AggroMoveTo(18739, 909)
-	If GetAreaVanquished() = False Then AggroMoveTo(18986, -1688)
-	If GetAreaVanquished() = False Then AggroMoveTo(20622, -3701)
-	If GetAreaVanquished() = False Then AggroMoveTo(21971, -5821)
-	If GetAreaVanquished() = False Then AggroMoveTo(22795, -8222)
-	If GetAreaVanquished() = False Then AggroMoveTo(22521, -10732)
-	If GetAreaVanquished() = False Then AggroMoveTo(20956, -12690)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute05)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(19984, -13194)
-	If GetAreaVanquished() = False Then AggroMoveTo(18596, -11041)
-	If GetAreaVanquished() = False Then AggroMoveTo(17125, -8942)
-	If GetAreaVanquished() = False Then AggroMoveTo(14618, -8700)
-	If GetAreaVanquished() = False Then AggroMoveTo(13628, -11032)
-	If GetAreaVanquished() = False Then AggroMoveTo(12956, -12311)
-	If GetAreaVanquished() = False Then AggroMoveTo(10391, -12334)
-	If GetAreaVanquished() = False Then AggroMoveTo(7908, -11587)
-	If GetAreaVanquished() = False Then AggroMoveTo(10335, -10795)
-	If GetAreaVanquished() = False Then AggroMoveTo(12597, -9569)
-	If GetAreaVanquished() = False Then AggroMoveTo(10001, -9229)
-	If GetAreaVanquished() = False Then AggroMoveTo(8547, -11366)
-	If GetAreaVanquished() = False Then AggroMoveTo(6082, -12228)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute06)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(3603, -12373)
-	If GetAreaVanquished() = False Then AggroMoveTo(3356, -9821)
-	If GetAreaVanquished() = False Then AggroMoveTo(3455, -7258)
-	If GetAreaVanquished() = False Then AggroMoveTo(2736, -4846)
-	If GetAreaVanquished() = False Then AggroMoveTo(3641, -2414)
-	If GetAreaVanquished() = False Then AggroMoveTo(2822, -35)
-	If GetAreaVanquished() = False Then AggroMoveTo(474, 1023)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2303, 1414)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1080, 3238)
-	If GetAreaVanquished() = False Then AggroMoveTo(740, 4957)
-	If GetAreaVanquished() = False Then AggroMoveTo(2595, 6812)
-	If GetAreaVanquished() = False Then AggroMoveTo(4488, 8462)
-	If GetAreaVanquished() = False Then AggroMoveTo(2005, 7558)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute07)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(166, 8354)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1554, 6509)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3063, 4344)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4007, 1929)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute08)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-3574, -682)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1808, -2562)
-	If GetAreaVanquished() = False Then AggroMoveTo(-367, -4777)
-	If GetAreaVanquished() = False Then AggroMoveTo(-102, -7367)
-	If GetAreaVanquished() = False Then AggroMoveTo(-120, -9959)
-	If GetAreaVanquished() = False Then AggroMoveTo(-634, -12384)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2997, -11507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2997, -11507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5184, -12384)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3278, -11359)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4136, -9281)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2810, -7012)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3185, -4413)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4316, -6777)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6818, -6849)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8335, -4784)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9666, -2541)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10882, -184)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11598, 2317)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11830, 4941)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14367, 5427)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16692, 6476)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18183, 8508)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19521, 9170)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18913, 6648)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18640, 4122)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19513, 1680)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19775, -890)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute09)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-18752, -3057)
-	If GetAreaVanquished() = False Then AggroMoveTo(-20649, -4693)
-	If GetAreaVanquished() = False Then AggroMoveTo(-22461, -6520)
-	If GetAreaVanquished() = False Then AggroMoveTo(-23030, -9083)
-	If GetAreaVanquished() = False Then AggroMoveTo(-23441, -11556)
-	If GetAreaVanquished() = False Then AggroMoveTo(-20909, -11367)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18884, -9805)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17848, -7510)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16847, -5168)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14994, -3327)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14947, -783)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15732, 1745)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14934, -667)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14239, -3187)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11886, -2236)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9704, -932)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7400, 324)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute10)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(-7400, 324)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9704, -932)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11886, -2236)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14239, -3187)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14934, -667)
-	If GetAreaVanquished() = False Then AggroMoveTo(-15732, 1745)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14947, -783)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14994, -3327)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16847, -5168)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17848, -7510)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18884, -9805)
-	If GetAreaVanquished() = False Then AggroMoveTo(-20909, -11367)
-	If GetAreaVanquished() = False Then AggroMoveTo(-23441, -11556)
-	If GetAreaVanquished() = False Then AggroMoveTo(-23030, -9083)
-	If GetAreaVanquished() = False Then AggroMoveTo(-22461, -6520)
-	If GetAreaVanquished() = False Then AggroMoveTo(-20649, -4693)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute11)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-18752, -3057)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19775, -890)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19513, 1680)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18640, 4122)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18913, 6648)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19521, 9170)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18183, 8508)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16692, 6476)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14367, 5427)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11830, 4941)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11598, 2317)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10882, -184)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9666, -2541)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8335, -4784)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6818, -6849)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4316, -6777)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3185, -4413)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2810, -7012)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4136, -9281)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3278, -11359)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5184, -12384)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2997, -11507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2997, -11507)
-	If GetAreaVanquished() = False Then AggroMoveTo(-634, -12384)
-	If GetAreaVanquished() = False Then AggroMoveTo(-120, -9959)
-	If GetAreaVanquished() = False Then AggroMoveTo(-102, -7367)
-	If GetAreaVanquished() = False Then AggroMoveTo(-367, -4777)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1808, -2562)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute12)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-3574, -682)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4007, 1929)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3063, 4344)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1554, 6509)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute13)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(166, 8354)
-	If GetAreaVanquished() = False Then AggroMoveTo(2005, 7558)
-	If GetAreaVanquished() = False Then AggroMoveTo(4488, 8462)
-	If GetAreaVanquished() = False Then AggroMoveTo(2595, 6812)
-	If GetAreaVanquished() = False Then AggroMoveTo(740, 4957)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1080, 3238)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2303, 1414)
-	If GetAreaVanquished() = False Then AggroMoveTo(474, 1023)
-	If GetAreaVanquished() = False Then AggroMoveTo(2822, -35)
-	If GetAreaVanquished() = False Then AggroMoveTo(3641, -2414)
-	If GetAreaVanquished() = False Then AggroMoveTo(2736, -4846)
-	If GetAreaVanquished() = False Then AggroMoveTo(3455, -7258)
-	If GetAreaVanquished() = False Then AggroMoveTo(3356, -9821)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute14)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(3603, -12373)
-	If GetAreaVanquished() = False Then AggroMoveTo(6082, -12228)
-	If GetAreaVanquished() = False Then AggroMoveTo(8547, -11366)
-	If GetAreaVanquished() = False Then AggroMoveTo(10001, -9229)
-	If GetAreaVanquished() = False Then AggroMoveTo(12597, -9569)
-	If GetAreaVanquished() = False Then AggroMoveTo(10335, -10795)
-	If GetAreaVanquished() = False Then AggroMoveTo(7908, -11587)
-	If GetAreaVanquished() = False Then AggroMoveTo(10391, -12334)
-	If GetAreaVanquished() = False Then AggroMoveTo(12956, -12311)
-	If GetAreaVanquished() = False Then AggroMoveTo(13628, -11032)
-	If GetAreaVanquished() = False Then AggroMoveTo(14618, -8700)
-	If GetAreaVanquished() = False Then AggroMoveTo(17125, -8942)
-	If GetAreaVanquished() = False Then AggroMoveTo(18596, -11041)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute15)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(19984, -13194)
-	If GetAreaVanquished() = False Then AggroMoveTo(20956, -12690)
-	If GetAreaVanquished() = False Then AggroMoveTo(22521, -10732)
-	If GetAreaVanquished() = False Then AggroMoveTo(22795, -8222)
-	If GetAreaVanquished() = False Then AggroMoveTo(21971, -5821)
-	If GetAreaVanquished() = False Then AggroMoveTo(20622, -3701)
-	If GetAreaVanquished() = False Then AggroMoveTo(18986, -1688)
-	If GetAreaVanquished() = False Then AggroMoveTo(18739, 909)
-	If GetAreaVanquished() = False Then AggroMoveTo(18014, 3306)
-	If GetAreaVanquished() = False Then AggroMoveTo(19864, 3424)
-	If GetAreaVanquished() = False Then AggroMoveTo(19287, 924)
-	If GetAreaVanquished() = False Then AggroMoveTo(18528, -1465)
-	If GetAreaVanquished() = False Then AggroMoveTo(17709, -3828)
-	If GetAreaVanquished() = False Then AggroMoveTo(15225, -4653)
-	If GetAreaVanquished() = False Then AggroMoveTo(13889, -2470)
-	If GetAreaVanquished() = False Then AggroMoveTo(12624, -252)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute16)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(11960, 2197)
-	If GetAreaVanquished() = False Then AggroMoveTo(10715, 1708)
-	If GetAreaVanquished() = False Then AggroMoveTo(8794, 52)
-	If GetAreaVanquished() = False Then AggroMoveTo(7808, -2365)
-	If GetAreaVanquished() = False Then AggroMoveTo(6240, -4317)
-	If GetAreaVanquished() = False Then AggroMoveTo(6854, -1806)
-	If GetAreaVanquished() = False Then AggroMoveTo(6795, 720)
-	If GetAreaVanquished() = False Then AggroMoveTo(4629, 2057)
-	If GetAreaVanquished() = False Then AggroMoveTo(2498, 3532)
-	If GetAreaVanquished() = False Then AggroMoveTo(4633, 2193)
-	If GetAreaVanquished() = False Then AggroMoveTo(6693, 3646)
-	If GetAreaVanquished() = False Then AggroMoveTo(5715, 6090)
-	If GetAreaVanquished() = False Then AggroMoveTo(7346, 8115)
-	If GetAreaVanquished() = False Then AggroMoveTo(9836, 7771)
-	If GetAreaVanquished() = False Then AggroMoveTo(11975, 6314)
-	If GetAreaVanquished() = False Then AggroMoveTo(14488, 6854)
-	If GetAreaVanquished() = False Then AggroMoveTo(16739, 8254)
-	If GetAreaVanquished() = False Then AggroMoveTo(19240, 7798)
-	If GetAreaVanquished() = False Then AggroMoveTo(18349, 8101)
-	If GetAreaVanquished() = False Then AggroMoveTo(16561, 9937)
-	If GetAreaVanquished() = False Then AggroMoveTo(18384, 11777)
-	If GetAreaVanquished() = False Then AggroMoveTo(20486, 13292)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute17)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(22540, 14771)
-	If GetAreaVanquished() = False Then AggroMoveTo(20355, 13479)
-	If GetAreaVanquished() = False Then AggroMoveTo(18061, 12390)
-	If GetAreaVanquished() = False Then AggroMoveTo(15734, 13421)
-	If GetAreaVanquished() = False Then AggroMoveTo(17268, 15468)
-	If GetAreaVanquished() = False Then AggroMoveTo(14988, 14428)
-	If GetAreaVanquished() = False Then AggroMoveTo(12448, 14602)
-	If GetAreaVanquished() = False Then AggroMoveTo(9854, 14782)
-	If GetAreaVanquished() = False Then AggroMoveTo(7376, 15493)
-	If GetAreaVanquished() = False Then AggroMoveTo(7246, 15164)
-	If GetAreaVanquished() = False Then AggroMoveTo(5798, 12986)
-	If GetAreaVanquished() = False Then AggroMoveTo(3459, 12079)
-	If GetAreaVanquished() = False Then AggroMoveTo(1485, 10500)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute18)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(110, 8352)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2332, 8439)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4535, 9710)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7084, 9311)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9108, 7658)
-	If GetAreaVanquished() = False Then AggroMoveTo(-8535, 9461)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10967, 10495)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11991, 11124)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14606, 10845)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16576, 12562)
-	If GetAreaVanquished() = False Then AggroMoveTo(-18275, 14549)
-	If GetAreaVanquished() = False Then AggroMoveTo(-17628, 13908)
-	If GetAreaVanquished() = False Then AggroMoveTo(-16674, 11580)
-	If GetAreaVanquished() = False Then AggroMoveTo(-19496, 12742)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute19)
 	; shrine
-	If GetAreaVanquished() = False Then AggroMoveTo(-21747, 11494)
-	If GetAreaVanquished() = False Then AggroMoveTo(-21449, 12487)
+	_Vanquisher_RunVanquishRoute($aEOTN_CharrHomelands_GrothmarWardownsRoute20)
 EndFunc

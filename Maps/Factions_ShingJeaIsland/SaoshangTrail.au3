@@ -1,6 +1,30 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+Global $aFactions_ShingJeaIsland_SaoshangTrailRoute01[9][2] = [ _
+        [15519, 13409], _
+        [14502, 13165], _
+        [12763, 12433], _
+        [9805, 10947], _
+        [8691, 11878], _
+        [8329, 12867], _
+        [7215, 13842], _
+        [6003, 13827], _
+        [3584, 10280] _
+]
+
+Global $aFactions_ShingJeaIsland_SaoshangTrailRoute02[9][2] = [ _
+        [3584, 10280], _
+        [6003, 13827], _
+        [7215, 13842], _
+        [8329, 12867], _
+        [8691, 11878], _
+        [9805, 10947], _
+        [12763, 12433], _
+        [14502, 13165], _
+        [15519, 13409] _
+]
+
 Func GoOutSaoshangTrail()
         Local $aGoOutRoute[2][2] = [ [16589, 13096] _
                 , [16200, 13500] _
@@ -19,17 +43,8 @@ Func VQSaoshangTrail()
 	 If GetMapID() = $SaoshangTrail_Map Then   
  
 		
-	    If GetAreaVanquished() = False Then AggroMoveTo(15519, 13409)
-	    If GetAreaVanquished() = False Then AggroMoveTo(14502, 13165)
-	    If GetAreaVanquished() = False Then AggroMoveTo(12763, 12433)
-	    If GetAreaVanquished() = False Then AggroMoveTo(9805, 10947)
-	    If GetAreaVanquished() = False Then AggroMoveTo(8691, 11878)
-	    If GetAreaVanquished() = False Then AggroMoveTo(8329, 12867)
-	    If GetAreaVanquished() = False Then AggroMoveTo(7215, 13842)
-	    If GetAreaVanquished() = False Then AggroMoveTo(6003, 13827)
-	    If GetAreaVanquished() = False Then AggroMoveTo(3584, 10280)
-	    Reverse($aWaypoints)
+	    _Vanquisher_RunVanquishRoute($aFactions_ShingJeaIsland_SaoshangTrailRoute01)
+            _Vanquisher_RunVanquishRoute($aFactions_ShingJeaIsland_SaoshangTrailRoute02)
         
     EndIf
 EndFunc
-

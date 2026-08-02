@@ -1,6 +1,183 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
+Global $aNF_Istan_CliffsOfDohjokRoute01[13][2] = [ _
+        [-25755, -6529], _
+        [-24124, -5753], _
+        [-21084, -7115], _
+        [-19788, -10289], _
+        [-20274, -4536], _
+        [-23328, 673], _
+        [-25688, 547], _
+        [-23947, -1029], _
+        [-24789, -4156], _
+        [-18748, -3056], _
+        [-14797, -5997], _
+        [-14993, -3079], _
+        [-13661, -2347] _
+]
+
+Global $aNF_Istan_CliffsOfDohjokRoute02[12][2] = [ _
+        [-10014, 145], _
+        [-9031, -4292], _
+        [-6139, -6385], _
+        [-2841, -5738], _
+        [-2949, -7346], _
+        [-2822, -5925], _
+        [1053, -6505], _
+        [4510, -6182], _
+        [6425, -3035], _
+        [8758, -5358], _
+        [9702, -7516], _
+        [11702, -9216] _
+]
+
+Global $aNF_Istan_CliffsOfDohjokRoute03[18][2] = [ _
+        [14531, -6114], _
+        [10438, -4186], _
+        [10317, -3958], _
+        [10742, -322], _
+        [12909, -2355], _
+        [14344, 513], _
+        [16348, -427], _
+        [17154, 4575], _
+        [19763, 894], _
+        [21710, 529], _
+        [19999, 5056], _
+        [16566, 7976], _
+        [13921, 10158], _
+        [13211, 7041], _
+        [11459, 5175], _
+        [8427, 9919], _
+        [9465, 12401], _
+        [4368, 12205] _
+]
+
+Global $aNF_Istan_CliffsOfDohjokRoute04[38][2] = [ _
+        [1893, 8700], _
+        [-476, 7017], _
+        [-3206, 3948], _
+        [-3544, 2620], _
+        [-201, 1828], _
+        [917, 3305], _
+        [-686, 6995], _
+        [1838, 8752], _
+        [2872, 5394], _
+        [6691, 7826], _
+        [6635, 7787], _
+        [3392, 4267], _
+        [9450, 5372], _
+        [8506, 8859], _
+        [3507, 3957], _
+        [-912, -2246], _
+        [-3846, -1644], _
+        [-8527, 1392], _
+        [-11530, 1786], _
+        [-10733, 5372], _
+        [-11641, 4920], _
+        [-13975, 4929], _
+        [-11300, 9929], _
+        [-9526, 14097], _
+        [-5322, 10825], _
+        [-6486, 7596], _
+        [-2789, 8864], _
+        [-5442, 12036], _
+        [-12760, 10198], _
+        [-20181, 11258], _
+        [-20920, 9293], _
+        [-21474, 6122], _
+        [-17008, 4062], _
+        [-12626, 9086], _
+        [-17557, 3384], _
+        [-20972, -868], _
+        [-21064, 4469], _
+        [-21180, 6472] _
+]
+
+Global $aNF_Istan_CliffsOfDohjokRoute05[81][2] = [ _
+        [-21180, 6472], _
+        [-21064, 4469], _
+        [-20972, -868], _
+        [-17557, 3384], _
+        [-12626, 9086], _
+        [-17008, 4062], _
+        [-21474, 6122], _
+        [-20920, 9293], _
+        [-20181, 11258], _
+        [-12760, 10198], _
+        [-5442, 12036], _
+        [-2789, 8864], _
+        [-6486, 7596], _
+        [-5322, 10825], _
+        [-9526, 14097], _
+        [-11300, 9929], _
+        [-13975, 4929], _
+        [-11641, 4920], _
+        [-10733, 5372], _
+        [-11530, 1786], _
+        [-8527, 1392], _
+        [-3846, -1644], _
+        [-912, -2246], _
+        [3507, 3957], _
+        [8506, 8859], _
+        [9450, 5372], _
+        [3392, 4267], _
+        [6635, 7787], _
+        [6691, 7826], _
+        [2872, 5394], _
+        [1838, 8752], _
+        [-686, 6995], _
+        [917, 3305], _
+        [-201, 1828], _
+        [-3544, 2620], _
+        [-3206, 3948], _
+        [-476, 7017], _
+        [1893, 8700], _
+        [4368, 12205], _
+        [9465, 12401], _
+        [8427, 9919], _
+        [11459, 5175], _
+        [13211, 7041], _
+        [13921, 10158], _
+        [16566, 7976], _
+        [19999, 5056], _
+        [21710, 529], _
+        [19763, 894], _
+        [17154, 4575], _
+        [16348, -427], _
+        [14344, 513], _
+        [12909, -2355], _
+        [10742, -322], _
+        [10317, -3958], _
+        [10438, -4186], _
+        [14531, -6114], _
+        [11702, -9216], _
+        [9702, -7516], _
+        [8758, -5358], _
+        [6425, -3035], _
+        [4510, -6182], _
+        [1053, -6505], _
+        [-2822, -5925], _
+        [-2949, -7346], _
+        [-2841, -5738], _
+        [-6139, -6385], _
+        [-9031, -4292], _
+        [-10014, 145], _
+        [-13661, -2347], _
+        [-14993, -3079], _
+        [-14797, -5997], _
+        [-18748, -3056], _
+        [-24789, -4156], _
+        [-23947, -1029], _
+        [-25688, 547], _
+        [-23328, 673], _
+        [-20274, -4536], _
+        [-19788, -10289], _
+        [-21084, -7115], _
+        [-24124, -5753], _
+        [-25755, -6529] _
+]
+
 Func GoOutCliffsOfDohjok()
         Local $aGoOutRoute[3][2] = [ [2572, 1621] _
                 , [4300, 4564] _
@@ -29,37 +206,14 @@ Func VQCliffsOfDohjok()
 		Dialog(0x00000084)
 		Dialog(0x00000085)
 		Sleep(1000)
-		If GetAreaVanquished() = False Then AggroMoveTo(-25755, -6529)
-		If GetAreaVanquished() = False Then AggroMoveTo(-24124, -5753)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21084, -7115)
-		If GetAreaVanquished() = False Then AggroMoveTo(-19788, -10289)
-		If GetAreaVanquished() = False Then AggroMoveTo(-20274, -4536)
-		If GetAreaVanquished() = False Then AggroMoveTo(-23328, 673)
-		If GetAreaVanquished() = False Then AggroMoveTo(-25688, 547)
-		If GetAreaVanquished() = False Then AggroMoveTo(-23947, -1029)
-		If GetAreaVanquished() = False Then AggroMoveTo(-24789, -4156)
-		If GetAreaVanquished() = False Then AggroMoveTo(-18748, -3056)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14797, -5997)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14993, -3079)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13661, -2347)
+		_Vanquisher_RunVanquishRoute($aNF_Istan_CliffsOfDohjokRoute01)
 		
 		GoNearestNPCToCoords(-14045, -1982)
 		Sleep(1000)
 		Dialog(0x00000084)
 		Dialog(0x00000085)
 		Sleep(1000)
-		If GetAreaVanquished() = False Then AggroMoveTo(-10014, 145)
-		If GetAreaVanquished() = False Then AggroMoveTo(-9031, -4292)
-		If GetAreaVanquished() = False Then AggroMoveTo(-6139, -6385)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2841, -5738)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2949, -7346)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2822, -5925)
-		If GetAreaVanquished() = False Then AggroMoveTo(1053, -6505)
-		If GetAreaVanquished() = False Then AggroMoveTo(4510, -6182)
-		If GetAreaVanquished() = False Then AggroMoveTo(6425, -3035)
-		If GetAreaVanquished() = False Then AggroMoveTo(8758, -5358)
-		If GetAreaVanquished() = False Then AggroMoveTo(9702, -7516)
-		If GetAreaVanquished() = False Then AggroMoveTo(11702, -9216)
+		_Vanquisher_RunVanquishRoute($aNF_Istan_CliffsOfDohjokRoute02)
 		
 		GoNearestNPCToCoords(12640, -6353)
 		Sleep(1000)
@@ -67,24 +221,7 @@ Func VQCliffsOfDohjok()
 		Dialog(0x00000085)
 		Sleep(1000)
 		Sleep(20000)
-		If GetAreaVanquished() = False Then AggroMoveTo(14531, -6114)
-		If GetAreaVanquished() = False Then AggroMoveTo(10438, -4186)
-		If GetAreaVanquished() = False Then AggroMoveTo(10317, -3958)
-		If GetAreaVanquished() = False Then AggroMoveTo(10742, -322)
-		If GetAreaVanquished() = False Then AggroMoveTo(12909, -2355)
-		If GetAreaVanquished() = False Then AggroMoveTo(14344, 513)
-		If GetAreaVanquished() = False Then AggroMoveTo(16348, -427)
-		If GetAreaVanquished() = False Then AggroMoveTo(17154, 4575)
-		If GetAreaVanquished() = False Then AggroMoveTo(19763, 894)
-		If GetAreaVanquished() = False Then AggroMoveTo(21710, 529)
-		If GetAreaVanquished() = False Then AggroMoveTo(19999, 5056)
-		If GetAreaVanquished() = False Then AggroMoveTo(16566, 7976)
-		If GetAreaVanquished() = False Then AggroMoveTo(13921, 10158)
-		If GetAreaVanquished() = False Then AggroMoveTo(13211, 7041)
-		If GetAreaVanquished() = False Then AggroMoveTo(11459, 5175)
-		If GetAreaVanquished() = False Then AggroMoveTo(8427, 9919)
-		If GetAreaVanquished() = False Then AggroMoveTo(9465, 12401)
-		If GetAreaVanquished() = False Then AggroMoveTo(4368, 12205)
+		_Vanquisher_RunVanquishRoute($aNF_Istan_CliffsOfDohjokRoute03)
 		
 		GoNearestNPCToCoords(1548, 13289)
 		Sleep(1000)
@@ -92,126 +229,9 @@ Func VQCliffsOfDohjok()
 		Dialog(0x00000085)
 		Sleep(1000)
 		Sleep(20000)
-		If GetAreaVanquished() = False Then AggroMoveTo(1893, 8700)
-		If GetAreaVanquished() = False Then AggroMoveTo(-476, 7017)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3206, 3948)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3544, 2620)
-		If GetAreaVanquished() = False Then AggroMoveTo(-201, 1828)
-		If GetAreaVanquished() = False Then AggroMoveTo(917, 3305)
-		If GetAreaVanquished() = False Then AggroMoveTo(-686, 6995)
-		If GetAreaVanquished() = False Then AggroMoveTo(1838, 8752)
-		If GetAreaVanquished() = False Then AggroMoveTo(2872, 5394)
-		If GetAreaVanquished() = False Then AggroMoveTo(6691, 7826)
-		If GetAreaVanquished() = False Then AggroMoveTo(6635, 7787)
-		If GetAreaVanquished() = False Then AggroMoveTo(3392, 4267)
-		If GetAreaVanquished() = False Then AggroMoveTo(9450, 5372)
-		If GetAreaVanquished() = False Then AggroMoveTo(8506, 8859)
-		If GetAreaVanquished() = False Then AggroMoveTo(3507, 3957)
-		If GetAreaVanquished() = False Then AggroMoveTo(-912, -2246)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3846, -1644)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8527, 1392)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11530, 1786)
-		If GetAreaVanquished() = False Then AggroMoveTo(-10733, 5372)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11641, 4920)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13975, 4929)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11300, 9929)
-		If GetAreaVanquished() = False Then AggroMoveTo(-9526, 14097)
-		If GetAreaVanquished() = False Then AggroMoveTo(-5322, 10825)
-		If GetAreaVanquished() = False Then AggroMoveTo(-6486, 7596)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2789, 8864)
-		If GetAreaVanquished() = False Then AggroMoveTo(-5442, 12036)
-		If GetAreaVanquished() = False Then AggroMoveTo(-12760, 10198)
-		If GetAreaVanquished() = False Then AggroMoveTo(-20181, 11258)
-		If GetAreaVanquished() = False Then AggroMoveTo(-20920, 9293)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21474, 6122)
-		If GetAreaVanquished() = False Then AggroMoveTo(-17008, 4062)
-		If GetAreaVanquished() = False Then AggroMoveTo(-12626, 9086)
-		If GetAreaVanquished() = False Then AggroMoveTo(-17557, 3384)
-		If GetAreaVanquished() = False Then AggroMoveTo(-20972, -868)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21064, 4469)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21180, 6472)
+		_Vanquisher_RunVanquishRoute($aNF_Istan_CliffsOfDohjokRoute04)
 		
-		If GetAreaVanquished() = False Then AggroMoveTo(-21180, 6472)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21064, 4469)
-		If GetAreaVanquished() = False Then AggroMoveTo(-20972, -868)
-		If GetAreaVanquished() = False Then AggroMoveTo(-17557, 3384)
-		If GetAreaVanquished() = False Then AggroMoveTo(-12626, 9086)
-		If GetAreaVanquished() = False Then AggroMoveTo(-17008, 4062)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21474, 6122)
-		If GetAreaVanquished() = False Then AggroMoveTo(-20920, 9293)
-		If GetAreaVanquished() = False Then AggroMoveTo(-20181, 11258)
-		If GetAreaVanquished() = False Then AggroMoveTo(-12760, 10198)
-		If GetAreaVanquished() = False Then AggroMoveTo(-5442, 12036)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2789, 8864)
-		If GetAreaVanquished() = False Then AggroMoveTo(-6486, 7596)
-		If GetAreaVanquished() = False Then AggroMoveTo(-5322, 10825)
-		If GetAreaVanquished() = False Then AggroMoveTo(-9526, 14097)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11300, 9929)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13975, 4929)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11641, 4920)
-		If GetAreaVanquished() = False Then AggroMoveTo(-10733, 5372)
-		If GetAreaVanquished() = False Then AggroMoveTo(-11530, 1786)
-		If GetAreaVanquished() = False Then AggroMoveTo(-8527, 1392)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3846, -1644)
-		If GetAreaVanquished() = False Then AggroMoveTo(-912, -2246)
-		If GetAreaVanquished() = False Then AggroMoveTo(3507, 3957)
-		If GetAreaVanquished() = False Then AggroMoveTo(8506, 8859)
-		If GetAreaVanquished() = False Then AggroMoveTo(9450, 5372)
-		If GetAreaVanquished() = False Then AggroMoveTo(3392, 4267)
-		If GetAreaVanquished() = False Then AggroMoveTo(6635, 7787)
-		If GetAreaVanquished() = False Then AggroMoveTo(6691, 7826)
-		If GetAreaVanquished() = False Then AggroMoveTo(2872, 5394)
-		If GetAreaVanquished() = False Then AggroMoveTo(1838, 8752)
-		If GetAreaVanquished() = False Then AggroMoveTo(-686, 6995)
-		If GetAreaVanquished() = False Then AggroMoveTo(917, 3305)
-		If GetAreaVanquished() = False Then AggroMoveTo(-201, 1828)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3544, 2620)
-		If GetAreaVanquished() = False Then AggroMoveTo(-3206, 3948)
-		If GetAreaVanquished() = False Then AggroMoveTo(-476, 7017)
-		If GetAreaVanquished() = False Then AggroMoveTo(1893, 8700)
-		If GetAreaVanquished() = False Then AggroMoveTo(4368, 12205)
-		If GetAreaVanquished() = False Then AggroMoveTo(9465, 12401)
-		If GetAreaVanquished() = False Then AggroMoveTo(8427, 9919)
-		If GetAreaVanquished() = False Then AggroMoveTo(11459, 5175)
-		If GetAreaVanquished() = False Then AggroMoveTo(13211, 7041)
-		If GetAreaVanquished() = False Then AggroMoveTo(13921, 10158)
-		If GetAreaVanquished() = False Then AggroMoveTo(16566, 7976)
-		If GetAreaVanquished() = False Then AggroMoveTo(19999, 5056)
-		If GetAreaVanquished() = False Then AggroMoveTo(21710, 529)
-		If GetAreaVanquished() = False Then AggroMoveTo(19763, 894)
-		If GetAreaVanquished() = False Then AggroMoveTo(17154, 4575)
-		If GetAreaVanquished() = False Then AggroMoveTo(16348, -427)
-		If GetAreaVanquished() = False Then AggroMoveTo(14344, 513)
-		If GetAreaVanquished() = False Then AggroMoveTo(12909, -2355)
-		If GetAreaVanquished() = False Then AggroMoveTo(10742, -322)
-		If GetAreaVanquished() = False Then AggroMoveTo(10317, -3958)
-		If GetAreaVanquished() = False Then AggroMoveTo(10438, -4186)
-		If GetAreaVanquished() = False Then AggroMoveTo(14531, -6114)
-		If GetAreaVanquished() = False Then AggroMoveTo(11702, -9216)
-		If GetAreaVanquished() = False Then AggroMoveTo(9702, -7516)
-		If GetAreaVanquished() = False Then AggroMoveTo(8758, -5358)
-		If GetAreaVanquished() = False Then AggroMoveTo(6425, -3035)
-		If GetAreaVanquished() = False Then AggroMoveTo(4510, -6182)
-		If GetAreaVanquished() = False Then AggroMoveTo(1053, -6505)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2822, -5925)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2949, -7346)
-		If GetAreaVanquished() = False Then AggroMoveTo(-2841, -5738)
-		If GetAreaVanquished() = False Then AggroMoveTo(-6139, -6385)
-		If GetAreaVanquished() = False Then AggroMoveTo(-9031, -4292)
-		If GetAreaVanquished() = False Then AggroMoveTo(-10014, 145)
-		If GetAreaVanquished() = False Then AggroMoveTo(-13661, -2347)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14993, -3079)
-		If GetAreaVanquished() = False Then AggroMoveTo(-14797, -5997)
-		If GetAreaVanquished() = False Then AggroMoveTo(-18748, -3056)
-		If GetAreaVanquished() = False Then AggroMoveTo(-24789, -4156)
-		If GetAreaVanquished() = False Then AggroMoveTo(-23947, -1029)
-		If GetAreaVanquished() = False Then AggroMoveTo(-25688, 547)
-		If GetAreaVanquished() = False Then AggroMoveTo(-23328, 673)
-		If GetAreaVanquished() = False Then AggroMoveTo(-20274, -4536)
-		If GetAreaVanquished() = False Then AggroMoveTo(-19788, -10289)
-		If GetAreaVanquished() = False Then AggroMoveTo(-21084, -7115)
-		If GetAreaVanquished() = False Then AggroMoveTo(-24124, -5753)
-		If GetAreaVanquished() = False Then AggroMoveTo(-25755, -6529)
+		_Vanquisher_RunVanquishRoute($aNF_Istan_CliffsOfDohjokRoute05)
         
     EndIf
 EndFunc

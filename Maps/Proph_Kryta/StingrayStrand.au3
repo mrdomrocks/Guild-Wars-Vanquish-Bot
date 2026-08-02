@@ -6,6 +6,114 @@ Global $aStingrayOutpostPath[2][2] = [ _
 	[-23033, 7201] _
 ]
 
+Global $aProph_Kryta_StingrayStrandRoute01[51][2] = [ _
+        [7514.00, -13764.00], _
+        [4486.16, -12001.16], _
+        [2589.08, -12034.23], _
+        [294.20, -11107.50], _
+        [146.96, -6294.41], _
+        [2205.69, -2487.57], _
+        [1771.80, 2199.95], _
+        [1307.24, 4915.47], _
+        [-608.47, 9141.59], _
+        [-2210.90, 10169.22], _
+        [-3693.81, 9382.02], _
+        [-7232.32, 11808.99], _
+        [-9215.87, 15442.40], _
+        [-10695.60, 18647.52], _
+        [-7496.91, 20625.07], _
+        [-5058.09, 20891.63], _
+        [-4146.11, 16900.99], _
+        [44.09, 14542.19], _
+        [1752.33, 12061.89], _
+        [44.09, 14542.19], _
+        [-4146.11, 16900.99], _
+        [-5056.65, 14118.52], _
+        [-932.77, 10475.53], _
+        [-1576.08, 4174.33], _
+        [-2415.00, 540.75], _
+        [-4916.48, -2564.71], _
+        [-2011.25, -2132.53], _
+        [-4288.89, -4115.90], _
+        [-7757.28, -1254.18], _
+        [-6995.13, 1063.29], _
+        [-9628.42, 1042.43], _
+        [-9540.32, -1291.69], _
+        [-9628.42, 1042.43], _
+        [-6995.13, 1063.29], _
+        [-6348.55, 3711.08], _
+        [-6190.59, 6343.62], _
+        [-9938.91, 9780.00], _
+        [-12988.90, 12745.26], _
+        [-14074.94, 8450.92], _
+        [-13395.97, 4607.92], _
+        [-13480.42, 2878.92], _
+        [-11220.55, -1712.22], _
+        [-10416.85, -6261.95], _
+        [-7204.02, -8451.51], _
+        [-6946.73, -8795.69], _
+        [-4071.69, -7136.16], _
+        [-6946.73, -8795.69], _
+        [-5339.56, -12518.39], _
+        [-3574.33, -15372.71], _
+        [-578.54, -15032.59], _
+        [3745.82, -13927.75] _
+]
+
+Global $aProph_Kryta_StingrayStrandRoute02[51][2] = [ _
+        [3745.82, -13927.75], _
+        [-578.54, -15032.59], _
+        [-3574.33, -15372.71], _
+        [-5339.56, -12518.39], _
+        [-6946.73, -8795.69], _
+        [-4071.69, -7136.16], _
+        [-6946.73, -8795.69], _
+        [-7204.02, -8451.51], _
+        [-10416.85, -6261.95], _
+        [-11220.55, -1712.22], _
+        [-13480.42, 2878.92], _
+        [-13395.97, 4607.92], _
+        [-14074.94, 8450.92], _
+        [-12988.90, 12745.26], _
+        [-9938.91, 9780.00], _
+        [-6190.59, 6343.62], _
+        [-6348.55, 3711.08], _
+        [-6995.13, 1063.29], _
+        [-9628.42, 1042.43], _
+        [-9540.32, -1291.69], _
+        [-9628.42, 1042.43], _
+        [-6995.13, 1063.29], _
+        [-7757.28, -1254.18], _
+        [-4288.89, -4115.90], _
+        [-2011.25, -2132.53], _
+        [-4916.48, -2564.71], _
+        [-2415.00, 540.75], _
+        [-1576.08, 4174.33], _
+        [-932.77, 10475.53], _
+        [-5056.65, 14118.52], _
+        [-4146.11, 16900.99], _
+        [44.09, 14542.19], _
+        [1752.33, 12061.89], _
+        [44.09, 14542.19], _
+        [-4146.11, 16900.99], _
+        [-5058.09, 20891.63], _
+        [-7496.91, 20625.07], _
+        [-10695.60, 18647.52], _
+        [-9215.87, 15442.40], _
+        [-7232.32, 11808.99], _
+        [-3693.81, 9382.02], _
+        [-2210.90, 10169.22], _
+        [-608.47, 9141.59], _
+        [1307.24, 4915.47], _
+        [1771.80, 2199.95], _
+        [2205.69, -2487.57], _
+        [146.96, -6294.41], _
+        [294.20, -11107.50], _
+        [2589.08, -12034.23], _
+        [4486.16, -12001.16], _
+        [7514.00, -13764.00] _
+]
+
 Func _Vanquisher_ResetStingrayRouteProgress()
 	$g_i_StingrayRoute_LastMapHandled = -1
 EndFunc
@@ -50,108 +158,8 @@ Func VQStingrayStrand()
 	CurrentAction("Starting Stingray Strand vanquish route.")
 
 
-	If GetAreaVanquished() = False Then AggroMoveTo(7514.00, -13764.00)
-	If GetAreaVanquished() = False Then AggroMoveTo(4486.16, -12001.16)
-	If GetAreaVanquished() = False Then AggroMoveTo(2589.08, -12034.23)
-	If GetAreaVanquished() = False Then AggroMoveTo(294.20, -11107.50)
-	If GetAreaVanquished() = False Then AggroMoveTo(146.96, -6294.41)
-	If GetAreaVanquished() = False Then AggroMoveTo(2205.69, -2487.57)
-	If GetAreaVanquished() = False Then AggroMoveTo(1771.80, 2199.95)
-	If GetAreaVanquished() = False Then AggroMoveTo(1307.24, 4915.47)
-	If GetAreaVanquished() = False Then AggroMoveTo(-608.47, 9141.59)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2210.90, 10169.22)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3693.81, 9382.02)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7232.32, 11808.99)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9215.87, 15442.40)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10695.60, 18647.52)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7496.91, 20625.07)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5058.09, 20891.63)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4146.11, 16900.99)
-	If GetAreaVanquished() = False Then AggroMoveTo(44.09, 14542.19)
-	If GetAreaVanquished() = False Then AggroMoveTo(1752.33, 12061.89)
-	If GetAreaVanquished() = False Then AggroMoveTo(44.09, 14542.19)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4146.11, 16900.99)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5056.65, 14118.52)
-	If GetAreaVanquished() = False Then AggroMoveTo(-932.77, 10475.53)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1576.08, 4174.33)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2415.00, 540.75)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4916.48, -2564.71)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2011.25, -2132.53)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4288.89, -4115.90)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7757.28, -1254.18)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6995.13, 1063.29)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9628.42, 1042.43)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9540.32, -1291.69)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9628.42, 1042.43)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6995.13, 1063.29)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6348.55, 3711.08)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6190.59, 6343.62)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9938.91, 9780.00)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12988.90, 12745.26)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14074.94, 8450.92)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13395.97, 4607.92)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13480.42, 2878.92)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11220.55, -1712.22)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10416.85, -6261.95)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7204.02, -8451.51)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6946.73, -8795.69)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4071.69, -7136.16)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6946.73, -8795.69)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5339.56, -12518.39)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3574.33, -15372.71)
-	If GetAreaVanquished() = False Then AggroMoveTo(-578.54, -15032.59)
-	If GetAreaVanquished() = False Then AggroMoveTo(3745.82, -13927.75)
+	_Vanquisher_RunVanquishRoute($aProph_Kryta_StingrayStrandRoute01)
 
 	; reverse
-	If GetAreaVanquished() = False Then AggroMoveTo(3745.82, -13927.75)
-	If GetAreaVanquished() = False Then AggroMoveTo(-578.54, -15032.59)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3574.33, -15372.71)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5339.56, -12518.39)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6946.73, -8795.69)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4071.69, -7136.16)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6946.73, -8795.69)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7204.02, -8451.51)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10416.85, -6261.95)
-	If GetAreaVanquished() = False Then AggroMoveTo(-11220.55, -1712.22)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13480.42, 2878.92)
-	If GetAreaVanquished() = False Then AggroMoveTo(-13395.97, 4607.92)
-	If GetAreaVanquished() = False Then AggroMoveTo(-14074.94, 8450.92)
-	If GetAreaVanquished() = False Then AggroMoveTo(-12988.90, 12745.26)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9938.91, 9780.00)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6190.59, 6343.62)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6348.55, 3711.08)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6995.13, 1063.29)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9628.42, 1042.43)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9540.32, -1291.69)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9628.42, 1042.43)
-	If GetAreaVanquished() = False Then AggroMoveTo(-6995.13, 1063.29)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7757.28, -1254.18)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4288.89, -4115.90)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2011.25, -2132.53)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4916.48, -2564.71)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2415.00, 540.75)
-	If GetAreaVanquished() = False Then AggroMoveTo(-1576.08, 4174.33)
-	If GetAreaVanquished() = False Then AggroMoveTo(-932.77, 10475.53)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5056.65, 14118.52)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4146.11, 16900.99)
-	If GetAreaVanquished() = False Then AggroMoveTo(44.09, 14542.19)
-	If GetAreaVanquished() = False Then AggroMoveTo(1752.33, 12061.89)
-	If GetAreaVanquished() = False Then AggroMoveTo(44.09, 14542.19)
-	If GetAreaVanquished() = False Then AggroMoveTo(-4146.11, 16900.99)
-	If GetAreaVanquished() = False Then AggroMoveTo(-5058.09, 20891.63)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7496.91, 20625.07)
-	If GetAreaVanquished() = False Then AggroMoveTo(-10695.60, 18647.52)
-	If GetAreaVanquished() = False Then AggroMoveTo(-9215.87, 15442.40)
-	If GetAreaVanquished() = False Then AggroMoveTo(-7232.32, 11808.99)
-	If GetAreaVanquished() = False Then AggroMoveTo(-3693.81, 9382.02)
-	If GetAreaVanquished() = False Then AggroMoveTo(-2210.90, 10169.22)
-	If GetAreaVanquished() = False Then AggroMoveTo(-608.47, 9141.59)
-	If GetAreaVanquished() = False Then AggroMoveTo(1307.24, 4915.47)
-	If GetAreaVanquished() = False Then AggroMoveTo(1771.80, 2199.95)
-	If GetAreaVanquished() = False Then AggroMoveTo(2205.69, -2487.57)
-	If GetAreaVanquished() = False Then AggroMoveTo(146.96, -6294.41)
-	If GetAreaVanquished() = False Then AggroMoveTo(294.20, -11107.50)
-	If GetAreaVanquished() = False Then AggroMoveTo(2589.08, -12034.23)
-	If GetAreaVanquished() = False Then AggroMoveTo(4486.16, -12001.16)
-	If GetAreaVanquished() = False Then AggroMoveTo(7514.00, -13764.00)
+	_Vanquisher_RunVanquishRoute($aProph_Kryta_StingrayStrandRoute02)
 EndFunc
