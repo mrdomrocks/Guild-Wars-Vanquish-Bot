@@ -565,42 +565,75 @@ Func _GetHeroIDForSelection($sHeroName)
     Return 0
 EndFunc
 
-Func SetupTeamForPartySize($iMaxPartySize)
-    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
-        _Log("Cannot set up heroes before connecting to a character.")
-        Return False
-    EndIf
-
-    Ui_LeaveGroup()
-    Sleep(250)
-
+Func _GetConfiguredHeroArrayForPartySize($iMaxPartySize)
     Local $aComboIDs
-    Local $iHeroCount = 0
+    Local $iHeroSlots = 0
     Local $i = 0
 
     Switch $iMaxPartySize
         Case 4
-            $iHeroCount = 3
+            $iHeroSlots = 3
             $aComboIDs = $g_idComboTeam4
         Case 6
-            $iHeroCount = 5
+            $iHeroSlots = 5
             $aComboIDs = $g_idComboTeam6
         Case 8
-            $iHeroCount = 7
+            $iHeroSlots = 7
             $aComboIDs = $g_idComboTeam8
         Case Else
-            _Log("Unsupported party size for hero setup: " & $iMaxPartySize)
-            Return False
+            Local $aEmpty[0]
+            Return $aEmpty
     EndSwitch
 
-    For $i = 0 To $iHeroCount - 1
+    Local $aHeroIDs[0]
+    For $i = 0 To $iHeroSlots - 1
         Local $sHeroName = StringStripWS(GUICtrlRead($aComboIDs[$i]), 3)
         If $sHeroName = "" Then ContinueLoop
 
         Local $iHeroID = _GetHeroIDForSelection($sHeroName)
         If $iHeroID <= 0 Then ContinueLoop
 
-        Ui_AddHero($iHeroID)
+        Local $iNext = UBound($aHeroIDs)
+        ReDim $aHeroIDs[$iNext + 1]
+        $aHeroIDs[$iNext] = $iHeroID
+    Next
+
+    Return $aHeroIDs
+EndFunc
+
+Func _IsConfiguredHeroTeamActive(ByRef $aHeroIDs)
+    If Party_GetMyPartyInfo("ArrayPlayerPartyMemberSize") <> 1 Then Return False
+    If Party_GetMyPartyInfo("ArrayHenchmanPartyMemberSize") <> 0 Then Return False
+    If GetHeroCount() <> UBound($aHeroIDs) Then Return False
+
+    Local $i = 0
+    For $i = 0 To UBound($aHeroIDs) - 1
+        If GetHeroID($i + 1) <> $aHeroIDs[$i] Then Return False
+    Next
+
+    Return True
+EndFunc
+
+Func SetupTeamForPartySize($iMaxPartySize)
+    If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
+        _Log("Cannot set up heroes before connecting to a character.")
+        Return False
+    EndIf
+
+    Local $aHeroIDs = _GetConfiguredHeroArrayForPartySize($iMaxPartySize)
+    If $iMaxPartySize <> 4 And $iMaxPartySize <> 6 And $iMaxPartySize <> 8 Then
+        _Log("Unsupported party size for hero setup: " & $iMaxPartySize)
+        Return False
+    EndIf
+
+    If _IsConfiguredHeroTeamActive($aHeroIDs) Then Return True
+
+    Ui_LeaveGroup()
+    Sleep(250)
+
+    Local $i = 0
+    For $i = 0 To UBound($aHeroIDs) - 1
+        Ui_AddHero($aHeroIDs[$i])
         Sleep(250)
     Next
 
