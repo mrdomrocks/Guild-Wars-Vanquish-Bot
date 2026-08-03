@@ -94,7 +94,6 @@ _UpdateRunStatusDisplay()
 _UpdateConnectedCharacterDisplay()
 _UpdateMapScanStatusDisplay()
 _UpdateRunControlStatusDisplay()
-_Log("Startup complete.")
 
 While 1
     Local $msg = GUIGetMsg()
@@ -123,13 +122,13 @@ Func _ConnectToDetectedClient()
     $g_i_GWProcessId = 0
     $g_p_BasePointer = 0
 
-    _Log("Connecting to Guild Wars character: " & $sCharacter & ".")
+    _Log("Connecting to " & $sCharacter & ".")
     $bInitOK = _InitializeDetectedClient("", $iAttachPid)
     If $bInitOK And $g_i_GWProcessId > 0 Then $ProcessID = String($g_i_GWProcessId)
 
     If Not $bInitOK Then
         _ResetConnectedClientState("connect failed", "idle")
-        _Log("Connect failed for Guild Wars character: " & $sCharacter & ".")
+        _Log("Connect failed for " & $sCharacter & ".")
         Return False
     EndIf
 
@@ -157,7 +156,6 @@ Func _ConnectToDetectedClient()
     _UpdateConnectedCharacterDisplay()
     _UpdateMapScanStatusDisplay("connected - scan pending")
     _UpdateRunControlStatusDisplay("ready to scan")
-    _Log("Connection established. Map actions are idle until Scan Maps is pressed.")
     Return True
 EndFunc
 
@@ -211,9 +209,9 @@ Func _RefreshDetectedClient($bLogChanges = False)
     If $g_iDetectedCharacterCount > 1 Then
         If $iOldCount <> $g_iDetectedCharacterCount Or $iOldPid <> 0 Or $sOldCharacter <> "" Then _Log("Multiple logged-in Guild Wars characters detected.")
     ElseIf $g_iDetectedClientPid > 0 Then
-        If $g_iDetectedClientPid <> $iOldPid Or $g_sDetectedCharacter <> $sOldCharacter Then _Log("Detected logged-in character: " & $g_sDetectedCharacter & ".")
+        If $g_iDetectedClientPid <> $iOldPid Or $g_sDetectedCharacter <> $sOldCharacter Then _Log("Detected character: " & $g_sDetectedCharacter & ".")
     Else
-        If $iOldPid <> 0 Or $sOldCharacter <> "" Or $iOldCount <> 0 Then _Log("No logged-in Guild Wars character detected.")
+        If $iOldPid <> 0 Or $sOldCharacter <> "" Or $iOldCount <> 0 Then _Log("No logged-in character detected.")
     EndIf
 
     Return $g_iDetectedClientPid > 0
@@ -236,7 +234,7 @@ Func _FinalizeVanquishHistoryScan()
     If $sCharacter = "" Then $sCharacter = $g_sConnectedCharacter
     If $sCharacter = "" Then $sCharacter = "current character"
 
-    _Log("Scanning vanquish history for " & $sCharacter & ".")
+    _Log("Scanning vanquish history for " & $sCharacter & "...")
     _UpdateMapScanStatusDisplay("scanning...")
     $g_bVanquishHistoryLoaded = _RefreshHistoricalVanquishStates()
     $g_bPendingVanquishScan = False
@@ -343,12 +341,7 @@ EndFunc
 
 Func _InitializeDetectedClient($sCharacter = "", $iAttachPid = 0)
     Local $vTarget = $sCharacter
-    If $iAttachPid > 0 Then
-        $vTarget = Number($iAttachPid, 2)
-        _Log("Attaching to Guild Wars client PID " & $iAttachPid & ".")
-    Else
-        _Log("Attaching to Guild Wars client by character name.")
-    EndIf
+    If $iAttachPid > 0 Then $vTarget = Number($iAttachPid, 2)
     If Core_Initialize($vTarget, False) = 0 Or Not $g_h_GWProcess Or $g_p_BasePointer = 0 Then Return False
     _Vanquisher_SyncLegacyHandles()
     Return True
@@ -407,7 +400,7 @@ Func _EnsureConnectedClientAlive($bLogLoss = False)
     If _IsConnectedClientProcessAlive() Then Return True
 
     _ResetConnectedClientState("client disconnected", "idle")
-    If $bLogLoss Then _Log("Lost connection to the attached Guild Wars client.")
+    If $bLogLoss Then _Log("Lost connection to Guild Wars client.")
     Return False
 EndFunc
 
@@ -442,7 +435,7 @@ EndFunc
 Func _PrimeConnectedClientState($bLogWaiting = False)
     If $g_bConnectionStatePrimed Then Return True
     If Not _CanQueryLiveClientState() Then
-        If $bLogWaiting Then _Log("Connected to client. Waiting for in-game character data before reading map and world state.")
+        If $bLogWaiting Then _Log("Waiting for in-game character data...")
         Return False
     EndIf
 
@@ -455,7 +448,7 @@ Func _PrimeConnectedClientState($bLogWaiting = False)
     $g_hClientResponsiveTimer = TimerInit()
     _UpdateStartButtonState()
 
-    _Log("Connected to Guild Wars client: " & $g_sConnectedCharacter)
+    _Log("Ready: " & $g_sConnectedCharacter & ". Press Scan Vanquish Maps.")
     Return True
 EndFunc
 
@@ -885,7 +878,7 @@ Func _LogSelectedMapQueue(ByRef $aQueue)
         Local $iPartySize = $g_aMapEntries[$iMapIndex][7]
         Local $sPartyLabel = "Unknown"
         If $iPartySize > 0 Then $sPartyLabel = "Team " & $iPartySize
-        _Log("Queue " & ($i + 1) & "/" & UBound($aQueue) & ": " & $g_aMapEntries[$iMapIndex][1] & " - " & _Vanquisher_ZoneDisplay($iMapIndex) & " (" & $sPartyLabel & ")")
+        _Log("Queue " & ($i + 1) & "/" & UBound($aQueue) & ": " & _Vanquisher_ZoneDisplay($iMapIndex) & " (" & $sPartyLabel & ")")
     Next
 EndFunc
 
@@ -942,10 +935,8 @@ Func _PrepareSelectedVanquishQueue()
     $g_b_Vanquisher_AbortRoute = False
     $g_b_Vanquisher_RunFinished = False
 
-    _Log("Preparing vanquish queue with " & UBound($g_a_VanquisherZoneQueue) & " map(s).")
+    _Log("Queue ready: " & UBound($g_a_VanquisherZoneQueue) & " map(s), starting with " & _Vanquisher_ZoneDisplay($g_a_VanquisherZoneQueue[0]) & " (Team " & $iRequiredPartySize & ").")
     _LogSelectedMapQueue($g_a_VanquisherZoneQueue)
-    _Log("Initial target: " & _Vanquisher_ZoneDisplay($g_a_VanquisherZoneQueue[0]) & " (Team " & $iRequiredPartySize & ").")
-    _Log("Start preparation complete. Travel to the first outpost and team setup will happen as the route starts.")
     Return True
 EndFunc
 
@@ -1164,7 +1155,7 @@ Func _RefreshHistoricalVanquishStates()
     Next
 
     _PopulateMapList("ALL")
-    _Log("Loaded vanquish history: " & $iMarked & " completed map(s) found.")
+    _Log("Vanquish history loaded: " & $iMarked & " completed map(s).")
     Return True
 EndFunc
 
@@ -1340,7 +1331,7 @@ Func _RunGuiMaintenance()
         If Not $g_bClientConnected Then
             If $g_iDetectedCharacterCount = 1 And $g_iDetectedClientPid > 0 And $g_sDetectedCharacter <> "" Then
                 If $g_sRecoveryCharacter = "" Or StringCompare($g_sDetectedCharacter, $g_sRecoveryCharacter, 0) = 0 Then
-                    _Log("Recovered Guild Wars client detected. Reconnecting.")
+                    _Log("Recovered client detected. Reconnecting.")
                     If _ConnectToDetectedClient() Then
                         $g_bClientRecoveryAutoScanPending = True
                         $g_hClientResponsiveTimer = TimerInit()
@@ -1349,7 +1340,7 @@ Func _RunGuiMaintenance()
             EndIf
         ElseIf $g_bClientRecoveryAutoScanPending And Not $g_bMapScanInProgress And Not $g_bPendingVanquishScan Then
             $g_bClientRecoveryAutoScanPending = False
-            _Log("Client reconnected. Rescanning map and vanquish state.")
+            _Log("Client reconnected. Rescanning...")
             _ScanConnectedCharacterVanquishHistory()
         EndIf
     EndIf
@@ -1437,7 +1428,7 @@ Func _StartSelectedMapRoutine()
         Return False
     EndIf
 
-    _Log("Start pressed. Hard Mode will be enabled before going out.")
+    _Log("Starting checked maps. Hard Mode will be enabled before leaving the outpost.")
     $g_bBotRunning = True
     $boolrun = True
     $g_b_Vanquisher_AbortRoute = False
@@ -1449,7 +1440,6 @@ Func _StartSelectedMapRoutine()
     _UpdateRunStatusDisplay()
     _UpdateRunControlStatusDisplay("running selected maps")
     _UpdateStartButtonState()
-    _Log("Starting selected map routine.")
 
     Local $bCompleted = _RunSelectedMapQueue()
 
@@ -1460,16 +1450,16 @@ Func _StartSelectedMapRoutine()
 
     If $g_bClientRecoveryPending Then
         _UpdateRunControlStatusDisplay("waiting for client reconnect")
-        _Log("Selected map routine stopped after client recovery was triggered.")
+        _Log("Stopped after client recovery.")
     ElseIf $bCompleted Then
         _UpdateRunControlStatusDisplay("queue complete")
-        _Log("Selected map routine completed.")
+        _Log("Queue complete.")
     ElseIf $g_b_Vanquisher_AbortRoute Or Not $boolrun Then
         _UpdateRunControlStatusDisplay("stopped")
-        _Log("Selected map routine stopped.")
+        _Log("Stopped.")
     Else
         _UpdateRunControlStatusDisplay("stopped with error")
-        _Log("Selected map routine ended before completion.")
+        _Log("Stopped before the queue finished.")
     EndIf
 
     Return $bCompleted
@@ -1486,7 +1476,7 @@ Func _StopSelectedMapRoutine($bUserRequested = True)
     _UpdateRunControlStatusDisplay("stopping...")
     _UpdateStartButtonState()
     If $bUserRequested Then _ClearClientRecoveryState()
-    If $bUserRequested Then _Log("Stop requested for the selected map routine.")
+    If $bUserRequested Then _Log("Stop requested.")
     Return True
 EndFunc
 
@@ -1509,7 +1499,7 @@ Func _RunSelectedMapQueue()
 
         $g_b_Vanquisher_QueueAdvanced = False
         _UpdateRunControlStatusDisplay("running " & _Vanquisher_ZoneDisplay($iMapIndex))
-        CurrentAction("Running selected map " & ($iQueueIndex + 1) & "/" & UBound($g_a_VanquisherZoneQueue) & ": " & _Vanquisher_ZoneDisplay($iMapIndex))
+        CurrentAction("Running " & ($iQueueIndex + 1) & "/" & UBound($g_a_VanquisherZoneQueue) & ": " & _Vanquisher_ZoneDisplay($iMapIndex))
 
         While $boolrun And Not $g_b_Vanquisher_AbortRoute And $g_i_VanquisherZoneQueueIndex = $iQueueIndex
             _Vanquisher_ApplyConsumablesOnFarmEntry()

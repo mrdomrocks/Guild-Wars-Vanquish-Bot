@@ -85,7 +85,7 @@ Func Fight($a_i_AggroRange, $a_s_Label = "")
         _Vanquisher_InitCombatAI()
     EndIf
     If Not $g_b_Vanquisher_CombatAIReady Then
-        CurrentAction("Combat AI not ready - need Hard Mode explorable zone with cached skill bar.")
+        CurrentAction("Combat AI not ready - need Hard Mode, explorable zone, and a cached skill bar.")
         Return
     EndIf
 

@@ -727,12 +727,12 @@ Func _Vanquisher_CacheCombatAIForCurrentMap($a_b_Announce = False, $a_b_Force = 
 
     $g_b_Vanquisher_CombatAIReady = True
     $g_i_Vanquisher_CombatAIReadyMapID = $l_i_MapID
-    If $a_b_Announce Then CurrentAction("Utility AI skill bar cached.")
+    If $a_b_Announce Then CurrentAction("Combat skill bar cached.")
     Return True
 EndFunc
 
 Func _Vanquisher_InitCombatAI()
-    _Vanquisher_CacheCombatAIForCurrentMap(True)
+    _Vanquisher_CacheCombatAIForCurrentMap(False)
 EndFunc
 
 Func _Vanquisher_ResetGoOutRouteProgress()
@@ -763,11 +763,11 @@ Func _Vanquisher_RefreshVanquishBaseline()
     Next
     If Not Map_GetInstanceInfo("IsExplorable") Then Return
     If Not GetIsHardMode() Then
-        CurrentAction("Not in Hard Mode — enable HM in outpost (party leader).")
+        CurrentAction("Hard Mode required - enable HM in outpost as party leader.")
         Return
     EndIf
 
-    CurrentAction("Checking vanquish counter...")
+    CurrentAction("Reading vanquish counter...")
     Local $l_i_StableZeros = 0
     Local $hTimer = TimerInit()
     While TimerDiff($hTimer) < 8000
@@ -778,7 +778,7 @@ Func _Vanquisher_RefreshVanquishBaseline()
             ContinueLoop
         EndIf
         If _Vanquisher_TryCaptureVanquishBaseline() Then
-            CurrentAction("Vanquish: " & $g_i_Vanquisher_InitialFoesKilled & " killed, " & $g_i_Vanquisher_InitialFoesToKill & " remaining.")
+            CurrentAction("Vanquish counter: " & $g_i_Vanquisher_InitialFoesKilled & " killed, " & $g_i_Vanquisher_InitialFoesToKill & " remaining.")
             _Vanquisher_InitCombatAI()
             Return
         EndIf
@@ -792,14 +792,14 @@ Func _Vanquisher_RefreshVanquishBaseline()
     WEnd
 
     If _Vanquisher_TryCaptureVanquishBaseline() Then
-        CurrentAction("Vanquish: " & $g_i_Vanquisher_InitialFoesKilled & " killed, " & $g_i_Vanquisher_InitialFoesToKill & " remaining.")
+        CurrentAction("Vanquish counter: " & $g_i_Vanquisher_InitialFoesKilled & " killed, " & $g_i_Vanquisher_InitialFoesToKill & " remaining.")
         _Vanquisher_InitCombatAI()
         Return
     EndIf
 
     $g_b_Vanquisher_CounterUnreliable = True
     $g_i_Vanquisher_SessionStartKilled = GetFoesKilled()
-    CurrentAction("Vanquish counter unreadable — running route anyway.")
+    CurrentAction("Vanquish counter unreadable - running route anyway.")
     _Vanquisher_InitCombatAI()
 EndFunc
 
@@ -875,7 +875,7 @@ Func _Vanquisher_AdvanceZoneQueue()
 
     Local $iPos = $g_i_VanquisherZoneQueueIndex + 1
     Local $iTotal = UBound($g_a_VanquisherZoneQueue)
-    CurrentAction("Queue: zone " & $iPos & "/" & $iTotal & " — " & _Vanquisher_ZoneDisplay($g_a_VanquisherZoneQueue[$g_i_VanquisherZoneQueueIndex]))
+    CurrentAction("Queue " & $iPos & "/" & $iTotal & ": " & _Vanquisher_ZoneDisplay($g_a_VanquisherZoneQueue[$g_i_VanquisherZoneQueueIndex]))
     _Vanquisher_UpdateStatusBar()
     Return True
 EndFunc
@@ -885,19 +885,19 @@ Func _Vanquisher_FinishRun()
     If $g_b_Vanquisher_RunFinished Then Return
     $g_b_Vanquisher_RunFinished = True
     If IsFunc("_ShouldStayInExplorableForQueuedRoute") And _ShouldStayInExplorableForQueuedRoute() Then
-        CurrentAction("Vanquish complete — continuing caravan route.")
+        CurrentAction("Vanquish complete - continuing caravan.")
     Else
         $g_b_Vanquisher_AbortRoute = True
-        CurrentAction("Vanquish complete — returning to outpost.")
+        CurrentAction("Vanquish complete - returning to outpost.")
         _Vanquisher_ReturnToOutpost()
     EndIf
     If _Vanquisher_AdvanceZoneQueue() Then
-        CurrentAction("Next zone in queue.")
+        CurrentAction("Advancing to next queued map.")
         Return
     EndIf
     $boolrun = False
     _Vanquisher_OnBotStopped()
-    CurrentAction("All queued zones finished — stopping bot.")
+    CurrentAction("All queued maps finished.")
 EndFunc
 
 Func _Vanquisher_IsVanquishIncomplete()
@@ -928,7 +928,7 @@ Func _Vanquisher_AbortCurrentRouteToZoneEntry()
     $g_b_Vanquisher_AbortRoute = True
     $DeadOnTheRun = 0
     _Vanquisher_ResetGoOutRouteProgress()
-    CurrentAction("Party wiped - aborting current route and returning to zone entry.")
+    CurrentAction("Party wiped - resigning to zone entry.")
     Return _Vanquisher_ResignToOutpost()
 EndFunc
 
@@ -969,7 +969,7 @@ Func _Vanquisher_ReturnToOutpost()
     If Not Map_GetInstanceInfo("IsExplorable") Then Return True
     If _Vanquisher_IsAscalonCaravanZone() Then Return True
 
-    CurrentAction("Returning to outpost after vanquish.")
+    CurrentAction("Returning to outpost.")
     If Not GetIsDead(-2) And Death() <> 1 Then
         Map_ReturnToOutpost()
         If $Map_To_Zone > 0 Then
@@ -993,7 +993,7 @@ Func _Vanquisher_ReturnToOutpost()
     WEnd
 
     If Map_GetInstanceInfo("IsExplorable") Then
-        CurrentAction("Still in explorable — try /resign manually.")
+        CurrentAction("Still in explorable - try /resign manually.")
         Return False
     EndIf
 
@@ -1018,7 +1018,7 @@ EndFunc
 
 Func _Vanquisher_ApplyDifficulty()
     If Not SwitchMode(1) Then
-        CurrentAction("Hard Mode not set — be party leader in outpost")
+        CurrentAction("Hard Mode not set - be party leader in outpost.")
     EndIf
 EndFunc
 
