@@ -3,7 +3,6 @@ Global Const $REWARD_WAIT_TIME = 1800000 ; 30 minuti
 Global Const $VANQUISHER_PATHFINDER_REPATH_MS = 1000
 Global Const $VANQUISHER_PATHFINDER_REACHED_DISTANCE = 250
 Global $ActionCounter = 0
-Global $BlockCount = 20
 Global $RangeLimit = 1450
 
 ; All maps use these route helpers — vanquish complete / abort is handled here globally.
@@ -148,31 +147,43 @@ Func MoveandAggroVQFullRoute($aWaypoints)
     MoveandAggroVQReverse($aWaypoints)
 EndFunc
 
+Func _Vanquisher_HandleDeadOnTheRunRestart(ByRef $iIndex, $iRestartIndex, $sWaypointLabel, ByRef $iActionCounter, $sDirection = "forward")
+    $g_i_Vanquisher_DeathRestartCount += 1
+    If $g_i_Vanquisher_DeathRestartCount > $VANQUISHER_DEATH_RESTART_MAX Then
+        CurrentAction("Party wiped " & $VANQUISHER_DEATH_RESTART_MAX & " times on " & $sDirection & " route — aborting map.")
+        _Vanquisher_AbortCurrentRouteToZoneEntry()
+        Return False
+    EndIf
+
+    CurrentAction("We died fighting at: " & $sWaypointLabel & $iActionCounter & ", restarting waypoints (" & $g_i_Vanquisher_DeathRestartCount & "/" & $VANQUISHER_DEATH_RESTART_MAX & ").")
+    $iActionCounter = 1
+    $iIndex = $iRestartIndex
+    $DeadOnTheRun = 0
+    Return True
+EndFunc
+
 Func MoveandAggroVQ($aWaypoints)
 	If _Vanquisher_ExitRouteIfDone(" (forward skip)") Then Return
 	$g_b_Vanquisher_HasRunRoute = True
 	_Vanquisher_ApplyConsumablesOnFarmEntry()
     Local $timer = TimerInit()
     Local $Index = 0
-    $BlockCount = 20
+    Local $iRouteBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT
     $ActionCounter = 1
     CurrentAction("Route forward - " & UBound($aWaypoints) & " waypoints.")
     For $Index = 0 To UBound($aWaypoints) - 1
         If _Vanquisher_ShouldStop() Then Return
         $RangeLimit = $aWaypoints[$Index][3]
         If _Vanquisher_CheckVanquishDuringRoute($timer, " (forward)") Then Return
-        AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
+        AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3], $iRouteBlockCount)
         If _Vanquisher_IsWormSpoorWaypoint($aWaypoints[$Index][2]) Then UseWormSpoor($aWaypoints[$Index][0], $aWaypoints[$Index][1])
         $ActionCounter += 1
         If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
             If _Vanquisher_OnVanquishComplete(" (forward)") Then Return
         EndIf
         If $DeadOnTheRun Then
-            CurrentAction("Died at waypoint " & $ActionCounter & " - restarting route.")
-            $ActionCounter = 1
-        	$Index = 0
-        	$DeadOnTheRun = 0
-            $BlockCount = 2; let's try and get back to our spot ASAP 
+            $iRouteBlockCount = $VANQUISHER_BLOCK_COUNT_DEATH_RECOVERY
+            If Not _Vanquisher_HandleDeadOnTheRunRestart($Index, 0, $aWaypoints[$Index][2], $ActionCounter, "forward") Then Return
         EndIf
     Next
     If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
@@ -207,23 +218,21 @@ Func MoveandAggroVQReverse($aWaypoints)
     $g_b_Vanquisher_HasRunRoute = True
     Local $timer = TimerInit()
     Local $Index = 0
+    Local $iRouteBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT
     $ActionCounter = 1
     CurrentAction("Route reverse - " & UBound($aWaypoints) & " waypoints.")
     For $Index = UBound($aWaypoints) - 1 To 0 Step -1
         If _Vanquisher_ShouldStop() Then Return
         If _Vanquisher_CheckVanquishDuringRoute($timer, " (reverse)") Then Return
-        AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
+        AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3], $iRouteBlockCount)
         If _Vanquisher_IsWormSpoorWaypoint($aWaypoints[$Index][2]) Then UseWormSpoor($aWaypoints[$Index][0], $aWaypoints[$Index][1])
         $ActionCounter += 1
         If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
             If _Vanquisher_OnVanquishComplete(" (reverse)") Then Return
         EndIf
         If $DeadOnTheRun Then
-            CurrentAction("Died at waypoint " & $ActionCounter & " - restarting reverse route.")
-            $ActionCounter = 1
-        	$Index = UBound($aWaypoints) - 1
-        	$DeadOnTheRun = 0
-            $BlockCount = 2; let's try and get back to our spot ASAP 
+            $iRouteBlockCount = $VANQUISHER_BLOCK_COUNT_DEATH_RECOVERY
+            If Not _Vanquisher_HandleDeadOnTheRunRestart($Index, UBound($aWaypoints) - 1, $aWaypoints[$Index][2], $ActionCounter, "reverse") Then Return
         EndIf
     Next
     If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
@@ -459,6 +468,27 @@ Func _Vanquisher_ShouldUsePathfinder()
     Return True
 EndFunc
 
+Func _Vanquisher_InitPathfinderForZone()
+    If Not _Vanquisher_ShouldUsePathfinder() Then Return False
+
+    Local $l_i_MapID = GetMapID()
+    If $g_b_Vanquisher_PathfinderZoneActive And $g_i_Vanquisher_PathfinderZoneMapID = $l_i_MapID Then Return True
+
+    _Vanquisher_ShutdownPathfinderForZone()
+    If Not _Vanquisher_EnsurePathfinderReady() Then Return False
+
+    $g_b_Vanquisher_PathfinderZoneActive = True
+    $g_i_Vanquisher_PathfinderZoneMapID = $l_i_MapID
+    Return True
+EndFunc
+
+Func _Vanquisher_ShutdownPathfinderForZone()
+    If Not $g_b_Vanquisher_PathfinderZoneActive Then Return
+    If $g_hPathfinderDLL <> 0 And $g_hPathfinderDLL <> -1 Then Pathfinder_Shutdown()
+    $g_b_Vanquisher_PathfinderZoneActive = False
+    $g_i_Vanquisher_PathfinderZoneMapID = 0
+EndFunc
+
 Func _Vanquisher_EnsurePathfinderReady()
     If $DLL_PATH = "" Then
         $DLL_PATH = @ScriptDir & "\..\..\API\Plugins\Pathfinder\GWPathfinder.dll"
@@ -507,8 +537,8 @@ Func _Vanquisher_PathfinderSelectMoveTarget(ByRef $a_a_Path, ByRef $a_i_PathInde
     $a_i_MoveLayer = Agent_GetAgentInfo(-2, "Plane")
 EndFunc
 
-Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450)
-    If Not _Vanquisher_EnsurePathfinderReady() Then Return False
+Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT)
+    If Not _Vanquisher_InitPathfinderForZone() Then Return False
 
     Local $iBlocked = 0
     Local $boolOpenChests = _IsOpenChestsEnabled()
@@ -540,7 +570,6 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450)
 
         If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
             _Vanquisher_OnVanquishComplete(" (move)")
-            Pathfinder_Shutdown()
             Return True
         EndIf
 
@@ -558,24 +587,17 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450)
             Local $lDistance = GetDistance($nearestenemy, -2)
             If $lDistance < $z And _Vanquisher_AgentID($nearestenemy) <> 0 Then
                 Fight($z, $s)
-                If _Vanquisher_ShouldStop() Then
-                    Pathfinder_Shutdown()
-                    Return True
-                EndIf
+                If _Vanquisher_ShouldStop() Then Return True
                 _Vanquisher_ApplyConsumables()
                 UpdateVanquish()
                 If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
                     _Vanquisher_OnVanquishComplete(" (after fight)")
-                    Pathfinder_Shutdown()
                     Return True
                 EndIf
 
                 $iBlocked = 0
                 $aPath = _Vanquisher_PathfinderBuildPath($x, $y)
-                If Not IsArray($aPath) Then
-                    Pathfinder_Shutdown()
-                    Return False
-                EndIf
+                If Not IsArray($aPath) Then Return False
                 $iPathIndex = 0
                 $hRepathTimer = TimerInit()
                 $coordsX = Agent_GetAgentInfo(-2, "X")
@@ -619,14 +641,12 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450)
         EndIf
 
         If $boolOpenChests Then CheckForChest()
-    Until ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE Or $iBlocked > $BlockCount
+    Until ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE Or $iBlocked > $iBlockCount
 
-    Local $bReached = ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE
-    Pathfinder_Shutdown()
-    Return $bReached
+    Return ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE
 EndFunc
 
-Func AggroMoveTo($x, $y, $s = "", $z = 1450)
+Func AggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT)
     If _Vanquisher_ShouldStop() Then Return
     If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
         _Vanquisher_OnVanquishComplete(" (waypoint)")
@@ -635,16 +655,16 @@ Func AggroMoveTo($x, $y, $s = "", $z = 1450)
 
     _Vanquisher_ApplyConsumablesOnFarmEntry()
 
-    ; Per-waypoint chatter floods the Main Menu console; route-level messages cover progress.
+    CurrentAction("Moving to Waypoint:" & $s)
 
     If _Vanquisher_ShouldUsePathfinder() Then
-        If _Vanquisher_PathfinderAggroMoveTo($x, $y, $s, $z) Then Return
+        If _Vanquisher_PathfinderAggroMoveTo($x, $y, $s, $z, $iBlockCount) Then Return
     EndIf
 
-    _Vanquisher_AggroMoveToLegacy($x, $y, $s, $z)
+    _Vanquisher_AggroMoveToLegacy($x, $y, $s, $z, $iBlockCount)
 EndFunc   ;==>AggroMoveTo
 
-Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450)
+Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450, $iBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT)
         Local $random = 50
         Local $iBlocked = 0
         Local $boolOpenChests = _IsOpenChestsEnabled()
@@ -717,7 +737,7 @@ Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450)
                 If $boolOpenChests Then
                         CheckForChest()
                 EndIf
-        Until ComputeDistance($coordsX, $coordsY, $x, $y) < 250 Or $iBlocked > $BlockCount
+        Until ComputeDistance($coordsX, $coordsY, $x, $y) < 250 Or $iBlocked > $iBlockCount
 EndFunc
 
 Func GetMaxPartySize($mapid)

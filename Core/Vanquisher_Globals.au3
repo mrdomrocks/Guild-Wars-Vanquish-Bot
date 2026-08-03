@@ -127,6 +127,12 @@ Global Const $VANQUISHER_CONSUMABLE_BUFFER_MS = 1800000 ; 30 min between stone s
 Global Const $VANQUISHER_CONSUMABLE_DEBOUNCE_MS = 5000 ; short anti-spam after use while effect applies
 Global Const $VANQUISHER_CONSUMABLE_POLL_MS = 10000 ; check effects every 10s during movement (not every tick)
 Global Const $VANQUISHER_REZ_COMBAT_WAIT_MS = 30000 ; max wait for party rez during aggro movement
+Global Const $VANQUISHER_BLOCK_COUNT_DEFAULT = 20
+Global Const $VANQUISHER_BLOCK_COUNT_DEATH_RECOVERY = 2
+Global Const $VANQUISHER_DEATH_RESTART_MAX = 3
+Global $g_i_Vanquisher_DeathRestartCount = 0
+Global $g_b_Vanquisher_PathfinderZoneActive = False
+Global $g_i_Vanquisher_PathfinderZoneMapID = 0
 Global Const $VANQUISHER_STONE_INTERVAL = $VANQUISHER_CONSUMABLE_BUFFER_MS
 Global $g_h_Vanquisher_FightTimer = 0
 

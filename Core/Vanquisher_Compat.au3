@@ -732,7 +732,8 @@ Func _Vanquisher_CacheCombatAIForCurrentMap($a_b_Announce = False, $a_b_Force = 
 EndFunc
 
 Func _Vanquisher_InitCombatAI()
-    _Vanquisher_CacheCombatAIForCurrentMap(False)
+    _Vanquisher_CacheCombatAIForCurrentMap(True)
+    If IsFunc("_Vanquisher_InitPathfinderForZone") Then _Vanquisher_InitPathfinderForZone()
 EndFunc
 
 Func _Vanquisher_ResetGoOutRouteProgress()
@@ -754,6 +755,7 @@ Func _Vanquisher_RefreshVanquishBaseline()
     $g_i_StingrayRoute_LastMapHandled = -1
     $g_h_Vanquisher_ConsumablePollTimer = 0
     $g_b_Vanquisher_ConsetAppliedThisZone = False
+    $g_i_Vanquisher_DeathRestartCount = 0
     For $l_i_Idx = 0 To UBound($g_a_Vanquisher_BULastUsed) - 1
         $g_a_Vanquisher_BULastUsed[$l_i_Idx] = 0
         $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] = 0
@@ -852,6 +854,8 @@ Func _Vanquisher_ResetZoneRouteState()
     $g_b_Vanquisher_ConsetAppliedThisZone = False
     $g_b_Vanquisher_ConsumablesAppliedThisZone = False
     $g_b_Vanquisher_StoneHandledThisZone = False
+    $g_i_Vanquisher_DeathRestartCount = 0
+    If IsFunc("_Vanquisher_ShutdownPathfinderForZone") Then _Vanquisher_ShutdownPathfinderForZone()
     For $l_i_Idx = 0 To UBound($g_a_Vanquisher_BULastUsed) - 1
         $g_a_Vanquisher_BULastUsed[$l_i_Idx] = 0
         $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] = 0
@@ -997,6 +1001,7 @@ Func _Vanquisher_ReturnToOutpost()
         Return False
     EndIf
 
+    If IsFunc("_Vanquisher_ShutdownPathfinderForZone") Then _Vanquisher_ShutdownPathfinderForZone()
     _Vanquisher_UseDeathPenaltyItems()
     CurrentAction("Back in outpost.")
     Return True

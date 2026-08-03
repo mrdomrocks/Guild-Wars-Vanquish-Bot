@@ -869,6 +869,62 @@ Func _GetRequiredPartySizeForQueue(ByRef $aQueue)
     Return $iMapPartySize
 EndFunc
 
+Func _ValidateQueuePartySizes(ByRef $aQueue)
+    If UBound($aQueue) = 0 Then Return True
+
+    Local $aPartySizes[0]
+    Local $i = 0
+    Local $bReady = True
+
+    For $i = 0 To UBound($aQueue) - 1
+        Local $iMapIndex = $aQueue[$i]
+        If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then ContinueLoop
+
+        Local $iPartySize = $g_aMapEntries[$iMapIndex][7]
+        If $iPartySize <= 0 Then
+            $iPartySize = _ResolveMaxPartySizeForMap($g_aMapEntries[$iMapIndex][4], $g_aMapEntries[$iMapIndex][6])
+            $g_aMapEntries[$iMapIndex][7] = $iPartySize
+        EndIf
+        If $iPartySize <= 0 Then ContinueLoop
+
+        Local $bFound = False
+        Local $j = 0
+        For $j = 0 To UBound($aPartySizes) - 1
+            If $aPartySizes[$j] = $iPartySize Then
+                $bFound = True
+                ExitLoop
+            EndIf
+        Next
+        If Not $bFound Then
+            Local $iNext = UBound($aPartySizes)
+            ReDim $aPartySizes[$iNext + 1]
+            $aPartySizes[$iNext] = $iPartySize
+        EndIf
+    Next
+
+    For $i = 0 To UBound($aPartySizes) - 1
+        Local $iPartySize = $aPartySizes[$i]
+        Local $iConfiguredHeroes = _GetConfiguredHeroCountForPartySize($iPartySize)
+        If $iConfiguredHeroes = 0 Then
+            _Log("Queue warning: Team " & $iPartySize & " is required by checked maps, but no heroes are configured.")
+            $bReady = False
+        ElseIf $iConfiguredHeroes < ($iPartySize - 1) Then
+            _Log("Queue warning: Team " & $iPartySize & " has only " & $iConfiguredHeroes & " hero slot(s) configured. Empty slots will stay empty.")
+        EndIf
+    Next
+
+    If UBound($aPartySizes) > 1 Then
+        Local $sSizes = ""
+        For $i = 0 To UBound($aPartySizes) - 1
+            If $sSizes <> "" Then $sSizes &= ", "
+            $sSizes &= "Team " & $aPartySizes[$i]
+        Next
+        _Log("Queue uses mixed party sizes: " & $sSizes & ". Hero teams will be swapped automatically as each map starts.")
+    EndIf
+
+    Return $bReady
+EndFunc
+
 Func _LogSelectedMapQueue(ByRef $aQueue)
     Local $i = 0
     For $i = 0 To UBound($aQueue) - 1
@@ -910,6 +966,11 @@ Func _PrepareSelectedVanquishQueue()
 
     If Not _InitMapQueueFromSelection() Then
         _Log("Start failed: no maps are checked in the campaign tabs.")
+        Return False
+    EndIf
+
+    If Not _ValidateQueuePartySizes($g_a_VanquisherZoneQueue) Then
+        _Log("Start failed: one or more queued maps require hero teams that are not configured.")
         Return False
     EndIf
 
@@ -1473,6 +1534,7 @@ Func _StopSelectedMapRoutine($bUserRequested = True)
 
     $boolrun = False
     $g_b_Vanquisher_AbortRoute = True
+    If IsFunc("_Vanquisher_ShutdownPathfinderForZone") Then _Vanquisher_ShutdownPathfinderForZone()
     _UpdateRunControlStatusDisplay("stopping...")
     _UpdateStartButtonState()
     If $bUserRequested Then _ClearClientRecoveryState()
@@ -1492,7 +1554,8 @@ Func _RunSelectedMapQueue()
         Local $iMapIndex = $g_a_VanquisherZoneQueue[$iQueueIndex]
         Local $sRouteFunc = _GetRouteFunctionNameForMapIndex($iMapIndex)
         If $sRouteFunc = "" Then
-            _Log("Start failed: no route function is available for " & _Vanquisher_ZoneDisplay($iMapIndex) & " (expected " & $sRouteFunc & ").")
+            Local $sScriptName = $g_aMapEntries[$iMapIndex][8]
+            _Log("Start failed: no route function is available for " & _Vanquisher_ZoneDisplay($iMapIndex) & " (script " & $sScriptName & ").")
             Return False
         EndIf
         If Not _PrepareQueuedMapStart($iMapIndex) Then Return False
