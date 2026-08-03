@@ -23,7 +23,7 @@ This is the active vanquish workflow in this repo. The bot detects a logged-in G
 - campaign tabs for `EOTN`, `Prophecies`, `Caravan Routes`, `Factions`, and `Nightfall`
 - per-campaign checked-map queue building from the GUI
 - pre-travel outpost visibility for non-caravan maps in the campaign lists
-- live vanquish history scan that marks completed zones and prevents re-checking them
+- live vanquish history scan after client connect that marks completed zones and prevents re-checking them
 - hero team configuration for `Team4`, `Team6`, and `Team8`, with automatic team setup based on the first queued map
 - queue logging, run timer, death counter, and vanquish streak tracking
 - automatic consumable use on farm-map entry before movement starts
@@ -57,11 +57,10 @@ The caravan system has been refactored into dedicated controllers and now suppor
 2. Open `Scripts/Guild Wars Vanquish Bot/`.
 3. Run `Guild Wars Vanquish Bot.au3`.
 4. Wait for the bot to detect the logged-in character.
-5. Click `Connect To Client`.
-6. Click `Scan Vanquish Maps` to load completed-zone status from the live character.
-7. Set heroes for `Team4`, `Team6`, and `Team8`, then click `Save Config` if you want to persist them.
-8. Check the maps you want to run from the campaign tabs.
-9. Return to an outpost if needed, then click `Start Checked Maps`.
+5. Click `Connect To Client`. The bot waits 1 second, then automatically scans completed vanquish maps from the live character.
+6. Set heroes for `Team4`, `Team6`, and `Team8`, then click `Save Config` if you want to persist them.
+7. Check the maps you want to run from the campaign tabs.
+8. Return to an outpost if needed, then click `Start Checked Maps`.
 
 ## Queue Behavior
 

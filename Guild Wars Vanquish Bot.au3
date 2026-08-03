@@ -41,7 +41,8 @@ Global $g_bPendingPostConnectRefresh = False
 Global $g_hPostConnectRefreshTimer = TimerInit()
 Global $g_hClientResponsiveTimer = TimerInit()
 Global $g_bClientRecoveryPending = False
-Global $g_bClientRecoveryAutoScanPending = False
+Global $g_bPostConnectAutoScanPending = False
+Global $g_hPostConnectAutoScanTimer = TimerInit()
 Global $g_sRecoveryCharacter = ""
 Global $g_sLastHeroTeamState = ""
 Global $g_sHeroList = _BuildHeroList()
@@ -66,6 +67,7 @@ Global Const $CLIENT_SCAN_INTERVAL_SINGLE_MS = 10000
 Global Const $CLIENT_SCAN_INTERVAL_MULTIPLE_MS = 5000
 Global Const $CONNECTED_STATE_POLL_INTERVAL_MS = 750
 Global Const $CLIENT_UNRESPONSIVE_TIMEOUT_MS = 30000
+Global Const $POST_CONNECT_AUTO_SCAN_DELAY_MS = 1000
 Global Const $GUI_LOOP_SLEEP_MS = 25
 
 If FileExists(@ScriptDir & "\Vanquish.png") Then
@@ -144,18 +146,21 @@ Func _ConnectToDetectedClient()
     $g_bPendingVanquishScan = False
     $g_bPendingMapStateLoad = False
     $g_bPendingPostConnectRefresh = False
+    $g_bPostConnectAutoScanPending = True
+    $g_hPostConnectAutoScanTimer = TimerInit()
     $g_hConnectedStatePollTimer = TimerInit()
     $g_sConnectedCharacter = $sCharacter
     _SetCharacterSelectionState(True)
     _ResetRunStats()
     $g_hRunTimer = TimerInit()
 
-    ; Connection stays idle until the user explicitly scans maps.
+    ; Wait briefly after connect, then automatically scan vanquish maps.
     _ShowMainMenuTab()
     _UpdateRunStatusDisplay()
     _UpdateConnectedCharacterDisplay()
-    _UpdateMapScanStatusDisplay("connected - scan pending")
-    _UpdateRunControlStatusDisplay("ready to scan")
+    _UpdateMapScanStatusDisplay("connected - scanning shortly")
+    _UpdateRunControlStatusDisplay("waiting to scan")
+    _Log("Connected to " & $g_sConnectedCharacter & ". Scanning vanquish maps in 1 second...")
     Return True
 EndFunc
 
@@ -252,7 +257,7 @@ Func _FinalizeVanquishHistoryScan()
         If $g_bVanquishHistoryLoaded Then
             _Log("Client recovery complete. The run remains stopped until Start is pressed again.")
         Else
-            _Log("Client reconnected, but the rescan did not complete. Scan Maps can be run again once the client is ready.")
+            _Log("Client reconnected, but the rescan did not complete. Map scan can retry once the client is ready.")
         EndIf
         _ClearClientRecoveryState()
     EndIf
@@ -374,6 +379,7 @@ Func _ResetConnectedClientState($sMapStatus = "waiting for client", $sRunStatus 
     $g_bPendingVanquishScan = False
     $g_bPendingMapStateLoad = False
     $g_bPendingPostConnectRefresh = False
+    $g_bPostConnectAutoScanPending = False
 
     _SetCharacterSelectionState(False)
     _ResetRunStats()
@@ -385,7 +391,6 @@ EndFunc
 
 Func _ClearClientRecoveryState()
     $g_bClientRecoveryPending = False
-    $g_bClientRecoveryAutoScanPending = False
     $g_sRecoveryCharacter = ""
 EndFunc
 
@@ -408,7 +413,6 @@ Func _HandleClientRecoveryLoss($sReason)
     If $g_bClientRecoveryPending Then Return False
 
     $g_bClientRecoveryPending = True
-    $g_bClientRecoveryAutoScanPending = False
     $g_sRecoveryCharacter = $g_sConnectedCharacter
     If $g_sRecoveryCharacter = "" Then $g_sRecoveryCharacter = _GetAttachedCharacterName()
 
@@ -448,7 +452,7 @@ Func _PrimeConnectedClientState($bLogWaiting = False)
     $g_hClientResponsiveTimer = TimerInit()
     _UpdateStartButtonState()
 
-    _Log("Ready: " & $g_sConnectedCharacter & ". Press Scan Vanquish Maps.")
+    _Log("Ready: " & $g_sConnectedCharacter & ". Waiting for automatic map scan.")
     Return True
 EndFunc
 
@@ -1342,9 +1346,6 @@ Func _HandleGuiMessage($msg, $bFromPump = False)
         Case $btnConnect
             If Not $g_bBotRunning Then _ConnectToDetectedClient()
 
-        Case $btnScanVanquishHistory
-            If Not $g_bBotRunning Then _ScanConnectedCharacterVanquishHistory()
-
         Case $btnStart
             If Not $g_bBotRunning Then _StartSelectedMapRoutine()
 
@@ -1394,15 +1395,20 @@ Func _RunGuiMaintenance()
                 If $g_sRecoveryCharacter = "" Or StringCompare($g_sDetectedCharacter, $g_sRecoveryCharacter, 0) = 0 Then
                     _Log("Recovered client detected. Reconnecting.")
                     If _ConnectToDetectedClient() Then
-                        $g_bClientRecoveryAutoScanPending = True
                         $g_hClientResponsiveTimer = TimerInit()
                     EndIf
                 EndIf
             EndIf
-        ElseIf $g_bClientRecoveryAutoScanPending And Not $g_bMapScanInProgress And Not $g_bPendingVanquishScan Then
-            $g_bClientRecoveryAutoScanPending = False
-            _Log("Client reconnected. Rescanning...")
+        EndIf
+    EndIf
+
+    If $g_bPostConnectAutoScanPending And TimerDiff($g_hPostConnectAutoScanTimer) >= $POST_CONNECT_AUTO_SCAN_DELAY_MS Then
+        If $g_bClientConnected And Not $g_bBotRunning And Not $g_bMapScanInProgress And Not $g_bPendingVanquishScan Then
+            $g_bPostConnectAutoScanPending = False
+            _Log("Starting automatic vanquish map scan...")
             _ScanConnectedCharacterVanquishHistory()
+        ElseIf Not $g_bClientConnected Then
+            $g_bPostConnectAutoScanPending = False
         EndIf
     EndIf
 

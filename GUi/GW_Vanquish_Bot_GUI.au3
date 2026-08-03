@@ -24,7 +24,7 @@ Global $picVanquishedHelmet
 Global $lblDetectedClient, $lblDetectedCharacter, $lblConnectedCharacter
 Global $lblMapScanStatus, $lblRunControlStatus
 Global $lblRunTime, $lblDeaths, $lblVanquishStreak
-Global $btnConnect, $btnScanVanquishHistory, $btnStart, $btnStop, $btnSaveConfig
+Global $btnConnect, $btnStart, $btnStop, $btnSaveConfig
 Global $lvMapsEOTN, $lvMapsProphecies, $lvMapsCaravan, $lvMapsFactions, $lvMapsNightfall
 Global $g_aCampaignLists[$MAP_CAMPAIGN_COUNT]
 Global $g_aCampaignNames[$MAP_CAMPAIGN_COUNT] = ["EOTN", "Prophecies", "Caravan Routes", "Factions", "Nightfall"]
@@ -51,16 +51,12 @@ Func _VB_CreateGUI()
     GUICtrlSetFont($console, 10, 400, 0, "Consolas")
     $picVanquishedHelmet = GUICtrlCreatePic($g_sHelmetImagePath, 840, 55, 210, 210)
 
-    GUICtrlCreateGroup("Client Connection", 420, 50, 390, 120)
+    GUICtrlCreateGroup("Client Connection", 420, 50, 390, 150)
     $lblDetectedClient = GUICtrlCreateLabel("Detected Client: scanning...", 425, 76, 360, 18)
     $lblDetectedCharacter = GUICtrlCreateLabel("Detected Character: scanning...", 425, 98, 360, 18)
     $lblConnectedCharacter = GUICtrlCreateLabel("Connected Character: not connected", 425, 120, 360, 18)
-    $btnConnect = GUICtrlCreateButton("Connect To Client", 425, 140, 360, 24)
-    GUICtrlCreateGroup("", -99, -99, 1, 1)
-
-    GUICtrlCreateGroup("Map Vanquish Scan", 420, 180, 390, 110)
-    $btnScanVanquishHistory = GUICtrlCreateButton("Scan Vanquish Maps", 425, 210, 360, 26)
-    $lblMapScanStatus = GUICtrlCreateLabel("Map Scan Status: waiting for client connection", 425, 244, 360, 18)
+    $btnConnect = GUICtrlCreateButton("Connect To Client", 425, 144, 360, 24)
+    $lblMapScanStatus = GUICtrlCreateLabel("Map Scan Status: waiting for client connection", 425, 176, 360, 18)
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
     GUICtrlCreateGroup("Run Control", 40, 295, 280, 185)
@@ -256,7 +252,7 @@ Func _UpdateMapScanStatusDisplay($sStatus = "")
         ElseIf $g_bMapScanInProgress Then
             $sStatus = "scanning..."
         ElseIf Not $g_bVanquishHistoryLoaded Then
-            $sStatus = "ready to scan"
+            $sStatus = "waiting to scan"
         Else
             $sStatus = $iVanquished & " completed, " & $iSelectable & " available"
         EndIf
@@ -275,7 +271,7 @@ Func _UpdateRunControlStatusDisplay($sStatus = "")
         ElseIf $g_bMapScanInProgress Then
             $sStatus = "scanning maps"
         ElseIf $g_bClientConnected And Not $g_bVanquishHistoryLoaded Then
-            $sStatus = "ready to scan"
+            $sStatus = "waiting to scan"
         ElseIf $g_bClientConnected Then
             $sStatus = "ready"
         Else
@@ -297,14 +293,6 @@ Func _UpdateStartButtonState()
     If $g_bBotRunning Then $iStopState = $GUI_ENABLE
     GUICtrlSetState($btnStop, $iStopState)
 
-    Local $iScanState = $GUI_DISABLE
-    If Not $g_bBotRunning And Not $g_bMapScanInProgress And $g_bClientConnected And $Bot_Core_Initialized Then $iScanState = $GUI_ENABLE
-    GUICtrlSetState($btnScanVanquishHistory, $iScanState)
-    If $g_bMapScanInProgress Then
-        GUICtrlSetData($btnScanVanquishHistory, "Scanning Vanquish Maps...")
-    Else
-        GUICtrlSetData($btnScanVanquishHistory, "Scan Vanquish Maps")
-    EndIf
     _UpdateMapScanStatusDisplay()
     _UpdateRunControlStatusDisplay()
 EndFunc
