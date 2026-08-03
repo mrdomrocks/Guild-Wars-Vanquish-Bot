@@ -156,7 +156,7 @@ Func MoveandAggroVQ($aWaypoints)
     Local $Index = 0
     $BlockCount = 20
     $ActionCounter = 1
-    CurrentAction("Vanquish route forward — " & UBound($aWaypoints) & " waypoints.")
+    CurrentAction("Route forward - " & UBound($aWaypoints) & " waypoints.")
     For $Index = 0 To UBound($aWaypoints) - 1
         If _Vanquisher_ShouldStop() Then Return
         $RangeLimit = $aWaypoints[$Index][3]
@@ -168,7 +168,7 @@ Func MoveandAggroVQ($aWaypoints)
             If _Vanquisher_OnVanquishComplete(" (forward)") Then Return
         EndIf
         If $DeadOnTheRun Then
-            CurrentAction("We died fighting at: " & $aWaypoints[$Index][2] & $ActionCounter & ", restarting waypoints.")
+            CurrentAction("Died at waypoint " & $ActionCounter & " - restarting route.")
             $ActionCounter = 1
         	$Index = 0
         	$DeadOnTheRun = 0
@@ -208,7 +208,7 @@ Func MoveandAggroVQReverse($aWaypoints)
     Local $timer = TimerInit()
     Local $Index = 0
     $ActionCounter = 1
-    CurrentAction("Vanquish route reverse — " & UBound($aWaypoints) & " waypoints.")
+    CurrentAction("Route reverse - " & UBound($aWaypoints) & " waypoints.")
     For $Index = UBound($aWaypoints) - 1 To 0 Step -1
         If _Vanquisher_ShouldStop() Then Return
         If _Vanquisher_CheckVanquishDuringRoute($timer, " (reverse)") Then Return
@@ -219,7 +219,7 @@ Func MoveandAggroVQReverse($aWaypoints)
             If _Vanquisher_OnVanquishComplete(" (reverse)") Then Return
         EndIf
         If $DeadOnTheRun Then
-            CurrentAction("We died fighting at: " & $aWaypoints[$Index][2] & $ActionCounter & ", restarting waypoints.")
+            CurrentAction("Died at waypoint " & $ActionCounter & " - restarting reverse route.")
             $ActionCounter = 1
         	$Index = UBound($aWaypoints) - 1
         	$DeadOnTheRun = 0
@@ -230,13 +230,13 @@ Func MoveandAggroVQReverse($aWaypoints)
         _Vanquisher_OnVanquishComplete(" (reverse end)")
         Return
     EndIf
-    CurrentAction("Route done — " & GetFoesKilled() & " killed, " & GetFoesToKill() & " remaining.")
+    CurrentAction("Route done - " & GetFoesKilled() & " killed, " & GetFoesToKill() & " remaining.")
 EndFunc
 
 Func _Vanquisher_OnVanquishComplete($a_s_Phase = "")
     UpdateVanquish()
     If Not GetAreaVanquished() Then Return False
-    CurrentAction("Vanquish complete" & $a_s_Phase & " — " & GetFoesKilled() & " killed, 0 remaining.")
+    CurrentAction("Vanquish complete - " & GetFoesKilled() & " killed.")
     _Vanquisher_FinishRun()
     Return True
 EndFunc
@@ -635,7 +635,7 @@ Func AggroMoveTo($x, $y, $s = "", $z = 1450)
 
     _Vanquisher_ApplyConsumablesOnFarmEntry()
 
-    CurrentAction("Moving to Waypoint:" & $s)
+    ; Per-waypoint chatter floods the Main Menu console; route-level messages cover progress.
 
     If _Vanquisher_ShouldUsePathfinder() Then
         If _Vanquisher_PathfinderAggroMoveTo($x, $y, $s, $z) Then Return
