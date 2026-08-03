@@ -28,13 +28,13 @@ Func GoOut()
 	RndSleep(250)
 
 	If GetGoldCharacter() < 100 AND GetGoldStorage() > 100 Then
-		CurrentAction("Grabbing gold for shrine")
+		CurrentAction("Withdrawing gold for shrine")
 		RndSleep(250)
 		WithdrawGold(100)
 		RndSleep(250)
 	EndIf
 
-	CurrentAction("Going out")
+	CurrentAction("Leaving outpost")
 	_Vanquisher_ResetGoOutRouteProgress()
 	ReDim $heroNumberWithRez[0]
 	CacheHeroesWithRez()

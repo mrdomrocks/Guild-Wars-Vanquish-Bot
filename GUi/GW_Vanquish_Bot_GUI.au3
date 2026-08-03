@@ -34,6 +34,7 @@ Global $g_idComboTeam4[3]
 Global $g_idComboTeam6[5]
 Global $g_idComboTeam8[7]
 Global $g_iConsoleLineCount = 0
+Global $g_sLastConsoleMessage = ""
 Global $g_sLastDetectedClientLabel = ""
 Global $g_sLastDetectedCharacterLabel = ""
 Global $g_sLastConnectedCharacterLabel = ""
@@ -663,7 +664,12 @@ Func _UpdateMapGroupButtons()
 EndFunc
 
 Func _Log($sText)
-    _AppendConsoleLine("[" & @HOUR & ":" & @MIN & ":" & @SEC & "] " & $sText)
+    Local $sMessage = StringStripWS($sText, 3)
+    If $sMessage = "" Then Return
+    ; Route loops and fight retries often emit the same status every tick.
+    If $sMessage = $g_sLastConsoleMessage Then Return
+    $g_sLastConsoleMessage = $sMessage
+    _AppendConsoleLine("[" & @HOUR & ":" & @MIN & ":" & @SEC & "] " & $sMessage)
 EndFunc
 
 Func _AppendConsoleLine($sLine)
@@ -699,27 +705,33 @@ Func _AppendConsoleLine($sLine)
 EndFunc
 
 Func _LogStartupBanner()
-    _AppendConsoleLine("Initialising Guild Wars Vanquish Bot.")
+    _AppendConsoleLine("Guild Wars Vanquish Bot")
     _AppendConsoleLine("Author: MrDomRocks")
-    _AppendConsoleLine("")
+    _AppendConsoleLine("Ready.")
+    $g_sLastConsoleMessage = "Ready."
 EndFunc
 
 Func _VB_LogCallback($sMessage, $iMsgType, $sAuthor)
+    ; Keep the Main Menu console readable: drop debug chatter and author noise.
+    If $iMsgType = 0 Then Return
+
     Local $sLevel = "INFO"
     Switch $iMsgType
-        Case 0
-            $sLevel = "DEBUG"
-        Case 1
-            $sLevel = "INFO"
         Case 2
-            $sLevel = "WARNING"
+            $sLevel = "WARN"
         Case 3
             $sLevel = "ERROR"
         Case 4
             $sLevel = "CRITICAL"
     EndSwitch
 
-    _Log("[" & $sLevel & "] [" & $sAuthor & "] " & $sMessage)
+    Local $sMessageText = StringStripWS($sMessage, 3)
+    If $sMessageText = "" Then Return
+    If $iMsgType = 1 Then
+        _Log($sMessageText)
+    Else
+        _Log($sLevel & ": " & $sMessageText)
+    EndIf
 EndFunc
 
 Func CurrentAction($sText)

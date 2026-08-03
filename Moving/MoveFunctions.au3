@@ -170,7 +170,7 @@ Func MoveandAggroVQ($aWaypoints)
     Local $Index = 0
     Local $iRouteBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT
     $ActionCounter = 1
-    CurrentAction("Vanquish route forward — " & UBound($aWaypoints) & " waypoints.")
+    CurrentAction("Route forward - " & UBound($aWaypoints) & " waypoints.")
     For $Index = 0 To UBound($aWaypoints) - 1
         If _Vanquisher_ShouldStop() Then Return
         $RangeLimit = $aWaypoints[$Index][3]
@@ -220,7 +220,7 @@ Func MoveandAggroVQReverse($aWaypoints)
     Local $Index = 0
     Local $iRouteBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT
     $ActionCounter = 1
-    CurrentAction("Vanquish route reverse — " & UBound($aWaypoints) & " waypoints.")
+    CurrentAction("Route reverse - " & UBound($aWaypoints) & " waypoints.")
     For $Index = UBound($aWaypoints) - 1 To 0 Step -1
         If _Vanquisher_ShouldStop() Then Return
         If _Vanquisher_CheckVanquishDuringRoute($timer, " (reverse)") Then Return
@@ -239,13 +239,13 @@ Func MoveandAggroVQReverse($aWaypoints)
         _Vanquisher_OnVanquishComplete(" (reverse end)")
         Return
     EndIf
-    CurrentAction("Route done — " & GetFoesKilled() & " killed, " & GetFoesToKill() & " remaining.")
+    CurrentAction("Route done - " & GetFoesKilled() & " killed, " & GetFoesToKill() & " remaining.")
 EndFunc
 
 Func _Vanquisher_OnVanquishComplete($a_s_Phase = "")
     UpdateVanquish()
     If Not GetAreaVanquished() Then Return False
-    CurrentAction("Vanquish complete" & $a_s_Phase & " — " & GetFoesKilled() & " killed, 0 remaining.")
+    CurrentAction("Vanquish complete - " & GetFoesKilled() & " killed.")
     _Vanquisher_FinishRun()
     Return True
 EndFunc
