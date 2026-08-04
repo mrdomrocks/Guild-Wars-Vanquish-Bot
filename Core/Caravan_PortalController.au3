@@ -74,6 +74,60 @@ Func _Vanquisher_RunDynamicCaravanGoOut($iTargetMapID, $sTargetLabel = "")
     Return _TempleAscalonCaravanTryCatchUp($iTargetMapID)
 EndFunc
 
+Func _Vanquisher_RunDynamicCaravanGoOutWithFallback($iTargetMapID, $sTargetLabel = "", $sFallbackGoOutFunc = "")
+    If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
+
+    Local $iMapBefore = GetMapID()
+    If _Vanquisher_RunDynamicCaravanGoOut($iTargetMapID, $sTargetLabel) Then
+        If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
+    EndIf
+
+    If $sFallbackGoOutFunc <> "" And IsFunc($sFallbackGoOutFunc) Then
+        CurrentAction("Using hardcoded portal path for " & $sTargetLabel & ".")
+        Call($sFallbackGoOutFunc)
+        If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
+        Return GetMapID() <> $iMapBefore
+    EndIf
+
+    Return ($iTargetMapID > 0 And GetMapID() = $iTargetMapID)
+EndFunc
+
+Func _Vanquisher_IsOnCaravanEntryPoint($iTargetMapID, $iOutpostID = 0, $iTransitID = 0, $iTransit2ID = 0, $iTransit3ID = 0)
+    Local $iCurrentMap = GetMapID()
+    If $iTargetMapID > 0 And $iCurrentMap = $iTargetMapID Then Return True
+    If $iOutpostID > 0 And $iCurrentMap = $iOutpostID Then Return True
+    If $iTransitID > 0 And $iCurrentMap = $iTransitID Then Return True
+    If $iTransit2ID > 0 And $iCurrentMap = $iTransit2ID Then Return True
+    If $iTransit3ID > 0 And $iCurrentMap = $iTransit3ID Then Return True
+    Return False
+EndFunc
+
+Func _Vanquisher_RouteCaravanMaguumaToTargetMap($iTargetMapID, $sGoOutFunc, $iOutpostID = 0, $iTransitID = 0, $iTransit2ID = 0, $iTransit3ID = 0, $sMapLabel = "")
+    If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
+    If $sMapLabel = "" Then $sMapLabel = "target map"
+
+    If _Vanquisher_IsCombinedMaguumaCaravanActive() Then
+        If Map_GetInstanceInfo("IsExplorable") Or _Vanquisher_IsOnCaravanEntryPoint($iTargetMapID, $iOutpostID, $iTransitID, $iTransit2ID, $iTransit3ID) Then
+            _Vanquisher_ApplyDifficulty()
+            If $sGoOutFunc <> "" And IsFunc($sGoOutFunc) Then Call($sGoOutFunc)
+        EndIf
+        Return GetMapID() = $iTargetMapID
+    EndIf
+
+    If Not _Vanquisher_IsOnCaravanEntryPoint($iTargetMapID, $iOutpostID, $iTransitID, $iTransit2ID, $iTransit3ID) Then
+        _Vanquisher_ResetGoOutRouteProgress()
+        CurrentAction("Traveling to outpost for " & $sMapLabel & ".")
+        TravelTo($iOutpostID)
+    EndIf
+
+    If _Vanquisher_IsOnCaravanEntryPoint($iTargetMapID, $iOutpostID, $iTransitID, $iTransit2ID, $iTransit3ID) And GetMapID() <> $iTargetMapID Then
+        _Vanquisher_ApplyDifficulty()
+        If $sGoOutFunc <> "" And IsFunc($sGoOutFunc) Then Call($sGoOutFunc)
+    EndIf
+
+    Return GetMapID() = $iTargetMapID
+EndFunc
+
 Func _ShouldStayInExplorableForQueuedRoute()
     If $g_i_VanquisherZoneQueueIndex < 0 Or $g_i_VanquisherZoneQueueIndex >= UBound($g_a_VanquisherZoneQueue) Then Return False
 

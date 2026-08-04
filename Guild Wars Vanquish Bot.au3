@@ -718,7 +718,7 @@ Func _BuildCheckedMapQueue(ByRef $aRouteProfiles)
                 Case $GC_S_SPECIAL_ROUTE_TEMPLE_ASCALON_CARAVAN
                     _AppendTempleAscalonCaravanQueue($aChecked, $aRouteProfiles)
                 Case $GC_S_SPECIAL_ROUTE_TEMPLE_MAGUUMA_CARAVAN
-                    _AppendQueueMapIndex($aChecked, $aRouteProfiles, $i)
+                    _AppendQueueMapIndex($aChecked, $aRouteProfiles, $i, $GC_S_ROUTE_PROFILE_TEMPLE_MAGUUMA_CARAVAN)
             EndSwitch
             ContinueLoop
         EndIf
@@ -1080,7 +1080,7 @@ Func _AppendSpecialRouteEntries()
     $g_aMapEntries[$iNext + 1][1] = "Special Routes"
     $g_aMapEntries[$iNext + 1][2] = "TOA Maguuma Caravan"
     $g_aMapEntries[$iNext + 1][3] = False
-    $g_aMapEntries[$iNext + 1][4] = 0
+    $g_aMapEntries[$iNext + 1][4] = $TalmarkWilderness_Map
     $g_aMapEntries[$iNext + 1][5] = False
     $g_aMapEntries[$iNext + 1][6] = $TalmarkWilderness_Outpost
     $g_aMapEntries[$iNext + 1][7] = 8
