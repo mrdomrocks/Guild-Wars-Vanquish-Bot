@@ -13,7 +13,7 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
     $g_b_Vanquisher_RunFinished = False
     $g_b_Vanquisher_AbortRoute = False
     _Vanquisher_ResetGoOutRouteProgress()
-    _Log("Maguuma caravan build: wait-for-load fix + travel/GoOut/vanquish/resign runner.")
+    _Log("Maguuma caravan build: portal mid-zone exit + vanquish handoff.")
     CurrentAction("Starting TOA Maguuma caravan (travel -> GoOut -> vanquish -> resign).")
 EndFunc
 
@@ -75,40 +75,75 @@ EndFunc
 
 Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
-    CurrentAction("Starting " & $sLabel & " vanquish route (" & ($iStage + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ").")
+    Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
 
+    ; GoOut portal approach can leave TransitOnly / stale combat state. Settle the farm map
+    ; before walking vanquish coordinates so AggroMoveTo actually starts the array.
+    $g_b_Vanquisher_TransitOnly = False
+    Map_WaitMapIsLoaded()
+    If GetMapID() <> $iTargetMap Then
+        CurrentAction($sLabel & " vanquish aborted - on map " & GetMapID() & ", need " & $iTargetMap & ".")
+        Return
+    EndIf
+    _Vanquisher_CacheCombatAIForCurrentMap(True)
+    $g_b_Vanquisher_ConsumablesAppliedThisZone = False
+    _Vanquisher_ApplyConsumablesOnFarmEntry()
+
+    Local $aRoute01 = _Vanquisher_MaguumaCaravanRouteArray($iStage, 1)
+    Local $aRoute02 = _Vanquisher_MaguumaCaravanRouteArray($iStage, 2)
+    Local $iCount01 = 0
+    Local $iCount02 = 0
+    If IsArray($aRoute01) Then $iCount01 = UBound($aRoute01)
+    If IsArray($aRoute02) Then $iCount02 = UBound($aRoute02)
+
+    CurrentAction("Starting " & $sLabel & " vanquish route (" & ($iStage + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ") - " & _
+            $iCount01 & "+" & $iCount02 & " waypoints on map " & GetMapID() & ".")
+
+    If $iCount01 < 1 And $iCount02 < 1 Then
+        CurrentAction($sLabel & " has no vanquish coordinate arrays loaded.")
+        Return
+    EndIf
+
+    If $iCount01 > 0 Then _Vanquisher_RunCaravanRoute($aRoute01)
+    If _Vanquisher_ShouldStop() Or $g_b_Vanquisher_AbortRoute Then Return
+    If $iCount02 > 0 Then _Vanquisher_RunCaravanRoute($aRoute02)
+EndFunc
+
+Func _Vanquisher_MaguumaCaravanRouteArray($iStage, $iPass)
     Switch $iStage
         Case 0
-            _Vanquisher_RunCaravanRoute($aProph_Kryta_TalmarkWildernessRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Kryta_TalmarkWildernessRoute02)
+            If $iPass = 1 Then Return $aProph_Kryta_TalmarkWildernessRoute01
+            Return $aProph_Kryta_TalmarkWildernessRoute02
         Case 1
-            _Vanquisher_RunCaravanRoute($aProph_Kryta_MajestysRestRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Kryta_MajestysRestRoute02)
+            If $iPass = 1 Then Return $aProph_Kryta_MajestysRestRoute01
+            Return $aProph_Kryta_MajestysRestRoute02
         Case 2
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_SageLandsRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_SageLandsRoute02)
+            If $iPass = 1 Then Return $aProph_Maguuma_SageLandsRoute01
+            Return $aProph_Maguuma_SageLandsRoute02
         Case 3
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_MamnoonLagoonRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_MamnoonLagoonRoute02)
+            If $iPass = 1 Then Return $aProph_Maguuma_MamnoonLagoonRoute01
+            Return $aProph_Maguuma_MamnoonLagoonRoute02
         Case 4
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_SilverwoodRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_SilverwoodRoute02)
+            If $iPass = 1 Then Return $aProph_Maguuma_SilverwoodRoute01
+            Return $aProph_Maguuma_SilverwoodRoute02
         Case 5
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_EttinsBackRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_EttinsBackRoute02)
+            If $iPass = 1 Then Return $aProph_Maguuma_EttinsBackRoute01
+            Return $aProph_Maguuma_EttinsBackRoute02
         Case 6
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_ReedBogRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_ReedBogRoute02)
+            If $iPass = 1 Then Return $aProph_Maguuma_ReedBogRoute01
+            Return $aProph_Maguuma_ReedBogRoute02
         Case 7
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_TheFallsRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_TheFallsRoute02)
+            If $iPass = 1 Then Return $aProph_Maguuma_TheFallsRoute01
+            Return $aProph_Maguuma_TheFallsRoute02
         Case 8
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_DryTopRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_DryTopRoute02)
+            If $iPass = 1 Then Return $aProph_Maguuma_DryTopRoute01
+            Return $aProph_Maguuma_DryTopRoute02
         Case 9
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_TangleRootRoute01)
-            _Vanquisher_RunCaravanRoute($aProph_Maguuma_TangleRootRoute02)
+            If $iPass = 1 Then Return $aProph_Maguuma_TangleRootRoute01
+            Return $aProph_Maguuma_TangleRootRoute02
     EndSwitch
+    Local $aEmpty[0][2]
+    Return $aEmpty
 EndFunc
 
 Func _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
@@ -166,6 +201,7 @@ Func _Vanquisher_RunMaguumaCaravanStage()
         Return True
     EndIf
 
+    CurrentAction("Maguuma caravan on " & $sLabel & " (map " & GetMapID() & ") - starting vanquish coordinates.")
     _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     If _Vanquisher_ShouldStop() Or $g_b_Vanquisher_AbortRoute Or $g_b_Vanquisher_RunFinished Then Return True
 

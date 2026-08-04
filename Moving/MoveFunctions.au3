@@ -20,13 +20,25 @@ Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_La
     Local $l_i_Count = UBound($a_a_Points)
     If $l_i_Count < 1 Then Return False
     Local $l_i_Last = $l_i_Count - 1
+    Local $l_i_MapBefore = GetMapID()
     For $l_i_Idx = 0 To $l_i_Last - 1
         If _Vanquisher_ShouldStop() Then Return False
+        If _Vanquisher_HasLeftMapOrLoading($l_i_MapBefore) Then
+            Return _Vanquisher_FinishPortalPathLoad($a_s_WaitFunc)
+        EndIf
         AggroMoveTo($a_a_Points[$l_i_Idx][0], $a_a_Points[$l_i_Idx][1], $a_s_Label & ($l_i_Idx + 1), $a_i_AggroRange)
+        If _Vanquisher_HasLeftMapOrLoading($l_i_MapBefore) Then
+            Return _Vanquisher_FinishPortalPathLoad($a_s_WaitFunc)
+        EndIf
     Next
     If _Vanquisher_ShouldStop() Then Return False
+    ; Capture map before the portal approach — AggroMoveTo often walks into the portal
+    ; while fighting, so MapBefore must not be read after that move.
     AggroMoveTo($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1], $a_s_Label & " portal", $a_i_AggroRange)
-    Local $l_i_MapBefore = GetMapID()
+    If _Vanquisher_HasLeftMapOrLoading($l_i_MapBefore) Then
+        Return _Vanquisher_FinishPortalPathLoad($a_s_WaitFunc)
+    EndIf
+
     Local $l_b_LoadTriggered = False
     Local $l_i_Attempt = 0
     For $l_i_Attempt = 1 To 4
@@ -34,7 +46,7 @@ Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_La
         If $a_i_PostMoveDelayMs > 0 Then Sleep($a_i_PostMoveDelayMs)
         Sleep(250)
 
-        If GetMapID() <> $l_i_MapBefore Or Map_GetInstanceInfo("IsLoading") Then
+        If _Vanquisher_HasLeftMapOrLoading($l_i_MapBefore) Then
             $l_b_LoadTriggered = True
             ExitLoop
         EndIf
@@ -43,30 +55,38 @@ Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_La
         MoveTo($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1], 60, False)
         Sleep(250)
 
-        If GetMapID() <> $l_i_MapBefore Or Map_GetInstanceInfo("IsLoading") Then
+        If _Vanquisher_HasLeftMapOrLoading($l_i_MapBefore) Then
             $l_b_LoadTriggered = True
             ExitLoop
         EndIf
     Next
 
     ; Portal fired (map changed or loading) — must wait for load before cons/VQ start.
-    If $l_b_LoadTriggered Then
-        If $a_s_WaitFunc <> "" Then
-            Call($a_s_WaitFunc)
-            If @error = 0xDEAD And @extended = 0xBEEF Then
-                CurrentAction("Portal wait func missing (" & $a_s_WaitFunc & ") - using Map_WaitMapIsLoaded.")
-                Map_WaitMapIsLoaded()
-                _Vanquisher_CacheCombatAIForCurrentMap()
-                Sleep(750)
-            EndIf
-        Else
+    If $l_b_LoadTriggered Then Return _Vanquisher_FinishPortalPathLoad($a_s_WaitFunc)
+    Return False
+EndFunc
+
+Func _Vanquisher_HasLeftMapOrLoading($a_i_StartMapID)
+    If Map_GetInstanceInfo("IsLoading") Then Return True
+    If $a_i_StartMapID > 0 And GetMapID() <> $a_i_StartMapID Then Return True
+    Return False
+EndFunc
+
+Func _Vanquisher_FinishPortalPathLoad($a_s_WaitFunc = "WaitForLoad")
+    If $a_s_WaitFunc <> "" Then
+        Call($a_s_WaitFunc)
+        If @error = 0xDEAD And @extended = 0xBEEF Then
+            CurrentAction("Portal wait func missing (" & $a_s_WaitFunc & ") - using Map_WaitMapIsLoaded.")
             Map_WaitMapIsLoaded()
             _Vanquisher_CacheCombatAIForCurrentMap()
             Sleep(750)
         EndIf
-        Return True
+    Else
+        Map_WaitMapIsLoaded()
+        _Vanquisher_CacheCombatAIForCurrentMap()
+        Sleep(750)
     EndIf
-    Return False
+    Return True
 EndFunc
 
 ; Named aliases for map files authored as route arrays instead of repeated MoveTo()/Move().
@@ -555,6 +575,7 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount 
     Local $iBlocked = 0
     Local $boolOpenChests = _IsOpenChestsEnabled()
     Local $hRepathTimer = TimerInit()
+    Local $l_i_StartMap = GetMapID()
     Local $aPath = _Vanquisher_PathfinderBuildPath($x, $y)
     If Not IsArray($aPath) Then Return False
 
@@ -570,6 +591,7 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount 
 
     Do
         If $DeadOnTheRun Or _Vanquisher_ShouldStop() Then ExitLoop
+        If _Vanquisher_HasLeftMapOrLoading($l_i_StartMap) Then Return True
 
         If _Vanquisher_CountDeadPartyMembers() > 0 Then
             If _Vanquisher_IsInJunundu() Then
@@ -600,6 +622,7 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount 
             If $lDistance < $z And _Vanquisher_AgentID($nearestenemy) <> 0 Then
                 Fight($z, $s)
                 If _Vanquisher_ShouldStop() Then Return True
+                If _Vanquisher_HasLeftMapOrLoading($l_i_StartMap) Then Return True
                 _Vanquisher_ApplyConsumables()
                 UpdateVanquish()
                 If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
@@ -621,6 +644,7 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount 
 
         If $boolOpenChests Then CheckForChest()
         If $DeadOnTheRun Then ExitLoop
+        If _Vanquisher_HasLeftMapOrLoading($l_i_StartMap) Then Return True
 
         RndSleep(250)
         $coordsX = Agent_GetAgentInfo(-2, "X")
@@ -655,7 +679,7 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount 
         If $boolOpenChests Then CheckForChest()
     Until ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE Or $iBlocked > $iBlockCount
 
-    Return ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE
+    Return ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE Or _Vanquisher_HasLeftMapOrLoading($l_i_StartMap)
 EndFunc
 
 Func AggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT)
@@ -680,6 +704,7 @@ Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450, $iBlockCount = $V
         Local $random = 50
         Local $iBlocked = 0
         Local $boolOpenChests = _IsOpenChestsEnabled()
+        Local $l_i_StartMap = GetMapID()
 
         Move($x, $y, $random)
 
@@ -689,6 +714,7 @@ Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450, $iBlockCount = $V
 
         Do
                 If $DeadOnTheRun Or _Vanquisher_ShouldStop() Then ExitLoop
+                If _Vanquisher_HasLeftMapOrLoading($l_i_StartMap) Then Return
                 If _Vanquisher_CountDeadPartyMembers() > 0 Then
                         If _Vanquisher_IsInJunundu() Then
                                 _Vanquisher_JununduTryWail()
@@ -717,6 +743,7 @@ Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450, $iBlockCount = $V
                         If $lDistance < $z And _Vanquisher_AgentID($nearestenemy) <> 0 Then
                                 Fight($z, $s)
                                 If _Vanquisher_ShouldStop() Then Return
+                                If _Vanquisher_HasLeftMapOrLoading($l_i_StartMap) Then Return
                                 _Vanquisher_ApplyConsumables()
                                 UpdateVanquish()
                                 If _Vanquisher_ShouldCompleteCurrentZoneNow() Then
@@ -733,6 +760,7 @@ Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450, $iBlockCount = $V
 
 
                 If $DeadOnTheRun Then ExitLoop
+                If _Vanquisher_HasLeftMapOrLoading($l_i_StartMap) Then Return
                 RndSleep(250)
                 $lMe = GetAgentByID(-2)
                 $coordsX = DllStructGetData($lMe, "X")

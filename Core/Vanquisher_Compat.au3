@@ -846,6 +846,7 @@ Func _Vanquisher_ResetZoneRouteState()
     $g_b_Vanquisher_DeathResignPending = False
     _Vanquisher_InvalidateCombatAI()
     $g_h_Vanquisher_FightTimer = 0
+    $g_i_Vanquisher_FightStartMapID = 0
     $g_i_Vanquisher_InitialFoesToKill = -1
     $g_i_Vanquisher_InitialFoesKilled = 0
     $g_b_Vanquisher_CounterUnreliable = False

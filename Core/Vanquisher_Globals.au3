@@ -135,6 +135,7 @@ Global $g_b_Vanquisher_PathfinderZoneActive = False
 Global $g_i_Vanquisher_PathfinderZoneMapID = 0
 Global Const $VANQUISHER_STONE_INTERVAL = $VANQUISHER_CONSUMABLE_BUFFER_MS
 Global $g_h_Vanquisher_FightTimer = 0
+Global $g_i_Vanquisher_FightStartMapID = 0
 
 ; Junundu skill IDs (bar slot order may vary — always resolve by SkillID)
 Global Const $JUNUNDU_SKILL_TUNNEL = 1438
