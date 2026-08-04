@@ -133,6 +133,23 @@ def validate_includes(included: list[Path], errors: list[str], warnings: list[st
         errors.append(f"{path.relative_to(ROOT)}: included in Vanquish_Routes.au3 but file is missing")
 
 
+def validate_caravan_portal_controller(errors: list[str]) -> None:
+    """AutoIt IsFunc() only accepts function references, not Call() name strings."""
+    path = ROOT / "Core" / "Caravan_PortalController.au3"
+    if not path.exists():
+        errors.append(f"{path.relative_to(ROOT)}: missing caravan portal controller")
+        return
+
+    for line_no, line in enumerate(path.read_text(encoding="utf-8", errors="replace").splitlines(), 1):
+        code = line.split(";", 1)[0]
+        match = re.search(r"IsFunc\(\s*\$s\w+\s*\)", code)
+        if match:
+            errors.append(
+                f"{path.relative_to(ROOT)}:{line_no}: {match.group(0)} guards a string name; "
+                "Call() string function names must not use IsFunc()"
+            )
+
+
 def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
@@ -144,6 +161,7 @@ def main() -> int:
     location_ids = load_location_ids()
     included = parse_included_maps()
     validate_includes(included, errors, warnings)
+    validate_caravan_portal_controller(errors)
 
     for path in included:
         if path.exists():
