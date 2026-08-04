@@ -535,7 +535,7 @@ Func _Vanquisher_PathfinderSelectMoveTarget(ByRef $a_a_Path, ByRef $a_i_PathInde
     $a_f_MoveX = $a_f_DestX
     $a_f_MoveY = $a_f_DestY
     $a_i_MoveLayer = Agent_GetAgentInfo(-2, "Plane")
-EndFunc
+EndFunc   ;==>_Vanquisher_PathfinderSelectMoveTarget
 
 Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT)
     If Not _Vanquisher_InitPathfinderForZone() Then Return False
@@ -556,6 +556,7 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount 
     _Vanquisher_PathfinderSelectMoveTarget($aPath, $iPathIndex, $coordsX, $coordsY, $x, $y, $moveX, $moveY, $moveLayer)
     Map_MoveLayer($moveX, $moveY, $moveLayer)
 
+    ; Pathfinder movement loop — must close with Until + EndFunc before AggroMoveTo().
     Do
         If $DeadOnTheRun Or _Vanquisher_ShouldStop() Then ExitLoop
 
@@ -644,7 +645,7 @@ Func _Vanquisher_PathfinderAggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount 
     Until ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE Or $iBlocked > $iBlockCount
 
     Return ComputeDistance($coordsX, $coordsY, $x, $y) < $VANQUISHER_PATHFINDER_REACHED_DISTANCE
-EndFunc
+EndFunc   ;==>_Vanquisher_PathfinderAggroMoveTo
 
 Func AggroMoveTo($x, $y, $s = "", $z = 1450, $iBlockCount = $VANQUISHER_BLOCK_COUNT_DEFAULT)
     If _Vanquisher_ShouldStop() Then Return
@@ -738,7 +739,7 @@ Func _Vanquisher_AggroMoveToLegacy($x, $y, $s = "", $z = 1450, $iBlockCount = $V
                         CheckForChest()
                 EndIf
         Until ComputeDistance($coordsX, $coordsY, $x, $y) < 250 Or $iBlocked > $iBlockCount
-EndFunc
+EndFunc   ;==>_Vanquisher_AggroMoveToLegacy
 
 Func GetMaxPartySize($mapid)
     Local $iPartySize = 0
