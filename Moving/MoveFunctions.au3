@@ -51,7 +51,19 @@ Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_La
 
     ; Portal fired (map changed or loading) — must wait for load before cons/VQ start.
     If $l_b_LoadTriggered Then
-        Call($a_s_WaitFunc)
+        If $a_s_WaitFunc <> "" Then
+            Call($a_s_WaitFunc)
+            If @error = 0xDEAD And @extended = 0xBEEF Then
+                CurrentAction("Portal wait func missing (" & $a_s_WaitFunc & ") - using Map_WaitMapIsLoaded.")
+                Map_WaitMapIsLoaded()
+                _Vanquisher_CacheCombatAIForCurrentMap()
+                Sleep(750)
+            EndIf
+        Else
+            Map_WaitMapIsLoaded()
+            _Vanquisher_CacheCombatAIForCurrentMap()
+            Sleep(750)
+        EndIf
         Return True
     EndIf
     Return False

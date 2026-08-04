@@ -13,6 +13,7 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
     $g_b_Vanquisher_RunFinished = False
     $g_b_Vanquisher_AbortRoute = False
     _Vanquisher_ResetGoOutRouteProgress()
+    _Log("Maguuma caravan build: wait-for-load fix + travel/GoOut/vanquish/resign runner.")
     CurrentAction("Starting TOA Maguuma caravan (travel -> GoOut -> vanquish -> resign).")
 EndFunc
 
@@ -42,22 +43,32 @@ Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
     Local $iOutpost = $g_a_MaguumaCaravanPlan[$iStage][1]
     Local $sGoOutFunc = $g_a_MaguumaCaravanPlan[$iStage][5]
     Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
-    Local $iCurrent = GetMapID()
+    Local $iHop = 0
 
-    If $iCurrent = $iTargetMap Then Return True
+    While $iHop < 6 And Not _Vanquisher_ShouldStop()
+        Local $iCurrent = GetMapID()
+        If $iCurrent = $iTargetMap Then Return True
 
-    If Not _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, $iStage) Then
-        If Not _Vanquisher_MaguumaCaravanEnsureOutpost($iOutpost, $sLabel) Then Return False
-        $iCurrent = GetMapID()
-    EndIf
+        If Not _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, $iStage) Then
+            If Not _Vanquisher_MaguumaCaravanEnsureOutpost($iOutpost, $sLabel) Then Return False
+            $iCurrent = GetMapID()
+            If $iCurrent = $iTargetMap Then Return True
+        EndIf
 
-    If $iCurrent = $iTargetMap Then Return True
+        If Not _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, $iStage) Or $iCurrent = $iTargetMap Then ExitLoop
 
-    If _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, $iStage) And $iCurrent <> $iTargetMap Then
+        Local $iBefore = $iCurrent
         _Vanquisher_ApplyDifficulty()
-        CurrentAction("Maguuma caravan GoOut: " & $sLabel & " (map " & $iCurrent & " -> " & $iTargetMap & ").")
+        CurrentAction("Maguuma caravan GoOut hop " & ($iHop + 1) & ": " & $sLabel & " (map " & $iCurrent & " -> " & $iTargetMap & ").")
         If $sGoOutFunc <> "" Then Call($sGoOutFunc)
-    EndIf
+
+        If GetMapID() = $iTargetMap Then Return True
+        If GetMapID() = $iBefore Then
+            _Vanquisher_ResetGoOutRouteProgress()
+            Return False
+        EndIf
+        $iHop += 1
+    WEnd
 
     Return GetMapID() = $iTargetMap
 EndFunc

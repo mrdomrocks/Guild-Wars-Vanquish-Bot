@@ -180,6 +180,13 @@ def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
         if "TalmarkWilderness" not in plan_text or "TangleRoot" not in plan_text:
             errors.append(f"{plan.relative_to(ROOT)}: plan must cover Talmark through TangleRoot")
 
+    compat = ROOT / "Core" / "Vanquisher_Compat.au3"
+    compat_text = compat.read_text(encoding="utf-8", errors="replace")
+    if "Func WaitForLoad(" not in compat_text:
+        errors.append(
+            f"{compat.relative_to(ROOT)}: missing WaitForLoad() — portal GoOut paths call it by default"
+        )
+
 
 def main() -> int:
     errors: list[str] = []
