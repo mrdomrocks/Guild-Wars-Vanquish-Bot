@@ -1032,6 +1032,18 @@ Func InitMapLoad()
     Return Map_InitMapIsLoaded()
 EndFunc
 
+; Used by every GoOut portal path (_Vanquisher_RunAggroPortalPath default wait).
+; This function was previously missing, so Call("WaitForLoad") failed and the bot
+; kept issuing portal moves without waiting for the new map to finish loading.
+Func WaitForLoad()
+    ; Always wait out loading after a portal fire. Do not gate on IsExplorable —
+    ; outpost->explorable and explorable->explorable both need this wait.
+    Map_WaitMapIsLoaded()
+    _Vanquisher_CacheCombatAIForCurrentMap()
+    Sleep(750)
+    Return True
+EndFunc
+
 Func Dialog($a_i_DialogID)
     Return Ui_Dialog($a_i_DialogID)
 EndFunc
