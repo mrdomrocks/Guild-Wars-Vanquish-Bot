@@ -891,14 +891,15 @@ Func _Vanquisher_FinishRun()
     If IsFunc("_ShouldStayInExplorableForQueuedRoute") And _ShouldStayInExplorableForQueuedRoute() Then
         CurrentAction("Vanquish complete - continuing caravan.")
     Else
-        $g_b_Vanquisher_AbortRoute = True
         CurrentAction("Vanquish complete - returning to outpost.")
         _Vanquisher_ReturnToOutpost()
     EndIf
     If _Vanquisher_AdvanceZoneQueue() Then
+        ; AdvanceZoneQueue resets AbortRoute/RunFinished. Keep the queue alive.
         CurrentAction("Advancing to next queued map.")
         Return
     EndIf
+    $g_b_Vanquisher_AbortRoute = True
     $boolrun = False
     _Vanquisher_OnBotStopped()
     CurrentAction("All queued maps finished.")

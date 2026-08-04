@@ -151,43 +151,34 @@ def validate_caravan_portal_controller(errors: list[str]) -> None:
 
 
 def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
-    """TOA Maguuma Caravan must expand into per-map queue entries like Ascalon."""
+    """TOA Maguuma Caravan uses an explicit travel/GoOut/vanquish/resign runner."""
     bot = ROOT / "Guild Wars Vanquish Bot.au3"
     text = bot.read_text(encoding="utf-8", errors="replace")
-    if "Func _AppendTempleMaguumaCaravanQueue(" not in text:
-        errors.append(f"{bot.relative_to(ROOT)}: missing _AppendTempleMaguumaCaravanQueue()")
-    if "_AppendTempleMaguumaCaravanQueue($aChecked, $aRouteProfiles)" not in text:
-        errors.append(
-            f"{bot.relative_to(ROOT)}: Maguuma special route must call _AppendTempleMaguumaCaravanQueue "
-            "(not enqueue the combined SpecialRoute runner)"
-        )
+    if 'VQSpecialRoute_TempleOfTheAgesMaguumaCaravan' not in text:
+        errors.append(f"{bot.relative_to(ROOT)}: Maguuma special route must register VQSpecialRoute_TempleOfTheAgesMaguumaCaravan")
 
-    for name in (
-        "TalmarkWilderness",
-        "MajestysRest",
-        "SageLands",
-        "MamnoonLagoon",
-        "Silverwood",
-        "EttinsBack",
-        "ReedBog",
-        "TheFalls",
-        "DryTop",
-        "TangleRoot",
-    ):
-        path = MAPS_ROOT / "Caravan_Maguuma" / f"CaravanMaguuma_{name}.au3"
-        if not path.exists():
-            errors.append(f"{path.relative_to(ROOT)}: missing Maguuma caravan map script")
-            continue
-        body = path.read_text(encoding="utf-8", errors="replace")
-        if "_Vanquisher_RouteCaravanMaguumaToTargetMap" in body:
-            errors.append(
-                f"{path.relative_to(ROOT)}: still uses combined portal-hop router; "
-                "use Ascalon-style GoOut then RunCaravanRoute"
-            )
-        if "_Vanquisher_RunCaravanRoute" not in body:
-            errors.append(f"{path.relative_to(ROOT)}: missing vanquish coordinate runner")
-        if f"Starting {name} vanquish route." not in body:
-            errors.append(f"{path.relative_to(ROOT)}: missing vanquish-start action for {name}")
+    special = MAPS_ROOT / "Caravan_Maguuma" / "SpecialRoute_TempleOfTheAgesMaguumaCaravan.au3"
+    if not special.exists():
+        errors.append(f"{special.relative_to(ROOT)}: missing Maguuma special route runner")
+    else:
+        body = special.read_text(encoding="utf-8", errors="replace")
+        for needle in (
+            "Func VQSpecialRoute_TempleOfTheAgesMaguumaCaravan(",
+            "_Vanquisher_MaguumaCaravanGoOutToMap",
+            "_Vanquisher_MaguumaCaravanRunVanquish",
+            "_Vanquisher_ReturnToOutpost",
+            "Starting ",
+        ):
+            if needle not in body:
+                errors.append(f"{special.relative_to(ROOT)}: missing {needle}")
+
+    plan = ROOT / "Core" / "Caravan_MaguumaPlan.au3"
+    if not plan.exists():
+        errors.append(f"{plan.relative_to(ROOT)}: missing Maguuma caravan plan")
+    else:
+        plan_text = plan.read_text(encoding="utf-8", errors="replace")
+        if "TalmarkWilderness" not in plan_text or "TangleRoot" not in plan_text:
+            errors.append(f"{plan.relative_to(ROOT)}: plan must cover Talmark through TangleRoot")
 
 
 def main() -> int:
