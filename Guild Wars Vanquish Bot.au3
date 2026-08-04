@@ -703,6 +703,34 @@ Func _AppendTempleAscalonCaravanQueue(ByRef $aQueue, ByRef $aRouteProfiles)
     Return UBound($aQueue) > 0
 EndFunc
 
+Func _AppendTempleMaguumaCaravanQueue(ByRef $aQueue, ByRef $aRouteProfiles)
+    ; Temple of the Ages -> Talmark -> Maguuma maps. Each map vanquishes before the next portal.
+    Local $aRouteMaps[10] = [ _
+            "CaravanMaguuma_TalmarkWilderness", _
+            "CaravanMaguuma_MajestysRest", _
+            "CaravanMaguuma_SageLands", _
+            "CaravanMaguuma_MamnoonLagoon", _
+            "CaravanMaguuma_Silverwood", _
+            "CaravanMaguuma_EttinsBack", _
+            "CaravanMaguuma_ReedBog", _
+            "CaravanMaguuma_TheFalls", _
+            "CaravanMaguuma_DryTop", _
+            "CaravanMaguuma_TangleRoot" _
+    ]
+    Local $i = 0
+
+    For $i = 0 To UBound($aRouteMaps) - 1
+        Local $iMapIndex = _FindMapIndexByScriptName($aRouteMaps[$i])
+        If $iMapIndex = -1 Then
+            _Log("Special route is missing map entry: " & $aRouteMaps[$i] & ".")
+            ContinueLoop
+        EndIf
+        _AppendQueueMapIndex($aQueue, $aRouteProfiles, $iMapIndex, $GC_S_ROUTE_PROFILE_TEMPLE_MAGUUMA_CARAVAN)
+    Next
+
+    Return UBound($aQueue) > 0
+EndFunc
+
 Func _BuildCheckedMapQueue(ByRef $aRouteProfiles)
     Local $aChecked[0]
     Local $i = 0
@@ -718,7 +746,7 @@ Func _BuildCheckedMapQueue(ByRef $aRouteProfiles)
                 Case $GC_S_SPECIAL_ROUTE_TEMPLE_ASCALON_CARAVAN
                     _AppendTempleAscalonCaravanQueue($aChecked, $aRouteProfiles)
                 Case $GC_S_SPECIAL_ROUTE_TEMPLE_MAGUUMA_CARAVAN
-                    _AppendQueueMapIndex($aChecked, $aRouteProfiles, $i, $GC_S_ROUTE_PROFILE_TEMPLE_MAGUUMA_CARAVAN)
+                    _AppendTempleMaguumaCaravanQueue($aChecked, $aRouteProfiles)
             EndSwitch
             ContinueLoop
         EndIf
@@ -742,7 +770,8 @@ Func _Vanquisher_ZoneTitle($iMapIndex)
         Case "IceDome"
             Return "Icedome"
     EndSwitch
-    Return $sTitle
+    ; Caravan scripts share GoOut / transit helpers that key off bare map titles.
+    Return _NormalizeMapScriptNameForLookup($sTitle)
 EndFunc
 
 Func _ApplyQueuedMapContext($iMapIndex)
@@ -1080,12 +1109,13 @@ Func _AppendSpecialRouteEntries()
     $g_aMapEntries[$iNext + 1][1] = "Special Routes"
     $g_aMapEntries[$iNext + 1][2] = "TOA Maguuma Caravan"
     $g_aMapEntries[$iNext + 1][3] = False
-    $g_aMapEntries[$iNext + 1][4] = $TalmarkWilderness_Map
+    $g_aMapEntries[$iNext + 1][4] = 0
     $g_aMapEntries[$iNext + 1][5] = False
     $g_aMapEntries[$iNext + 1][6] = $TalmarkWilderness_Outpost
     $g_aMapEntries[$iNext + 1][7] = 8
     $g_aMapEntries[$iNext + 1][8] = $GC_S_SPECIAL_ROUTE_TEMPLE_MAGUUMA_CARAVAN
-    $g_aMapEntries[$iNext + 1][9] = "VQSpecialRoute_TempleOfTheAgesMaguumaCaravan"
+    ; Empty like Ascalon: queue expands to CaravanMaguuma_* maps that vanquish then portal.
+    $g_aMapEntries[$iNext + 1][9] = ""
     $g_aMapEntries[$iNext + 1][10] = ""
 EndFunc
 

@@ -150,6 +150,46 @@ def validate_caravan_portal_controller(errors: list[str]) -> None:
             )
 
 
+def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
+    """TOA Maguuma Caravan must expand into per-map queue entries like Ascalon."""
+    bot = ROOT / "Guild Wars Vanquish Bot.au3"
+    text = bot.read_text(encoding="utf-8", errors="replace")
+    if "Func _AppendTempleMaguumaCaravanQueue(" not in text:
+        errors.append(f"{bot.relative_to(ROOT)}: missing _AppendTempleMaguumaCaravanQueue()")
+    if "_AppendTempleMaguumaCaravanQueue($aChecked, $aRouteProfiles)" not in text:
+        errors.append(
+            f"{bot.relative_to(ROOT)}: Maguuma special route must call _AppendTempleMaguumaCaravanQueue "
+            "(not enqueue the combined SpecialRoute runner)"
+        )
+
+    for name in (
+        "TalmarkWilderness",
+        "MajestysRest",
+        "SageLands",
+        "MamnoonLagoon",
+        "Silverwood",
+        "EttinsBack",
+        "ReedBog",
+        "TheFalls",
+        "DryTop",
+        "TangleRoot",
+    ):
+        path = MAPS_ROOT / "Caravan_Maguuma" / f"CaravanMaguuma_{name}.au3"
+        if not path.exists():
+            errors.append(f"{path.relative_to(ROOT)}: missing Maguuma caravan map script")
+            continue
+        body = path.read_text(encoding="utf-8", errors="replace")
+        if "_Vanquisher_RouteCaravanMaguumaToTargetMap" in body:
+            errors.append(
+                f"{path.relative_to(ROOT)}: still uses combined portal-hop router; "
+                "use Ascalon-style GoOut then RunCaravanRoute"
+            )
+        if "_Vanquisher_RunCaravanRoute" not in body:
+            errors.append(f"{path.relative_to(ROOT)}: missing vanquish coordinate runner")
+        if f"Starting {name} vanquish route." not in body:
+            errors.append(f"{path.relative_to(ROOT)}: missing vanquish-start action for {name}")
+
+
 def main() -> int:
     errors: list[str] = []
     warnings: list[str] = []
@@ -162,6 +202,7 @@ def main() -> int:
     included = parse_included_maps()
     validate_includes(included, errors, warnings)
     validate_caravan_portal_controller(errors)
+    validate_maguuma_caravan_expansion(errors)
 
     for path in included:
         if path.exists():

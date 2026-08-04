@@ -19,7 +19,6 @@ EndFunc
 
 Func _Vanquisher_ShouldFinalizeDelayedCaravanAfterRoute($iMapIndex = -1)
     If Not _Vanquisher_ShouldDelayCaravanTransition() Then Return False
-    If IsFunc("_Vanquisher_IsCombinedMaguumaCaravanActive") And _Vanquisher_IsCombinedMaguumaCaravanActive() Then Return False
     If $g_b_Vanquisher_TransitOnly Then Return False
     If Not Map_GetInstanceInfo("IsExplorable") Then Return False
     If Not GetAreaVanquished() Then Return False
