@@ -1,4 +1,8 @@
 Func _Vanquisher_FightExitCallback()
+    ; Portal paths often zone mid-fight at the portal waypoint. Exit immediately so
+    ; RunAggroPortalPath can WaitForLoad and Maguuma can start vanquish coords.
+    If Map_GetInstanceInfo("IsLoading") Then Return True
+    If $g_i_Vanquisher_FightStartMapID > 0 And GetMapID() <> $g_i_Vanquisher_FightStartMapID Then Return True
     If $g_h_Vanquisher_FightTimer <> 0 And TimerDiff($g_h_Vanquisher_FightTimer) > 120000 Then Return True
     If $DeadOnTheRun Or $g_b_Vanquisher_AbortRoute Then Return True
     If _Vanquisher_ShouldCompleteCurrentZoneNow() Then Return True
@@ -27,6 +31,7 @@ EndFunc
 Func FightJunundu($a_i_AggroRange = $JUNUNDU_RANGE_AGGRO, $a_s_Label = "")
     If GetPartyDead() Then Return
 
+    $g_i_Vanquisher_FightStartMapID = GetMapID()
     $g_h_Vanquisher_FightTimer = TimerInit()
 
     Do
@@ -89,6 +94,7 @@ Func Fight($a_i_AggroRange, $a_s_Label = "")
         Return
     EndIf
 
+    $g_i_Vanquisher_FightStartMapID = GetMapID()
     $g_h_Vanquisher_FightTimer = TimerInit()
     Local $l_f_AnchorX = Agent_GetAgentInfo(-2, "X")
     Local $l_f_AnchorY = Agent_GetAgentInfo(-2, "Y")
