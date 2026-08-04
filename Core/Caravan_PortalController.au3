@@ -78,11 +78,22 @@ Func _Vanquisher_RunDynamicCaravanGoOutWithFallback($iTargetMapID, $sTargetLabel
     If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
 
     Local $iMapBefore = GetMapID()
+
+    ; Dynamic portal lookup is unreliable from outposts — use hardcoded portal routes first.
+    ; Note: $sFallbackGoOutFunc is a function *name* string for Call(). AutoIt IsFunc() only
+    ; accepts function references, so never guard Call() with IsFunc($sFallbackGoOutFunc).
+    If $sFallbackGoOutFunc <> "" And Not Map_GetInstanceInfo("IsExplorable") Then
+        CurrentAction("Using hardcoded portal path for " & $sTargetLabel & ".")
+        Call($sFallbackGoOutFunc)
+        If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
+        If GetMapID() <> $iMapBefore Then Return True
+    EndIf
+
     If _Vanquisher_RunDynamicCaravanGoOut($iTargetMapID, $sTargetLabel) Then
         If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
     EndIf
 
-    If $sFallbackGoOutFunc <> "" And IsFunc($sFallbackGoOutFunc) Then
+    If $sFallbackGoOutFunc <> "" Then
         CurrentAction("Using hardcoded portal path for " & $sTargetLabel & ".")
         Call($sFallbackGoOutFunc)
         If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
@@ -102,16 +113,38 @@ Func _Vanquisher_IsOnCaravanEntryPoint($iTargetMapID, $iOutpostID = 0, $iTransit
     Return False
 EndFunc
 
+; Walk portal hops until the target map is reached (e.g. TOA -> Black Curtain -> Talmark).
+; $sGoOutFunc is a Call()-able function name string, not an AutoIt function reference.
+Func _Vanquisher_RouteCaravanMaguumaPortalHops($iTargetMapID, $sGoOutFunc, $iOutpostID = 0, $iTransitID = 0, $iTransit2ID = 0, $iTransit3ID = 0)
+    Local $iHop = 0
+    While $iHop < 6 And Not _Vanquisher_ShouldStop()
+        If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
+        If Not (Map_GetInstanceInfo("IsExplorable") Or _Vanquisher_IsOnCaravanEntryPoint($iTargetMapID, $iOutpostID, $iTransitID, $iTransit2ID, $iTransit3ID)) Then
+            Return False
+        EndIf
+
+        Local $iMapBefore = GetMapID()
+        _Vanquisher_ApplyDifficulty()
+        If $sGoOutFunc <> "" Then Call($sGoOutFunc)
+
+        If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
+        If GetMapID() = $iMapBefore Then
+            ; Portal hop did not fire — clear the GoOut latch so a later retry can walk again.
+            _Vanquisher_ResetGoOutRouteProgress()
+            Return False
+        EndIf
+        $iHop += 1
+    WEnd
+
+    Return ($iTargetMapID > 0 And GetMapID() = $iTargetMapID)
+EndFunc
+
 Func _Vanquisher_RouteCaravanMaguumaToTargetMap($iTargetMapID, $sGoOutFunc, $iOutpostID = 0, $iTransitID = 0, $iTransit2ID = 0, $iTransit3ID = 0, $sMapLabel = "")
     If $iTargetMapID > 0 And GetMapID() = $iTargetMapID Then Return True
     If $sMapLabel = "" Then $sMapLabel = "target map"
 
     If _Vanquisher_IsCombinedMaguumaCaravanActive() Then
-        If Map_GetInstanceInfo("IsExplorable") Or _Vanquisher_IsOnCaravanEntryPoint($iTargetMapID, $iOutpostID, $iTransitID, $iTransit2ID, $iTransit3ID) Then
-            _Vanquisher_ApplyDifficulty()
-            If $sGoOutFunc <> "" And IsFunc($sGoOutFunc) Then Call($sGoOutFunc)
-        EndIf
-        Return GetMapID() = $iTargetMapID
+        Return _Vanquisher_RouteCaravanMaguumaPortalHops($iTargetMapID, $sGoOutFunc, $iOutpostID, $iTransitID, $iTransit2ID, $iTransit3ID)
     EndIf
 
     If Not _Vanquisher_IsOnCaravanEntryPoint($iTargetMapID, $iOutpostID, $iTransitID, $iTransit2ID, $iTransit3ID) Then
@@ -121,8 +154,7 @@ Func _Vanquisher_RouteCaravanMaguumaToTargetMap($iTargetMapID, $sGoOutFunc, $iOu
     EndIf
 
     If _Vanquisher_IsOnCaravanEntryPoint($iTargetMapID, $iOutpostID, $iTransitID, $iTransit2ID, $iTransit3ID) And GetMapID() <> $iTargetMapID Then
-        _Vanquisher_ApplyDifficulty()
-        If $sGoOutFunc <> "" And IsFunc($sGoOutFunc) Then Call($sGoOutFunc)
+        Return _Vanquisher_RouteCaravanMaguumaPortalHops($iTargetMapID, $sGoOutFunc, $iOutpostID, $iTransitID, $iTransit2ID, $iTransit3ID)
     EndIf
 
     Return GetMapID() = $iTargetMapID
