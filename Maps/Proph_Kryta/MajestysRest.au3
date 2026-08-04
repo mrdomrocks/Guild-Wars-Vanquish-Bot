@@ -200,7 +200,7 @@ Func GoOutMajestysRest()
 		$g_b_Vanquisher_TransitOnly = True
 		CurrentAction("Outpost -> MajestysRest (portal 1)")
 		_Vanquisher_RunAggroPortalPath($aMajestysRestOutpostPath, $vqrange, "outpost ")
-		$g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		If GetMapID() <> $l_i_Map Then $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
 		$g_b_Vanquisher_TransitOnly = False
 		Return
 	EndIf
@@ -210,7 +210,7 @@ Func GoOutMajestysRest()
 		$g_b_Vanquisher_TransitOnly = True
 		CurrentAction("Transit -> MajestysRest (portal 2)")
 		_Vanquisher_RunAggroPortalPath($aMajestysRestTransitPath, $vqrange, "outpost ")
-		$g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		If GetMapID() <> $l_i_Map Then $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
 		$g_b_Vanquisher_TransitOnly = False
 		Return
 	EndIf
@@ -220,7 +220,7 @@ Func GoOutMajestysRest()
 		$g_b_Vanquisher_TransitOnly = True
 		CurrentAction("Transit -> MajestysRest (portal 3)")
 		_Vanquisher_RunAggroPortalPath($aMajestysRestTransit2Path, $vqrange, "outpost ")
-		$g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		If GetMapID() <> $l_i_Map Then $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
 		$g_b_Vanquisher_TransitOnly = False
 		Return
 	EndIf

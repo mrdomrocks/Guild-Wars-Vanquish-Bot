@@ -9,3 +9,4 @@
 #include "Caravan_RouteController.au3"
 #include "Caravan_VanquishManager.au3"
 #include "Caravan_PortalController.au3"
+#include "Caravan_MaguumaPlan.au3"
