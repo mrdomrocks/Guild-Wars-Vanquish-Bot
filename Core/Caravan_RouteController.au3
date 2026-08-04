@@ -51,6 +51,10 @@ Func _IsQueuedTargetReady($sTargetTitle, $iTargetMapID)
     Local $iCurrentMap = GetMapID()
     If $iCurrentMap = $iTargetMapID Then Return True
 
+    ; Caravan queue titles may arrive prefixed; transit cases use bare map names.
+    If StringLeft($sTargetTitle, 15) = "CaravanAscalon_" Then $sTargetTitle = StringTrimLeft($sTargetTitle, 15)
+    If StringLeft($sTargetTitle, 15) = "CaravanMaguuma_" Then $sTargetTitle = StringTrimLeft($sTargetTitle, 15)
+
     Switch $sTargetTitle
         Case "CursedLands"
             Return $iCurrentMap = $CursedLands_Transit
@@ -86,6 +90,10 @@ Func _IsQueuedTargetReady($sTargetTitle, $iTargetMapID)
             Return $iCurrentMap = $PockmarkFlats_Transit
         Case "EasternFrontier"
             Return $iCurrentMap = $EasternFrontier_Transit
+        Case "ReedBog"
+            Return $iCurrentMap = $ReedBog_Transit
+        Case "TheFalls"
+            Return $iCurrentMap = $TheFalls_Transit Or $iCurrentMap = $TheFalls_Transit2
     EndSwitch
 
     Return False
