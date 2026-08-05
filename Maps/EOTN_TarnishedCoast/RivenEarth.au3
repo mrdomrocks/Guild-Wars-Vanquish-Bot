@@ -3,7 +3,7 @@ Global $vqrange = 1450
 Global $ActionCounter = 1
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute01[1][2] = [ _
-        [-25000, -3996] _
+        [-25000, -3996]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute02[22][2] = [ _
@@ -28,7 +28,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute02[22][2] = [ _
         [-12992, -10726], _
         [-13157, -12555], _
         [-11516, -11673], _
-        [-8958, -11598] _
+        [-8958, -11598]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute03[14][2] = [ _
@@ -45,7 +45,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute03[14][2] = [ _
         [-1059, -6429], _
         [-2067, -4302], _
         [-3539, -2173], _
-        [-3865, -623] _
+        [-3865, -623]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute04[15][2] = [ _
@@ -63,7 +63,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute04[15][2] = [ _
         [-23617, 3457], _
         [-22841, 5912], _
         [-21148, 7817], _
-        [-18989, 9216] _
+        [-18989, 9216]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute05[22][2] = [ _
@@ -88,7 +88,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute05[22][2] = [ _
         [-2667, 7262], _
         [-1154, 8187], _
         [-3132, 9728], _
-        [-3013, 12307] _
+        [-3013, 12307]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute06[18][2] = [ _
@@ -109,7 +109,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute06[18][2] = [ _
         [17191, 3063], _
         [15517, 4955], _
         [14444, 7230], _
-        [12146, 8459] _
+        [12146, 8459]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute07[24][2] = [ _
@@ -136,7 +136,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute07[24][2] = [ _
         [16808, 3221], _
         [19358, 2840], _
         [21861, 2169], _
-        [23357, 68] _
+        [23357, 68]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute08[14][2] = [ _
@@ -153,7 +153,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute08[14][2] = [ _
         [16415, -8799], _
         [14944, -10188], _
         [12493, -9339], _
-        [9981, -8708] _
+        [9981, -8708]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute09[10][2] = [ _
@@ -166,7 +166,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute09[10][2] = [ _
         [2584, 2384], _
         [425, 3654], _
         [-2099, 3054], _
-        [-4547, 2265] _
+        [-4547, 2265]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute10[19][2] = [ _
@@ -188,7 +188,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute10[19][2] = [ _
         [9007, 582], _
         [10712, 2503], _
         [10572, 4495], _
-        [11692, 6790] _
+        [11692, 6790]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute11[18][2] = [ _
@@ -209,7 +209,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute11[18][2] = [ _
         [-564, -7568], _
         [-2040, -5446], _
         [-4051, -3959], _
-        [-4538, -1400] _
+        [-4538, -1400]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute12[10][2] = [ _
@@ -222,7 +222,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute12[10][2] = [ _
         [7142, 13], _
         [9024, -1713], _
         [10617, -3742], _
-        [10518, -6256] _
+        [10518, -6256]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute13[14][2] = [ _
@@ -239,7 +239,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute13[14][2] = [ _
         [17797, 266], _
         [20062, -827], _
         [22636, -1011], _
-        [24994, -51] _
+        [24994, -51]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute14[24][2] = [ _
@@ -266,7 +266,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute14[24][2] = [ _
         [10122, 13066], _
         [11300, 10802], _
         [12260, 8489], _
-        [11191, 6126] _
+        [11191, 6126]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute15[18][2] = [ _
@@ -287,7 +287,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute15[18][2] = [ _
         [-3028, 12064], _
         [-4605, 14092], _
         [-6278, 16002], _
-        [-5289, 14169] _
+        [-5289, 14169]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute16[22][2] = [ _
@@ -312,7 +312,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute16[22][2] = [ _
         [-19952, 11887], _
         [-22269, 12909], _
         [-20924, 12278], _
-        [-18604, 11134] _
+        [-18604, 11134]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute17[15][2] = [ _
@@ -330,7 +330,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute17[15][2] = [ _
         [-12336, 2770], _
         [-9936, 1818], _
         [-7700, 654], _
-        [-5161, 1019] _
+        [-5161, 1019]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute18[14][2] = [ _
@@ -347,7 +347,7 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute18[14][2] = [ _
         [-7161, -6007], _
         [-5939, -8254], _
         [-5091, -10614], _
-        [-6684, -12610] _
+        [-6684, -12610]
 ]
 
 Global $aEOTN_TarnishedCoast_RivenEarthRoute19[22][2] = [ _
@@ -372,12 +372,105 @@ Global $aEOTN_TarnishedCoast_RivenEarthRoute19[22][2] = [ _
         [-21019, -12399], _
         [-18868, -11005], _
         [-20963, -9515], _
-        [-22313, -7371] _
+        [-22313, -7371]
 ]
 
-Global $aEOTN_TarnishedCoast_RivenEarthRoute20[2][2] = [ _
+Global $aEOTN_TarnishedCoast_RivenEarthRoute20[95][2] = [ _
         [-24260, -5678], _
-        [-25000, -3996] _
+        [-25000, -3996], _
+        [-21870, -5790], _
+        [-18407, -4457], _
+        [17383, 8685], _
+        [-15077, -3615], _
+        [-10766, -5765], _
+        [-7510, -6304], _
+        [-6253, -8868], _
+        [-11823, -10331], _
+        [-13846, -9948], _
+        [-15990, -10570], _
+        [-17207, -17207], _
+        [-18019, -11325], _
+        [-18910, -11271], _
+        [-19973, -10634], _
+        [-20759, -11991], _
+        [-21988, -12546], _
+        [-22790, -11825], _
+        [-20724, -9251], _
+        [-19117, -7684], _
+        [-13873, -9162], _
+        [-5663, -9542], _
+        [-3996, -10884], _
+        [-2252, -7830], _
+        [-2039, -5775], _
+        [-1218, -4738], _
+        [-743, -3323], _
+        [-4278, -2634], _
+        [-5348, 1234], _
+        [-8865, 1166], _
+        [-11274, 2391], _
+        [-14619, 4500], _
+        [-14957, 8161], _
+        [-17853, 11436], _
+        [-17603, 13280], _
+        [-17292, 14147], _
+        [-15225, 13804], _
+        [-9930, 13614], _
+        [-14030, -9780], _
+        [-10597, 10244], _
+        [-9881, 7209], _
+        [-7932, 5818], _
+        [-5330, 8215], _
+        [-16609, -2607], _
+        [-15476, 186], _
+        [-3523, 9807], _
+        [-4376, 12435], _
+        [-7143, 12094], _
+        [-5830, 14109], _
+        [-5603, 15344], _
+        [-3040, 12717], _
+        [-2244, 7454], _
+        [-812, 9806], _
+        [2960, 7735], _
+        [7418, 5860], _
+        [9726, 2821], _
+        [11837, 823], _
+        [14647, 366], _
+        [16467, 2553], _
+        [20946, 2677], _
+        [19528, -1566], _
+        [17330, 1205], _
+        [14577, 5009], _
+        [16443, 6777], _
+        [16823, 8655], _
+        [17641, 8236], _
+        [18192, 8158], _
+        [19170, 6431], _
+        [18924, 5713], _
+        [16816, 7175], _
+        [10078, 10953], _
+        [9000, 13368], _
+        [8303, 11221], _
+        [4337, 12134], _
+        [856, 10431], _
+        [-1510, 8012], _
+        [-3707, 6736], _
+        [-4081, 1614], _
+        [-5628, 1463], _
+        [-2917, 2886], _
+        [-298, 3339], _
+        [-48, 3410], _
+        [2911, 1944], _
+        [3404, 1778], _
+        [7699, 170], _
+        [11229, -4220], _
+        [10052, -7635], _
+        [12659, -9557], _
+        [16509, -9412], _
+        [11844, -9901], _
+        [6971, -10452], _
+        [2704, -10114], _
+        [2539, -7126], _
+        [4540, -6462]
 ]
 
 Func GoOutRivenEarth()

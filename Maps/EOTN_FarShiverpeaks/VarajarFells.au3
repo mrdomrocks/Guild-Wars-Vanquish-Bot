@@ -6,7 +6,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute01[4][2] = [ _
         [-2252, 831], _
         [-3431, -1454], _
         [-2561, -3567], _
-        [-3817, -4684] _
+        [-3817, -4684]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute02[16][2] = [ _
@@ -25,7 +25,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute02[16][2] = [ _
         [20124, -7889], _
         [19353, -9023], _
         [21074, -7163], _
-        [23628, -6624] _
+        [23628, -6624]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute03[30][2] = [ _
@@ -58,7 +58,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute03[30][2] = [ _
         [25105, 11093], _
         [24861, 13622], _
         [25431, 16045], _
-        [22974, 15408] _
+        [22974, 15408]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute04[12][2] = [ _
@@ -73,7 +73,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute04[12][2] = [ _
         [14947, 8711], _
         [15118, 11241], _
         [15382, 13823], _
-        [14566, 16224] _
+        [14566, 16224]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute05[15][2] = [ _
@@ -91,7 +91,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute05[15][2] = [ _
         [6934, 11366], _
         [7333, 8887], _
         [8607, 6645], _
-        [10544, 4906] _
+        [10544, 4906]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute06[26][2] = [ _
@@ -120,7 +120,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute06[26][2] = [ _
         [3257, 15558], _
         [790, 16125], _
         [-1718, 16275], _
-        [-864, 13829] _
+        [-864, 13829]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute07[30][2] = [ _
@@ -153,7 +153,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute07[30][2] = [ _
         [-7300, 7544], _
         [-5911, 5341], _
         [-8468, 4756], _
-        [-11011, 4577] _
+        [-11011, 4577]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute08[7][2] = [ _
@@ -163,7 +163,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute08[7][2] = [ _
         [-15514, 8449], _
         [-16642, 10784], _
         [-19275, 10747], _
-        [-21497, 11989] _
+        [-21497, 11989]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute09[50][2] = [ _
@@ -216,7 +216,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute09[50][2] = [ _
         [-13592, -2287], _
         [-11506, -834], _
         [-8999, -1235], _
-        [-10571, -3206] _
+        [-10571, -3206]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute10[8][2] = [ _
@@ -227,7 +227,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute10[8][2] = [ _
         [-6137, -9062], _
         [-3690, -8370], _
         [-5794, -6756], _
-        [-3833, -5190] _
+        [-3833, -5190]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute11[5][2] = [ _
@@ -235,14 +235,14 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute11[5][2] = [ _
         [-3799, -4504], _
         [-2615, -3403], _
         [-3436, -1418], _
-        [-2355, 886] _
+        [-2355, 886]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute12[4][2] = [ _
         [-2355, 886], _
         [-3436, -1418], _
         [-2615, -3403], _
-        [-3799, -4504] _
+        [-3799, -4504]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute13[8][2] = [ _
@@ -253,7 +253,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute13[8][2] = [ _
         [-6137, -9062], _
         [-7695, -7949], _
         [-9034, -5776], _
-        [-11408, -6625] _
+        [-11408, -6625]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute14[50][2] = [ _
@@ -306,7 +306,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute14[50][2] = [ _
         [-17632, 15301], _
         [-19333, 14449], _
         [-21833, 14982], _
-        [-24303, 15423] _
+        [-24303, 15423]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute15[7][2] = [ _
@@ -316,7 +316,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute15[7][2] = [ _
         [-16642, 10784], _
         [-15514, 8449], _
         [-16334, 6078], _
-        [-13710, 5827] _
+        [-13710, 5827]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute16[30][2] = [ _
@@ -349,7 +349,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute16[30][2] = [ _
         [490, 7157], _
         [-294, 9549], _
         [1513, 11334], _
-        [153, 13520] _
+        [153, 13520]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute17[26][2] = [ _
@@ -378,7 +378,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute17[26][2] = [ _
         [10120, -1920], _
         [9071, 474], _
         [7596, 2504], _
-        [7164, 5019] _
+        [7164, 5019]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute18[15][2] = [ _
@@ -396,7 +396,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute18[15][2] = [ _
         [11271, 10139], _
         [11047, 12752], _
         [8769, 13864], _
-        [11205, 14586] _
+        [11205, 14586]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute19[12][2] = [ _
@@ -411,7 +411,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute19[12][2] = [ _
         [19043, 4675], _
         [20393, 6846], _
         [21162, 9264], _
-        [20523, 11757] _
+        [20523, 11757]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute20[30][2] = [ _
@@ -444,7 +444,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute20[30][2] = [ _
         [22080, -5842], _
         [23333, -6403], _
         [23024, -4734], _
-        [23974, -4002] _
+        [23974, -4002]
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute21[16][2] = [ _
@@ -463,15 +463,104 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute21[16][2] = [ _
         [6254, -9833], _
         [3786, -9135], _
         [2643, -6910], _
-        [463, -5546] _
+        [463, -5546]
 ]
 
-Global $aEOTN_FarShiverpeaks_VarajarFellsRoute22[5][2] = [ _
+Global $aEOTN_FarShiverpeaks_VarajarFellsRoute22[94][2] = [ _
         [-1964, -4524], _
         [-3817, -4684], _
         [-2561, -3567], _
         [-3431, -1454], _
-        [-2252, 831] _
+        [-2252, 831], _
+        [-2034, -4512], _
+        [-4836, -7421], _
+        [-4759, -3390], _
+        [-4294, 589], _
+        [-3921, 4578], _
+        [-4190, 583], _
+        [-4530, -3447], _
+        [-6920, -6682], _
+        [-10936, -6847], _
+        [-13899, -9654], _
+        [-17746, -8544], _
+        [-19675, -12102], _
+        [-20245, -8115], _
+        [-22713, -4936], _
+        [-21731, -1027], _
+        [-18381, 1304], _
+        [-18031, -2704], _
+        [-15761, -6050], _
+        [-11685, -5906], _
+        [-8166, -3873], _
+        [-11103, -1091], _
+        [-14946, 112], _
+        [-12578, 3426], _
+        [-8704, 4594], _
+        [-4639, 4803], _
+        [-899, 6452], _
+        [-4204, 8856], _
+        [-7630, 10960], _
+        [-10192, 7783], _
+        [-13928, 6287], _
+        [-16794, 6350], _
+        [-16083, 9707], _
+        [-12109, 9063], _
+        [-8752, 11349], _
+        [-5257, 13370], _
+        [-1836, 11247], _
+        [863, 14215], _
+        [4393, 12207], _
+        [7365, 9502], _
+        [8598, 13351], _
+        [12326, 11884], _
+        [14884, 8710], _
+        [13003, 5147], _
+        [9289, 6813], _
+        [5486, 5493], _
+        [1663, 4309], _
+        [5382, 2653], _
+        [5049, -1356], _
+        [3342, -4976], _
+        [-697, -4636], _
+        [2802, -6582], _
+        [5650, -9403], _
+        [9535, -10462], _
+        [13428, -9495], _
+        [9786, -11200], _
+        [13341, -9350], _
+        [16834, -7273], _
+        [20894, -7439], _
+        [24491, -5658], _
+        [21252, -3221], _
+        [17272, -2709], _
+        [20910, -4438], _
+        [16883, -4919], _
+        [13977, -7686], _
+        [10210, -9085], _
+        [6348, -7768], _
+        [9450, -5231], _
+        [13265, -6556], _
+        [10353, -3806], _
+        [9231, 111], _
+        [8727, 4095], _
+        [11106, 7328], _
+        [14922, 5983], _
+        [18060, 3478], _
+        [17544, -527], _
+        [19545, -4034], _
+        [21045, -304], _
+        [24882, 1022], _
+        [24809, 5086], _
+        [20784, 340], _
+        [22166, 4121], _
+        [18167, 3923], _
+        [22176, 4494], _
+        [23778, 8212], _
+        [24595, 12160], _
+        [21459, 9632], _
+        [15200, 7248], _
+        [-19850, 11119], _
+        [-20600, 14557]
 ]
 
 Func GoOutVarajarFells()

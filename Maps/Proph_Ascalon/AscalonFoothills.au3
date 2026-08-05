@@ -147,7 +147,7 @@ Global $aAscalonFoothillsTransitPath[143][2] = [ _
 	[10843, -17072] _
 ]
 
-Global $aProph_Ascalon_AscalonFoothillsRoute01[14][2] = [ _
+Global $aProph_Ascalon_AscalonFoothillsRoute01[20][2] = [ _
         [-5785, 1558], _
         [-2684, 2006], _
         [-5544, -1613], _
@@ -161,10 +161,22 @@ Global $aProph_Ascalon_AscalonFoothillsRoute01[14][2] = [ _
         [4885, 5096], _
         [5939, 1126], _
         [3321, -3531], _
-        [7394, -6932] _
+        [7394, -6932], _
+        [7307, -5105], _
+        [8304, -458], _
+        [10540, -4383], _
+        [10274, -11684], _
+        [10668, -17113], _
+        [11056, -17139]
 ]
 
-Global $aProph_Ascalon_AscalonFoothillsRoute02[14][2] = [ _
+Global $aProph_Ascalon_AscalonFoothillsRoute02[20][2] = [ _
+        [11056, -17139], _
+        [10668, -17113], _
+        [10274, -11684], _
+        [10540, -4383], _
+        [8304, -458], _
+        [7307, -5105], _
         [7394, -6932], _
         [3321, -3531], _
         [5939, 1126], _
@@ -178,7 +190,7 @@ Global $aProph_Ascalon_AscalonFoothillsRoute02[14][2] = [ _
         [-3428, -5729], _
         [-5544, -1613], _
         [-2684, 2006], _
-        [-5785, 1558] _
+        [-5785, 1558]
 ]
 
 Func GoOutAscalonFoothills()

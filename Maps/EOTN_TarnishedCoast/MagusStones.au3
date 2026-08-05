@@ -4,25 +4,25 @@
 
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute01[1][2] = [ _
-        [16722, 11774] _
+        [16722, 11774]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute02[1][2] = [ _
-        [17383, 8685] _
+        [17383, 8685]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute03[7][2] = [ _
-        [18824.87, 6179.76], _
+        [18824, 6179], _
         [18447, 4537], _
         [18331, 2108], _
         [17526, 143], _
         [17205, -1355], _
         [17366, -5132], _
-        [18111, -8030] _
+        [18111, -8030]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute04[1][2] = [ _
-        [18409, -8474] _
+        [18409, -8474]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute05[9][2] = [ _
@@ -34,34 +34,34 @@ Global $aEOTN_TarnishedCoast_MagusStonesRoute05[9][2] = [ _
         [13234, -9948], _
         [8875, -9065], _
         [4671, -8699], _
-        [1534, -5493] _
+        [1534, -5493]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute06[4][2] = [ _
         [1052, -7074], _
         [-1029, -8724], _
         [-3439, -10339], _
-        [-3024, -12586] _
+        [-3024, -12586]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute07[4][2] = [ _
         [-2797, -13645], _
         [-3393, -15633], _
         [-4635, -16643], _
-        [-7814, -17796] _
+        [-7814, -17796]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute08[1][2] = [ _
-        [-10109, -17520] _
+        [-10109, -17520]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute09[2][2] = [ _
         [-9111, -17237], _
-        [-10963, -15506] _
+        [-10963, -15506]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute10[1][2] = [ _
-        [-12885, -14651] _
+        [-12885, -14651]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute11[8][2] = [ _
@@ -72,24 +72,24 @@ Global $aEOTN_TarnishedCoast_MagusStonesRoute11[8][2] = [ _
         [-12368, -7330], _
         [-16527, -8175], _
         [-17391, -5984], _
-        [-15704, -3996] _
+        [-15704, -3996]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute12[1][2] = [ _
-        [-16609, -2607] _
+        [-16609, -2607]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute13[1][2] = [ _
-        [-15476, 186] _
+        [-15476, 186]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute14[2][2] = [ _
         [-16480, 2522], _
-        [-17090, 5252] _
+        [-17090, 5252]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute15[1][2] = [ _
-        [-19292, 8994] _
+        [-19292, 8994]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute16[15][2] = [ _
@@ -107,12 +107,12 @@ Global $aEOTN_TarnishedCoast_MagusStonesRoute16[15][2] = [ _
         [-4430, 17268], _
         [-2974, 14197], _
         [-5228, 12475], _
-        [-3468, 10837] _
+        [-3468, 10837]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute17[2][2] = [ _
         [-3804, 8017], _
-        [-1346, 12360] _
+        [-1346, 12360]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute18[10][2] = [ _
@@ -125,21 +125,21 @@ Global $aEOTN_TarnishedCoast_MagusStonesRoute18[10][2] = [ _
         [9064, 7312], _
         [7986, 4365], _
         [6341, 3029], _
-        [7097, 92] _
+        [7097, 92]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute19[3][2] = [ _
         [8943, -985], _
         [10949, -2056], _
-        [13780, -5667] _
+        [13780, -5667]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute20[1][2] = [ _
-        [10752, 991] _
+        [10752, 991]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute21[1][2] = [ _
-        [8193, -841] _
+        [8193, -841]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute22[7][2] = [ _
@@ -149,20 +149,47 @@ Global $aEOTN_TarnishedCoast_MagusStonesRoute22[7][2] = [ _
         [316, 2489], _
         [-1018, -1235], _
         [-3195, -1538], _
-        [-6322, -2565] _
+        [-6322, -2565]
 ]
 
 Global $aEOTN_TarnishedCoast_MagusStonesRoute23[3][2] = [ _
         [-11414, 4055], _
         [-6907, 8461], _
-        [-8689, 11227] _
+        [-8689, 11227]
 ]
 
-Global $aEOTN_TarnishedCoast_MagusStonesRoute24[4][2] = [ _
+Global $aEOTN_TarnishedCoast_MagusStonesRoute24[31][2] = [ _
         [4671, -8699], _
         [-1018, -1235], _
         [-6322, -2565], _
-        [-8760, -9933] _
+        [-8760, -9933], _
+        [17542, -4865], _
+        [15562, -5524], _
+        [16270, -6288], _
+        [17501, -5545], _
+        [8647, -5852], _
+        [6939, -3629], _
+        [8711, -6046], _
+        [7616, -8978], _
+        [-5203, -8280], _
+        [-742, -13786], _
+        [-2755, -14099], _
+        [-4770, 20353], _
+        [-9942, 12561], _
+        [-9786, 10297], _
+        [-2828, 18210], _
+        [-4246, 16728], _
+        [-6756, 12380], _
+        [-3288, 7276], _
+        [8558, 2759], _
+        [10685, 3500], _
+        [10202, 5369], _
+        [8043, 5949], _
+        [7978, 3339], _
+        [5362, 3391], _
+        [1703, 3975], _
+        [-7030, 8396], _
+        [-13725, -3634]
 ]
 
 Func GoOutMagusStones()

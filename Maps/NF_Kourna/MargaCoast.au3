@@ -15,7 +15,7 @@ Global $aNF_Kourna_MargaCoastRoute01[14][2] = [ _
         [6339, -13872], _
         [5094, -11137], _
         [6811, -6363], _
-        [3379, -4040] _
+        [3379, -4040]
 ]
 
 Global $aNF_Kourna_MargaCoastRoute02[18][2] = [ _
@@ -36,7 +36,7 @@ Global $aNF_Kourna_MargaCoastRoute02[18][2] = [ _
         [-11165, -10282], _
         [-9515, -8620], _
         [-8499, -4949], _
-        [-13177, -1519] _
+        [-13177, -1519]
 ]
 
 Global $aNF_Kourna_MargaCoastRoute03[25][2] = [ _
@@ -64,7 +64,7 @@ Global $aNF_Kourna_MargaCoastRoute03[25][2] = [ _
         [1319, 14235], _
         [3502, 14721], _
         [5472, 16320], _
-        [6535, 10692] _
+        [6535, 10692]
 ]
 
 Global $aNF_Kourna_MargaCoastRoute04[35][2] = [ _
@@ -102,10 +102,10 @@ Global $aNF_Kourna_MargaCoastRoute04[35][2] = [ _
         [-2395, 1168], _
         [-4381, 863], _
         [-1627, -2612], _
-        [-8307, -4237] _
+        [-8307, -4237]
 ]
 
-Global $aNF_Kourna_MargaCoastRoute05[92][2] = [ _
+Global $aNF_Kourna_MargaCoastRoute05[98][2] = [ _
         [-8307, -4237], _
         [-1627, -2612], _
         [-4381, 863], _
@@ -197,7 +197,13 @@ Global $aNF_Kourna_MargaCoastRoute05[92][2] = [ _
         [17051, -15419], _
         [16945, -14747], _
         [16572, -11979], _
-        [20256, -8736] _
+        [20256, -8736], _
+        [-9784, 9705], _
+        [-11898, 9628], _
+        [-9515, 9936], _
+        [3381, 14704], _
+        [196, 15113], _
+        [-12290, 3495]
 ]
 
 Func GoOutMargaCoast()
