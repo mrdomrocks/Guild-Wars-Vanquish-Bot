@@ -87,7 +87,7 @@ Global $aFactions_TheJadeSea_SilentSurfRoute01[86][2] = [ _
         [1349, -3726], _
         [-759, -8428], _
         [-2961, 67], _
-        [3889, 4186]
+        [3889, 4186] _
 ]
 
 Global $aFactions_TheJadeSea_SilentSurfRoute02[86][2] = [ _
@@ -176,7 +176,7 @@ Global $aFactions_TheJadeSea_SilentSurfRoute02[86][2] = [ _
         [11080, 9097], _
         [11087, 13991], _
         [11341, 16798], _
-        [12805, 20193]
+        [12805, 20193] _
 ]
 
 Func GoOutSilentSurf()

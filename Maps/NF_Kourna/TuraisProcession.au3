@@ -21,7 +21,7 @@ Global $aNF_Kourna_TuraisProcessionRoute01[20][2] = [ _
         [4929, -17848], _
         [9398, -15939], _
         [10032, -19318], _
-        [10262, -21147]
+        [10262, -21147] _
 ]
 
 Global $aNF_Kourna_TuraisProcessionRoute02[34][2] = [ _
@@ -58,7 +58,7 @@ Global $aNF_Kourna_TuraisProcessionRoute02[34][2] = [ _
         [8826, 10222], _
         [9130, 15367], _
         [7028, 10962], _
-        [6328, 14296]
+        [6328, 14296] _
 ]
 
 Global $aNF_Kourna_TuraisProcessionRoute03[56][2] = [ _
@@ -117,7 +117,7 @@ Global $aNF_Kourna_TuraisProcessionRoute03[56][2] = [ _
         [-10008, -7587], _
         [-4131, -6352], _
         [-4009, -6989], _
-        [-2476, -1151]
+        [-2476, -1151] _
 ]
 
 Global $aNF_Kourna_TuraisProcessionRoute04[125][2] = [ _
@@ -245,7 +245,7 @@ Global $aNF_Kourna_TuraisProcessionRoute04[125][2] = [ _
         [4458, -1472], _
         [5658, 2569], _
         [3064, 1768], _
-        [803, -2506]
+        [803, -2506] _
 ]
 
 Func GoOutTuraisProcession()

@@ -3,7 +3,7 @@ Global $vqrange = 1450
 Global $ActionCounter = 1
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute01[1][2] = [ _
-        [-22145, 6138]
+        [-22145, 6138] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute02[19][2] = [ _
@@ -25,7 +25,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute02[19][2] = [ _
         [-22814, -7866], _
         [-21856, -10252], _
         [-21611, -7703], _
-        [-19085, -7700]
+        [-19085, -7700] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute03[28][2] = [ _
@@ -56,7 +56,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute03[28][2] = [ _
         [-15094, 13923], _
         [-13172, 12161], _
         [-11027, 10707], _
-        [-9414, 12691]
+        [-9414, 12691] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute04[13][2] = [ _
@@ -72,7 +72,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute04[13][2] = [ _
         [-4942, 6474], _
         [-2691, 5341], _
         [-1145, 6157], _
-        [854, 7703]
+        [854, 7703] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute05[20][2] = [ _
@@ -95,7 +95,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute05[20][2] = [ _
         [19890, 11791], _
         [22198, 12810], _
         [24637, 13811], _
-        [25473, 12582]
+        [25473, 12582] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute06[17][2] = [ _
@@ -115,7 +115,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute06[17][2] = [ _
         [19148, -26], _
         [16881, -1115], _
         [14660, 117], _
-        [13473, 2382]
+        [13473, 2382] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute07[18][2] = [ _
@@ -136,7 +136,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute07[18][2] = [ _
         [18526, -2783], _
         [20969, -3354], _
         [22147, -5698], _
-        [24046, -7529]
+        [24046, -7529] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute08[25][2] = [ _
@@ -164,7 +164,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute08[25][2] = [ _
         [2741, -12676], _
         [1421, -13067], _
         [1118, -10468], _
-        [-183, -8307]
+        [-183, -8307] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute09[49][2] = [ _
@@ -216,7 +216,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute09[49][2] = [ _
         [-14101, 9285], _
         [-16134, 7695], _
         [-18561, 6779], _
-        [-21038, 6138]
+        [-21038, 6138] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute10[48][2] = [ _
@@ -267,7 +267,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute10[48][2] = [ _
         [6954, -1231], _
         [5454, -3272], _
         [3701, -5144], _
-        [1719, -6670]
+        [1719, -6670] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute11[25][2] = [ _
@@ -295,7 +295,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute11[25][2] = [ _
         [21249, -12937], _
         [23211, -13854], _
         [24281, -12965], _
-        [24566, -10415]
+        [24566, -10415] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute12[18][2] = [ _
@@ -316,7 +316,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute12[18][2] = [ _
         [5897, 4772], _
         [6987, 2503], _
         [9363, 3388], _
-        [10967, 5379]
+        [10967, 5379] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute13[17][2] = [ _
@@ -336,7 +336,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute13[17][2] = [ _
         [25632, 2473], _
         [23867, 4265], _
         [22657, 6595], _
-        [23932, 8766]
+        [23932, 8766] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute14[20][2] = [ _
@@ -359,7 +359,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute14[20][2] = [ _
         [5004, 10983], _
         [2495, 10883], _
         [3888, 10203], _
-        [3472, 7841]
+        [3472, 7841] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute15[13][2] = [ _
@@ -375,7 +375,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute15[13][2] = [ _
         [-1862, 15312], _
         [-3449, 15997], _
         [-5999, 16178], _
-        [-8437, 15591]
+        [-8437, 15591] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute16[28][2] = [ _
@@ -406,7 +406,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute16[28][2] = [ _
         [-12268, -9255], _
         [-11278, -11563], _
         [-13604, -10622], _
-        [-16118, -10482]
+        [-16118, -10482] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute17[19][2] = [ _
@@ -428,7 +428,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute17[19][2] = [ _
         [-19239, 449], _
         [-16719, 1303], _
         [-19047, 2275], _
-        [-20850, 4055]
+        [-20850, 4055] _
 ]
 
 Global $aEOTN_TarnishedCoast_VerdantCascadesRoute18[134][2] = [ _
@@ -565,7 +565,7 @@ Global $aEOTN_TarnishedCoast_VerdantCascadesRoute18[134][2] = [ _
         [24204, 10957], _
         [23476, 7440], _
         [24204, 13443], _
-        [25400, 12490]
+        [25400, 12490] _
 ]
 
 Func GoOutVerdantCascades()

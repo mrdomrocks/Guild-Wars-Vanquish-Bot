@@ -140,7 +140,7 @@ Global $aProph_Maguuma_MamnoonLagoonRoute01[115][2] = [ _
         [14292, 16691], _
         [15887, 13608], _
         [17008, 13261], _
-        [18066, 13453]
+        [18066, 13453] _
 ]
 
 Global $aProph_Maguuma_MamnoonLagoonRoute02[115][2] = [ _
@@ -258,7 +258,7 @@ Global $aProph_Maguuma_MamnoonLagoonRoute02[115][2] = [ _
         [-2301, 1258], _
         [-4173, -512], _
         [-5201, -2844], _
-        [-6363, -5190]
+        [-6363, -5190] _
 ]
 
 Func GoOutMamnoonLagoon()

@@ -107,7 +107,7 @@ Global $aProph_SouthernShiverpeaks_DeldrimorBowlRoute01[101][2] = [ _
         [-133, 18645], _
         [-4826, 17811], _
         [-7015, 10564], _
-        [-7276, 7227]
+        [-7276, 7227] _
 ]
 
 Global $aProph_SouthernShiverpeaks_DeldrimorBowlRoute02[101][2] = [ _
@@ -211,7 +211,7 @@ Global $aProph_SouthernShiverpeaks_DeldrimorBowlRoute02[101][2] = [ _
         [12634, -11395], _
         [15334, -14363], _
         [14813, -18389], _
-        [13532, -22187]
+        [13532, -22187] _
 ]
 
 Func GoOutDeldrimorBowl()

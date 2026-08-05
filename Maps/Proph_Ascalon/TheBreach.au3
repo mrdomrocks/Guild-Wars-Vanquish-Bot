@@ -110,7 +110,7 @@ Global $aProph_Ascalon_TheBreachRoute01[79][2] = [ _
         [2266, -6672], _
         [6900, -6177], _
         [6863, -4430], _
-        [6802, -804]
+        [6802, -804] _
 ]
 
 Global $aProph_Ascalon_TheBreachRoute02[79][2] = [ _
@@ -192,7 +192,7 @@ Global $aProph_Ascalon_TheBreachRoute02[79][2] = [ _
         [21053, 3511], _
         [16032, 3792], _
         [16965, 6388], _
-        [20930, 5611]
+        [20930, 5611] _
 ]
 
 Func GoOutTheBreach()

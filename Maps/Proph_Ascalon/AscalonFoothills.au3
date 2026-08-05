@@ -167,7 +167,7 @@ Global $aProph_Ascalon_AscalonFoothillsRoute01[20][2] = [ _
         [10540, -4383], _
         [10274, -11684], _
         [10668, -17113], _
-        [11056, -17139]
+        [11056, -17139] _
 ]
 
 Global $aProph_Ascalon_AscalonFoothillsRoute02[20][2] = [ _
@@ -190,7 +190,7 @@ Global $aProph_Ascalon_AscalonFoothillsRoute02[20][2] = [ _
         [-3428, -5729], _
         [-5544, -1613], _
         [-2684, 2006], _
-        [-5785, 1558]
+        [-5785, 1558] _
 ]
 
 Func GoOutAscalonFoothills()

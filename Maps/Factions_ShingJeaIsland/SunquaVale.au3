@@ -183,7 +183,7 @@ Global $aFactions_ShingJeaIsland_SunquaValeRoute01[182][2] = [ _
         [15100, -8128], _
         [17277, -8881], _
         [2114, 2474], _
-        [3957, 4449]
+        [3957, 4449] _
 ]
 
 Func GoOutSunquaVale()

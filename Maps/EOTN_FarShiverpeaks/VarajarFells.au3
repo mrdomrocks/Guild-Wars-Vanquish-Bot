@@ -6,7 +6,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute01[4][2] = [ _
         [-2252, 831], _
         [-3431, -1454], _
         [-2561, -3567], _
-        [-3817, -4684]
+        [-3817, -4684] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute02[16][2] = [ _
@@ -25,7 +25,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute02[16][2] = [ _
         [20124, -7889], _
         [19353, -9023], _
         [21074, -7163], _
-        [23628, -6624]
+        [23628, -6624] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute03[30][2] = [ _
@@ -58,7 +58,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute03[30][2] = [ _
         [25105, 11093], _
         [24861, 13622], _
         [25431, 16045], _
-        [22974, 15408]
+        [22974, 15408] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute04[12][2] = [ _
@@ -73,7 +73,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute04[12][2] = [ _
         [14947, 8711], _
         [15118, 11241], _
         [15382, 13823], _
-        [14566, 16224]
+        [14566, 16224] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute05[15][2] = [ _
@@ -91,7 +91,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute05[15][2] = [ _
         [6934, 11366], _
         [7333, 8887], _
         [8607, 6645], _
-        [10544, 4906]
+        [10544, 4906] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute06[26][2] = [ _
@@ -120,7 +120,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute06[26][2] = [ _
         [3257, 15558], _
         [790, 16125], _
         [-1718, 16275], _
-        [-864, 13829]
+        [-864, 13829] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute07[30][2] = [ _
@@ -153,7 +153,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute07[30][2] = [ _
         [-7300, 7544], _
         [-5911, 5341], _
         [-8468, 4756], _
-        [-11011, 4577]
+        [-11011, 4577] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute08[7][2] = [ _
@@ -163,7 +163,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute08[7][2] = [ _
         [-15514, 8449], _
         [-16642, 10784], _
         [-19275, 10747], _
-        [-21497, 11989]
+        [-21497, 11989] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute09[50][2] = [ _
@@ -216,7 +216,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute09[50][2] = [ _
         [-13592, -2287], _
         [-11506, -834], _
         [-8999, -1235], _
-        [-10571, -3206]
+        [-10571, -3206] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute10[8][2] = [ _
@@ -227,7 +227,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute10[8][2] = [ _
         [-6137, -9062], _
         [-3690, -8370], _
         [-5794, -6756], _
-        [-3833, -5190]
+        [-3833, -5190] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute11[5][2] = [ _
@@ -235,14 +235,14 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute11[5][2] = [ _
         [-3799, -4504], _
         [-2615, -3403], _
         [-3436, -1418], _
-        [-2355, 886]
+        [-2355, 886] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute12[4][2] = [ _
         [-2355, 886], _
         [-3436, -1418], _
         [-2615, -3403], _
-        [-3799, -4504]
+        [-3799, -4504] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute13[8][2] = [ _
@@ -253,7 +253,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute13[8][2] = [ _
         [-6137, -9062], _
         [-7695, -7949], _
         [-9034, -5776], _
-        [-11408, -6625]
+        [-11408, -6625] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute14[50][2] = [ _
@@ -306,7 +306,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute14[50][2] = [ _
         [-17632, 15301], _
         [-19333, 14449], _
         [-21833, 14982], _
-        [-24303, 15423]
+        [-24303, 15423] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute15[7][2] = [ _
@@ -316,7 +316,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute15[7][2] = [ _
         [-16642, 10784], _
         [-15514, 8449], _
         [-16334, 6078], _
-        [-13710, 5827]
+        [-13710, 5827] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute16[30][2] = [ _
@@ -349,7 +349,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute16[30][2] = [ _
         [490, 7157], _
         [-294, 9549], _
         [1513, 11334], _
-        [153, 13520]
+        [153, 13520] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute17[26][2] = [ _
@@ -378,7 +378,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute17[26][2] = [ _
         [10120, -1920], _
         [9071, 474], _
         [7596, 2504], _
-        [7164, 5019]
+        [7164, 5019] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute18[15][2] = [ _
@@ -396,7 +396,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute18[15][2] = [ _
         [11271, 10139], _
         [11047, 12752], _
         [8769, 13864], _
-        [11205, 14586]
+        [11205, 14586] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute19[12][2] = [ _
@@ -411,7 +411,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute19[12][2] = [ _
         [19043, 4675], _
         [20393, 6846], _
         [21162, 9264], _
-        [20523, 11757]
+        [20523, 11757] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute20[30][2] = [ _
@@ -444,7 +444,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute20[30][2] = [ _
         [22080, -5842], _
         [23333, -6403], _
         [23024, -4734], _
-        [23974, -4002]
+        [23974, -4002] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute21[16][2] = [ _
@@ -463,7 +463,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute21[16][2] = [ _
         [6254, -9833], _
         [3786, -9135], _
         [2643, -6910], _
-        [463, -5546]
+        [463, -5546] _
 ]
 
 Global $aEOTN_FarShiverpeaks_VarajarFellsRoute22[94][2] = [ _
@@ -560,7 +560,7 @@ Global $aEOTN_FarShiverpeaks_VarajarFellsRoute22[94][2] = [ _
         [21459, 9632], _
         [15200, 7248], _
         [-19850, 11119], _
-        [-20600, 14557]
+        [-20600, 14557] _
 ]
 
 Func GoOutVarajarFells()

@@ -3,55 +3,55 @@ Global $vqrange = 1450
 Global $ActionCounter = 1
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute01[1][2] = [ _
-        [25522, -4436]
+        [25522, -4436] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute02[1][2] = [ _
-        [24325, -2826]
+        [24325, -2826] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute03[1][2] = [ _
-        [24948, 259]
+        [24948, 259] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute04[1][2] = [ _
-        [22699, 2364]
+        [22699, 2364] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute05[1][2] = [ _
-        [22264, 3884]
+        [22264, 3884] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute06[1][2] = [ _
-        [21187, 4286]
+        [21187, 4286] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute07[1][2] = [ _
-        [22449, 324]
+        [22449, 324] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute08[1][2] = [ _
-        [20662, -1404]
+        [20662, -1404] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute09[1][2] = [ _
-        [16996, -1145]
+        [16996, -1145] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute10[1][2] = [ _
-        [18136, -4457]
+        [18136, -4457] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute11[1][2] = [ _
-        [15832, -5071]
+        [15832, -5071] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute12[1][2] = [ _
-        [17250, -8849]
+        [17250, -8849] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute13[1][2] = [ _
-        [16039, -9571]
+        [16039, -9571] _
 ]
 
 Global $aNF_TheDesolation_TheSulfurousWastesRoute14[83][2] = [ _
@@ -137,7 +137,7 @@ Global $aNF_TheDesolation_TheSulfurousWastesRoute14[83][2] = [ _
         [-11163, 10114], _
         [-12605, 11523], _
         [-10125, 13549], _
-        [-14385, 15328]
+        [-14385, 15328] _
 ]
 
 Func GoOutTheSulfurousWastes()
