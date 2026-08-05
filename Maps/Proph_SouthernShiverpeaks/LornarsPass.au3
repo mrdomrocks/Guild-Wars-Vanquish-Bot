@@ -375,7 +375,7 @@ Global $aProph_SouthernShiverpeaks_LornarsPassRoute01[309][2] = [ _
         [-2386, 7708], _
         [-4783, 7055], _
         [-5363, 7789], _
-        [-5705, 8493]
+        [-5705, 8493] _
 ]
 
 Global $aProph_SouthernShiverpeaks_LornarsPassRoute02[309][2] = [ _
@@ -687,7 +687,7 @@ Global $aProph_SouthernShiverpeaks_LornarsPassRoute02[309][2] = [ _
         [-5422, -31422], _
         [-7673, -32562], _
         [-9985, -33718], _
-        [-8678, -34615]
+        [-8678, -34615] _
 ]
 
 Func GoOutLornarsPass()

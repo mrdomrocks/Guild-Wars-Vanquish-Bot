@@ -77,7 +77,7 @@ Global $aFactions_TheJadeSea_MountQinkaiRoute01[76][2] = [ _
         [13518, -35], _
         [13450, -6084], _
         [15390, -8892], _
-        [13764, -4816]
+        [13764, -4816] _
 ]
 
 Global $aFactions_TheJadeSea_MountQinkaiRoute02[76][2] = [ _
@@ -156,7 +156,7 @@ Global $aFactions_TheJadeSea_MountQinkaiRoute02[76][2] = [ _
         [-14930, -7905], _
         [-17395, -10019], _
         [-14930, -7905], _
-        [-12635, -10012]
+        [-12635, -10012] _
 ]
 
 Func GoOutMountQinkai()

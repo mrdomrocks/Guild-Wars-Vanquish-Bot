@@ -93,7 +93,7 @@ Global $aFactions_ShingJeaIsland_PanjiangPeninsulaRoute01[92][2] = [ _
         [2981, 4278], _
         [1908, -8431], _
         [-23426, 415], _
-        [-16277, 9745]
+        [-16277, 9745] _
 ]
 
 Global $aFactions_ShingJeaIsland_PanjiangPeninsulaRoute02[92][2] = [ _
@@ -188,7 +188,7 @@ Global $aFactions_ShingJeaIsland_PanjiangPeninsulaRoute02[92][2] = [ _
         [16569, 11304], _
         [13984, 9460], _
         [11039, 10853], _
-        [11185, 13046]
+        [11185, 13046] _
 ]
 
 Func GoOutPanjiangPeninsula()

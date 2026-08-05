@@ -91,7 +91,7 @@ Global $aEOTN_TarnishedCoast_AlcaziaTangleRoute01[88][2] = [ _
         [-9422, 73], _
         [-10359, 3788], _
         [-12670, 6184], _
-        [-14713, 9206]
+        [-14713, 9206] _
 ]
 
 Global $aEOTN_TarnishedCoast_AlcaziaTangleRoute02[88][2] = [ _
@@ -182,7 +182,7 @@ Global $aEOTN_TarnishedCoast_AlcaziaTangleRoute02[88][2] = [ _
         [24250, 4927], _
         [21021, 781], _
         [17728, -800], _
-        [17534, -6572]
+        [17534, -6572] _
 ]
 
 Func GoOutAlcaziaTangle()

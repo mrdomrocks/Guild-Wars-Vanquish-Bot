@@ -133,8 +133,9 @@ def merge_missing(
 def format_route_body(coords: list[tuple[int, int]], indent: str = "        ") -> str:
     if not coords:
         return ""
+    # AutoIt requires "_" line continuation through the closing "]" of the array.
     lines = [f"{indent}[{x}, {y}], _" for x, y in coords]
-    lines[-1] = lines[-1].removesuffix(", _")
+    lines[-1] = f"{indent}[{coords[-1][0]}, {coords[-1][1]}] _"
     return "\n".join(lines)
 
 
@@ -146,8 +147,9 @@ def format_old_ascalon_body(
         part = coords[i : i + per_line]
         items = ",".join(f"[{x},{y},{tag}]" for x, y, tag in part)
         chunks.append(f"    {items}, _")
+    # Keep "_" on the final packed line so the closing "]" remains in the statement.
     if chunks:
-        chunks[-1] = chunks[-1].removesuffix(", _")
+        chunks[-1] = chunks[-1].removesuffix(", _") + " _"
     return "\n".join(chunks)
 
 

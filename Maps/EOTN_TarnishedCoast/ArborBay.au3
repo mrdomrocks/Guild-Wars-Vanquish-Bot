@@ -18,7 +18,7 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute01[15][2] = [ _
         [18383, -12967], _
         [16719, -15666], _
         [14775, -18359], _
-        [10339, -19214]
+        [10339, -19214] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute02[11][2] = [ _
@@ -32,13 +32,13 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute02[11][2] = [ _
         [2807, -13113], _
         [300, -12716], _
         [-787, -13879], _
-        [332, -15663]
+        [332, -15663] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute03[3][2] = [ _
         [-3047, -18267], _
         [-7488, -18244], _
-        [-12505, -17244]
+        [-12505, -17244] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute04[14][2] = [ _
@@ -55,14 +55,14 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute04[14][2] = [ _
         [-11254, -12277], _
         [-11766, -9380], _
         [-16401, -8935], _
-        [-18927, -6525]
+        [-18927, -6525] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute05[4][2] = [ _
         [-14143, -1201], _
         [-16073, 4487], _
         [-12284, 3876], _
-        [-16073, 4487]
+        [-16073, 4487] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute06[5][2] = [ _
@@ -70,7 +70,7 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute06[5][2] = [ _
         [-14519, 15641], _
         [-13004, 15736], _
         [-9449, 16425], _
-        [-6789, 15707]
+        [-6789, 15707] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute07[11][2] = [ _
@@ -84,7 +84,7 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute07[11][2] = [ _
         [9408, 9200], _
         [11336, 7869], _
         [10744, 2904], _
-        [13926, 4856]
+        [13926, 4856] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute08[7][2] = [ _
@@ -94,7 +94,7 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute08[7][2] = [ _
         [8089, -7828], _
         [6203, -9127], _
         [2470, -7893], _
-        [-56, -9995]
+        [-56, -9995] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute09[34][2] = [ _
@@ -131,29 +131,29 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute09[34][2] = [ _
         [-7036, -2962], _
         [-10202, -377], _
         [-10990, 3989], _
-        [-15452, 4678]
+        [-15452, 4678] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute10[3][2] = [ _
         [-12899, 11896], _
         [-9783, 12000], _
-        [-5548, 13510]
+        [-5548, 13510] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute11[2][2] = [ _
         [-7335, 15931], _
-        [-11879, 16038]
+        [-11879, 16038] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute12[2][2] = [ _
         [-11879, 16038], _
-        [-7335, 15931]
+        [-7335, 15931] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute13[3][2] = [ _
         [-5548, 13510], _
         [-9783, 12000], _
-        [-12899, 11896]
+        [-12899, 11896] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute14[34][2] = [ _
@@ -190,7 +190,7 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute14[34][2] = [ _
         [-9160, -6830], _
         [-7251, -5601], _
         [-5983, -6094], _
-        [-2497, -6598]
+        [-2497, -6598] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute15[7][2] = [ _
@@ -200,7 +200,7 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute15[7][2] = [ _
         [8089, -7828], _
         [7238, -4212], _
         [8608, -4513], _
-        [12515, -3250]
+        [12515, -3250] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute16[11][2] = [ _
@@ -214,7 +214,7 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute16[11][2] = [ _
         [5242, 16733], _
         [3468, 18515], _
         [487, 18981], _
-        [-1169, 17580]
+        [-1169, 17580] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute17[5][2] = [ _
@@ -222,14 +222,14 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute17[5][2] = [ _
         [-9449, 16425], _
         [-13004, 15736], _
         [-14519, 15641], _
-        [-16561, 14065]
+        [-16561, 14065] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute18[4][2] = [ _
         [-16073, 4487], _
         [-12284, 3876], _
         [-16073, 4487], _
-        [-14143, -1201]
+        [-14143, -1201] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute19[14][2] = [ _
@@ -246,13 +246,13 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute19[14][2] = [ _
         [-14291, -16437], _
         [-14713, -12729], _
         [-16293, -12764], _
-        [-17869, -14723]
+        [-17869, -14723] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute20[3][2] = [ _
         [-12505, -17244], _
         [-7488, -18244], _
-        [-3047, -18267]
+        [-3047, -18267] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute21[11][2] = [ _
@@ -266,7 +266,7 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute21[11][2] = [ _
         [13881, -12675], _
         [17355, -12921], _
         [15888, -15941], _
-        [10567, -15254]
+        [10567, -15254] _
 ]
 
 Global $aEOTN_TarnishedCoast_ArborBayRoute22[26][2] = [ _
@@ -295,7 +295,7 @@ Global $aEOTN_TarnishedCoast_ArborBayRoute22[26][2] = [ _
         [-3955, -10383], _
         [-16509, 9732], _
         [-3016, -3016], _
-        [-16701, 14449]
+        [-16701, 14449] _
 ]
 
 Func GoOutArborBay()
