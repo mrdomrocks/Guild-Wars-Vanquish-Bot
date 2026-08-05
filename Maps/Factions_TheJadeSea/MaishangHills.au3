@@ -89,7 +89,7 @@ Global $aFactions_TheJadeSea_MaishangHillsRoute01[88][2] = [ _
         [14525, 3334], _
         [10868, -2417], _
         [9768, -216], _
-        [4691, 5926]
+        [4691, 5926] _
 ]
 
 Global $aFactions_TheJadeSea_MaishangHillsRoute02[88][2] = [ _
@@ -180,7 +180,7 @@ Global $aFactions_TheJadeSea_MaishangHillsRoute02[88][2] = [ _
         [18043, -10677], _
         [21315, -12774], _
         [19047, -12390], _
-        [16423, -10318]
+        [16423, -10318] _
 ]
 
 Func GoOutMaishangHills()

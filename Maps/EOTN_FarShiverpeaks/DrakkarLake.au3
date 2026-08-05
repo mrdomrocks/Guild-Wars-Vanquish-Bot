@@ -3,7 +3,7 @@ Global $vqrange = 1450
 Global $ActionCounter = 1
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute01[1][2] = [ _
-        [8872, 23295]
+        [8872, 23295] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute02[10][2] = [ _
@@ -16,7 +16,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute02[10][2] = [ _
         [-6382, 23515], _
         [-8899, 23225], _
         [-7301, 25296], _
-        [-9752, 24429]
+        [-9752, 24429] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute03[63][2] = [ _
@@ -82,7 +82,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute03[63][2] = [ _
         [5543, 22898], _
         [8061, 22632], _
         [9474, 20459], _
-        [10983, 18453]
+        [10983, 18453] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute04[21][2] = [ _
@@ -106,7 +106,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute04[21][2] = [ _
         [-3526, 4816], _
         [-3773, 2277], _
         [-4754, -137], _
-        [-5552, -2591]
+        [-5552, -2591] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute05[13][2] = [ _
@@ -122,7 +122,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute05[13][2] = [ _
         [3454, 4092], _
         [5903, 4610], _
         [7429, 6727], _
-        [4893, 6906]
+        [4893, 6906] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute06[5][2] = [ _
@@ -130,7 +130,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute06[5][2] = [ _
         [5829, 7529], _
         [7906, 5969], _
         [9962, 4487], _
-        [12351, 3331]
+        [12351, 3331] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute07[47][2] = [ _
@@ -180,7 +180,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute07[47][2] = [ _
         [8398, -21347], _
         [8538, -23871], _
         [10219, -25844], _
-        [7980, -24650]
+        [7980, -24650] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute08[8][2] = [ _
@@ -191,7 +191,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute08[8][2] = [ _
         [-3694, -24505], _
         [-6194, -24477], _
         [-8721, -24127], _
-        [-9976, -21847]
+        [-9976, -21847] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute09[79][2] = [ _
@@ -273,7 +273,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute09[79][2] = [ _
         [5090, -2486], _
         [2654, -1918], _
         [1706, 515], _
-        [1942, -2064]
+        [1942, -2064] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute10[78][2] = [ _
@@ -354,7 +354,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute10[78][2] = [ _
         [-7805, -15833], _
         [-9451, -13927], _
         [-10910, -16102], _
-        [-11945, -18410]
+        [-11945, -18410] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute11[8][2] = [ _
@@ -365,7 +365,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute11[8][2] = [ _
         [-3694, -24505], _
         [-1368, -23560], _
         [1022, -22746], _
-        [3609, -22653]
+        [3609, -22653] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute12[47][2] = [ _
@@ -415,7 +415,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute12[47][2] = [ _
         [7928, 2429], _
         [10185, 1058], _
         [11020, 515], _
-        [13528, -39]
+        [13528, -39] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute13[5][2] = [ _
@@ -423,7 +423,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute13[5][2] = [ _
         [12351, 3331], _
         [9962, 4487], _
         [7906, 5969], _
-        [5829, 7529]
+        [5829, 7529] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute14[13][2] = [ _
@@ -439,7 +439,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute14[13][2] = [ _
         [-1552, -6436], _
         [-846, -3962], _
         [-1078, -1416], _
-        [-2683, -3358]
+        [-2683, -3358] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute15[21][2] = [ _
@@ -463,7 +463,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute15[21][2] = [ _
         [14668, 7667], _
         [14479, 10249], _
         [14883, 12775], _
-        [14319, 15287]
+        [14319, 15287] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute16[63][2] = [ _
@@ -529,7 +529,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute16[63][2] = [ _
         [-12362, 18717], _
         [-12958, 21207], _
         [-13251, 23751], _
-        [-11975, 25939]
+        [-11975, 25939] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute17[10][2] = [ _
@@ -542,7 +542,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute17[10][2] = [ _
         [-1448, 24355], _
         [1098, 24054], _
         [2620, 21947], _
-        [4923, 23037]
+        [4923, 23037] _
 ]
 
 Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute18[87][2] = [ _
@@ -632,7 +632,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute18[87][2] = [ _
         [1907, 2910], _
         [4789, 645], _
         [6745, -3807], _
-        [5977, -7175]
+        [5977, -7175] _
 ]
 
 Func GoOutDrakkarLake()

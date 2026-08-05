@@ -58,7 +58,7 @@ Global $aFactions_EchovaldForest_TheEternalGroveRoute01[57][2] = [ _
         [3542, 147], _
         [2010, 2376], _
         [5617, -6597], _
-        [8364, -6201]
+        [8364, -6201] _
 ]
 
 Global $aFactions_EchovaldForest_TheEternalGroveRoute02[57][2] = [ _
@@ -118,7 +118,7 @@ Global $aFactions_EchovaldForest_TheEternalGroveRoute02[57][2] = [ _
         [4736, 5926], _
         [9123, 729], _
         [12437, -1727], _
-        [14380, -674]
+        [14380, -674] _
 ]
 
 Func GoOutTheEternalGrove()

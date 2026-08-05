@@ -72,7 +72,7 @@ Global $aFactions_TheJadeSea_RheasCraterRoute01[71][2] = [ _
         [-2121, 10463], _
         [1631, 11278], _
         [-2848, 7758], _
-        [-1161, 10318]
+        [-1161, 10318] _
 ]
 
 Global $aFactions_TheJadeSea_RheasCraterRoute02[71][2] = [ _
@@ -146,7 +146,7 @@ Global $aFactions_TheJadeSea_RheasCraterRoute02[71][2] = [ _
         [306, -5937], _
         [4556, -4096], _
         [5562, -288], _
-        [9276, -146]
+        [9276, -146] _
 ]
 
 Func GoOutRheasCrater()

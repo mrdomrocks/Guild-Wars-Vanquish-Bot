@@ -191,7 +191,7 @@ Global $aProph_Ascalon_DiessaLowlandsRoute01[181][2] = [ _
         [3114, -3013], _
         [7324, -4933], _
         [7382, -6759], _
-        [7399, -7005]
+        [7399, -7005] _
 ]
 
 Global $aProph_Ascalon_DiessaLowlandsRoute02[181][2] = [ _
@@ -375,7 +375,7 @@ Global $aProph_Ascalon_DiessaLowlandsRoute02[181][2] = [ _
         [-14121, 12424], _
         [-17165, 11540], _
         [-18526, 14753], _
-        [-20296, 14688]
+        [-20296, 14688] _
 ]
 
 Func GoOutDiessaLowlands()
