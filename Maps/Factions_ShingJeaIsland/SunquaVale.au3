@@ -1,7 +1,7 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aFactions_ShingJeaIsland_SunquaValeRoute01[180][2] = [ _
+Global $aFactions_ShingJeaIsland_SunquaValeRoute01[182][2] = [ _
         [17277, -8881], _
         [15100, -8128], _
         [13488, -8588], _
@@ -181,7 +181,9 @@ Global $aFactions_ShingJeaIsland_SunquaValeRoute01[180][2] = [ _
         [13720, -11647], _
         [13488, -8588], _
         [15100, -8128], _
-        [17277, -8881] _
+        [17277, -8881], _
+        [2114, 2474], _
+        [3957, 4449]
 ]
 
 Func GoOutSunquaVale()

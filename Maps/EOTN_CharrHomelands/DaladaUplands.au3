@@ -6,7 +6,7 @@ Local $aDaladaUplandsOutpostPath[1][2] = [ _
 	[-15789, 14108]]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute01[1][2] = [ _
-        [-14310, 12724] _
+        [-14310, 12724]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute02[30][2] = [ _
@@ -39,7 +39,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute02[30][2] = [ _
         [-14100, -8039], _
         [-15384, -6564], _
         [-17154, -4690], _
-        [-17557, -2144] _
+        [-17557, -2144]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute03[20][2] = [ _
@@ -62,7 +62,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute03[20][2] = [ _
         [-9829, -15054], _
         [-7879, -13483], _
         [-7683, -11792], _
-        [-5633, -12278] _
+        [-5633, -12278]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute04[15][2] = [ _
@@ -80,7 +80,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute04[15][2] = [ _
         [-4888, -1896], _
         [-5275, 681], _
         [-2610, -1663], _
-        [-3101, -32] _
+        [-3101, -32]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute05[10][2] = [ _
@@ -93,7 +93,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute05[10][2] = [ _
         [1838, -1532], _
         [4062, -1698], _
         [4657, -4137], _
-        [7207, -4360] _
+        [7207, -4360]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute06[26][2] = [ _
@@ -122,7 +122,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute06[26][2] = [ _
         [14787, -13985], _
         [13953, -11520], _
         [13068, -13929], _
-        [13910, -16372] _
+        [13910, -16372]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute07[58][2] = [ _
@@ -183,7 +183,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute07[58][2] = [ _
         [-711, 16220], _
         [992, 14336], _
         [1833, 11911], _
-        [4421, 11850] _
+        [4421, 11850]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute08[39][2] = [ _
@@ -225,7 +225,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute08[39][2] = [ _
         [-6375, 8767], _
         [-8997, 8865], _
         [-11537, 9008], _
-        [-13870, 10072] _
+        [-13870, 10072]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute09[38][2] = [ _
@@ -266,7 +266,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute09[38][2] = [ _
         [9949, 7840], _
         [10558, 10388], _
         [10754, 12960], _
-        [8384, 11959] _
+        [8384, 11959]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute10[58][2] = [ _
@@ -327,7 +327,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute10[58][2] = [ _
         [5223, -17445], _
         [7701, -16812], _
         [10138, -16176], _
-        [12584, -17093] _
+        [12584, -17093]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute11[26][2] = [ _
@@ -356,7 +356,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute11[26][2] = [ _
         [12637, 2831], _
         [10176, 3360], _
         [10411, 859], _
-        [9179, -1430] _
+        [9179, -1430]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute12[10][2] = [ _
@@ -369,7 +369,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute12[10][2] = [ _
         [1007, 1249], _
         [-315, 3380], _
         [-2779, 2954], _
-        [-4223, 1414] _
+        [-4223, 1414]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute13[15][2] = [ _
@@ -387,7 +387,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute13[15][2] = [ _
         [-9187, -15978], _
         [-7334, -17769], _
         [-5205, -16425], _
-        [-4354, -14049] _
+        [-4354, -14049]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute14[20][2] = [ _
@@ -410,7 +410,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute14[20][2] = [ _
         [-18321, -6480], _
         [-17819, -3962], _
         [-17632, -1374], _
-        [-19745, 164] _
+        [-19745, 164]
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute15[30][2] = [ _
@@ -443,12 +443,100 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute15[30][2] = [ _
         [-17027, 5210], _
         [-17622, 7650], _
         [-19296, 9646], _
-        [-17460, 10298] _
+        [-17460, 10298]
 ]
 
-Global $aEOTN_CharrHomelands_DaladaUplandsRoute16[2][2] = [ _
+Global $aEOTN_CharrHomelands_DaladaUplandsRoute16[90][2] = [ _
         [-14971, 11013], _
-        [-14310, 12724] _
+        [-14310, 12724], _
+        [-14350, 12791], _
+        [-17601, 10388], _
+        [-16649, 6485], _
+        [-16131, 2494], _
+        [-13528, -572], _
+        [-15663, -3959], _
+        [-18090, -7150], _
+        [-17922, -11167], _
+        [-15917, -14662], _
+        [-13391, -16843], _
+        [-12191, -16191], _
+        [-8482, -14676], _
+        [-7747, -18628], _
+        [-4699, -15996], _
+        [-734, -16733], _
+        [3209, -17521], _
+        [7205, -17237], _
+        [10660, -15174], _
+        [14231, -13323], _
+        [15486, -14122], _
+        [17868, -11541], _
+        [14281, -9705], _
+        [13958, -5658], _
+        [17852, -4511], _
+        [14141, -2985], _
+        [10105, -2608], _
+        [10393, 1430], _
+        [14414, 923], _
+        [16536, 4359], _
+        [17028, 8366], _
+        [14254, 11258], _
+        [12708, 14995], _
+        [8842, 16056], _
+        [5367, 18115], _
+        [2658, 15145], _
+        [-1025, 16731], _
+        [1143, 13355], _
+        [-2272, 11179], _
+        [-6247, 12039], _
+        [-8875, 15092], _
+        [-9545, 16453], _
+        [-10594, 14476], _
+        [-11860, 12183], _
+        [-9681, 11169], _
+        [-7630, 7678], _
+        [-3717, 8618], _
+        [-3228, 8830], _
+        [232, 9452], _
+        [4266, 9959], _
+        [8008, 8342], _
+        [4889, 5767], _
+        [1037, 4669], _
+        [-2887, 3697], _
+        [-6918, 4104], _
+        [-10897, 4922], _
+        [-9046, 1321], _
+        [-8657, -2713], _
+        [-5189, -612], _
+        [-1172, 96], _
+        [2474, 1914], _
+        [6477, 2343], _
+        [5489, -1546], _
+        [5552, -5596], _
+        [8262, -12055], _
+        [5228, -5784], _
+        [2164, -3178], _
+        [-1531, -4867], _
+        [156, -8500], _
+        [3819, -10134], _
+        [2168, -13796], _
+        [-1822, -14136], _
+        [-5748, -13219], _
+        [-9791, -13258], _
+        [-11048, -9448], _
+        [-7777, -7032], _
+        [-4638, -4496], _
+        [-1131, -2525], _
+        [1852, 163], _
+        [5105, 2594], _
+        [8307, 5060], _
+        [7509, 8998], _
+        [10537, 11668], _
+        [8092, 8492], _
+        [11726, 6705], _
+        [7964, 8157], _
+        [4666, 10422], _
+        [1773, 13213], _
+        [-14703, 6234]
 ]
 
 Func GoOutDaladaUplands()

@@ -2,304 +2,350 @@ Global $vqrange = 1450
 Global $ActionCounter = 1
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute01[2][2] = [ _
-        [4136.04, -23193.46], _
-        [474.34, -20642.43] _
+        [4136, -23193], _
+        [474, -20642]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute02[2][2] = [ _
-        [-1255.37, -19287.97], _
-        [-2717.70, -18938.59] _
+        [-1255, -19287], _
+        [-2717, -18938]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute03[1][2] = [ _
-        [-3874.73, -17697.29] _
+        [-3874, -17697]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute04[1][2] = [ _
-        [-5332.80, -16459.49] _
+        [-5332, -16459]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute05[1][2] = [ _
-        [-5404.68, -14567.80] _
+        [-5404, -14567]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute06[1][2] = [ _
-        [-3328.65, -16642.77] _
+        [-3328, -16642]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute07[1][2] = [ _
-        [-2578.09, -17220.71] _
+        [-2578, -17220]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute08[1][2] = [ _
-        [-3437.01, -18041.76] _
+        [-3437, -18041]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute09[1][2] = [ _
-        [-5544.20, -16346.28] _
+        [-5544, -16346]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute10[4][2] = [ _
-        [-5707.10, -12929.26], _
-        [-4613.20, -10833.91], _
-        [-2622.51, -12465.68], _
-        [-295.49, -13491.31] _
+        [-5707, -12929], _
+        [-4613, -10833], _
+        [-2622, -12465], _
+        [-295, -13491]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute11[2][2] = [ _
-        [-1122.14, -14560.02], _
-        [2015.50, -14634.72] _
+        [-1122, -14560], _
+        [2015, -14634]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute12[1][2] = [ _
-        [2612.05, -15526.33] _
+        [2612, -15526]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute13[1][2] = [ _
-        [2401.00, -15537.00] _
+        [2401, -15537]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute14[6][2] = [ _
-        [2401.00, -15537.00], _
-        [5447.10, -15650.64], _
-        [5052.07, -17236.13], _
-        [6279.75, -18560.21], _
-        [7661.03, -18708.12], _
-        [8216.14, -17246.21] _
+        [2401, -15537], _
+        [5447, -15650], _
+        [5052, -17236], _
+        [6279, -18560], _
+        [7661, -18708], _
+        [8216, -17246]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute15[8][2] = [ _
-        [7972.69, -15820.92], _
-        [7912.98, -14481.34], _
-        [9944.45, -14436.95], _
-        [10181.94, -13075.00], _
-        [9262.10, -12299.08], _
-        [8077.41, -12856.18], _
-        [7564.48, -13160.68], _
-        [5914.20, -12977.88] _
+        [7972, -15820], _
+        [7912, -14481], _
+        [9944, -14436], _
+        [10181, -13075], _
+        [9262, -12299], _
+        [8077, -12856], _
+        [7564, -13160], _
+        [5914, -12977]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute16[1][2] = [ _
-        [8336.71, -12286.18] _
+        [8336, -12286]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute17[1][2] = [ _
-        [7050.52, -9481.91] _
+        [7050, -9481]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute18[6][2] = [ _
-        [4896.34, -8376.27], _
-        [2989.33, -6832.79], _
-        [380.78, -6642.69], _
-        [-1179.89, -4864.52], _
-        [-2831.52, -4769.40], _
-        [-4189.59, -2896.17] _
+        [4896, -8376], _
+        [2989, -6832], _
+        [380, -6642], _
+        [-1179, -4864], _
+        [-2831, -4769], _
+        [-4189, -2896]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute19[1][2] = [ _
-        [-7572.17, -2257.74] _
+        [-7572, -2257]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute20[1][2] = [ _
-        [-4646.91, -2799.28] _
+        [-4646, -2799]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute21[1][2] = [ _
-        [-4341.05, -1277.51] _
+        [-4341, -1277]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute22[1][2] = [ _
-        [-1565.69, -1396.72] _
+        [-1565, -1396]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute23[2][2] = [ _
-        [-1033.00, -2912.24], _
-        [1826.31, -4418.21] _
+        [-1033, -2912], _
+        [1826, -4418]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute24[1][2] = [ _
-        [7952.08, -6495.84] _
+        [7952, -6495]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute25[3][2] = [ _
-        [10642.37, -5763.21], _
-        [10805.18, -4411.31], _
-        [10031.70, -3460.72] _
+        [10642, -5763], _
+        [10805, -4411], _
+        [10031, -3460]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute26[1][2] = [ _
-        [9337.92, -1493.75] _
+        [9337, -1493]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute27[1][2] = [ _
-        [8581.96, 1461.29] _
+        [8581, 1461]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute28[1][2] = [ _
-        [7994.66, 22.80] _
+        [7994, 22]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute29[4][2] = [ _
-        [6959.37, -968.57], _
-        [7834.35, -2699.01], _
-        [6954.48, -3347.91], _
-        [5142.29, -2647.72] _
+        [6959, -968], _
+        [7834, -2699], _
+        [6954, -3347], _
+        [5142, -2647]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute30[2][2] = [ _
-        [2930.42, -2601.82], _
-        [4545.52, 446.10] _
+        [2930, -2601], _
+        [4545, 446]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute31[2][2] = [ _
-        [2784.26, 1319.82], _
-        [2330.52, 3883.51] _
+        [2784, 1319], _
+        [2330, 3883]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute32[1][2] = [ _
-        [1916.04, 5052.89] _
+        [1916, 5052]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute33[1][2] = [ _
-        [1469.35, 6085.98] _
+        [1469, 6085]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute34[2][2] = [ _
-        [2123.45, 5474.12], _
-        [3276.02, 5522.12] _
+        [2123, 5474], _
+        [3276, 5522]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute35[1][2] = [ _
-        [3777.12, 5122.87] _
+        [3777, 5122]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute36[1][2] = [ _
-        [6052.25, 4163.34] _
+        [6052, 4163]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute37[2][2] = [ _
-        [6849.05, 5672.93], _
-        [7219.92, 7247.22] _
+        [6849, 5672], _
+        [7219, 7247]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute38[2][2] = [ _
-        [8878.50, 7123.58], _
-        [8269.11, 9446.60] _
+        [8878, 7123], _
+        [8269, 9446]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute39[1][2] = [ _
-        [7088.65, 13250.86] _
+        [7088, 13250]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute40[1][2] = [ _
-        [5388.23, 12130.31] _
+        [5388, 12130]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute41[1][2] = [ _
-        [6592.87, 13491.65] _
+        [6592, 13491]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute42[1][2] = [ _
-        [5389.00, 11922.00] _
+        [5389, 11922]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute43[1][2] = [ _
-        [8622.65, 17883.54] _
+        [8622, 17883]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute44[1][2] = [ _
-        [7314.08, 17933.38] _
+        [7314, 17933]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute45[1][2] = [ _
-        [8821.37, 17377.35] _
+        [8821, 17377]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute46[1][2] = [ _
-        [8820.64, 20033.08] _
+        [8820, 20033]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute47[1][2] = [ _
-        [8543.06, 19784.50] _
+        [8543, 19784]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute48[1][2] = [ _
-        [6363.84, 18927.49] _
+        [6363, 18927]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute49[1][2] = [ _
-        [5761.64, 19687.38] _
+        [5761, 19687]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute50[1][2] = [ _
-        [5333.17, 21668.80] _
+        [5333, 21668]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute51[1][2] = [ _
-        [6521.10, 22583.36] _
+        [6521, 22583]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute52[1][2] = [ _
-        [8652.28, 21871.42] _
+        [8652, 21871]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute53[1][2] = [ _
-        [10374.67, 25167.26] _
+        [10374, 25167]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute54[4][2] = [ _
-        [7977.23, 25507.59], _
-        [6637.78, 25612.98], _
-        [4928.06, 24781.25], _
-        [3993.13, 25167.84] _
+        [7977, 25507], _
+        [6637, 25612], _
+        [4928, 24781], _
+        [3993, 25167]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute55[3][2] = [ _
-        [4045.20, 23250.48], _
-        [1964.18, 21994.99], _
-        [-927.41, 22625.92] _
+        [4045, 23250], _
+        [1964, 21994], _
+        [-927, 22625]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute56[1][2] = [ _
-        [-2357.00, 23514.85] _
+        [-2357, 23514]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute57[6][2] = [ _
-        [-4355.10, 22017.66], _
-        [-7547.75, 23198.58], _
-        [-7154.89, 20604.69], _
-        [-8669.14, 18779.96], _
-        [-8167.01, 16009.29], _
-        [-7982.62, 14295.89] _
+        [-4355, 22017], _
+        [-7547, 23198], _
+        [-7154, 20604], _
+        [-8669, 18779], _
+        [-8167, 16009], _
+        [-7982, 14295]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute58[1][2] = [ _
-        [-6033.09, 12781.29] _
+        [-6033, 12781]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute59[7][2] = [ _
-        [-4923.30, 11005.42], _
-        [-4148.23, 10203.29], _
-        [-2241.12, 9104.62], _
-        [515.00, 8537.51], _
-        [313.96, 10590.12], _
-        [1084.61, 11980.50], _
-        [2459.76, 11395.19] _
+        [-4923, 11005], _
+        [-4148, 10203], _
+        [-2241, 9104], _
+        [515, 8537], _
+        [313, 10590], _
+        [1084, 11980], _
+        [2459, 11395]
 ]
 
 Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute60[8][2] = [ _
-        [4284.47, 11619.70], _
-        [1253.75, 11887.98], _
-        [1049.70, 15803.87], _
-        [786.73, 18729.12], _
-        [2419.93, 18524.79], _
-        [-239.48, 21166.25], _
-        [-2470.46, 20826.73], _
-        [-5654.72, 19905.93] _
+        [4284, 11619], _
+        [1253, 11887], _
+        [1049, 15803], _
+        [786, 18729], _
+        [2419, 18524], _
+        [-239, 21166], _
+        [-2470, 20826], _
+        [-5654, 19905]
 ]
 
-Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute61[1][2] = [ _
-        [-4604.51, 17773.60] _
+Global $aEOTN_FarShiverpeaks_IceCliffChasmsRoute61[47][2] = [ _
+        [-4604, 17773], _
+        [2806, -24739], _
+        [642, -21088], _
+        [-2705, -18797], _
+        [-5422, -15837], _
+        [-5356, -16526], _
+        [-4496, -10822], _
+        [-1638, -12665], _
+        [1870, -14688], _
+        [5720, -15897], _
+        [8056, -12590], _
+        [5918, -9165], _
+        [2301, -7372], _
+        [-1310, -5639], _
+        [-4417, -3038], _
+        [-7123, -89], _
+        [-3800, -2410], _
+        [-639, -4898], _
+        [2962, -3045], _
+        [6737, -1650], _
+        [5766, -5541], _
+        [9703, -6312], _
+        [9659, -2278], _
+        [8172, 1451], _
+        [5430, 4369], _
+        [7391, 7870], _
+        [8597, 11698], _
+        [6700, 15303], _
+        [9460, 18210], _
+        [9285, 22216], _
+        [5526, 23761], _
+        [5341, 19756], _
+        [2837, 22886], _
+        [998, 19265], _
+        [1088, 15205], _
+        [620, 11208], _
+        [953, 15220], _
+        [533, 19252], _
+        [-3292, 17957], _
+        [-6838, 16074], _
+        [-8053, 19894], _
+        [-4898, 22368], _
+        [-4132, 26336], _
+        [1820, 4079], _
+        [-3047, 9861], _
+        [-2625, -16987], _
+        [-5556, -11773]
 ]
 
 Func GoOutIceCliffChasms()

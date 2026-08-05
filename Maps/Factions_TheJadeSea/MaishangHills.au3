@@ -1,7 +1,7 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aFactions_TheJadeSea_MaishangHillsRoute01[80][2] = [ _
+Global $aFactions_TheJadeSea_MaishangHillsRoute01[88][2] = [ _
         [16423, -10318], _
         [19047, -12390], _
         [21315, -12774], _
@@ -81,10 +81,26 @@ Global $aFactions_TheJadeSea_MaishangHillsRoute01[80][2] = [ _
         [9850, 2893], _
         [8588, 224], _
         [5731, 692], _
-        [4964, 4379] _
+        [4964, 4379], _
+        [-4821, 3259], _
+        [-14726, 6458], _
+        [13105, -9623], _
+        [12537, -4085], _
+        [14525, 3334], _
+        [10868, -2417], _
+        [9768, -216], _
+        [4691, 5926]
 ]
 
-Global $aFactions_TheJadeSea_MaishangHillsRoute02[80][2] = [ _
+Global $aFactions_TheJadeSea_MaishangHillsRoute02[88][2] = [ _
+        [4691, 5926], _
+        [9768, -216], _
+        [10868, -2417], _
+        [14525, 3334], _
+        [12537, -4085], _
+        [13105, -9623], _
+        [-14726, 6458], _
+        [-4821, 3259], _
         [4964, 4379], _
         [5731, 692], _
         [8588, 224], _
@@ -164,7 +180,7 @@ Global $aFactions_TheJadeSea_MaishangHillsRoute02[80][2] = [ _
         [18043, -10677], _
         [21315, -12774], _
         [19047, -12390], _
-        [16423, -10318] _
+        [16423, -10318]
 ]
 
 Func GoOutMaishangHills()
