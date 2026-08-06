@@ -14,7 +14,15 @@
 ; Run the top-level launcher from the bot root folder.
 
 Global Const $MAP_CAMPAIGN_COUNT = 5
-Global Const $CONSOLE_WIDTH = 360
+Global Const $GUI_WIDTH = 1000
+Global Const $GUI_HEIGHT = 560
+Global Const $TAB_WIDTH = 980
+Global Const $TAB_HEIGHT = 540
+Global Const $CONSOLE_WIDTH = 320
+Global Const $MAP_LIST_MAX_WIDTH = 920
+Global Const $MAP_SELECTION_PANE_LEFT = 30
+Global Const $MAP_SELECTION_PANE_WIDTH = 960
+Global Const $MAP_LIST_HEIGHT = 440
 Global Const $CONSOLE_MAX_LINES = 250
 Global Const $MAP_CAMPAIGN_FIRST_TAB_INDEX = 1
 
@@ -43,51 +51,54 @@ Global $g_sLastRunControlStatusLabel = ""
 
 Func _VB_CreateGUI()
     Local $i = 0
-    $hGUI = GUICreate("Guild Wars Vanquish Bot", 1180, 560)
-    $tab = GUICtrlCreateTab(10, 10, 1160, 540)
+    Local Const $iHeroComboWidth = 105
+    Local Const $iTeam8ColSpan = 150
+
+    $hGUI = GUICreate("Guild Wars Vanquish Bot", $GUI_WIDTH, $GUI_HEIGHT)
+    $tab = GUICtrlCreateTab(10, 10, $TAB_WIDTH, $TAB_HEIGHT)
 
     GUICtrlCreateTabItem("Main Menu")
-    $console = GUICtrlCreateEdit("", 40, 50, $CONSOLE_WIDTH, 230, BitOR($ES_READONLY, $ES_AUTOVSCROLL, $ES_MULTILINE, $WS_VSCROLL))
+    $console = GUICtrlCreateEdit("", 30, 50, $CONSOLE_WIDTH, 230, BitOR($ES_READONLY, $ES_AUTOVSCROLL, $ES_MULTILINE, $WS_VSCROLL))
     GUICtrlSetFont($console, 10, 400, 0, "Consolas")
-    $picVanquishedHelmet = GUICtrlCreatePic($g_sHelmetImagePath, 840, 55, 210, 210)
+    $picVanquishedHelmet = GUICtrlCreatePic($g_sHelmetImagePath, 710, 55, 180, 180)
 
-    GUICtrlCreateGroup("Client Connection", 420, 50, 390, 150)
-    $lblDetectedClient = GUICtrlCreateLabel("Detected Client: scanning...", 425, 76, 360, 18)
-    $lblDetectedCharacter = GUICtrlCreateLabel("Detected Character: scanning...", 425, 98, 360, 18)
-    $lblConnectedCharacter = GUICtrlCreateLabel("Connected Character: not connected", 425, 120, 360, 18)
-    $btnConnect = GUICtrlCreateButton("Connect To Client", 425, 144, 360, 24)
-    $lblMapScanStatus = GUICtrlCreateLabel("Map Scan Status: waiting for client connection", 425, 176, 360, 18)
+    GUICtrlCreateGroup("Client Connection", 360, 50, 340, 150)
+    $lblDetectedClient = GUICtrlCreateLabel("Detected Client: scanning...", 365, 76, 320, 18)
+    $lblDetectedCharacter = GUICtrlCreateLabel("Detected Character: scanning...", 365, 98, 320, 18)
+    $lblConnectedCharacter = GUICtrlCreateLabel("Connected Character: not connected", 365, 120, 320, 18)
+    $btnConnect = GUICtrlCreateButton("Connect To Client", 365, 144, 320, 24)
+    $lblMapScanStatus = GUICtrlCreateLabel("Map Scan Status: waiting for client connection", 365, 176, 320, 18)
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Run Control", 40, 295, 280, 185)
-    $btnStart = GUICtrlCreateButton("Start Checked Maps", 55, 325, 120, 34)
-    $btnStop = GUICtrlCreateButton("Stop", 185, 325, 120, 34)
-    $lblRunControlStatus = GUICtrlCreateLabel("Run Status: idle", 55, 368, 250, 18)
-    $lblRunTime = GUICtrlCreateLabel("Current Run Time: 00:00:00", 55, 390, 250, 18)
-    $lblDeaths = GUICtrlCreateLabel("Deaths: 0", 55, 412, 250, 18)
-    $lblVanquishStreak = GUICtrlCreateLabel("Maps Vanquished In A Row: 0", 55, 434, 250, 18)
+    GUICtrlCreateGroup("Run Control", 30, 295, 280, 185)
+    $btnStart = GUICtrlCreateButton("Start Checked Maps", 45, 325, 120, 34)
+    $btnStop = GUICtrlCreateButton("Stop", 175, 325, 120, 34)
+    $lblRunControlStatus = GUICtrlCreateLabel("Run Status: idle", 45, 368, 250, 18)
+    $lblRunTime = GUICtrlCreateLabel("Current Run Time: 00:00:00", 45, 390, 250, 18)
+    $lblDeaths = GUICtrlCreateLabel("Deaths: 0", 45, 412, 250, 18)
+    $lblVanquishStreak = GUICtrlCreateLabel("Maps Vanquished In A Row: 0", 45, 434, 250, 18)
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Heroes", 340, 295, 740, 225)
-    GUICtrlCreateGroup("Team 4", 355, 320, 160, 115)
+    GUICtrlCreateGroup("Heroes", 320, 295, 650, 225)
+    GUICtrlCreateGroup("Team 4", 335, 320, 145, 115)
     For $i = 0 To 2
-        GUICtrlCreateLabel("H" & ($i + 1) & ":", 363, 340 + ($i * 28), 22, 18)
-        $g_idComboTeam4[$i] = GUICtrlCreateCombo("", 385, 337 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
+        GUICtrlCreateLabel("H" & ($i + 1) & ":", 343, 340 + ($i * 28), 22, 18)
+        $g_idComboTeam4[$i] = GUICtrlCreateCombo("", 365, 337 + ($i * 28), $iHeroComboWidth, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
         GUICtrlSetData($g_idComboTeam4[$i], $g_sHeroList)
         GUICtrlSendMsg($g_idComboTeam4[$i], $CB_SETDROPPEDWIDTH, $g_iHeroDropdownWidth, 0)
     Next
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Team 6", 530, 320, 160, 155)
+    GUICtrlCreateGroup("Team 6", 490, 320, 145, 155)
     For $i = 0 To 4
-        GUICtrlCreateLabel("H" & ($i + 1) & ":", 538, 340 + ($i * 28), 22, 18)
-        $g_idComboTeam6[$i] = GUICtrlCreateCombo("", 560, 337 + ($i * 28), 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
+        GUICtrlCreateLabel("H" & ($i + 1) & ":", 498, 340 + ($i * 28), 22, 18)
+        $g_idComboTeam6[$i] = GUICtrlCreateCombo("", 520, 337 + ($i * 28), $iHeroComboWidth, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
         GUICtrlSetData($g_idComboTeam6[$i], $g_sHeroList)
         GUICtrlSendMsg($g_idComboTeam6[$i], $CB_SETDROPPEDWIDTH, $g_iHeroDropdownWidth, 0)
     Next
     GUICtrlCreateGroup("", -99, -99, 1, 1)
 
-    GUICtrlCreateGroup("Team 8", 705, 320, 330, 145)
+    GUICtrlCreateGroup("Team 8", 645, 320, 310, 145)
     For $i = 0 To 6
         Local $iColumn = 0
         Local $iRow = $i
@@ -96,33 +107,33 @@ Func _VB_CreateGUI()
             $iRow = $i - 4
         EndIf
 
-        Local $iLabelX = 713 + ($iColumn * 155)
-        Local $iComboX = 735 + ($iColumn * 155)
+        Local $iLabelX = 653 + ($iColumn * $iTeam8ColSpan)
+        Local $iComboX = 675 + ($iColumn * $iTeam8ColSpan)
         Local $iLabelY = 340 + ($iRow * 28)
         Local $iComboY = 337 + ($iRow * 28)
 
         GUICtrlCreateLabel("H" & ($i + 1) & ":", $iLabelX, $iLabelY, 22, 18)
-        $g_idComboTeam8[$i] = GUICtrlCreateCombo("", $iComboX, $iComboY, 122, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
+        $g_idComboTeam8[$i] = GUICtrlCreateCombo("", $iComboX, $iComboY, $iHeroComboWidth, 25, BitOR($CBS_DROPDOWNLIST, $WS_VSCROLL))
         GUICtrlSetData($g_idComboTeam8[$i], $g_sHeroList)
         GUICtrlSendMsg($g_idComboTeam8[$i], $CB_SETDROPPEDWIDTH, $g_iHeroDropdownWidth, 0)
     Next
     GUICtrlCreateGroup("", -99, -99, 1, 1)
-    $btnSaveConfig = GUICtrlCreateButton("Save Config", 790, 475, 160, 28)
+    $btnSaveConfig = GUICtrlCreateButton("Save Config", 805, 475, 145, 28)
 
     GUICtrlCreateTabItem("EOTN")
-    $lvMapsEOTN = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsEOTN = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, $MAP_LIST_MAX_WIDTH, $MAP_LIST_HEIGHT, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     GUICtrlCreateTabItem("Prophecies")
-    $lvMapsProphecies = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsProphecies = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, $MAP_LIST_MAX_WIDTH, $MAP_LIST_HEIGHT, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     GUICtrlCreateTabItem("Caravan Routes")
-    $lvMapsCaravan = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsCaravan = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, $MAP_LIST_MAX_WIDTH, $MAP_LIST_HEIGHT, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     GUICtrlCreateTabItem("Factions")
-    $lvMapsFactions = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsFactions = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, $MAP_LIST_MAX_WIDTH, $MAP_LIST_HEIGHT, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     GUICtrlCreateTabItem("Nightfall")
-    $lvMapsNightfall = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, 1060, 440, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
+    $lvMapsNightfall = GUICtrlCreateListView(" |Region|Map|Pre-Travel|Status", 40, 50, $MAP_LIST_MAX_WIDTH, $MAP_LIST_HEIGHT, BitOR($LVS_REPORT, $LVS_SHOWSELALWAYS, $WS_VSCROLL, $WS_BORDER))
 
     $g_aCampaignLists[0] = $lvMapsEOTN
     $g_aCampaignLists[1] = $lvMapsProphecies
@@ -305,10 +316,6 @@ EndFunc
 Func _ResizeMapListColumns()
     Local $iCheckWidth = 34
     Local $iStatusChars = StringLen("Vanquished")
-    Local Const $iMapListMaxWidth = 1060
-    Local Const $iMapListHeight = 440
-    Local Const $iMapSelectionPaneLeft = 30
-    Local Const $iMapSelectionPaneWidth = 1100
     Local Const $iMapSelectionPaneTop = 50
     Local $aRegionChars[$MAP_CAMPAIGN_COUNT]
     Local $aMapChars[$MAP_CAMPAIGN_COUNT]
@@ -334,22 +341,22 @@ Func _ResizeMapListColumns()
 
     For $i = 0 To $MAP_CAMPAIGN_COUNT - 1
         Local $iRegionWidth = _EstimateMapListColumnWidth($aRegionChars[$i], 24)
-        If $iRegionWidth > 170 Then $iRegionWidth = 170
+        If $iRegionWidth > 150 Then $iRegionWidth = 150
 
         Local $iMapWidth = _EstimateMapListColumnWidth($aMapChars[$i], 24)
-        If $iMapWidth > 260 Then $iMapWidth = 260
+        If $iMapWidth > 220 Then $iMapWidth = 220
 
         Local $iPreTravelWidth = _EstimateMapListColumnWidth($aPreTravelChars[$i], 24)
-        If $iPreTravelWidth > 210 Then $iPreTravelWidth = 210
+        If $iPreTravelWidth > 180 Then $iPreTravelWidth = 180
 
         Local $iListWidth = $iCheckWidth + $iRegionWidth + $iMapWidth + $iPreTravelWidth + $iStatusWidth + 24
-        If $iListWidth > $iMapListMaxWidth Then
-            $iListWidth = $iMapListMaxWidth
+        If $iListWidth > $MAP_LIST_MAX_WIDTH Then
+            $iListWidth = $MAP_LIST_MAX_WIDTH
             $iMapWidth = $iListWidth - $iCheckWidth - $iRegionWidth - $iPreTravelWidth - $iStatusWidth - 24
         EndIf
 
-        Local $iListX = $iMapSelectionPaneLeft + Int(($iMapSelectionPaneWidth - $iListWidth) / 2)
-        GUICtrlSetPos($g_aCampaignLists[$i], $iListX, $iMapSelectionPaneTop, $iListWidth, $iMapListHeight)
+        Local $iListX = $MAP_SELECTION_PANE_LEFT + Int(($MAP_SELECTION_PANE_WIDTH - $iListWidth) / 2)
+        GUICtrlSetPos($g_aCampaignLists[$i], $iListX, $iMapSelectionPaneTop, $iListWidth, $MAP_LIST_HEIGHT)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 0, $iCheckWidth)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 1, $iRegionWidth)
         _GUICtrlListView_SetColumnWidth($g_aCampaignLists[$i], 2, $iMapWidth)
