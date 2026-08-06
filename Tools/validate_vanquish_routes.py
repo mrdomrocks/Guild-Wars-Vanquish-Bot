@@ -180,13 +180,15 @@ def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
             "Func VQSpecialRoute_TempleOfTheAgesMaguumaCaravan(",
             "_Vanquisher_MaguumaCaravanGoOutToMap",
             "_Vanquisher_MaguumaCaravanRunVanquish",
-            "_Vanquisher_MaguumaCaravanIsVanquishedAfterLoad",
-            "_Vanquisher_IsAlreadyVanquishedOnEntry",
             "_Vanquisher_MaguumaCaravanAdvanceAfterVanquish",
+            "_Vanquisher_MaguumaCaravanFirstIncompleteStage",
+            "_Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished",
+            "_Vanquisher_MaguumaCaravanIsVanquishedAfterLoad",
             "_TempleAscalonCaravanTryCatchUp",
             "_TempleAscalonCaravanCanDirectTransition",
             "_Vanquisher_ReturnToOutpost",
-            "already vanquished on entry",
+            "already vanquished per map scan",
+            "already clear in this instance",
             "Portaling to ",
             "Starting ",
         ):
@@ -224,6 +226,14 @@ def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
             errors.append(f"{plan.relative_to(ROOT)}: SageLands stage must use $SageLands_Transit (Majesty's Rest)")
         if "$MamnoonLagoon_Transit2" not in plan_text:
             errors.append(f"{plan.relative_to(ROOT)}: Mamnoon stage must use $MamnoonLagoon_Transit2 (Sage Lands)")
+        for needle in (
+            "_Vanquisher_MaguumaCaravanFirstIncompleteStage",
+            "_Vanquisher_IsMapIdHistoricallyVanquished",
+            "_Vanquisher_IsCaravanMapHistoricallyVanquished",
+            "CaravanMaguuma_TalmarkWilderness",
+        ):
+            if needle not in plan_text:
+                errors.append(f"{plan.relative_to(ROOT)}: missing history-skip helper {needle}")
 
     locations = ROOT / "Maps" / "LocationsIDS.au3"
     loc_text = locations.read_text(encoding="utf-8", errors="replace")

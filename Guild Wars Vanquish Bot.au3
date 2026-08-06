@@ -652,6 +652,9 @@ EndFunc
 Func _AppendQueueMapIndex(ByRef $aQueue, ByRef $aRouteProfiles, $iMapIndex, $sRouteProfile = "")
     If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then Return False
     If $g_aMapEntries[$iMapIndex][5] Then Return False
+    If IsFunc("_Vanquisher_IsMapIdHistoricallyVanquished") Then
+        If _Vanquisher_IsMapIdHistoricallyVanquished($g_aMapEntries[$iMapIndex][4]) Then Return False
+    EndIf
 
     Local $i = 0
     For $i = 0 To UBound($aQueue) - 1
@@ -690,6 +693,8 @@ Func _AppendTempleAscalonCaravanQueue(ByRef $aQueue, ByRef $aRouteProfiles)
             "CaravanAscalon_EasternFrontier" _
     ]
     Local $i = 0
+    Local $iSkipped = 0
+    Local $sSkipped = ""
 
     For $i = 0 To UBound($aRouteMaps) - 1
         Local $iMapIndex = _FindMapIndexByScriptName($aRouteMaps[$i])
@@ -697,8 +702,26 @@ Func _AppendTempleAscalonCaravanQueue(ByRef $aQueue, ByRef $aRouteProfiles)
             _Log("Special route is missing map entry: " & $aRouteMaps[$i] & ".")
             ContinueLoop
         EndIf
+        Local $bHistoricallyDone = $g_aMapEntries[$iMapIndex][5]
+        If Not $bHistoricallyDone And IsFunc("_Vanquisher_IsMapIdHistoricallyVanquished") Then
+            $bHistoricallyDone = _Vanquisher_IsMapIdHistoricallyVanquished($g_aMapEntries[$iMapIndex][4])
+        EndIf
+        If $bHistoricallyDone Then
+            $iSkipped += 1
+            If $sSkipped <> "" Then $sSkipped &= ", "
+            If $g_aMapEntries[$iMapIndex][2] <> "" Then
+                $sSkipped &= $g_aMapEntries[$iMapIndex][2]
+            Else
+                $sSkipped &= $aRouteMaps[$i]
+            EndIf
+            ContinueLoop
+        EndIf
         _AppendQueueMapIndex($aQueue, $aRouteProfiles, $iMapIndex, $GC_S_ROUTE_PROFILE_TEMPLE_ASCALON_CARAVAN)
     Next
+
+    If $iSkipped > 0 Then
+        _Log("Ascalon caravan: skipping " & $iSkipped & " historically completed map(s): " & $sSkipped & ".")
+    EndIf
 
     Return UBound($aQueue) > 0
 EndFunc
@@ -1226,8 +1249,6 @@ Func _RefreshHistoricalVanquishStates()
         Return False
     EndIf
 
-    Local $iMarked = 0
-
     For $i = 0 To UBound($g_aMapEntries) - 1
         Local $iMapID = $g_aMapEntries[$i][4]
         ; Special multi-map caravan routes are never "historically vanquished" as a unit.
@@ -1246,14 +1267,16 @@ Func _RefreshHistoricalVanquishStates()
         EndIf
 
         $g_aMapEntries[$i][5] = $bVanquished
-        If $g_aMapEntries[$i][5] Then
-            $g_aMapEntries[$i][3] = False
-            $iMarked += 1
-        EndIf
+        ; Still flag Caravan Internal rows so caravan routing can skip completed maps.
+        If $g_aMapEntries[$i][5] Then $g_aMapEntries[$i][3] = False
     Next
 
+    Local $iDisplayedCompleted = 0
+    Local $iDisplayedAvailable = 0
+    _CountDisplayedMapScanStats($iDisplayedCompleted, $iDisplayedAvailable)
+
     _PopulateMapList("ALL")
-    _Log("Vanquish history loaded: " & $iMarked & " completed map(s).")
+    _Log("Vanquish history loaded: " & $iDisplayedCompleted & " completed map(s).")
     Return True
 EndFunc
 

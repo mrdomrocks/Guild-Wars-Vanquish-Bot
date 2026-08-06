@@ -106,3 +106,60 @@ Func _Vanquisher_IsMaguumaCaravanEntryMap($iMapID, $iStage)
     If $g_a_MaguumaCaravanPlan[$iStage][4] > 0 And $iMapID = $g_a_MaguumaCaravanPlan[$iStage][4] Then Return True
     Return False
 EndFunc
+
+Func _Vanquisher_MaguumaCaravanStageScriptName($iStage)
+    Local $aScripts[10] = [ _
+            "CaravanMaguuma_TalmarkWilderness", _
+            "CaravanMaguuma_MajestysRest", _
+            "CaravanMaguuma_SageLands", _
+            "CaravanMaguuma_MamnoonLagoon", _
+            "CaravanMaguuma_Silverwood", _
+            "CaravanMaguuma_EttinsBack", _
+            "CaravanMaguuma_ReedBog", _
+            "CaravanMaguuma_TheFalls", _
+            "CaravanMaguuma_DryTop", _
+            "CaravanMaguuma_TangleRoot" _
+            ]
+    If $iStage < 0 Or $iStage >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then Return ""
+    Return $aScripts[$iStage]
+EndFunc
+
+; True when map scan marked this map id vanquished on any matching entry (campaign or caravan).
+Func _Vanquisher_IsMapIdHistoricallyVanquished($iMapID)
+    If $iMapID <= 0 Then Return False
+    If IsDeclared("g_bVanquishHistoryLoaded") And Not $g_bVanquishHistoryLoaded Then Return False
+    Local $i = 0
+    For $i = 0 To UBound($g_aMapEntries) - 1
+        If $g_aMapEntries[$i][4] <> $iMapID Then ContinueLoop
+        If $g_aMapEntries[$i][5] Then Return True
+    Next
+    Return False
+EndFunc
+
+; Uses connect-time history flags on Caravan Internal map entries (g_aMapEntries[][5]).
+Func _Vanquisher_IsCaravanMapHistoricallyVanquished($sScriptName)
+    If $sScriptName = "" Then Return False
+    Local $iMapIndex = _FindMapIndexByScriptName($sScriptName)
+    If $iMapIndex < 0 Then Return False
+    If $g_aMapEntries[$iMapIndex][5] Then Return True
+    Return _Vanquisher_IsMapIdHistoricallyVanquished($g_aMapEntries[$iMapIndex][4])
+EndFunc
+
+Func _Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished($iStage)
+    _Vanquisher_InitMaguumaCaravanPlan()
+    If $iStage < 0 Or $iStage >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then Return False
+    Local $iMapID = $g_a_MaguumaCaravanPlan[$iStage][0]
+    If $iMapID > 0 And _Vanquisher_IsMapIdHistoricallyVanquished($iMapID) Then Return True
+    Return _Vanquisher_IsCaravanMapHistoricallyVanquished(_Vanquisher_MaguumaCaravanStageScriptName($iStage))
+EndFunc
+
+; First stage from $iFromStage that is not marked vanquished by map scan; or map count if all done.
+Func _Vanquisher_MaguumaCaravanFirstIncompleteStage($iFromStage = 0)
+    If $iFromStage < 0 Then $iFromStage = 0
+    _Vanquisher_InitMaguumaCaravanPlan()
+    Local $i = 0
+    For $i = $iFromStage To $GC_I_MAGUUMA_CARAVAN_MAP_COUNT - 1
+        If Not _Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished($i) Then Return $i
+    Next
+    Return $GC_I_MAGUUMA_CARAVAN_MAP_COUNT
+EndFunc

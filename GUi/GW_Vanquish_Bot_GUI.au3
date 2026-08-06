@@ -243,28 +243,46 @@ Func _UpdateConnectedCharacterDisplay()
     $g_sLastConnectedCharacterLabel = $sLabel
 EndFunc
 
-Func _UpdateMapScanStatusDisplay($sStatus = "")
-    Local $iVanquished = 0
-    Local $iSelectable = 0
-    Local $i = 0
+; Entries shown in Map Scan Status / console completed counts (excludes caravan internals & specials).
+Func _IsMapScanDisplayEntry($iIndex)
+    If $iIndex < 0 Or $iIndex >= UBound($g_aMapEntries) Then Return False
+    If $g_aMapEntries[$iIndex][0] = "Caravan Internal" Then Return False
+    If $g_aMapEntries[$iIndex][0] = "Caravan Routes" Then Return False
+    If $g_aMapEntries[$iIndex][4] <= 0 Then Return False
+    If StringLeft($g_aMapEntries[$iIndex][8], 13) = "SpecialRoute_" Then Return False
+    Return True
+EndFunc
 
+Func _CountDisplayedMapScanStats(ByRef $iVanquished, ByRef $iSelectable)
+    $iVanquished = 0
+    $iSelectable = 0
+    Local $i = 0
     For $i = 0 To UBound($g_aMapEntries) - 1
-        If $g_aMapEntries[$i][0] = "Caravan Internal" Then ContinueLoop
+        If Not _IsMapScanDisplayEntry($i) Then ContinueLoop
         If $g_aMapEntries[$i][5] Then
             $iVanquished += 1
         Else
             $iSelectable += 1
         EndIf
     Next
+EndFunc
 
+Func _UpdateMapScanStatusDisplay($sStatus = "")
     If $sStatus = "" Then
         If Not $g_bClientConnected Or Not $Bot_Core_Initialized Then
             $sStatus = "waiting for client"
         ElseIf $g_bMapScanInProgress Then
             $sStatus = "scanning..."
+        ElseIf $g_bPostConnectAutoScanPending Then
+            $sStatus = "connected - scanning shortly"
+        ElseIf $g_bPendingVanquishScan Then
+            $sStatus = "waiting for in-game state"
         ElseIf Not $g_bVanquishHistoryLoaded Then
             $sStatus = "waiting to scan"
         Else
+            Local $iVanquished = 0
+            Local $iSelectable = 0
+            _CountDisplayedMapScanStats($iVanquished, $iSelectable)
             $sStatus = $iVanquished & " completed, " & $iSelectable & " available"
         EndIf
     EndIf
