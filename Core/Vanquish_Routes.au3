@@ -98,6 +98,9 @@
 #include "..\Maps\Caravan_Ascalon\CaravanAscalon_PockmarkFlats.au3"
 #include "..\Maps\Caravan_Ascalon\CaravanAscalon_EasternFrontier.au3"
 
+; Caravan Routes - Ascalon special runner
+#include "..\Maps\Caravan_Ascalon\SpecialRoute_TempleOfTheAgesAscalonCaravan.au3"
+
 ; Caravan Routes - Maguuma
 #include "..\Maps\Caravan_Maguuma\SpecialRoute_TempleOfTheAgesMaguumaCaravan.au3"
 #include "..\Maps\Caravan_Maguuma\CaravanMaguuma_TalmarkWilderness.au3"

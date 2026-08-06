@@ -171,9 +171,10 @@ Func _ShouldStayInExplorableForQueuedRoute()
     Local $iCurrentMapIndex = $g_a_VanquisherZoneQueue[$g_i_VanquisherZoneQueueIndex]
     Local $iNextMapIndex = $g_a_VanquisherZoneQueue[$iNextQueueIndex]
 
-    ; Maguuma special runner owns its own portal/resign advance between stages.
-    If _Vanquisher_IsCombinedMaguumaCaravanActive() Then Return False
+    ; Combined special runners own their own portal/resign advance between stages.
+    If _Vanquisher_IsCombinedCaravanActive() Then Return False
     If StringCompare($sCurrentProfile, "temple_maguuma_caravan", 0) = 0 Then Return False
+    If StringCompare($sCurrentProfile, "temple_ascalon_caravan", 0) = 0 Then Return False
 
     If _Vanquisher_IsTempleCaravanRouteProfile($sCurrentProfile) And $sCurrentProfile = $sNextProfile Then
         Return _TempleAscalonCaravanCanDirectTransition($g_aMapEntries[$iNextMapIndex][4])

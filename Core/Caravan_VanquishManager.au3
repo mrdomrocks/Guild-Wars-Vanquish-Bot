@@ -21,8 +21,8 @@ EndFunc
 
 Func _Vanquisher_ShouldFinalizeDelayedCaravanAfterRoute($iMapIndex = -1)
     If Not _Vanquisher_ShouldDelayCaravanTransition() Then Return False
-    ; Maguuma special runner owns portal/resign advance between its own stages.
-    If _Vanquisher_IsCombinedMaguumaCaravanActive() Then Return False
+    ; Combined special runners own portal/resign advance between their own stages.
+    If _Vanquisher_IsCombinedCaravanActive() Then Return False
     If $g_b_Vanquisher_TransitOnly Then Return False
     If Not Map_GetInstanceInfo("IsExplorable") Then Return False
     If Not GetAreaVanquished() And Not _Vanquisher_IsAlreadyVanquishedOnEntry() Then Return False

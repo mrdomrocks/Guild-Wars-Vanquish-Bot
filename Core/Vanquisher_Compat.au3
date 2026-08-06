@@ -1010,7 +1010,8 @@ EndFunc
 
 Func _Vanquisher_ReturnToOutpost()
     If Not Map_GetInstanceInfo("IsExplorable") Then Return True
-    If _Vanquisher_IsAscalonCaravanZone() Then Return True
+    ; Legacy Ascalon zone chain stays explorable; combined TOA Ascalon runner resigns for stall recovery.
+    If _Vanquisher_IsAscalonCaravanZone() And Not _Vanquisher_IsCombinedAscalonCaravanActive() Then Return True
 
     CurrentAction("Returning to outpost.")
     If Not GetIsDead(-2) And Death() <> 1 Then

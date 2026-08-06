@@ -199,6 +199,8 @@ Global $g_b_Vanquisher_SessionStarted = False
 Global $g_b_AscalonCaravan_VisitedDG = False
 Global $g_b_Vanquisher_CombinedMaguumaCaravanActive = False
 Global $g_i_Vanquisher_CombinedMaguumaStage = 0
+Global $g_b_Vanquisher_CombinedAscalonCaravanActive = False
+Global $g_i_Vanquisher_CombinedAscalonStage = 0
 
 ; Declared early so caravan helpers (included before Bot.au3 body) always see the same arrays/flags.
 ; Columns: campaign, region, map name, checked, map id, vanquished, outpost id, max party size, script name, route function, pre-travel label

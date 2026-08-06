@@ -27,6 +27,7 @@ Func Main()
     _VR_ValidateIncludes($aIncluded)
     _VR_ValidateCaravanPortalController()
     _VR_ValidateMaguumaCaravanExpansion()
+    _VR_ValidateAscalonCaravanExpansion()
 
     Local $i = 0
     For $i = 0 To UBound($aIncluded) - 1
@@ -284,6 +285,98 @@ EndFunc
 
 Func _VR_RequireNeedle($sBody, $sNeedle, $sRel)
     If Not StringInStr($sBody, $sNeedle) Then _VR_AddError($sRel & ": missing " & $sNeedle)
+EndFunc
+
+Func _VR_ValidateAscalonCaravanExpansion()
+    Local $sBot = $GC_S_ROOT & "\Guild Wars Vanquish Bot.au3"
+    Local $sBotRel = _VR_Rel($sBot)
+    Local $sText = _VR_ReadText($sBot)
+    If Not StringInStr($sText, "VQSpecialRoute_TempleOfTheAgesAscalonCaravan") Then
+        _VR_AddError($sBotRel & ": Ascalon special route must register VQSpecialRoute_TempleOfTheAgesAscalonCaravan")
+    EndIf
+    If StringInStr($sText, "_AppendTempleAscalonCaravanQueue($aChecked") Then
+        _VR_AddError($sBotRel & ": TOA Ascalon Caravan must queue the special runner, not expand+skip completed maps")
+    EndIf
+    If StringInStr($sText, "TOA Ascalon Caravan") Then
+        Local $aParts = StringSplit($sText, "TOA Ascalon Caravan", 1)
+        If $aParts[0] >= 2 Then
+            Local $aBlock = StringSplit($aParts[2], "TOA Maguuma Caravan", 1)
+            Local $sBlock = $aBlock[1]
+            If Not StringInStr($sBlock, "VQSpecialRoute_TempleOfTheAgesAscalonCaravan") Then
+                _VR_AddError($sBotRel & ": TOA Ascalon Caravan must register VQSpecialRoute_TempleOfTheAgesAscalonCaravan")
+            EndIf
+            If Not StringRegExp($sBlock, "\$g_aMapEntries\[\$iNext\]\[4\]\s*=\s*0\b") Then
+                _VR_AddError($sBotRel & ": TOA Ascalon Caravan map id must be 0 so history scan cannot mark it vanquished")
+            EndIf
+        EndIf
+    EndIf
+
+    Local $sSpecial = $GC_S_MAPS & "\Caravan_Ascalon\SpecialRoute_TempleOfTheAgesAscalonCaravan.au3"
+    Local $sSpecialRel = _VR_Rel($sSpecial)
+    If Not FileExists($sSpecial) Then
+        _VR_AddError($sSpecialRel & ": missing Ascalon special route runner")
+    Else
+        Local $sBody = _VR_ReadText($sSpecial)
+        Local $aNeedles[12] = [ _
+                "Func VQSpecialRoute_TempleOfTheAgesAscalonCaravan(", _
+                "_Vanquisher_AscalonCaravanGoOutToMap", _
+                "_Vanquisher_AscalonCaravanRunVanquish", _
+                "_Vanquisher_AscalonCaravanAdvanceAfterVanquish", _
+                "_Vanquisher_AscalonCaravanFirstIncompleteStage", _
+                "_Vanquisher_AscalonCaravanIsStageHistoricallyVanquished", _
+                "_Vanquisher_AscalonCaravanStageForCurrentMap", _
+                "_Vanquisher_IsOnAscalonCaravanSpine", _
+                "_TempleAscalonCaravanTryCatchUp", _
+                "already vanquished per map scan", _
+                "Portaling to ", _
+                "will portal through completed" _
+                ]
+        If StringInStr($sBody, "Traveling to outpost for NorthKrytaProvince") Or _
+                StringInStr($sBody, "Traveling to outpost for TravelersVale") Or _
+                StringInStr($sBody, "Traveling to outpost for ScoundrelsRise") Then
+            _VR_AddError($sSpecialRel & ": Ascalon must not TravelTo mid-route outposts; enter at TOA and portal the spine")
+        EndIf
+        If Not StringInStr($sBody, "$g_a_AscalonCaravanPlan[0][1]") Then
+            _VR_AddError($sSpecialRel & ": Ascalon GoOut must enter at TOA (plan stage 0 outpost), not mid-route outposts")
+        EndIf
+        Local $n = 0
+        For $n = 0 To UBound($aNeedles) - 1
+            _VR_RequireNeedle($sBody, $aNeedles[$n], $sSpecialRel)
+        Next
+    EndIf
+
+    Local $sPlan = $GC_S_ROOT & "\Core\Caravan_AscalonPlan.au3"
+    Local $sPlanRel = _VR_Rel($sPlan)
+    If Not FileExists($sPlan) Then
+        _VR_AddError($sPlanRel & ": missing Ascalon caravan plan")
+    Else
+        Local $sPlanText = _VR_ReadText($sPlan)
+        Local $aLabels[19] = [ _
+                "TheBlackCurtain", "CursedLands", "NeboTerrace", "NorthKrytaProvince", "ScoundrelsRise", _
+                "GriffonsMouth", "DeldrimorBowl", "AnvilRock", "IronHorseMine", "TravelersVale", _
+                "AscalonFoothills", "DiessaLowlands", "FlameTempleCorridor", "DragonsGullet", "TheBreach", _
+                "OldAscalon", "RegentValley", "PockmarkFlats", "EasternFrontier" _
+                ]
+        Local $l = 0
+        For $l = 0 To UBound($aLabels) - 1
+            If Not StringInStr($sPlanText, $aLabels[$l]) Then _VR_AddError($sPlanRel & ": plan must include " & $aLabels[$l])
+        Next
+        Local $aPlanNeedles[5] = [ _
+                "_Vanquisher_AscalonCaravanFirstIncompleteStage", _
+                "_Vanquisher_AscalonCaravanStageForCurrentMap", _
+                "_Vanquisher_IsOnAscalonCaravanSpine", _
+                "_Vanquisher_AscalonCaravanIsStageHistoricallyVanquished", _
+                "CaravanAscalon_TheBlackCurtain" _
+                ]
+        For $l = 0 To UBound($aPlanNeedles) - 1
+            _VR_RequireNeedle($sPlanText, $aPlanNeedles[$l], $sPlanRel)
+        Next
+    EndIf
+
+    Local $sRoutes = _VR_ReadText($GC_S_ROUTES)
+    If Not StringInStr($sRoutes, "SpecialRoute_TempleOfTheAgesAscalonCaravan.au3") Then
+        _VR_AddError(_VR_Rel($GC_S_ROUTES) & ": must include Ascalon special route runner")
+    EndIf
 EndFunc
 
 Func _VR_ValidateMaguumaCaravanExpansion()
