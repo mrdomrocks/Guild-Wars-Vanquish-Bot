@@ -313,24 +313,32 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         _VR_AddError($sSpecialRel & ": missing Maguuma special route runner")
     Else
         Local $sBody = _VR_ReadText($sSpecial)
-        Local $aNeedles[12] = [ _
+        Local $aNeedles[14] = [ _
                 "Func VQSpecialRoute_TempleOfTheAgesMaguumaCaravan(", _
                 "_Vanquisher_MaguumaCaravanGoOutToMap", _
                 "_Vanquisher_MaguumaCaravanRunVanquish", _
                 "_Vanquisher_MaguumaCaravanAdvanceAfterVanquish", _
                 "_Vanquisher_MaguumaCaravanFirstIncompleteStage", _
                 "_Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished", _
+                "_Vanquisher_MaguumaCaravanStageForCurrentMap", _
+                "_Vanquisher_IsOnMaguumaCaravanSpine", _
                 "_TempleAscalonCaravanTryCatchUp", _
                 "_TempleAscalonCaravanCanDirectTransition", _
                 "_Vanquisher_ReturnToOutpost", _
                 "already vanquished per map scan", _
                 "Portaling to ", _
-                "Starting " _
+                "will portal through completed" _
                 ]
         If StringInStr($sBody, "_Vanquisher_MaguumaCaravanIsVanquishedAfterLoad") Or _
                 StringInStr($sBody, "checking vanquish state") Or _
                 StringInStr($sBody, "already clear in this instance") Then
             _VR_AddError($sSpecialRel & ": per-map-load vanquish settle/check must be removed; use connect-time map scan only")
+        EndIf
+        If StringInStr($sBody, "Traveling to outpost for SageLands") Then
+            _VR_AddError($sSpecialRel & ": Maguuma must not TravelTo mid-route outposts; enter at TOA and portal the spine")
+        EndIf
+        If Not StringInStr($sBody, "$g_a_MaguumaCaravanPlan[0][1]") Then
+            _VR_AddError($sSpecialRel & ": Maguuma GoOut must enter at TOA (plan stage 0 outpost), not mid-route outposts")
         EndIf
         Local $n = 0
         For $n = 0 To UBound($aNeedles) - 1
@@ -361,8 +369,10 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         If Not StringInStr($sPlanText, "$MamnoonLagoon_Transit2") Then
             _VR_AddError($sPlanRel & ": Mamnoon stage must use $MamnoonLagoon_Transit2 (Sage Lands)")
         EndIf
-        Local $aPlanNeedles[4] = [ _
+        Local $aPlanNeedles[6] = [ _
                 "_Vanquisher_MaguumaCaravanFirstIncompleteStage", _
+                "_Vanquisher_MaguumaCaravanStageForCurrentMap", _
+                "_Vanquisher_IsOnMaguumaCaravanSpine", _
                 "_Vanquisher_IsMapIdHistoricallyVanquished", _
                 "_Vanquisher_IsCaravanMapHistoricallyVanquished", _
                 "CaravanMaguuma_TalmarkWilderness" _

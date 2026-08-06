@@ -15,20 +15,13 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
     $g_b_Vanquisher_AbortRoute = False
     _Vanquisher_ResetGoOutRouteProgress()
 
-    Local $iFirst = _Vanquisher_MaguumaCaravanFirstIncompleteStage(0)
-    Local $iSkipped = 0
-    Local $sSkipped = ""
-    Local $i = 0
-    For $i = 0 To $iFirst - 1
-        If $i >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then ExitLoop
-        $iSkipped += 1
-        If $sSkipped <> "" Then $sSkipped &= ", "
-        $sSkipped &= $g_a_MaguumaCaravanPlan[$i][8]
-    Next
+    ; Never jump the stage index to a mid-route incomplete map — that TravelTo's its outpost
+    ; (e.g. Druid Overlook for SageLands). Start on the spine and portal through completed maps.
+    Local $iStart = _Vanquisher_MaguumaCaravanStageForCurrentMap()
+    Local $iFirstIncomplete = _Vanquisher_MaguumaCaravanFirstIncompleteStage($iStart)
+    $g_i_Vanquisher_CombinedMaguumaStage = $iStart
 
-    $g_i_Vanquisher_CombinedMaguumaStage = $iFirst
-
-    If $iFirst >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then
+    If $iFirstIncomplete >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then
         _Log("Maguuma caravan: all route maps already vanquished per map scan.")
         CurrentAction("TOA Maguuma caravan complete - all maps already vanquished.")
         Return
@@ -52,15 +45,24 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
     _Log("Maguuma history probe: Talmark map " & $iProbeMap & _
             " cached=" & $bProbeCached & " liveBit=" & $bProbeLive & _
             " historyLoaded=" & $g_bVanquishHistoryLoaded & _
-            " firstIncomplete=" & ($iFirst + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ".")
+            " spineStart=" & ($iStart + 1) & " firstIncomplete=" & ($iFirstIncomplete + 1) & _
+            "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ".")
 
-    If $iSkipped > 0 Then
-        _Log("Maguuma caravan: skipping " & $iSkipped & " historically completed map(s): " & $sSkipped & _
-                ". Starting at " & $g_a_MaguumaCaravanPlan[$iFirst][8] & " (stage " & ($iFirst + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ").")
-        CurrentAction("Skipping completed maps; portaling to " & $g_a_MaguumaCaravanPlan[$iFirst][8] & ".")
+    If $iFirstIncomplete > $iStart Then
+        Local $sSkipped = ""
+        Local $i = 0
+        For $i = $iStart To $iFirstIncomplete - 1
+            If $sSkipped <> "" Then $sSkipped &= ", "
+            $sSkipped &= $g_a_MaguumaCaravanPlan[$i][8]
+        Next
+        _Log("Maguuma caravan: will portal through completed map(s): " & $sSkipped & _
+                ". First farm target: " & $g_a_MaguumaCaravanPlan[$iFirstIncomplete][8] & _
+                " (stage " & ($iFirstIncomplete + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ").")
+        CurrentAction("Portaling through completed maps toward " & _
+                $g_a_MaguumaCaravanPlan[$iFirstIncomplete][8] & ".")
     Else
         _Log("Maguuma caravan build: vanquish then portal to next map. First target: " & _
-                $g_a_MaguumaCaravanPlan[$iFirst][8] & ".")
+                $g_a_MaguumaCaravanPlan[$iStart][8] & ".")
         CurrentAction("Starting TOA Maguuma caravan (portal between maps when possible).")
     EndIf
 EndFunc
@@ -86,15 +88,17 @@ Func _Vanquisher_MaguumaCaravanEnsureOutpost($iOutpostID, $sLabel)
     Return GetMapID() = $iOutpostID
 EndFunc
 
-; Reach the stage map via shared portal path when already explorable; otherwise TravelTo+GoOut.
+; Reach the stage map via shared portal path when already explorable; otherwise enter at TOA and portal.
+; Mid-route outposts (e.g. Druid Overlook for SageLands) are not used for Maguuma caravan entry.
 Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
     Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
-    Local $iOutpost = $g_a_MaguumaCaravanPlan[$iStage][1]
+    Local $iSpineOutpost = $g_a_MaguumaCaravanPlan[0][1] ; Temple of the Ages — caravan entry
     Local $sGoOutFunc = $g_a_MaguumaCaravanPlan[$iStage][5]
     Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
+    Local $sEntryGoOut = $g_a_MaguumaCaravanPlan[0][5]
     Local $iHop = 0
 
-    While $iHop < 8 And Not _Vanquisher_ShouldStop()
+    While $iHop < 12 And Not _Vanquisher_ShouldStop()
         Local $iCurrent = GetMapID()
         If $iCurrent = $iTargetMap Then Return True
 
@@ -127,33 +131,82 @@ Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
                 _Vanquisher_ResetGoOutRouteProgress()
             EndIf
 
-            ; No usable portal spine from here — fall back to resign + TravelTo.
-            If Not _Vanquisher_MaguumaCaravanEnsureOutpost($iOutpost, $sLabel) Then Return False
-            $iHop += 1
-            ContinueLoop
+            ; On an earlier spine map: portal one neighbor toward the target via stage GoOut / catch-up.
+            If _Vanquisher_IsOnMaguumaCaravanSpine($iCurrent) Then
+                Local $iSpineStage = _Vanquisher_MaguumaCaravanStageForCurrentMap()
+                If $iSpineStage < $iStage Then
+                    Local $iNextMap = $g_a_MaguumaCaravanPlan[$iSpineStage + 1][0]
+                    Local $sNextGoOut = $g_a_MaguumaCaravanPlan[$iSpineStage + 1][5]
+                    Local $sNextLabel = $g_a_MaguumaCaravanPlan[$iSpineStage + 1][8]
+                    Local $iBeforeHop = $iCurrent
+                    _Vanquisher_ApplyDifficulty()
+                    If _TempleAscalonCaravanCanDirectTransition($iNextMap) Then
+                        CurrentAction("Maguuma caravan portal toward " & $sLabel & " via " & $sNextLabel & ".")
+                        _TempleAscalonCaravanTryCatchUp($iNextMap)
+                    ElseIf $sNextGoOut <> "" Then
+                        CurrentAction("Maguuma caravan GoOut toward " & $sLabel & " via " & $sNextLabel & ".")
+                        Call($sNextGoOut)
+                    EndIf
+                    If GetMapID() = $iTargetMap Then Return True
+                    If GetMapID() <> $iBeforeHop Then
+                        $iHop += 1
+                        ContinueLoop
+                    EndIf
+                    _Vanquisher_ResetGoOutRouteProgress()
+                EndIf
+            EndIf
+
+            ; Off-spine explorable: resign back to TOA, then portal the caravan route.
+            If Not _Vanquisher_IsOnMaguumaCaravanSpine(GetMapID()) Then
+                If Not _Vanquisher_MaguumaCaravanEnsureOutpost($iSpineOutpost, "TOA Maguuma entry") Then Return False
+                $iHop += 1
+                ContinueLoop
+            EndIf
+
+            ; On spine but no portal progress this pass — let the caller retry next tick.
+            Return False
         EndIf
 
-        ; Outpost / non-explorable: travel to the stage outpost then hardcoded GoOut.
-        If Not _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, $iStage) Then
-            If Not _Vanquisher_MaguumaCaravanEnsureOutpost($iOutpost, $sLabel) Then Return False
+        ; Outpost / non-explorable: always enter the caravan at TOA, never mid-route TravelTo.
+        If Not _Vanquisher_IsOnMaguumaCaravanSpine($iCurrent) Or Not _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, 0) Then
+            If GetMapID() <> $iSpineOutpost Then
+                If Not _Vanquisher_MaguumaCaravanEnsureOutpost($iSpineOutpost, "TOA Maguuma entry") Then Return False
+            EndIf
             $iCurrent = GetMapID()
             If $iCurrent = $iTargetMap Then Return True
         EndIf
 
-        If Not _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, $iStage) Or $iCurrent = $iTargetMap Then ExitLoop
-
-        Local $iBefore = $iCurrent
-        _Vanquisher_ApplyDifficulty()
-        CurrentAction("Maguuma caravan GoOut hop " & ($iHop + 1) & ": " & $sLabel & _
-                " (map " & $iCurrent & " -> " & $iTargetMap & ").")
-        If $sGoOutFunc <> "" Then Call($sGoOutFunc)
-
-        If GetMapID() = $iTargetMap Then Return True
-        If GetMapID() = $iBefore Then
-            _Vanquisher_ResetGoOutRouteProgress()
-            Return False
+        ; From TOA / Talmark entry: hardcoded GoOut into the first farm map, then portal onward.
+        If _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, 0) And $iCurrent <> $g_a_MaguumaCaravanPlan[0][0] Then
+            Local $iBeforeEntry = $iCurrent
+            _Vanquisher_ApplyDifficulty()
+            CurrentAction("Maguuma caravan entering spine via TalmarkWilderness.")
+            If $sEntryGoOut <> "" Then Call($sEntryGoOut)
+            If GetMapID() = $iTargetMap Then Return True
+            If GetMapID() = $iBeforeEntry Then
+                _Vanquisher_ResetGoOutRouteProgress()
+                Return False
+            EndIf
+            $iHop += 1
+            ContinueLoop
         EndIf
-        $iHop += 1
+
+        If _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, $iStage) Then
+            Local $iBefore = $iCurrent
+            _Vanquisher_ApplyDifficulty()
+            CurrentAction("Maguuma caravan GoOut hop " & ($iHop + 1) & ": " & $sLabel & _
+                    " (map " & $iCurrent & " -> " & $iTargetMap & ").")
+            If $sGoOutFunc <> "" Then Call($sGoOutFunc)
+            If GetMapID() = $iTargetMap Then Return True
+            If GetMapID() = $iBefore Then
+                _Vanquisher_ResetGoOutRouteProgress()
+                Return False
+            EndIf
+            $iHop += 1
+            ContinueLoop
+        EndIf
+
+        ExitLoop
     WEnd
 
     Return GetMapID() = $iTargetMap
@@ -254,7 +307,8 @@ Func _Vanquisher_MaguumaCaravanRouteArray($iStage, $iPass)
     Return $aEmpty
 EndFunc
 
-; After a map is vanquished, portal to the next incomplete stage; resign only as fallback.
+; After a map is handled (farmed or history-skipped), portal to the next spine neighbor only.
+; Do not jump the stage index to a distant incomplete map — that causes mid-route TravelTo.
 Func _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
     Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
     Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
@@ -275,32 +329,30 @@ Func _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
 
     $g_i_Vanquisher_CombinedMaguumaStage = $iStage + 1
 
-    ; Portal past maps already marked completed by the connect-time history scan.
-    Local $iNextIncomplete = _Vanquisher_MaguumaCaravanFirstIncompleteStage($g_i_Vanquisher_CombinedMaguumaStage)
-    If $iNextIncomplete > $g_i_Vanquisher_CombinedMaguumaStage Then
-        Local $sSkipMsg = ""
-        Local $j = 0
-        For $j = $g_i_Vanquisher_CombinedMaguumaStage To $iNextIncomplete - 1
-            If $sSkipMsg <> "" Then $sSkipMsg &= ", "
-            $sSkipMsg &= $g_a_MaguumaCaravanPlan[$j][8]
-        Next
-        _Log("Maguuma caravan: skipping historically completed map(s): " & $sSkipMsg & ".")
-        CurrentAction("Skipping historically completed: " & $sSkipMsg & ".")
-    EndIf
-    $g_i_Vanquisher_CombinedMaguumaStage = $iNextIncomplete
-
     If $g_i_Vanquisher_CombinedMaguumaStage >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then
-        CurrentAction($sLabel & " vanquished (" & GetFoesKilled() & " killed). TOA Maguuma caravan complete.")
+        If $bHistoryDone Then
+            CurrentAction($sLabel & " already vanquished. TOA Maguuma caravan complete.")
+        Else
+            CurrentAction($sLabel & " vanquished (" & GetFoesKilled() & " killed). TOA Maguuma caravan complete.")
+        EndIf
         _Vanquisher_EndMaguumaCaravanRun(True)
         Return True
     EndIf
 
     Local $iNextMap = $g_a_MaguumaCaravanPlan[$g_i_Vanquisher_CombinedMaguumaStage][0]
     Local $sNextLabel = $g_a_MaguumaCaravanPlan[$g_i_Vanquisher_CombinedMaguumaStage][8]
+    Local $bNextHistoryDone = _Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished($g_i_Vanquisher_CombinedMaguumaStage)
     Local $sNextMsg = "Maguuma caravan next: " & $sNextLabel & _
             " (" & ($g_i_Vanquisher_CombinedMaguumaStage + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ")."
 
-    CurrentAction($sLabel & " vanquished (" & GetFoesKilled() & " killed). Continuing to " & $sNextLabel & ".")
+    If $bHistoryDone Then
+        CurrentAction($sLabel & " already vanquished - portaling to " & $sNextLabel & ".")
+    Else
+        CurrentAction($sLabel & " vanquished (" & GetFoesKilled() & " killed). Continuing to " & $sNextLabel & ".")
+    EndIf
+    If $bNextHistoryDone Then
+        _Log("Maguuma caravan: " & $sNextLabel & " is historically complete - will portal through without farming.")
+    EndIf
     _Vanquisher_ResetGoOutRouteProgress()
 
     ; Prefer shared portal path, then neighbor GoOut (MajestysRest -> SageLands, Sage -> Mamnoon, etc.).
@@ -326,11 +378,12 @@ Func _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
             Return True
         EndIf
 
-        CurrentAction("Portal path to " & $sNextLabel & " stalled - resigning for outpost travel.")
+        CurrentAction("Portal path to " & $sNextLabel & " stalled - resigning to TOA for spine re-entry.")
     Else
-        CurrentAction("Not explorable after " & $sLabel & " - resigning for " & $sNextLabel & ".")
+        CurrentAction("Not explorable after " & $sLabel & " - resigning to TOA for " & $sNextLabel & ".")
     EndIf
 
+    ; Stall recovery returns to TOA; next stage will portal the spine (never TravelTo mid-route outposts).
     _Vanquisher_ReturnToOutpost()
     _Vanquisher_ResetGoOutRouteProgress()
     CurrentAction($sNextMsg)
@@ -342,46 +395,52 @@ Func _Vanquisher_RunMaguumaCaravanStage()
     If Not $g_b_Vanquisher_CombinedMaguumaCaravanActive Then Return True
     _Vanquisher_InitMaguumaCaravanPlan()
 
-    Local $iStage = $g_i_Vanquisher_CombinedMaguumaStage
-    ; Re-check map-scan flags every stage so completed maps are never farmed.
-    Local $iIncomplete = _Vanquisher_MaguumaCaravanFirstIncompleteStage($iStage)
-    If $iIncomplete > $iStage Then
-        Local $sSkipMsg = ""
-        Local $j = 0
-        For $j = $iStage To $iIncomplete - 1
-            If $sSkipMsg <> "" Then $sSkipMsg &= ", "
-            $sSkipMsg &= $g_a_MaguumaCaravanPlan[$j][8]
-        Next
-        _Log("Maguuma caravan: skipping historically completed map(s): " & $sSkipMsg & ".")
-        CurrentAction("Skipping historically completed: " & $sSkipMsg & ".")
-        $g_i_Vanquisher_CombinedMaguumaStage = $iIncomplete
-        $iStage = $iIncomplete
-    EndIf
+    ; Portal through consecutive history-complete maps in one pass, then farm the first open map.
+    Local $iGuard = 0
+    While $iGuard < $GC_I_MAGUUMA_CARAVAN_MAP_COUNT And Not _Vanquisher_ShouldStop()
+        $iGuard += 1
+        Local $iStage = $g_i_Vanquisher_CombinedMaguumaStage
+        If $iStage < 0 Or $iStage >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then
+            _Vanquisher_EndMaguumaCaravanRun(True)
+            Return True
+        EndIf
 
-    If $iStage < 0 Or $iStage >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then
-        _Vanquisher_EndMaguumaCaravanRun(True)
-        Return True
-    EndIf
+        If _Vanquisher_MaguumaCaravanFirstIncompleteStage($iStage) >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then
+            _Log("Maguuma caravan: remaining maps already vanquished per map scan.")
+            CurrentAction("TOA Maguuma caravan complete - remaining maps already vanquished.")
+            _Vanquisher_EndMaguumaCaravanRun(True)
+            Return True
+        EndIf
 
-    Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
-    Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
+        Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
+        Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
+        Local $bHistoryDone = _Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished($iStage)
 
-    If Not _Vanquisher_MaguumaCaravanGoOutToMap($iStage) Then
-        CurrentAction("Routing - on map " & GetMapID() & ", need " & $sLabel & " (" & $iTargetMap & ").")
-        Return True
-    EndIf
+        If Not _Vanquisher_MaguumaCaravanGoOutToMap($iStage) Then
+            CurrentAction("Routing - on map " & GetMapID() & ", need " & $sLabel & " (" & $iTargetMap & ").")
+            Return True
+        EndIf
 
-    If GetMapID() <> $iTargetMap Then
-        CurrentAction($sLabel & " route waiting - on map " & GetMapID() & ", need " & $iTargetMap & ".")
-        Return True
-    EndIf
+        If GetMapID() <> $iTargetMap Then
+            CurrentAction($sLabel & " route waiting - on map " & GetMapID() & ", need " & $iTargetMap & ".")
+            Return True
+        EndIf
 
-    CurrentAction("Maguuma caravan on " & $sLabel & " (map " & GetMapID() & ") - starting vanquish.")
-    _Vanquisher_MaguumaCaravanRunVanquish($iStage)
-    If _Vanquisher_ShouldStop() Or $g_b_Vanquisher_AbortRoute Or $g_b_Vanquisher_RunFinished Then Return True
+        If $bHistoryDone Then
+            CurrentAction("Maguuma caravan on " & $sLabel & " (map " & GetMapID() & ") - history complete, portaling onward.")
+        Else
+            CurrentAction("Maguuma caravan on " & $sLabel & " (map " & GetMapID() & ") - starting vanquish.")
+        EndIf
+        _Vanquisher_MaguumaCaravanRunVanquish($iStage)
+        If _Vanquisher_ShouldStop() Or $g_b_Vanquisher_AbortRoute Or $g_b_Vanquisher_RunFinished Then Return True
 
-    ; Runs after arrays finish, or immediately when skipped by connect-time/live history.
-    _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
+        _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
+        If _Vanquisher_ShouldStop() Or $g_b_Vanquisher_AbortRoute Or $g_b_Vanquisher_RunFinished Then Return True
+
+        ; History-skipped stages keep portaling; a farmed stage yields until the next tick.
+        If Not $bHistoryDone Then Return True
+    WEnd
+
     Return True
 EndFunc
 
