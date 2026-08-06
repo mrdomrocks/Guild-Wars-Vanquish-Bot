@@ -166,10 +166,13 @@ def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
             "Func VQSpecialRoute_TempleOfTheAgesMaguumaCaravan(",
             "_Vanquisher_MaguumaCaravanGoOutToMap",
             "_Vanquisher_MaguumaCaravanRunVanquish",
+            "_Vanquisher_MaguumaCaravanIsVanquishedAfterLoad",
+            "_Vanquisher_IsAlreadyVanquishedOnEntry",
             "_Vanquisher_MaguumaCaravanAdvanceAfterVanquish",
             "_TempleAscalonCaravanTryCatchUp",
             "_TempleAscalonCaravanCanDirectTransition",
             "_Vanquisher_ReturnToOutpost",
+            "already vanquished on entry",
             "Portaling to ",
             "Starting ",
         ):

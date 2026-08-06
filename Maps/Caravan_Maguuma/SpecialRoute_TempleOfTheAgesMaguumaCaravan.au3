@@ -112,6 +112,22 @@ Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
     Return GetMapID() = $iTargetMap
 EndFunc
 
+; Settle after portal load and return True when the instance is already clear.
+Func _Vanquisher_MaguumaCaravanIsVanquishedAfterLoad($sLabel)
+    Local $iWait = 0
+    While $iWait < 10 And Not _Vanquisher_ShouldStop()
+        If GetFoesToKill() >= 0 Then ExitLoop
+        Sleep(200)
+        $iWait += 1
+    WEnd
+
+    UpdateVanquish()
+    If Not _Vanquisher_IsAlreadyVanquishedOnEntry() Then Return False
+
+    CurrentAction($sLabel & " already vanquished on entry - skipping coordinate arrays.")
+    Return True
+EndFunc
+
 Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
     Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
@@ -124,6 +140,10 @@ Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
         CurrentAction($sLabel & " vanquish aborted - on map " & GetMapID() & ", need " & $iTargetMap & ".")
         Return
     EndIf
+
+    ; If the loaded instance is already clear, skip the arrays; caller portals onward.
+    If _Vanquisher_MaguumaCaravanIsVanquishedAfterLoad($sLabel) Then Return
+
     _Vanquisher_CacheCombatAIForCurrentMap(True)
     $g_b_Vanquisher_ConsumablesAppliedThisZone = False
     _Vanquisher_ApplyConsumablesOnFarmEntry()
@@ -197,7 +217,7 @@ Func _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
     EndIf
 
     UpdateVanquish()
-    If Not GetAreaVanquished() Then
+    If Not GetAreaVanquished() And Not _Vanquisher_IsAlreadyVanquishedOnEntry() Then
         CurrentAction($sLabel & " route finished but area not vanquished yet - retrying route.")
         Return False
     EndIf
@@ -275,10 +295,11 @@ Func _Vanquisher_RunMaguumaCaravanStage()
         Return True
     EndIf
 
-    CurrentAction("Maguuma caravan on " & $sLabel & " (map " & GetMapID() & ") - starting vanquish coordinates.")
+    CurrentAction("Maguuma caravan on " & $sLabel & " (map " & GetMapID() & ") - checking vanquish state.")
     _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     If _Vanquisher_ShouldStop() Or $g_b_Vanquisher_AbortRoute Or $g_b_Vanquisher_RunFinished Then Return True
 
+    ; Runs after arrays finish, or immediately when the map was already clear on load.
     _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
     Return True
 EndFunc
