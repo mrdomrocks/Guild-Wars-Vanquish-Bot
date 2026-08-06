@@ -1110,7 +1110,9 @@ Func _AppendSpecialRouteEntries()
     $g_aMapEntries[$iNext + 1][1] = "Special Routes"
     $g_aMapEntries[$iNext + 1][2] = "TOA Maguuma Caravan"
     $g_aMapEntries[$iNext + 1][3] = False
-    $g_aMapEntries[$iNext + 1][4] = $TalmarkWilderness_Map
+    ; Map ID 0 like Ascalon: multi-map special routes must not inherit a single map's
+    ; historical vanquish bit (Talmark used to grey out the whole caravan).
+    $g_aMapEntries[$iNext + 1][4] = 0
     $g_aMapEntries[$iNext + 1][5] = False
     $g_aMapEntries[$iNext + 1][6] = $TalmarkWilderness_Outpost
     $g_aMapEntries[$iNext + 1][7] = 8
@@ -1228,7 +1230,8 @@ Func _RefreshHistoricalVanquishStates()
 
     For $i = 0 To UBound($g_aMapEntries) - 1
         Local $iMapID = $g_aMapEntries[$i][4]
-        If $iMapID <= 0 Then
+        ; Special multi-map caravan routes are never "historically vanquished" as a unit.
+        If $iMapID <= 0 Or _IsSpecialRouteScriptName($g_aMapEntries[$i][8]) Then
             $g_aMapEntries[$i][5] = False
             ContinueLoop
         EndIf
