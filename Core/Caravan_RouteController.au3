@@ -62,10 +62,12 @@ Func _IsQueuedTargetReady($sTargetTitle, $iTargetMapID)
             Return $iCurrentMap = $TalmarkWilderness_Transit
         Case "MajestysRest"
             Return $iCurrentMap = $MajestysRest_Transit Or $iCurrentMap = $MajestysRest_Transit2
+        Case "SageLands"
+            Return $iCurrentMap = $SageLands_Transit
         Case "NeboTerrace"
             Return $iCurrentMap = $NeboTerrace_Transit Or $iCurrentMap = $NeboTerrace_Transit2
         Case "MamnoonLagoon"
-            Return $iCurrentMap = $MamnoonLagoon_Transit
+            Return $iCurrentMap = $MamnoonLagoon_Transit Or $iCurrentMap = $MamnoonLagoon_Transit2
         Case "GriffonsMouth"
             Return $iCurrentMap = $GriffonsMouth_Transit
         Case "DryTop"

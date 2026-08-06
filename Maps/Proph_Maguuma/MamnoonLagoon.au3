@@ -269,7 +269,7 @@ Func GoOutMamnoonLagoon()
 		$g_b_Vanquisher_TransitOnly = True
 		CurrentAction("Outpost -> MamnoonLagoon (portal 1)")
 		_Vanquisher_RunAggroPortalPath($aMamnoonLagoonOutpostPath, $vqrange, "outpost ")
-		$g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		If GetMapID() <> $l_i_Map Then $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
 		$g_b_Vanquisher_TransitOnly = False
 		Return
 	EndIf
@@ -278,19 +278,28 @@ Func GoOutMamnoonLagoon()
 		$g_b_Vanquisher_TransitOnly = True
 		CurrentAction("Transit -> MamnoonLagoon (portal 2)")
 		_Vanquisher_RunAggroPortalPath($aMamnoonLagoonTransitPath, $vqrange, "outpost ")
-		$g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		If GetMapID() <> $l_i_Map Then $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		$g_b_Vanquisher_TransitOnly = False
+		Return
+	EndIf
+	If $l_i_Map = $MamnoonLagoon_Transit2 Then
+		If $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map Then Return
+		$g_b_Vanquisher_TransitOnly = True
+		CurrentAction("Transit -> MamnoonLagoon (Sage Lands portal)")
+		_Vanquisher_RunDynamicCaravanGoOut($MamnoonLagoon_Map, "MamnoonLagoon")
+		If GetMapID() <> $l_i_Map Then $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
 		$g_b_Vanquisher_TransitOnly = False
 		Return
 	EndIf
 EndFunc
 
 Func VQMamnoonLagoon()
-	If GetMapID() <> $MamnoonLagoon_Map And GetMapID() <> $MamnoonLagoon_Outpost And GetMapID() <> $MamnoonLagoon_Transit Then
+	If GetMapID() <> $MamnoonLagoon_Map And GetMapID() <> $MamnoonLagoon_Outpost And GetMapID() <> $MamnoonLagoon_Transit And GetMapID() <> $MamnoonLagoon_Transit2 Then
 		_Vanquisher_ResetGoOutRouteProgress()
 		CurrentAction("Traveling to outpost for MamnoonLagoon.")
 		TravelTo($MamnoonLagoon_Outpost)
 	EndIf
-	If GetMapID() = $MamnoonLagoon_Outpost Or GetMapID() = $MamnoonLagoon_Transit Then
+	If GetMapID() = $MamnoonLagoon_Outpost Or GetMapID() = $MamnoonLagoon_Transit Or GetMapID() = $MamnoonLagoon_Transit2 Then
 		_Vanquisher_ApplyDifficulty()
 		GoOutMamnoonLagoon()
 		If GetMapID() <> $MamnoonLagoon_Map Then

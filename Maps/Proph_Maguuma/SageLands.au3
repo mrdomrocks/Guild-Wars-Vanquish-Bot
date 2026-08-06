@@ -6,6 +6,13 @@ Global $aSageLandsOutpostPath[2][2] = [ _
 	[3000, -9480] _
 ]
 
+; Majesty's Rest western exit -> Sage Lands portal (caravan continuation).
+Global $aSageLandsTransitPath[3][2] = [ _
+	[-17144, -511], _
+	[-22539, 1049], _
+	[-23160, 337] _
+]
+
 Global $aProph_Maguuma_SageLandsRoute01[98][2] = [ _
         [-81, -11732], _
         [-3479, -12318], _
@@ -218,7 +225,19 @@ Func GoOutSageLands()
 		$g_b_Vanquisher_TransitOnly = True
 		CurrentAction("Outpost -> SageLands (portal 1)")
 		_Vanquisher_RunAggroPortalPath($aSageLandsOutpostPath, $vqrange, "outpost ")
-		$g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		If GetMapID() <> $l_i_Map Then $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		$g_b_Vanquisher_TransitOnly = False
+		Return
+	EndIf
+
+	If $l_i_Map = $SageLands_Transit Then
+		If $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map Then Return
+		$g_b_Vanquisher_TransitOnly = True
+		CurrentAction("Transit -> SageLands (Majesty's Rest portal)")
+		If Not _Vanquisher_RunDynamicCaravanGoOut($SageLands_Map, "SageLands") Then
+			_Vanquisher_RunAggroPortalPath($aSageLandsTransitPath, $vqrange, "outpost ")
+		EndIf
+		If GetMapID() <> $l_i_Map Then $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
 		$g_b_Vanquisher_TransitOnly = False
 		Return
 	EndIf
@@ -226,13 +245,13 @@ Func GoOutSageLands()
 EndFunc
 
 Func VQSageLands()
-	If GetMapID() <> $SageLands_Map And GetMapID() <> $SageLands_Outpost Then
+	If GetMapID() <> $SageLands_Map And GetMapID() <> $SageLands_Outpost And GetMapID() <> $SageLands_Transit Then
 		_Vanquisher_ResetGoOutRouteProgress()
 		CurrentAction("Traveling to outpost for SageLands.")
 		TravelTo($SageLands_Outpost)
 	EndIf
 
-	If GetMapID() = $SageLands_Outpost Then
+	If GetMapID() = $SageLands_Outpost Or GetMapID() = $SageLands_Transit Then
 		_Vanquisher_ApplyDifficulty()
 		GoOutSageLands()
 		If GetMapID() <> $SageLands_Map Then

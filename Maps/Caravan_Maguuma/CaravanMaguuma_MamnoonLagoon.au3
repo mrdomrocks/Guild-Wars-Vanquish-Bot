@@ -6,13 +6,13 @@ Func GoOutCaravanMaguuma_MamnoonLagoon()
 EndFunc
 
 Func VQCaravanMaguuma_MamnoonLagoon()
-	If GetMapID() <> $MamnoonLagoon_Map And GetMapID() <> $MamnoonLagoon_Outpost And GetMapID() <> $MamnoonLagoon_Transit Then
+	If GetMapID() <> $MamnoonLagoon_Map And GetMapID() <> $MamnoonLagoon_Outpost And GetMapID() <> $MamnoonLagoon_Transit And GetMapID() <> $MamnoonLagoon_Transit2 Then
 		_Vanquisher_ResetGoOutRouteProgress()
 		CurrentAction("Traveling to outpost for MamnoonLagoon.")
 		TravelTo($MamnoonLagoon_Outpost)
 	EndIf
 
-	If GetMapID() = $MamnoonLagoon_Outpost Or GetMapID() = $MamnoonLagoon_Transit Then
+	If GetMapID() = $MamnoonLagoon_Outpost Or GetMapID() = $MamnoonLagoon_Transit Or GetMapID() = $MamnoonLagoon_Transit2 Then
 		_Vanquisher_ApplyDifficulty()
 		GoOutCaravanMaguuma_MamnoonLagoon()
 		If GetMapID() <> $MamnoonLagoon_Map Then

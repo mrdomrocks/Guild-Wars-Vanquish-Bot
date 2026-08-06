@@ -199,6 +199,26 @@ def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
         ):
             if label not in plan_text:
                 errors.append(f"{plan.relative_to(ROOT)}: plan must include {label}")
+        if "MajestysRest -> SageLands" in plan_text and "Resign+TravelTo only when" in plan_text:
+            errors.append(
+                f"{plan.relative_to(ROOT)}: MajestysRest -> SageLands is a continuous portal, not a resign break"
+            )
+        if "$SageLands_Transit" not in plan_text:
+            errors.append(f"{plan.relative_to(ROOT)}: SageLands stage must use $SageLands_Transit (Majesty's Rest)")
+        if "$MamnoonLagoon_Transit2" not in plan_text:
+            errors.append(f"{plan.relative_to(ROOT)}: Mamnoon stage must use $MamnoonLagoon_Transit2 (Sage Lands)")
+
+    locations = ROOT / "Maps" / "LocationsIDS.au3"
+    loc_text = locations.read_text(encoding="utf-8", errors="replace")
+    if "SageLands_Transit" not in loc_text:
+        errors.append(f"{locations.relative_to(ROOT)}: missing SageLands_Transit (Majesty's Rest)")
+    if "MamnoonLagoon_Transit2" not in loc_text:
+        errors.append(f"{locations.relative_to(ROOT)}: missing MamnoonLagoon_Transit2 (Sage Lands)")
+
+    sage = MAPS_ROOT / "Proph_Maguuma" / "SageLands.au3"
+    sage_text = sage.read_text(encoding="utf-8", errors="replace")
+    if "$SageLands_Transit" not in sage_text or "aSageLandsTransitPath" not in sage_text:
+        errors.append(f"{sage.relative_to(ROOT)}: GoOutSageLands must handle Majesty's Rest transit")
 
     compat = ROOT / "Core" / "Vanquisher_Compat.au3"
     compat_text = compat.read_text(encoding="utf-8", errors="replace")
