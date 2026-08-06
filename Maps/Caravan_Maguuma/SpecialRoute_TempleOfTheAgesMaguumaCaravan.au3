@@ -34,14 +34,33 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
         Return
     EndIf
 
+    Local $iProbeMap = Number($g_a_MaguumaCaravanPlan[0][0])
+    Local $bProbeCached = False
+    Local $bProbeLive = False
+    If $iProbeMap > 0 Then
+        If IsDeclared("g_aMapEntries") Then
+            Local $p = 0
+            For $p = 0 To UBound($g_aMapEntries) - 1
+                If Number($g_aMapEntries[$p][4]) = $iProbeMap And $g_aMapEntries[$p][5] Then
+                    $bProbeCached = True
+                    ExitLoop
+                EndIf
+            Next
+        EndIf
+        If IsFunc("_Vanquisher_ReadLiveHistoryBitForMapId") Then
+            $bProbeLive = _Vanquisher_ReadLiveHistoryBitForMapId($iProbeMap)
+        EndIf
+    EndIf
+    _Log("Maguuma history probe: Talmark map " & $iProbeMap & _
+            " cached=" & $bProbeCached & " liveBit=" & $bProbeLive & _
+            " historyLoaded=" & $g_bVanquishHistoryLoaded & _
+            " firstIncomplete=" & ($iFirst + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ".")
+
     If $iSkipped > 0 Then
         _Log("Maguuma caravan: skipping " & $iSkipped & " historically completed map(s): " & $sSkipped & _
                 ". Starting at " & $g_a_MaguumaCaravanPlan[$iFirst][8] & " (stage " & ($iFirst + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ").")
         CurrentAction("Skipping completed maps; portaling to " & $g_a_MaguumaCaravanPlan[$iFirst][8] & ".")
     Else
-        If IsDeclared("g_bVanquishHistoryLoaded") And Not $g_bVanquishHistoryLoaded Then
-            _Log("Maguuma caravan: map scan history not loaded - will farm from stage 1.")
-        EndIf
         _Log("Maguuma caravan build: vanquish then portal to next map. First target: " & _
                 $g_a_MaguumaCaravanPlan[$iFirst][8] & ".")
         CurrentAction("Starting TOA Maguuma caravan (portal between maps when possible).")
@@ -146,22 +165,30 @@ EndFunc
 ; History skip is preferred; this is a safety net so clear instances never walk farm arrays.
 Func _Vanquisher_MaguumaCaravanIsVanquishedAfterLoad($sLabel)
     Local $iWait = 0
-    While $iWait < 15 And Not _Vanquisher_ShouldStop()
-        If GetFoesToKill() >= 0 Then ExitLoop
+    Local $iRemaining = -1
+    While $iWait < 25 And Not _Vanquisher_ShouldStop()
+        $iRemaining = GetFoesToKill()
+        If $iRemaining >= 0 Then ExitLoop
         Sleep(200)
         $iWait += 1
     WEnd
 
+    ; Give the counter one more settle tick after it becomes readable.
+    Sleep(400)
     UpdateVanquish()
-    If Not _Vanquisher_IsAlreadyVanquishedOnEntry() Then Return False
+    $iRemaining = GetFoesToKill()
+    If _Vanquisher_IsAlreadyVanquishedOnEntry() Then
+        CurrentAction($sLabel & " already clear in this instance (" & GetFoesKilled() & " killed, " & _
+                $iRemaining & " remaining) - skipping coordinate arrays.")
+        Return True
+    EndIf
 
-    CurrentAction($sLabel & " already clear in this instance - skipping coordinate arrays.")
-    Return True
+    Return False
 EndFunc
 
 Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
-    Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
+    Local $iTargetMap = Number($g_a_MaguumaCaravanPlan[$iStage][0])
 
     ; GoOut portal approach can leave TransitOnly / stale combat state. Settle the farm map
     ; before walking vanquish coordinates so AggroMoveTo actually starts the array.
@@ -172,9 +199,10 @@ Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
         Return
     EndIf
 
-    ; Never farm a map the history scan already marked complete.
+    ; Never farm a map the history scan / live bitfield already marked complete.
     If _Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished($iStage) Then
         CurrentAction($sLabel & " already vanquished per map scan - skipping coordinate arrays.")
+        _Log("Maguuma caravan: " & $sLabel & " (map " & $iTargetMap & ") skipped by history - portal onward.")
         Return
     EndIf
 
@@ -192,6 +220,9 @@ Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     If IsArray($aRoute01) Then $iCount01 = UBound($aRoute01)
     If IsArray($aRoute02) Then $iCount02 = UBound($aRoute02)
 
+    _Log("Maguuma caravan: farming " & $sLabel & " map " & $iTargetMap & _
+            " (historyBit=" & _Vanquisher_ReadLiveHistoryBitForMapId($iTargetMap) & _
+            ", foes " & GetFoesKilled() & "/" & GetFoesToKill() & ").")
     CurrentAction("Starting " & $sLabel & " vanquish route (" & ($iStage + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ") - " & _
             $iCount01 & "+" & $iCount02 & " waypoints on map " & GetMapID() & ".")
 

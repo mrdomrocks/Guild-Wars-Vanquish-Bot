@@ -234,6 +234,11 @@ def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
         ):
             if needle not in plan_text:
                 errors.append(f"{plan.relative_to(ROOT)}: missing history-skip helper {needle}")
+        compat = ROOT / "Core" / "Vanquisher_Compat.au3"
+        if compat.exists() and "_Vanquisher_ReadLiveHistoryBitForMapId" not in compat.read_text(
+            encoding="utf-8", errors="replace"
+        ):
+            errors.append(f"{compat.relative_to(ROOT)}: missing _Vanquisher_ReadLiveHistoryBitForMapId")
 
     locations = ROOT / "Maps" / "LocationsIDS.au3"
     loc_text = locations.read_text(encoding="utf-8", errors="replace")

@@ -22,7 +22,7 @@ Global $g_iDetectedClientPid = 0
 Global $g_iDetectedCharacterCount = 0
 Global $g_sActiveMapGroup = "EOTN"
 Global $boolrun = True
-Global $g_aMapEntries[0][11] ; campaign, region, map name, checked, map id, vanquished, outpost id, max party size, script name, route function, pre-travel label
+; $g_aMapEntries / $g_bVanquishHistoryLoaded are declared in Vanquisher_Globals.au3
 Global $g_aLocationCommentLabels[0][2]
 Global $g_s_MainCharName = ""
 Global $ProcessID = ""
@@ -32,7 +32,6 @@ Global $g_iRunDeaths = 0
 Global $g_iVanquishStreak = 0
 Global $g_bWasPlayerDead = False
 Global $g_bConnectionStatePrimed = False
-Global $g_bVanquishHistoryLoaded = False
 Global $g_bMapScanInProgress = False
 Global $g_bPendingClientPrime = False
 Global $g_bPendingVanquishScan = False
