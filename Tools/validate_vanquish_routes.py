@@ -159,8 +159,8 @@ def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
     if "TOA Maguuma Caravan" in text:
         maguuma_block = text.split("TOA Maguuma Caravan", 1)[1].split("EndFunc", 1)[0]
         # Maguuma special entry must not use a real map id or history scan greys it out.
-        if "$TalmarkWilderness_Map" in maguuma_block or re.search(
-            r"\$g_aMapEntries\[\$iNext \+ 1\]\[4\]\s*=\s*(?!0\b)", maguuma_block
+        if "$TalmarkWilderness_Map" in maguuma_block or not re.search(
+            r"\$g_aMapEntries\[\$iNext \+ 1\]\[4\]\s*=\s*0\b", maguuma_block
         ):
             errors.append(
                 f"{bot.relative_to(ROOT)}: TOA Maguuma Caravan map id must be 0 "
