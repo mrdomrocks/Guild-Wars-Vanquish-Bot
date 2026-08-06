@@ -746,7 +746,7 @@ Func _BuildCheckedMapQueue(ByRef $aRouteProfiles)
                 Case $GC_S_SPECIAL_ROUTE_TEMPLE_ASCALON_CARAVAN
                     _AppendTempleAscalonCaravanQueue($aChecked, $aRouteProfiles)
                 Case $GC_S_SPECIAL_ROUTE_TEMPLE_MAGUUMA_CARAVAN
-                    ; Single explicit runner: travel -> GoOut -> vanquish -> resign per map.
+                    ; Single explicit runner: vanquish each map, portal to next when possible.
                     _AppendQueueMapIndex($aChecked, $aRouteProfiles, $i, $GC_S_ROUTE_PROFILE_TEMPLE_MAGUUMA_CARAVAN)
             EndSwitch
             ContinueLoop

@@ -913,8 +913,16 @@ Func _Vanquisher_IsVanquishIncomplete()
     Return $l_i_Remaining > 0 Or $g_b_Vanquisher_HasRunRoute
 EndFunc
 
+; True when the current explorable instance is already clear (0 foes left),
+; so caravan/map runners can skip coordinate arrays and portal onward.
 Func _Vanquisher_IsAlreadyVanquishedOnEntry()
-    Return False
+    If Not Map_GetInstanceInfo("IsExplorable") Then Return False
+    If Not GetIsHardMode() Then Return False
+    If GetAreaVanquished() Then Return True
+
+    Local $l_i_Remaining = GetFoesToKill()
+    If $l_i_Remaining < 0 Then Return False
+    Return $l_i_Remaining = 0
 EndFunc
 
 Func _Vanquisher_ResignToOutpost()

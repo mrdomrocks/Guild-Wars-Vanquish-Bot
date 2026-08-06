@@ -1,12 +1,12 @@
 #include-once
 
 ; Maguuma caravan hop plan metadata used by SpecialRoute_TempleOfTheAgesMaguumaCaravan.
-; Each stage is reached via TravelTo(outpost) + hardcoded GoOut, then vanquished, then resign.
-; Maguuma is not one continuous portal spine:
-; - Kryta leg: Talmark -> MajestysRest (from TOA)
-; - Maguuma north: Sage -> Mamnoon -> Silverwood -> Ettins -> Reed -> Falls
-; - Maguuma south: DryTop -> TangleRoot
-; Forced resign+TravelTo between those segments (and between every map for reliability).
+; Continuous portal spine (no planned resign breaks):
+; - TOA -> Talmark -> MajestysRest -> SageLands -> Mamnoon -> Silverwood -> EttinsBack
+; - Northern split: EttinsBack -> ReedBog -> TheFalls
+; - Southern split: return through EttinsBack -> DryTop -> TangleRoot
+; Between maps: portal catch-up via shared explorable path / neighbor GoOut.
+; Resign+TravelTo only as stall recovery when no portal hop can be made.
 
 Global Const $GC_I_MAGUUMA_CARAVAN_MAP_COUNT = 10
 
@@ -34,7 +34,7 @@ Func _Vanquisher_InitMaguumaCaravanPlan()
 
     $g_a_MaguumaCaravanPlan[2][0] = $SageLands_Map
     $g_a_MaguumaCaravanPlan[2][1] = $SageLands_Outpost
-    $g_a_MaguumaCaravanPlan[2][2] = 0
+    $g_a_MaguumaCaravanPlan[2][2] = $SageLands_Transit
     $g_a_MaguumaCaravanPlan[2][3] = 0
     $g_a_MaguumaCaravanPlan[2][4] = 0
     $g_a_MaguumaCaravanPlan[2][5] = "GoOutSageLands"
@@ -43,7 +43,7 @@ Func _Vanquisher_InitMaguumaCaravanPlan()
     $g_a_MaguumaCaravanPlan[3][0] = $MamnoonLagoon_Map
     $g_a_MaguumaCaravanPlan[3][1] = $MamnoonLagoon_Outpost
     $g_a_MaguumaCaravanPlan[3][2] = $MamnoonLagoon_Transit
-    $g_a_MaguumaCaravanPlan[3][3] = 0
+    $g_a_MaguumaCaravanPlan[3][3] = $MamnoonLagoon_Transit2
     $g_a_MaguumaCaravanPlan[3][4] = 0
     $g_a_MaguumaCaravanPlan[3][5] = "GoOutMamnoonLagoon"
     $g_a_MaguumaCaravanPlan[3][8] = "MamnoonLagoon"

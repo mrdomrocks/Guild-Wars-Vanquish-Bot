@@ -6,13 +6,13 @@ Func GoOutCaravanMaguuma_SageLands()
 EndFunc
 
 Func VQCaravanMaguuma_SageLands()
-	If GetMapID() <> $SageLands_Map And GetMapID() <> $SageLands_Outpost Then
+	If GetMapID() <> $SageLands_Map And GetMapID() <> $SageLands_Outpost And GetMapID() <> $SageLands_Transit Then
 		_Vanquisher_ResetGoOutRouteProgress()
 		CurrentAction("Traveling to outpost for SageLands.")
 		TravelTo($SageLands_Outpost)
 	EndIf
 
-	If GetMapID() = $SageLands_Outpost Then
+	If GetMapID() = $SageLands_Outpost Or GetMapID() = $SageLands_Transit Then
 		_Vanquisher_ApplyDifficulty()
 		GoOutCaravanMaguuma_SageLands()
 		If GetMapID() <> $SageLands_Map Then

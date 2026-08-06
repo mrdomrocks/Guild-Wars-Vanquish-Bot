@@ -1,9 +1,10 @@
 #include-once
 
 ; Explicit Maguuma caravan runner.
-; Strategy: for each map TravelTo(outpost) -> GoOut until on map -> vanquish coords -> resign.
-; Do not stay-in-explorable / dynamic portal catch-up between maps. Maguuma is not one
-; continuous portal spine (breaks after MajestysRest and after TheFalls).
+; Strategy: for each map reach via portal (or TravelTo+GoOut fallback) -> vanquish coords
+; -> portal to the next map. Continuous spine including MajestysRest -> SageLands -> Mamnoon.
+; Southern split after TheFalls returns through EttinsBack to DryTop -> TangleRoot.
+; Resign/TravelTo only as stall recovery when no portal hop can be made.
 
 Func _Vanquisher_BeginMaguumaCaravanRun()
     If $g_b_Vanquisher_CombinedMaguumaCaravanActive Then Return
@@ -13,8 +14,8 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
     $g_b_Vanquisher_RunFinished = False
     $g_b_Vanquisher_AbortRoute = False
     _Vanquisher_ResetGoOutRouteProgress()
-    _Log("Maguuma caravan build: portal mid-zone exit + vanquish handoff.")
-    CurrentAction("Starting TOA Maguuma caravan (travel -> GoOut -> vanquish -> resign).")
+    _Log("Maguuma caravan build: vanquish then portal to next map.")
+    CurrentAction("Starting TOA Maguuma caravan (portal between maps when possible).")
 EndFunc
 
 Func _Vanquisher_EndMaguumaCaravanRun($bFinishRun = False)
@@ -38,6 +39,7 @@ Func _Vanquisher_MaguumaCaravanEnsureOutpost($iOutpostID, $sLabel)
     Return GetMapID() = $iOutpostID
 EndFunc
 
+; Reach the stage map via shared portal path when already explorable; otherwise TravelTo+GoOut.
 Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
     Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
     Local $iOutpost = $g_a_MaguumaCaravanPlan[$iStage][1]
@@ -45,10 +47,46 @@ Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
     Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
     Local $iHop = 0
 
-    While $iHop < 6 And Not _Vanquisher_ShouldStop()
+    While $iHop < 8 And Not _Vanquisher_ShouldStop()
         Local $iCurrent = GetMapID()
         If $iCurrent = $iTargetMap Then Return True
 
+        ; Already in explorable: prefer dynamic portal catch-up (neighbor hops + Ettins backtrack).
+        If Map_GetInstanceInfo("IsExplorable") Then
+            If _TempleAscalonCaravanCanDirectTransition($iTargetMap) Then
+                CurrentAction("Maguuma caravan portal hop " & ($iHop + 1) & ": " & $sLabel & _
+                        " (map " & $iCurrent & " -> " & $iTargetMap & ").")
+                Local $iBeforePortal = $iCurrent
+                _Vanquisher_ApplyDifficulty()
+                _TempleAscalonCaravanTryCatchUp($iTargetMap)
+                If GetMapID() = $iTargetMap Then Return True
+                If GetMapID() <> $iBeforePortal Then
+                    $iHop += 1
+                    ContinueLoop
+                EndIf
+            EndIf
+
+            If _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, $iStage) Then
+                Local $iBeforeGoOut = $iCurrent
+                _Vanquisher_ApplyDifficulty()
+                CurrentAction("Maguuma caravan GoOut hop " & ($iHop + 1) & ": " & $sLabel & _
+                        " (map " & $iCurrent & " -> " & $iTargetMap & ").")
+                If $sGoOutFunc <> "" Then Call($sGoOutFunc)
+                If GetMapID() = $iTargetMap Then Return True
+                If GetMapID() <> $iBeforeGoOut Then
+                    $iHop += 1
+                    ContinueLoop
+                EndIf
+                _Vanquisher_ResetGoOutRouteProgress()
+            EndIf
+
+            ; No usable portal spine from here — fall back to resign + TravelTo.
+            If Not _Vanquisher_MaguumaCaravanEnsureOutpost($iOutpost, $sLabel) Then Return False
+            $iHop += 1
+            ContinueLoop
+        EndIf
+
+        ; Outpost / non-explorable: travel to the stage outpost then hardcoded GoOut.
         If Not _Vanquisher_IsMaguumaCaravanEntryMap($iCurrent, $iStage) Then
             If Not _Vanquisher_MaguumaCaravanEnsureOutpost($iOutpost, $sLabel) Then Return False
             $iCurrent = GetMapID()
@@ -59,7 +97,8 @@ Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
 
         Local $iBefore = $iCurrent
         _Vanquisher_ApplyDifficulty()
-        CurrentAction("Maguuma caravan GoOut hop " & ($iHop + 1) & ": " & $sLabel & " (map " & $iCurrent & " -> " & $iTargetMap & ").")
+        CurrentAction("Maguuma caravan GoOut hop " & ($iHop + 1) & ": " & $sLabel & _
+                " (map " & $iCurrent & " -> " & $iTargetMap & ").")
         If $sGoOutFunc <> "" Then Call($sGoOutFunc)
 
         If GetMapID() = $iTargetMap Then Return True
@@ -71,6 +110,22 @@ Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
     WEnd
 
     Return GetMapID() = $iTargetMap
+EndFunc
+
+; Settle after portal load and return True when the instance is already clear.
+Func _Vanquisher_MaguumaCaravanIsVanquishedAfterLoad($sLabel)
+    Local $iWait = 0
+    While $iWait < 10 And Not _Vanquisher_ShouldStop()
+        If GetFoesToKill() >= 0 Then ExitLoop
+        Sleep(200)
+        $iWait += 1
+    WEnd
+
+    UpdateVanquish()
+    If Not _Vanquisher_IsAlreadyVanquishedOnEntry() Then Return False
+
+    CurrentAction($sLabel & " already vanquished on entry - skipping coordinate arrays.")
+    Return True
 EndFunc
 
 Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
@@ -85,6 +140,10 @@ Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
         CurrentAction($sLabel & " vanquish aborted - on map " & GetMapID() & ", need " & $iTargetMap & ".")
         Return
     EndIf
+
+    ; If the loaded instance is already clear, skip the arrays; caller portals onward.
+    If _Vanquisher_MaguumaCaravanIsVanquishedAfterLoad($sLabel) Then Return
+
     _Vanquisher_CacheCombatAIForCurrentMap(True)
     $g_b_Vanquisher_ConsumablesAppliedThisZone = False
     _Vanquisher_ApplyConsumablesOnFarmEntry()
@@ -146,6 +205,7 @@ Func _Vanquisher_MaguumaCaravanRouteArray($iStage, $iPass)
     Return $aEmpty
 EndFunc
 
+; After a map is vanquished, portal to the next stage when possible; resign only as fallback.
 Func _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
     Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
     Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
@@ -157,24 +217,58 @@ Func _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
     EndIf
 
     UpdateVanquish()
-    If Not GetAreaVanquished() Then
+    If Not GetAreaVanquished() And Not _Vanquisher_IsAlreadyVanquishedOnEntry() Then
         CurrentAction($sLabel & " route finished but area not vanquished yet - retrying route.")
         Return False
     EndIf
 
-    CurrentAction($sLabel & " vanquished (" & GetFoesKilled() & " killed). Resigning for next map.")
-    _Vanquisher_ReturnToOutpost()
-    _Vanquisher_ResetGoOutRouteProgress()
     $g_i_Vanquisher_CombinedMaguumaStage = $iStage + 1
 
     If $g_i_Vanquisher_CombinedMaguumaStage >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then
-        CurrentAction("TOA Maguuma caravan complete.")
+        CurrentAction($sLabel & " vanquished (" & GetFoesKilled() & " killed). TOA Maguuma caravan complete.")
         _Vanquisher_EndMaguumaCaravanRun(True)
         Return True
     EndIf
 
-    CurrentAction("Maguuma caravan next: " & $g_a_MaguumaCaravanPlan[$g_i_Vanquisher_CombinedMaguumaStage][8] & _
-            " (" & ($g_i_Vanquisher_CombinedMaguumaStage + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ").")
+    Local $iNextMap = $g_a_MaguumaCaravanPlan[$g_i_Vanquisher_CombinedMaguumaStage][0]
+    Local $sNextLabel = $g_a_MaguumaCaravanPlan[$g_i_Vanquisher_CombinedMaguumaStage][8]
+    Local $sNextMsg = "Maguuma caravan next: " & $sNextLabel & _
+            " (" & ($g_i_Vanquisher_CombinedMaguumaStage + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ")."
+
+    CurrentAction($sLabel & " vanquished (" & GetFoesKilled() & " killed). Continuing to " & $sNextLabel & ".")
+    _Vanquisher_ResetGoOutRouteProgress()
+
+    ; Prefer shared portal path, then neighbor GoOut (MajestysRest -> SageLands, Sage -> Mamnoon, etc.).
+    If Map_GetInstanceInfo("IsExplorable") Then
+        If _TempleAscalonCaravanCanDirectTransition($iNextMap) Then
+            _Vanquisher_ApplyDifficulty()
+            CurrentAction("Portaling to " & $sNextLabel & ".")
+            _TempleAscalonCaravanTryCatchUp($iNextMap)
+        EndIf
+
+        If GetMapID() <> $iNextMap And _Vanquisher_IsMaguumaCaravanEntryMap(GetMapID(), $g_i_Vanquisher_CombinedMaguumaStage) Then
+            Local $sNextGoOut = $g_a_MaguumaCaravanPlan[$g_i_Vanquisher_CombinedMaguumaStage][5]
+            Local $iBeforeGoOut = GetMapID()
+            _Vanquisher_ApplyDifficulty()
+            CurrentAction("Neighbor GoOut to " & $sNextLabel & ".")
+            If $sNextGoOut <> "" Then Call($sNextGoOut)
+            If GetMapID() = $iBeforeGoOut Then _Vanquisher_ResetGoOutRouteProgress()
+        EndIf
+
+        If GetMapID() = $iNextMap Or _TempleAscalonCaravanCanDirectTransition($iNextMap) _
+                Or _Vanquisher_IsMaguumaCaravanEntryMap(GetMapID(), $g_i_Vanquisher_CombinedMaguumaStage) Then
+            CurrentAction($sNextMsg)
+            Return True
+        EndIf
+
+        CurrentAction("Portal path to " & $sNextLabel & " stalled - resigning for outpost travel.")
+    Else
+        CurrentAction("Not explorable after " & $sLabel & " - resigning for " & $sNextLabel & ".")
+    EndIf
+
+    _Vanquisher_ReturnToOutpost()
+    _Vanquisher_ResetGoOutRouteProgress()
+    CurrentAction($sNextMsg)
     Return True
 EndFunc
 
@@ -201,10 +295,11 @@ Func _Vanquisher_RunMaguumaCaravanStage()
         Return True
     EndIf
 
-    CurrentAction("Maguuma caravan on " & $sLabel & " (map " & GetMapID() & ") - starting vanquish coordinates.")
+    CurrentAction("Maguuma caravan on " & $sLabel & " (map " & GetMapID() & ") - checking vanquish state.")
     _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     If _Vanquisher_ShouldStop() Or $g_b_Vanquisher_AbortRoute Or $g_b_Vanquisher_RunFinished Then Return True
 
+    ; Runs after arrays finish, or immediately when the map was already clear on load.
     _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
     Return True
 EndFunc
