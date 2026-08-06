@@ -925,6 +925,35 @@ Func _Vanquisher_IsAlreadyVanquishedOnEntry()
     Return $l_i_Remaining = 0
 EndFunc
 
+; Live VanquishedAreasArray bit for a map id (same source as the connect-time map scan).
+Func _Vanquisher_ReadLiveHistoryBitForMapId($iMapID)
+    $iMapID = Number($iMapID)
+    If $iMapID <= 0 Then Return False
+    If Not IsDeclared("g_h_GWProcess") Or Not $g_h_GWProcess Then Return False
+    If Not IsDeclared("g_h_Kernel32") Or Not $g_h_Kernel32 Then Return False
+
+    Local $pArray = World_GetWorldInfo("VanquishedAreasArray")
+    Local $iArraySize = World_GetWorldInfo("VanquishedAreasArraySize")
+    If $pArray = 0 Or $iArraySize <= 0 Then Return False
+
+    Local $iWordIndex = Floor($iMapID / 32)
+    If $iWordIndex >= $iArraySize Then Return False
+
+    Local $dVanquishWords = DllStructCreate("dword[" & $iArraySize & "]")
+    Local $aReadResult = DllCall($g_h_Kernel32, "bool", "ReadProcessMemory", _
+        "handle", $g_h_GWProcess, _
+        "ptr", $pArray, _
+        "struct*", $dVanquishWords, _
+        "ulong_ptr", 4 * $iArraySize, _
+        "ulong_ptr*", 0)
+    If @error Or Not IsArray($aReadResult) Or Not $aReadResult[0] Then Return False
+
+    Local $iBitOffset = Mod($iMapID, 32)
+    Local $iBitMask = BitShift(1, -$iBitOffset)
+    Local $iWordValue = DllStructGetData($dVanquishWords, 1, $iWordIndex + 1)
+    Return BitAND($iWordValue, $iBitMask) <> 0
+EndFunc
+
 Func _Vanquisher_ResignToOutpost()
     CurrentAction("Resigning to outpost.")
     Chat_SendChat("resign", "/")

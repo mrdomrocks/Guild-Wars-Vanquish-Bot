@@ -6,6 +6,8 @@
 
 Func _Vanquisher_ShouldRunCaravanWaypoint()
     If _Vanquisher_ShouldStop() Then Return False
+    ; Clear instance on entry: do not walk farm arrays (caravan delay would otherwise force it).
+    If _Vanquisher_IsAlreadyVanquishedOnEntry() Then Return False
     If _Vanquisher_ShouldDelayCaravanTransition() Then Return True
     Return Not GetAreaVanquished()
 EndFunc
@@ -23,7 +25,7 @@ Func _Vanquisher_ShouldFinalizeDelayedCaravanAfterRoute($iMapIndex = -1)
     If _Vanquisher_IsCombinedMaguumaCaravanActive() Then Return False
     If $g_b_Vanquisher_TransitOnly Then Return False
     If Not Map_GetInstanceInfo("IsExplorable") Then Return False
-    If Not GetAreaVanquished() Then Return False
+    If Not GetAreaVanquished() And Not _Vanquisher_IsAlreadyVanquishedOnEntry() Then Return False
 
     If $iMapIndex >= 0 And IsDeclared("g_aMapEntries") Then
         If $iMapIndex >= UBound($g_aMapEntries) Then Return False
