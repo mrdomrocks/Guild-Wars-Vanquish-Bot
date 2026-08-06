@@ -1,12 +1,13 @@
 #include-once
 
 ; Maguuma caravan hop plan metadata used by SpecialRoute_TempleOfTheAgesMaguumaCaravan.
-; Each stage is reached via TravelTo(outpost) + hardcoded GoOut, then vanquished, then resign.
-; Maguuma is not one continuous portal spine:
-; - Kryta leg: Talmark -> MajestysRest (from TOA)
-; - Maguuma north: Sage -> Mamnoon -> Silverwood -> Ettins -> Reed -> Falls
-; - Maguuma south: DryTop -> TangleRoot
-; Forced resign+TravelTo between those segments (and between every map for reliability).
+; Order matches the intended TOA Maguuma caravan:
+; - Kryta leg: TOA -> Talmark -> MajestysRest -> SageLands
+; - Jungle divide: Mamnoon -> Silverwood -> EttinsBack
+; - Northern split: EttinsBack -> ReedBog -> TheFalls
+; - Southern split: return through EttinsBack -> DryTop -> TangleRoot
+; Between maps: portal catch-up when Map_GetPathWithPortalCoords finds an explorable spine.
+; Resign+TravelTo only when that path is missing (e.g. MajestysRest -> SageLands).
 
 Global Const $GC_I_MAGUUMA_CARAVAN_MAP_COUNT = 10
 

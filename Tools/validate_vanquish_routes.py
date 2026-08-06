@@ -151,7 +151,7 @@ def validate_caravan_portal_controller(errors: list[str]) -> None:
 
 
 def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
-    """TOA Maguuma Caravan uses an explicit travel/GoOut/vanquish/resign runner."""
+    """TOA Maguuma Caravan vanquishes each map then portals to the next when possible."""
     bot = ROOT / "Guild Wars Vanquish Bot.au3"
     text = bot.read_text(encoding="utf-8", errors="replace")
     if 'VQSpecialRoute_TempleOfTheAgesMaguumaCaravan' not in text:
@@ -166,19 +166,39 @@ def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
             "Func VQSpecialRoute_TempleOfTheAgesMaguumaCaravan(",
             "_Vanquisher_MaguumaCaravanGoOutToMap",
             "_Vanquisher_MaguumaCaravanRunVanquish",
+            "_Vanquisher_MaguumaCaravanAdvanceAfterVanquish",
+            "_TempleAscalonCaravanTryCatchUp",
+            "_TempleAscalonCaravanCanDirectTransition",
             "_Vanquisher_ReturnToOutpost",
+            "Portaling to ",
             "Starting ",
         ):
             if needle not in body:
                 errors.append(f"{special.relative_to(ROOT)}: missing {needle}")
+        if "Resigning for next map." in body and "Portaling to " not in body:
+            errors.append(
+                f"{special.relative_to(ROOT)}: Maguuma must portal between maps when a path exists"
+            )
 
     plan = ROOT / "Core" / "Caravan_MaguumaPlan.au3"
     if not plan.exists():
         errors.append(f"{plan.relative_to(ROOT)}: missing Maguuma caravan plan")
     else:
         plan_text = plan.read_text(encoding="utf-8", errors="replace")
-        if "TalmarkWilderness" not in plan_text or "TangleRoot" not in plan_text:
-            errors.append(f"{plan.relative_to(ROOT)}: plan must cover Talmark through TangleRoot")
+        for label in (
+            "TalmarkWilderness",
+            "MajestysRest",
+            "SageLands",
+            "MamnoonLagoon",
+            "Silverwood",
+            "EttinsBack",
+            "ReedBog",
+            "TheFalls",
+            "DryTop",
+            "TangleRoot",
+        ):
+            if label not in plan_text:
+                errors.append(f"{plan.relative_to(ROOT)}: plan must include {label}")
 
     compat = ROOT / "Core" / "Vanquisher_Compat.au3"
     compat_text = compat.read_text(encoding="utf-8", errors="replace")

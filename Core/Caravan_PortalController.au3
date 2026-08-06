@@ -171,7 +171,7 @@ Func _ShouldStayInExplorableForQueuedRoute()
     Local $iCurrentMapIndex = $g_a_VanquisherZoneQueue[$g_i_VanquisherZoneQueueIndex]
     Local $iNextMapIndex = $g_a_VanquisherZoneQueue[$iNextQueueIndex]
 
-    ; Maguuma caravan uses resign + TravelTo between every map.
+    ; Maguuma special runner owns its own portal/resign advance between stages.
     If _Vanquisher_IsCombinedMaguumaCaravanActive() Then Return False
     If StringCompare($sCurrentProfile, "temple_maguuma_caravan", 0) = 0 Then Return False
 
