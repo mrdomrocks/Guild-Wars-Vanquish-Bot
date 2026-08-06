@@ -156,6 +156,20 @@ def validate_maguuma_caravan_expansion(errors: list[str]) -> None:
     text = bot.read_text(encoding="utf-8", errors="replace")
     if 'VQSpecialRoute_TempleOfTheAgesMaguumaCaravan' not in text:
         errors.append(f"{bot.relative_to(ROOT)}: Maguuma special route must register VQSpecialRoute_TempleOfTheAgesMaguumaCaravan")
+    if "TOA Maguuma Caravan" in text:
+        maguuma_block = text.split("TOA Maguuma Caravan", 1)[1].split("EndFunc", 1)[0]
+        # Maguuma special entry must not use a real map id or history scan greys it out.
+        if "$TalmarkWilderness_Map" in maguuma_block or not re.search(
+            r"\$g_aMapEntries\[\$iNext \+ 1\]\[4\]\s*=\s*0\b", maguuma_block
+        ):
+            errors.append(
+                f"{bot.relative_to(ROOT)}: TOA Maguuma Caravan map id must be 0 "
+                "so history scan cannot mark it vanquished"
+            )
+    if "Or _IsSpecialRouteScriptName(" not in text:
+        errors.append(
+            f"{bot.relative_to(ROOT)}: vanquish history scan must skip special caravan routes"
+        )
 
     special = MAPS_ROOT / "Caravan_Maguuma" / "SpecialRoute_TempleOfTheAgesMaguumaCaravan.au3"
     if not special.exists():
