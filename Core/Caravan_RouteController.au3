@@ -33,6 +33,14 @@ Func _Vanquisher_IsCombinedMaguumaCaravanActive()
     Return IsDeclared("g_b_Vanquisher_CombinedMaguumaCaravanActive") And $g_b_Vanquisher_CombinedMaguumaCaravanActive
 EndFunc
 
+Func _Vanquisher_IsCombinedAscalonCaravanActive()
+    Return IsDeclared("g_b_Vanquisher_CombinedAscalonCaravanActive") And $g_b_Vanquisher_CombinedAscalonCaravanActive
+EndFunc
+
+Func _Vanquisher_IsCombinedCaravanActive()
+    Return _Vanquisher_IsCombinedMaguumaCaravanActive() Or _Vanquisher_IsCombinedAscalonCaravanActive()
+EndFunc
+
 Func _Vanquisher_IsTempleCaravanRouteProfile($sRouteProfile = "")
     If $sRouteProfile = "" Then $sRouteProfile = _Vanquisher_GetCurrentQueueRouteProfile()
     If $sRouteProfile = "" Then Return _Vanquisher_IsCurrentQueuedCaravanMap()
@@ -44,7 +52,7 @@ EndFunc
 Func _Vanquisher_ShouldDelayCaravanTransition()
     Return _Vanquisher_IsTempleCaravanRouteProfile() _
         Or _Vanquisher_IsCurrentQueuedCaravanMap() _
-        Or _Vanquisher_IsCombinedMaguumaCaravanActive()
+        Or _Vanquisher_IsCombinedCaravanActive()
 EndFunc
 
 Func _IsQueuedTargetReady($sTargetTitle, $iTargetMapID)

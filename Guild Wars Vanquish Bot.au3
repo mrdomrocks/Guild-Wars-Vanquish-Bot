@@ -764,7 +764,8 @@ Func _BuildCheckedMapQueue(ByRef $aRouteProfiles)
         If _IsSpecialRouteScriptName($g_aMapEntries[$i][8]) Then
             Switch $g_aMapEntries[$i][8]
                 Case $GC_S_SPECIAL_ROUTE_TEMPLE_ASCALON_CARAVAN
-                    _AppendTempleAscalonCaravanQueue($aChecked, $aRouteProfiles)
+                    ; Single explicit runner: portal through completed maps, farm first open.
+                    _AppendQueueMapIndex($aChecked, $aRouteProfiles, $i, $GC_S_ROUTE_PROFILE_TEMPLE_ASCALON_CARAVAN)
                 Case $GC_S_SPECIAL_ROUTE_TEMPLE_MAGUUMA_CARAVAN
                     ; Single explicit runner: vanquish each map, portal to next when possible.
                     _AppendQueueMapIndex($aChecked, $aRouteProfiles, $i, $GC_S_ROUTE_PROFILE_TEMPLE_MAGUUMA_CARAVAN)
@@ -1123,7 +1124,7 @@ Func _AppendSpecialRouteEntries()
     $g_aMapEntries[$iNext][6] = $TheBlackCurtain_Outpost
     $g_aMapEntries[$iNext][7] = 8
     $g_aMapEntries[$iNext][8] = $GC_S_SPECIAL_ROUTE_TEMPLE_ASCALON_CARAVAN
-    $g_aMapEntries[$iNext][9] = ""
+    $g_aMapEntries[$iNext][9] = "VQSpecialRoute_TempleOfTheAgesAscalonCaravan"
     $g_aMapEntries[$iNext][10] = ""
 
     $g_aMapEntries[$iNext + 1][0] = "Caravan Routes"
