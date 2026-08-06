@@ -651,9 +651,7 @@ EndFunc
 Func _AppendQueueMapIndex(ByRef $aQueue, ByRef $aRouteProfiles, $iMapIndex, $sRouteProfile = "")
     If $iMapIndex < 0 Or $iMapIndex >= UBound($g_aMapEntries) Then Return False
     If $g_aMapEntries[$iMapIndex][5] Then Return False
-    If IsFunc("_Vanquisher_IsMapIdHistoricallyVanquished") Then
-        If _Vanquisher_IsMapIdHistoricallyVanquished($g_aMapEntries[$iMapIndex][4]) Then Return False
-    EndIf
+    If _Vanquisher_IsMapIdHistoricallyVanquished($g_aMapEntries[$iMapIndex][4]) Then Return False
 
     Local $i = 0
     For $i = 0 To UBound($aQueue) - 1
@@ -702,7 +700,7 @@ Func _AppendTempleAscalonCaravanQueue(ByRef $aQueue, ByRef $aRouteProfiles)
             ContinueLoop
         EndIf
         Local $bHistoricallyDone = $g_aMapEntries[$iMapIndex][5]
-        If Not $bHistoricallyDone And IsFunc("_Vanquisher_IsMapIdHistoricallyVanquished") Then
+        If Not $bHistoricallyDone Then
             $bHistoricallyDone = _Vanquisher_IsMapIdHistoricallyVanquished($g_aMapEntries[$iMapIndex][4])
         EndIf
         If $bHistoricallyDone Then
@@ -1276,7 +1274,39 @@ Func _RefreshHistoricalVanquishStates()
 
     _PopulateMapList("ALL")
     _Log("Vanquish history loaded: " & $iDisplayedCompleted & " completed map(s).")
+    _LogMaguumaCaravanHistorySummary()
     Return True
+EndFunc
+
+; Console visibility for Maguuma caravan skips: which spine maps the connect scan flagged.
+Func _LogMaguumaCaravanHistorySummary()
+    _Vanquisher_InitMaguumaCaravanPlan()
+    Local $iDone = 0
+    Local $sDone = ""
+    Local $sFirstOpen = ""
+    Local $i = 0
+    For $i = 0 To $GC_I_MAGUUMA_CARAVAN_MAP_COUNT - 1
+        Local $iMapID = Number($g_a_MaguumaCaravanPlan[$i][0])
+        Local $sLabel = $g_a_MaguumaCaravanPlan[$i][8]
+        Local $bDone = _Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished($i)
+        If $bDone Then
+            $iDone += 1
+            If $sDone <> "" Then $sDone &= ", "
+            $sDone &= $sLabel
+        ElseIf $sFirstOpen = "" Then
+            $sFirstOpen = $sLabel & " (map " & $iMapID & ")"
+        EndIf
+    Next
+
+    If $iDone <= 0 Then
+        _Log("Maguuma caravan history: 0/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & _
+                " flagged vanquished. First farm target: " & $sFirstOpen & ".")
+    ElseIf $iDone >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then
+        _Log("Maguuma caravan history: all " & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & " maps flagged vanquished.")
+    Else
+        _Log("Maguuma caravan history: " & $iDone & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & _
+                " flagged vanquished (" & $sDone & "). First farm target: " & $sFirstOpen & ".")
+    EndIf
 EndFunc
 
 Func _ClearHistoricalVanquishStates($bRefreshList = True)

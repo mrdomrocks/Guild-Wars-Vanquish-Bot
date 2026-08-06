@@ -313,22 +313,25 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         _VR_AddError($sSpecialRel & ": missing Maguuma special route runner")
     Else
         Local $sBody = _VR_ReadText($sSpecial)
-        Local $aNeedles[14] = [ _
+        Local $aNeedles[12] = [ _
                 "Func VQSpecialRoute_TempleOfTheAgesMaguumaCaravan(", _
                 "_Vanquisher_MaguumaCaravanGoOutToMap", _
                 "_Vanquisher_MaguumaCaravanRunVanquish", _
                 "_Vanquisher_MaguumaCaravanAdvanceAfterVanquish", _
                 "_Vanquisher_MaguumaCaravanFirstIncompleteStage", _
                 "_Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished", _
-                "_Vanquisher_MaguumaCaravanIsVanquishedAfterLoad", _
                 "_TempleAscalonCaravanTryCatchUp", _
                 "_TempleAscalonCaravanCanDirectTransition", _
                 "_Vanquisher_ReturnToOutpost", _
                 "already vanquished per map scan", _
-                "already clear in this instance", _
                 "Portaling to ", _
                 "Starting " _
                 ]
+        If StringInStr($sBody, "_Vanquisher_MaguumaCaravanIsVanquishedAfterLoad") Or _
+                StringInStr($sBody, "checking vanquish state") Or _
+                StringInStr($sBody, "already clear in this instance") Then
+            _VR_AddError($sSpecialRel & ": per-map-load vanquish settle/check must be removed; use connect-time map scan only")
+        EndIf
         Local $n = 0
         For $n = 0 To UBound($aNeedles) - 1
             _VR_RequireNeedle($sBody, $aNeedles[$n], $sSpecialRel)
@@ -367,6 +370,13 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         For $l = 0 To UBound($aPlanNeedles) - 1
             _VR_RequireNeedle($sPlanText, $aPlanNeedles[$l], $sPlanRel)
         Next
+        If StringInStr($sPlanText, 'IsFunc("_Vanquisher_ReadLiveHistoryBitForMapId")') Or _
+                StringInStr($sPlanText, "IsFunc('_Vanquisher_ReadLiveHistoryBitForMapId')") Then
+            _VR_AddError($sPlanRel & ": IsFunc(""name"") is always false; call _Vanquisher_ReadLiveHistoryBitForMapId directly")
+        EndIf
+        If Not StringInStr($sPlanText, "_Vanquisher_ReadLiveHistoryBitForMapId($iMapID)") Then
+            _VR_AddError($sPlanRel & ": history check must call live VanquishedAreasArray bit reader")
+        EndIf
     EndIf
 
     Local $sCompat = $GC_S_ROOT & "\Core\Vanquisher_Compat.au3"

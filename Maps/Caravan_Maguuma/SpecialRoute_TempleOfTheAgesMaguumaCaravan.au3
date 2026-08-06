@@ -47,9 +47,7 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
                 EndIf
             Next
         EndIf
-        If IsFunc("_Vanquisher_ReadLiveHistoryBitForMapId") Then
-            $bProbeLive = _Vanquisher_ReadLiveHistoryBitForMapId($iProbeMap)
-        EndIf
+        $bProbeLive = _Vanquisher_ReadLiveHistoryBitForMapId($iProbeMap)
     EndIf
     _Log("Maguuma history probe: Talmark map " & $iProbeMap & _
             " cached=" & $bProbeCached & " liveBit=" & $bProbeLive & _
@@ -161,31 +159,6 @@ Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
     Return GetMapID() = $iTargetMap
 EndFunc
 
-; Settle after portal load and return True when this instance is already clear (0 foes left).
-; History skip is preferred; this is a safety net so clear instances never walk farm arrays.
-Func _Vanquisher_MaguumaCaravanIsVanquishedAfterLoad($sLabel)
-    Local $iWait = 0
-    Local $iRemaining = -1
-    While $iWait < 25 And Not _Vanquisher_ShouldStop()
-        $iRemaining = GetFoesToKill()
-        If $iRemaining >= 0 Then ExitLoop
-        Sleep(200)
-        $iWait += 1
-    WEnd
-
-    ; Give the counter one more settle tick after it becomes readable.
-    Sleep(400)
-    UpdateVanquish()
-    $iRemaining = GetFoesToKill()
-    If _Vanquisher_IsAlreadyVanquishedOnEntry() Then
-        CurrentAction($sLabel & " already clear in this instance (" & GetFoesKilled() & " killed, " & _
-                $iRemaining & " remaining) - skipping coordinate arrays.")
-        Return True
-    EndIf
-
-    Return False
-EndFunc
-
 Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     Local $sLabel = $g_a_MaguumaCaravanPlan[$iStage][8]
     Local $iTargetMap = Number($g_a_MaguumaCaravanPlan[$iStage][0])
@@ -199,15 +172,12 @@ Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
         Return
     EndIf
 
-    ; Never farm a map the history scan / live bitfield already marked complete.
+    ; Skip only from connect-time / live history bitfield — no per-load foe-counter settle.
     If _Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished($iStage) Then
         CurrentAction($sLabel & " already vanquished per map scan - skipping coordinate arrays.")
         _Log("Maguuma caravan: " & $sLabel & " (map " & $iTargetMap & ") skipped by history - portal onward.")
         Return
     EndIf
-
-    ; If this loaded instance is already clear, skip arrays; caller portals onward.
-    If _Vanquisher_MaguumaCaravanIsVanquishedAfterLoad($sLabel) Then Return
 
     _Vanquisher_CacheCombatAIForCurrentMap(True)
     $g_b_Vanquisher_ConsumablesAppliedThisZone = False
@@ -220,8 +190,19 @@ Func _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     If IsArray($aRoute01) Then $iCount01 = UBound($aRoute01)
     If IsArray($aRoute02) Then $iCount02 = UBound($aRoute02)
 
+    Local $bLiveBit = _Vanquisher_ReadLiveHistoryBitForMapId($iTargetMap)
+    Local $bCachedBit = False
+    If IsDeclared("g_aMapEntries") Then
+        Local $c = 0
+        For $c = 0 To UBound($g_aMapEntries) - 1
+            If Number($g_aMapEntries[$c][4]) = $iTargetMap And $g_aMapEntries[$c][5] Then
+                $bCachedBit = True
+                ExitLoop
+            EndIf
+        Next
+    EndIf
     _Log("Maguuma caravan: farming " & $sLabel & " map " & $iTargetMap & _
-            " (historyBit=" & _Vanquisher_ReadLiveHistoryBitForMapId($iTargetMap) & _
+            " (cached=" & $bCachedBit & ", liveBit=" & $bLiveBit & _
             ", foes " & GetFoesKilled() & "/" & GetFoesToKill() & ").")
     CurrentAction("Starting " & $sLabel & " vanquish route (" & ($iStage + 1) & "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ") - " & _
             $iCount01 & "+" & $iCount02 & " waypoints on map " & GetMapID() & ".")
@@ -399,7 +380,7 @@ Func _Vanquisher_RunMaguumaCaravanStage()
     _Vanquisher_MaguumaCaravanRunVanquish($iStage)
     If _Vanquisher_ShouldStop() Or $g_b_Vanquisher_AbortRoute Or $g_b_Vanquisher_RunFinished Then Return True
 
-    ; Runs after arrays finish, or immediately when skipped as history/instance-complete.
+    ; Runs after arrays finish, or immediately when skipped by connect-time/live history.
     _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
     Return True
 EndFunc

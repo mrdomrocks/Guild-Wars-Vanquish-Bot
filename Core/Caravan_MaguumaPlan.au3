@@ -124,10 +124,14 @@ Func _Vanquisher_MaguumaCaravanStageScriptName($iStage)
     Return $aScripts[$iStage]
 EndFunc
 
-; True when this map id is historically vanquished (cached scan flags and/or live bitfield).
+; True when this map id is historically vanquished (live bitfield and/or cached scan flags).
+; Note: AutoIt IsFunc() only accepts function references — never guard Call()/direct calls with IsFunc("Name").
 Func _Vanquisher_IsMapIdHistoricallyVanquished($iMapID)
     $iMapID = Number($iMapID)
     If $iMapID <= 0 Then Return False
+
+    ; Authoritative live bit — same VanquishedAreasArray the connect-time map scan reads.
+    If _Vanquisher_ReadLiveHistoryBitForMapId($iMapID) Then Return True
 
     ; Cached connect-time flags on any matching campaign/caravan row.
     If IsDeclared("g_aMapEntries") Then
@@ -138,10 +142,6 @@ Func _Vanquisher_IsMapIdHistoricallyVanquished($iMapID)
         Next
     EndIf
 
-    ; Authoritative live bit — same VanquishedAreasArray the map scan reads.
-    If IsFunc("_Vanquisher_ReadLiveHistoryBitForMapId") Then
-        Return _Vanquisher_ReadLiveHistoryBitForMapId($iMapID)
-    EndIf
     Return False
 EndFunc
 
