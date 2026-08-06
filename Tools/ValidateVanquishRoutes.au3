@@ -320,15 +320,26 @@ Func _VR_ValidateMaguumaCaravanExpansion()
                 "_Vanquisher_MaguumaCaravanAdvanceAfterVanquish", _
                 "_Vanquisher_MaguumaCaravanFirstIncompleteStage", _
                 "_Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished", _
-                "_Vanquisher_MaguumaCaravanIsVanquishedAfterLoad", _
+                "_Vanquisher_MaguumaCaravanStageForCurrentMap", _
+                "_Vanquisher_IsOnMaguumaCaravanSpine", _
                 "_TempleAscalonCaravanTryCatchUp", _
                 "_TempleAscalonCaravanCanDirectTransition", _
                 "_Vanquisher_ReturnToOutpost", _
                 "already vanquished per map scan", _
-                "already clear in this instance", _
                 "Portaling to ", _
-                "Starting " _
+                "will portal through completed" _
                 ]
+        If StringInStr($sBody, "_Vanquisher_MaguumaCaravanIsVanquishedAfterLoad") Or _
+                StringInStr($sBody, "checking vanquish state") Or _
+                StringInStr($sBody, "already clear in this instance") Then
+            _VR_AddError($sSpecialRel & ": per-map-load vanquish settle/check must be removed; use connect-time map scan only")
+        EndIf
+        If StringInStr($sBody, "Traveling to outpost for SageLands") Then
+            _VR_AddError($sSpecialRel & ": Maguuma must not TravelTo mid-route outposts; enter at TOA and portal the spine")
+        EndIf
+        If Not StringInStr($sBody, "$g_a_MaguumaCaravanPlan[0][1]") Then
+            _VR_AddError($sSpecialRel & ": Maguuma GoOut must enter at TOA (plan stage 0 outpost), not mid-route outposts")
+        EndIf
         Local $n = 0
         For $n = 0 To UBound($aNeedles) - 1
             _VR_RequireNeedle($sBody, $aNeedles[$n], $sSpecialRel)
@@ -358,8 +369,10 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         If Not StringInStr($sPlanText, "$MamnoonLagoon_Transit2") Then
             _VR_AddError($sPlanRel & ": Mamnoon stage must use $MamnoonLagoon_Transit2 (Sage Lands)")
         EndIf
-        Local $aPlanNeedles[4] = [ _
+        Local $aPlanNeedles[6] = [ _
                 "_Vanquisher_MaguumaCaravanFirstIncompleteStage", _
+                "_Vanquisher_MaguumaCaravanStageForCurrentMap", _
+                "_Vanquisher_IsOnMaguumaCaravanSpine", _
                 "_Vanquisher_IsMapIdHistoricallyVanquished", _
                 "_Vanquisher_IsCaravanMapHistoricallyVanquished", _
                 "CaravanMaguuma_TalmarkWilderness" _
@@ -367,6 +380,13 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         For $l = 0 To UBound($aPlanNeedles) - 1
             _VR_RequireNeedle($sPlanText, $aPlanNeedles[$l], $sPlanRel)
         Next
+        If StringInStr($sPlanText, 'IsFunc("_Vanquisher_ReadLiveHistoryBitForMapId")') Or _
+                StringInStr($sPlanText, "IsFunc('_Vanquisher_ReadLiveHistoryBitForMapId')") Then
+            _VR_AddError($sPlanRel & ": IsFunc(""name"") is always false; call _Vanquisher_ReadLiveHistoryBitForMapId directly")
+        EndIf
+        If Not StringInStr($sPlanText, "_Vanquisher_ReadLiveHistoryBitForMapId($iMapID)") Then
+            _VR_AddError($sPlanRel & ": history check must call live VanquishedAreasArray bit reader")
+        EndIf
     EndIf
 
     Local $sCompat = $GC_S_ROOT & "\Core\Vanquisher_Compat.au3"

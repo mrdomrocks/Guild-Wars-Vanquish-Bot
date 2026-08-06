@@ -107,6 +107,37 @@ Func _Vanquisher_IsMaguumaCaravanEntryMap($iMapID, $iStage)
     Return False
 EndFunc
 
+; True when $iMapID is any Maguuma spine farm map / outpost / transit for any stage.
+Func _Vanquisher_IsOnMaguumaCaravanSpine($iMapID = -1)
+    _Vanquisher_InitMaguumaCaravanPlan()
+    If $iMapID < 0 Then $iMapID = GetMapID()
+    Local $i = 0
+    For $i = 0 To $GC_I_MAGUUMA_CARAVAN_MAP_COUNT - 1
+        If _Vanquisher_IsMaguumaCaravanEntryMap($iMapID, $i) Then Return True
+    Next
+    Return False
+EndFunc
+
+; Stage index for the current map on the Maguuma spine, or 0 to begin from TOA -> Talmark.
+; Farm map wins, then transit, then lowest outpost stage (TOA is shared by Talmark/MajestysRest).
+Func _Vanquisher_MaguumaCaravanStageForCurrentMap()
+    _Vanquisher_InitMaguumaCaravanPlan()
+    Local $iMapID = Number(GetMapID())
+    Local $i = 0
+    For $i = 0 To $GC_I_MAGUUMA_CARAVAN_MAP_COUNT - 1
+        If Number($g_a_MaguumaCaravanPlan[$i][0]) = $iMapID Then Return $i
+    Next
+    For $i = 0 To $GC_I_MAGUUMA_CARAVAN_MAP_COUNT - 1
+        If $g_a_MaguumaCaravanPlan[$i][2] > 0 And Number($g_a_MaguumaCaravanPlan[$i][2]) = $iMapID Then Return $i
+        If $g_a_MaguumaCaravanPlan[$i][3] > 0 And Number($g_a_MaguumaCaravanPlan[$i][3]) = $iMapID Then Return $i
+        If $g_a_MaguumaCaravanPlan[$i][4] > 0 And Number($g_a_MaguumaCaravanPlan[$i][4]) = $iMapID Then Return $i
+    Next
+    For $i = 0 To $GC_I_MAGUUMA_CARAVAN_MAP_COUNT - 1
+        If Number($g_a_MaguumaCaravanPlan[$i][1]) = $iMapID Then Return $i
+    Next
+    Return 0
+EndFunc
+
 Func _Vanquisher_MaguumaCaravanStageScriptName($iStage)
     Local $aScripts[10] = [ _
             "CaravanMaguuma_TalmarkWilderness", _
@@ -124,10 +155,14 @@ Func _Vanquisher_MaguumaCaravanStageScriptName($iStage)
     Return $aScripts[$iStage]
 EndFunc
 
-; True when this map id is historically vanquished (cached scan flags and/or live bitfield).
+; True when this map id is historically vanquished (live bitfield and/or cached scan flags).
+; Note: AutoIt IsFunc() only accepts function references — never guard Call()/direct calls with IsFunc("Name").
 Func _Vanquisher_IsMapIdHistoricallyVanquished($iMapID)
     $iMapID = Number($iMapID)
     If $iMapID <= 0 Then Return False
+
+    ; Authoritative live bit — same VanquishedAreasArray the connect-time map scan reads.
+    If _Vanquisher_ReadLiveHistoryBitForMapId($iMapID) Then Return True
 
     ; Cached connect-time flags on any matching campaign/caravan row.
     If IsDeclared("g_aMapEntries") Then
@@ -138,10 +173,6 @@ Func _Vanquisher_IsMapIdHistoricallyVanquished($iMapID)
         Next
     EndIf
 
-    ; Authoritative live bit — same VanquishedAreasArray the map scan reads.
-    If IsFunc("_Vanquisher_ReadLiveHistoryBitForMapId") Then
-        Return _Vanquisher_ReadLiveHistoryBitForMapId($iMapID)
-    EndIf
     Return False
 EndFunc
 
