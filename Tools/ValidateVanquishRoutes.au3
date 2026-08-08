@@ -410,7 +410,7 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         _VR_AddError($sSpecialRel & ": missing Maguuma special route runner")
     Else
         Local $sBody = _VR_ReadText($sSpecial)
-        Local $aNeedles[15] = [ _
+        Local $aNeedles[16] = [ _
                 "Func VQSpecialRoute_TempleOfTheAgesMaguumaCaravan(", _
                 "_Vanquisher_MaguumaCaravanGoOutToMap", _
                 "_Vanquisher_MaguumaCaravanRunVanquish", _
@@ -422,6 +422,7 @@ Func _VR_ValidateMaguumaCaravanExpansion()
                 "_TempleAscalonCaravanTryCatchUp", _
                 "_TempleAscalonCaravanCanDirectTransition", _
                 "_Vanquisher_ReturnToOutpost", _
+                "_Vanquisher_MaguumaCaravanNextHopStage", _
                 "already vanquished per map scan", _
                 "Portaling to ", _
                 "Portal pathing to ", _
@@ -440,6 +441,9 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         EndIf
         If StringInStr($sBody, "$g_i_Vanquisher_CombinedMaguumaStage = $iStart") Then
             _VR_AddError($sSpecialRel & ": Maguuma must set stage to first incomplete map, not spine start")
+        EndIf
+        If StringInStr($sBody, "$g_a_MaguumaCaravanPlan[$iSpineStage + 1][0]") Then
+            _VR_AddError($sSpecialRel & ": Maguuma neighbor hops must use NextHopStage (Y-split), not linear spineStage+1")
         EndIf
         Local $n = 0
         For $n = 0 To UBound($aNeedles) - 1
@@ -470,17 +474,22 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         If Not StringInStr($sPlanText, "$MamnoonLagoon_Transit2") Then
             _VR_AddError($sPlanRel & ": Mamnoon stage must use $MamnoonLagoon_Transit2 (Sage Lands)")
         EndIf
-        Local $aPlanNeedles[6] = [ _
+        Local $aPlanNeedles[8] = [ _
                 "_Vanquisher_MaguumaCaravanFirstIncompleteStage", _
+                "_Vanquisher_MaguumaCaravanNextHopStage", _
                 "_Vanquisher_MaguumaCaravanStageForCurrentMap", _
                 "_Vanquisher_IsOnMaguumaCaravanSpine", _
                 "_Vanquisher_IsMapIdHistoricallyVanquished", _
                 "_Vanquisher_IsCaravanMapHistoricallyVanquished", _
-                "CaravanMaguuma_TalmarkWilderness" _
+                "CaravanMaguuma_TalmarkWilderness", _
+                "EttinsBack -> DryTop" _
                 ]
         For $l = 0 To UBound($aPlanNeedles) - 1
             _VR_RequireNeedle($sPlanText, $aPlanNeedles[$l], $sPlanRel)
         Next
+        If Not StringInStr($sPlanText, "If $iFromStage = 5 Then Return 8") Then
+            _VR_AddError($sPlanRel & ": NextHop must send EttinsBack south to DryTop for TangleRoot targets")
+        EndIf
         If StringInStr($sPlanText, 'IsFunc("_Vanquisher_ReadLiveHistoryBitForMapId")') Or _
                 StringInStr($sPlanText, "IsFunc('_Vanquisher_ReadLiveHistoryBitForMapId')") Then
             _VR_AddError($sPlanRel & ": IsFunc(""name"") is always false; call _Vanquisher_ReadLiveHistoryBitForMapId directly")
@@ -507,10 +516,19 @@ Func _VR_ValidateMaguumaCaravanExpansion()
     If Not StringInStr($sLocText, "MamnoonLagoon_Transit2") Then
         _VR_AddError(_VR_Rel($GC_S_LOCATIONS) & ": missing MamnoonLagoon_Transit2 (Sage Lands)")
     EndIf
+    If Not StringInStr($sLocText, "DryTop_Transit2") Then
+        _VR_AddError(_VR_Rel($GC_S_LOCATIONS) & ": missing DryTop_Transit2 (Ettin's Back southern split)")
+    EndIf
 
     Local $sSage = $GC_S_MAPS & "\Proph_Maguuma\SageLands.au3"
     Local $sSageText = _VR_ReadText($sSage)
     If Not StringInStr($sSageText, "$SageLands_Transit") Or Not StringInStr($sSageText, "aSageLandsTransitPath") Then
         _VR_AddError(_VR_Rel($sSage) & ": GoOutSageLands must handle Majesty's Rest transit")
+    EndIf
+
+    Local $sDry = $GC_S_MAPS & "\Proph_Maguuma\DryTop.au3"
+    Local $sDryText = _VR_ReadText($sDry)
+    If Not StringInStr($sDryText, "EttinsBack -> DryTop") Then
+        _VR_AddError(_VR_Rel($sDry) & ": GoOutDryTop must portal from Ettin's Back for Maguuma south split")
     EndIf
 EndFunc

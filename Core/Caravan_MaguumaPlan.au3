@@ -84,14 +84,14 @@ Func _Vanquisher_InitMaguumaCaravanPlan()
     $g_a_MaguumaCaravanPlan[8][0] = $DryTop_Map
     $g_a_MaguumaCaravanPlan[8][1] = $DryTop_Outpost
     $g_a_MaguumaCaravanPlan[8][2] = $DryTop_Transit
-    $g_a_MaguumaCaravanPlan[8][3] = 0
+    $g_a_MaguumaCaravanPlan[8][3] = $DryTop_Transit2
     $g_a_MaguumaCaravanPlan[8][4] = 0
     $g_a_MaguumaCaravanPlan[8][5] = "GoOutDryTop"
     $g_a_MaguumaCaravanPlan[8][8] = "DryTop"
 
     $g_a_MaguumaCaravanPlan[9][0] = $TangleRoot_Map
     $g_a_MaguumaCaravanPlan[9][1] = $TangleRoot_Outpost
-    $g_a_MaguumaCaravanPlan[9][2] = 0
+    $g_a_MaguumaCaravanPlan[9][2] = $DryTop_Map ; enter TangleRoot from DryTop via portal catch-up
     $g_a_MaguumaCaravanPlan[9][3] = 0
     $g_a_MaguumaCaravanPlan[9][4] = 0
     $g_a_MaguumaCaravanPlan[9][5] = "GoOutTangleRoot"
@@ -205,4 +205,34 @@ Func _Vanquisher_MaguumaCaravanFirstIncompleteStage($iFromStage = 0)
         If Not _Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished($i) Then Return $i
     Next
     Return $GC_I_MAGUUMA_CARAVAN_MAP_COUNT
+EndFunc
+
+; Next spine stage toward $iTargetStage, honoring the EttinsBack Y-split:
+;   north: EttinsBack -> ReedBog -> TheFalls
+;   south: EttinsBack -> DryTop -> TangleRoot
+; When targeting DryTop/TangleRoot from the northern branch, backtrack to EttinsBack first.
+Func _Vanquisher_MaguumaCaravanNextHopStage($iFromStage, $iTargetStage)
+    _Vanquisher_InitMaguumaCaravanPlan()
+    If $iFromStage < 0 Then $iFromStage = 0
+    If $iTargetStage < 0 Then $iTargetStage = 0
+    If $iFromStage >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then Return $iTargetStage
+    If $iTargetStage >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then $iTargetStage = $GC_I_MAGUUMA_CARAVAN_MAP_COUNT - 1
+    If $iFromStage = $iTargetStage Then Return $iFromStage
+
+    ; Southern farm targets: never walk ReedBog/TheFalls unless already stuck there.
+    If $iTargetStage >= 8 Then
+        If $iFromStage = 7 Then Return 6 ; TheFalls -> ReedBog (backtrack)
+        If $iFromStage = 6 Then Return 5 ; ReedBog -> EttinsBack (backtrack)
+        If $iFromStage = 5 Then Return 8 ; EttinsBack -> DryTop (south)
+        If $iFromStage = 8 And $iTargetStage = 9 Then Return 9 ; DryTop -> TangleRoot
+        If $iFromStage < 5 Then Return $iFromStage + 1 ; linear toward EttinsBack
+        Return $iFromStage
+    EndIf
+
+    ; Northern / mid-spine targets: linear toward target; leave southern branch via EttinsBack.
+    If $iFromStage = 9 Then Return 8 ; TangleRoot -> DryTop
+    If $iFromStage = 8 Then Return 5 ; DryTop -> EttinsBack
+    If $iFromStage < $iTargetStage Then Return $iFromStage + 1
+    If $iFromStage > $iTargetStage Then Return $iFromStage - 1
+    Return $iFromStage
 EndFunc

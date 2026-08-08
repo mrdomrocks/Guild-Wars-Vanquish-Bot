@@ -18,8 +18,10 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
 
     ; Scan all remaining route maps, then target the first incomplete stage.
     ; GoOutToMap always enters at TOA (plan[0] outpost) and portals — never mid-route TravelTo.
-    Local $iStart = _Vanquisher_MaguumaCaravanStageForCurrentMap()
-    Local $iFirstIncomplete = _Vanquisher_MaguumaCaravanFirstIncompleteStage($iStart)
+    ; Full-route history scan from TOA spine start (stage 0), then portal-path to first open map.
+    ; GoOutToMap always enters at TOA (plan[0] outpost) and portals — never mid-route TravelTo.
+    Local $iStart = 0
+    Local $iFirstIncomplete = _Vanquisher_MaguumaCaravanFirstIncompleteStage(0)
     $g_i_Vanquisher_CombinedMaguumaStage = $iFirstIncomplete
 
     If $iFirstIncomplete >= $GC_I_MAGUUMA_CARAVAN_MAP_COUNT Then
@@ -46,8 +48,21 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
     _Log("Maguuma history probe: Talmark map " & $iProbeMap & _
             " cached=" & $bProbeCached & " liveBit=" & $bProbeLive & _
             " historyLoaded=" & $g_bVanquishHistoryLoaded & _
-            " spineStart=" & ($iStart + 1) & " firstIncomplete=" & ($iFirstIncomplete + 1) & _
+            " firstIncomplete=" & ($iFirstIncomplete + 1) & _
             "/" & $GC_I_MAGUUMA_CARAVAN_MAP_COUNT & ".")
+
+    ; Per-stage dump so skipped maps vs TangleRoot (etc.) are obvious in the console.
+    Local $sRouteScan = ""
+    Local $r = 0
+    For $r = 0 To $GC_I_MAGUUMA_CARAVAN_MAP_COUNT - 1
+        If $sRouteScan <> "" Then $sRouteScan &= ", "
+        If _Vanquisher_MaguumaCaravanIsStageHistoricallyVanquished($r) Then
+            $sRouteScan &= $g_a_MaguumaCaravanPlan[$r][8] & "=done"
+        Else
+            $sRouteScan &= $g_a_MaguumaCaravanPlan[$r][8] & "=open"
+        EndIf
+    Next
+    _Log("Maguuma caravan route scan: " & $sRouteScan & ".")
 
     If $iFirstIncomplete > $iStart Then
         Local $sSkipped = ""
@@ -91,6 +106,7 @@ EndFunc
 
 ; Reach the stage map via shared portal path when already explorable; otherwise enter at TOA and portal.
 ; Mid-route outposts (e.g. Druid Overlook for SageLands) are not used for Maguuma caravan entry.
+; Neighbor hops use the EttinsBack Y-split table so DryTop/TangleRoot are reached south, not via TheFalls.
 Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
     Local $iTargetMap = $g_a_MaguumaCaravanPlan[$iStage][0]
     Local $iSpineOutpost = $g_a_MaguumaCaravanPlan[0][1] ; Temple of the Ages — caravan entry
@@ -99,11 +115,11 @@ Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
     Local $sEntryGoOut = $g_a_MaguumaCaravanPlan[0][5]
     Local $iHop = 0
 
-    While $iHop < 12 And Not _Vanquisher_ShouldStop()
+    While $iHop < 24 And Not _Vanquisher_ShouldStop()
         Local $iCurrent = GetMapID()
         If $iCurrent = $iTargetMap Then Return True
 
-        ; Already in explorable: prefer dynamic portal catch-up (neighbor hops + Ettins backtrack).
+        ; Already in explorable: prefer dynamic portal catch-up (multi-hop path when available).
         If Map_GetInstanceInfo("IsExplorable") Then
             If _TempleAscalonCaravanCanDirectTransition($iTargetMap) Then
                 CurrentAction("Maguuma caravan portal hop " & ($iHop + 1) & ": " & $sLabel & _
@@ -132,13 +148,14 @@ Func _Vanquisher_MaguumaCaravanGoOutToMap($iStage)
                 _Vanquisher_ResetGoOutRouteProgress()
             EndIf
 
-            ; On an earlier spine map: portal one neighbor toward the target via stage GoOut / catch-up.
+            ; On spine: hop one correct neighbor toward the target (Y-split aware).
             If _Vanquisher_IsOnMaguumaCaravanSpine($iCurrent) Then
                 Local $iSpineStage = _Vanquisher_MaguumaCaravanStageForCurrentMap()
-                If $iSpineStage < $iStage Then
-                    Local $iNextMap = $g_a_MaguumaCaravanPlan[$iSpineStage + 1][0]
-                    Local $sNextGoOut = $g_a_MaguumaCaravanPlan[$iSpineStage + 1][5]
-                    Local $sNextLabel = $g_a_MaguumaCaravanPlan[$iSpineStage + 1][8]
+                Local $iNextStage = _Vanquisher_MaguumaCaravanNextHopStage($iSpineStage, $iStage)
+                If $iNextStage <> $iSpineStage Then
+                    Local $iNextMap = $g_a_MaguumaCaravanPlan[$iNextStage][0]
+                    Local $sNextGoOut = $g_a_MaguumaCaravanPlan[$iNextStage][5]
+                    Local $sNextLabel = $g_a_MaguumaCaravanPlan[$iNextStage][8]
                     Local $iBeforeHop = $iCurrent
                     _Vanquisher_ApplyDifficulty()
                     If _TempleAscalonCaravanCanDirectTransition($iNextMap) Then
@@ -363,7 +380,7 @@ Func _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
     EndIf
     _Vanquisher_ResetGoOutRouteProgress()
 
-    ; Prefer shared portal path to the first open map, then neighbor GoOut fallback.
+    ; Prefer shared portal path to the first open map, then Y-split-aware neighbor hops.
     If Map_GetInstanceInfo("IsExplorable") Then
         If _TempleAscalonCaravanCanDirectTransition($iNextMap) Then
             _Vanquisher_ApplyDifficulty()
@@ -371,13 +388,24 @@ Func _Vanquisher_MaguumaCaravanAdvanceAfterVanquish($iStage)
             _TempleAscalonCaravanTryCatchUp($iNextMap)
         EndIf
 
-        If GetMapID() <> $iNextMap And _Vanquisher_IsMaguumaCaravanEntryMap(GetMapID(), $iNextIncomplete) Then
-            Local $sNextGoOut = $g_a_MaguumaCaravanPlan[$iNextIncomplete][5]
-            Local $iBeforeGoOut = GetMapID()
-            _Vanquisher_ApplyDifficulty()
-            CurrentAction("Neighbor GoOut to " & $sNextLabel & ".")
-            If $sNextGoOut <> "" Then Call($sNextGoOut)
-            If GetMapID() = $iBeforeGoOut Then _Vanquisher_ResetGoOutRouteProgress()
+        If GetMapID() <> $iNextMap And _Vanquisher_IsOnMaguumaCaravanSpine(GetMapID()) Then
+            Local $iSpineStage = _Vanquisher_MaguumaCaravanStageForCurrentMap()
+            Local $iHopStage = _Vanquisher_MaguumaCaravanNextHopStage($iSpineStage, $iNextIncomplete)
+            If $iHopStage <> $iSpineStage Then
+                Local $iHopMap = $g_a_MaguumaCaravanPlan[$iHopStage][0]
+                Local $sHopGoOut = $g_a_MaguumaCaravanPlan[$iHopStage][5]
+                Local $sHopLabel = $g_a_MaguumaCaravanPlan[$iHopStage][8]
+                Local $iBeforeGoOut = GetMapID()
+                _Vanquisher_ApplyDifficulty()
+                If _TempleAscalonCaravanCanDirectTransition($iHopMap) Then
+                    CurrentAction("Neighbor portal toward " & $sNextLabel & " via " & $sHopLabel & ".")
+                    _TempleAscalonCaravanTryCatchUp($iHopMap)
+                ElseIf $sHopGoOut <> "" Then
+                    CurrentAction("Neighbor GoOut toward " & $sNextLabel & " via " & $sHopLabel & ".")
+                    Call($sHopGoOut)
+                EndIf
+                If GetMapID() = $iBeforeGoOut Then _Vanquisher_ResetGoOutRouteProgress()
+            EndIf
         EndIf
 
         If GetMapID() = $iNextMap Or _TempleAscalonCaravanCanDirectTransition($iNextMap) _

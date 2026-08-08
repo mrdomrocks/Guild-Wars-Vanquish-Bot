@@ -79,7 +79,9 @@ Func _IsQueuedTargetReady($sTargetTitle, $iTargetMapID)
         Case "GriffonsMouth"
             Return $iCurrentMap = $GriffonsMouth_Transit
         Case "DryTop"
-            Return $iCurrentMap = $DryTop_Transit
+            Return $iCurrentMap = $DryTop_Transit Or $iCurrentMap = $DryTop_Transit2 Or $iCurrentMap = $EttinsBack_Map
+        Case "TangleRoot"
+            Return $iCurrentMap = $DryTop_Map Or $iCurrentMap = $TangleRoot_Outpost
         Case "IronHorseMine"
             Return $iCurrentMap = $IronHorseMine_Transit
         Case "AscalonFoothills"
