@@ -7,8 +7,9 @@
 ; - -> AscalonFoothills -> DiessaLowlands -> FlameTempleCorridor -> DragonsGullet
 ; - -> TheBreach -> OldAscalon -> RegentValley -> PockmarkFlats -> EasternFrontier
 ; Between maps: portal catch-up via shared explorable path / neighbor GoOut.
+; Full-route history scan jumps stage to the first open map; GoOut/TryCatchUp portals there.
 ; Resign+TravelTo only as stall recovery when no portal hop can be made.
-; Historically completed maps are portaled through; never mid-route TravelTo.
+; Never mid-route TravelTo.
 
 Global Const $GC_I_ASCALON_CARAVAN_MAP_COUNT = 19
 

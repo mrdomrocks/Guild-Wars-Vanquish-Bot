@@ -317,7 +317,7 @@ Func _VR_ValidateAscalonCaravanExpansion()
         _VR_AddError($sSpecialRel & ": missing Ascalon special route runner")
     Else
         Local $sBody = _VR_ReadText($sSpecial)
-        Local $aNeedles[12] = [ _
+        Local $aNeedles[13] = [ _
                 "Func VQSpecialRoute_TempleOfTheAgesAscalonCaravan(", _
                 "_Vanquisher_AscalonCaravanGoOutToMap", _
                 "_Vanquisher_AscalonCaravanRunVanquish", _
@@ -329,7 +329,8 @@ Func _VR_ValidateAscalonCaravanExpansion()
                 "_TempleAscalonCaravanTryCatchUp", _
                 "already vanquished per map scan", _
                 "Portaling to ", _
-                "will portal through completed" _
+                "Portal pathing to ", _
+                "$g_i_Vanquisher_CombinedAscalonStage = $iFirstIncomplete" _
                 ]
         If StringInStr($sBody, "Traveling to outpost for NorthKrytaProvince") Or _
                 StringInStr($sBody, "Traveling to outpost for TravelersVale") Or _
@@ -338,6 +339,9 @@ Func _VR_ValidateAscalonCaravanExpansion()
         EndIf
         If Not StringInStr($sBody, "$g_a_AscalonCaravanPlan[0][1]") Then
             _VR_AddError($sSpecialRel & ": Ascalon GoOut must enter at TOA (plan stage 0 outpost), not mid-route outposts")
+        EndIf
+        If StringInStr($sBody, "$g_i_Vanquisher_CombinedAscalonStage = $iStart") Then
+            _VR_AddError($sSpecialRel & ": Ascalon must set stage to first incomplete map, not spine start")
         EndIf
         Local $n = 0
         For $n = 0 To UBound($aNeedles) - 1
@@ -406,7 +410,7 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         _VR_AddError($sSpecialRel & ": missing Maguuma special route runner")
     Else
         Local $sBody = _VR_ReadText($sSpecial)
-        Local $aNeedles[14] = [ _
+        Local $aNeedles[15] = [ _
                 "Func VQSpecialRoute_TempleOfTheAgesMaguumaCaravan(", _
                 "_Vanquisher_MaguumaCaravanGoOutToMap", _
                 "_Vanquisher_MaguumaCaravanRunVanquish", _
@@ -420,7 +424,8 @@ Func _VR_ValidateMaguumaCaravanExpansion()
                 "_Vanquisher_ReturnToOutpost", _
                 "already vanquished per map scan", _
                 "Portaling to ", _
-                "will portal through completed" _
+                "Portal pathing to ", _
+                "$g_i_Vanquisher_CombinedMaguumaStage = $iFirstIncomplete" _
                 ]
         If StringInStr($sBody, "_Vanquisher_MaguumaCaravanIsVanquishedAfterLoad") Or _
                 StringInStr($sBody, "checking vanquish state") Or _
@@ -432,6 +437,9 @@ Func _VR_ValidateMaguumaCaravanExpansion()
         EndIf
         If Not StringInStr($sBody, "$g_a_MaguumaCaravanPlan[0][1]") Then
             _VR_AddError($sSpecialRel & ": Maguuma GoOut must enter at TOA (plan stage 0 outpost), not mid-route outposts")
+        EndIf
+        If StringInStr($sBody, "$g_i_Vanquisher_CombinedMaguumaStage = $iStart") Then
+            _VR_AddError($sSpecialRel & ": Maguuma must set stage to first incomplete map, not spine start")
         EndIf
         Local $n = 0
         For $n = 0 To UBound($aNeedles) - 1

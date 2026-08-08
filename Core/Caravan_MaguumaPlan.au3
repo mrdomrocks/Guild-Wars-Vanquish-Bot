@@ -6,6 +6,7 @@
 ; - Northern split: EttinsBack -> ReedBog -> TheFalls
 ; - Southern split: return through EttinsBack -> DryTop -> TangleRoot
 ; Between maps: portal catch-up via shared explorable path / neighbor GoOut.
+; Full-route history scan jumps stage to the first open map; GoOut/TryCatchUp portals there.
 ; Resign+TravelTo only as stall recovery when no portal hop can be made.
 
 Global Const $GC_I_MAGUUMA_CARAVAN_MAP_COUNT = 10
