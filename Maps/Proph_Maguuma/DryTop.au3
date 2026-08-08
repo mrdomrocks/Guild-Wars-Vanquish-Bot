@@ -144,6 +144,17 @@ Func GoOutDryTop()
 		Return
 	EndIf
 
+	; Southern Maguuma caravan split: Ettin's Back -> Dry Top via shared portal path.
+	If $l_i_Map = $DryTop_Transit2 Or $l_i_Map = $EttinsBack_Map Then
+		If $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map Then Return
+		$g_b_Vanquisher_TransitOnly = True
+		CurrentAction("EttinsBack -> DryTop (caravan south portal)")
+		_Vanquisher_RunDynamicCaravanGoOut($DryTop_Map, "DryTop")
+		$g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		$g_b_Vanquisher_TransitOnly = False
+		Return
+	EndIf
+
 EndFunc
 
 Func VQDryTop()

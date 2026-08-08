@@ -231,6 +231,17 @@ Func GoOutTangleRoot()
 		Return
 	EndIf
 
+	; Maguuma caravan: Dry Top -> Tangle Root via shared portal path.
+	If $l_i_Map = $DryTop_Map Then
+		If $g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map Then Return
+		$g_b_Vanquisher_TransitOnly = True
+		CurrentAction("DryTop -> TangleRoot (caravan south portal)")
+		_Vanquisher_RunDynamicCaravanGoOut($TangleRoot_Map, "TangleRoot")
+		$g_i_Vanquisher_GoOutLastMapHandled = $l_i_Map
+		$g_b_Vanquisher_TransitOnly = False
+		Return
+	EndIf
+
 EndFunc
 
 Func VQTangleRoot()
