@@ -37,6 +37,7 @@ Global $TravelersVale_Outpost = 134           ;Yak's Bend
 Global $DryTop_Map = 47
 Global $DryTop_Outpost = 141                  ;Aurora Glade
 Global $DryTop_Transit = 48                   ;Tangle Root
+Global $DryTop_Transit2 = 44                  ;Ettin's Back (southern Maguuma caravan split)
 Global $EttinsBack_Map = 44
 Global $EttinsBack_Outpost = 142              ;Quarrel Falls
 Global $MamnoonLagoon_Map = 42
