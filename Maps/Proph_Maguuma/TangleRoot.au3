@@ -6,8 +6,12 @@ Global $aTangleRootOutpostPath[2][2] = [ _
 	[6212.98, -10712.02] _
 ]
 
-Global $aProph_Maguuma_TangleRootRoute01[102][2] = [ _
-        [14172, 10445], _
+Global $aProph_Maguuma_TangleRootRoute01[106][2] = [ _
+        [9473, 7200], _
+        [12414, 8988], _
+        [13208, 9743], _
+        [14122, 8512], _
+        [14202, 10459], _
         [15202, 8687], _
         [17509, 7014], _
         [20838, 7769], _
@@ -111,7 +115,7 @@ Global $aProph_Maguuma_TangleRootRoute01[102][2] = [ _
         [4876, -349] _
 ]
 
-Global $aProph_Maguuma_TangleRootRoute02[102][2] = [ _
+Global $aProph_Maguuma_TangleRootRoute02[106][2] = [ _
         [4876, -349], _
         [3307, 1051], _
         [71, 242], _
@@ -213,7 +217,11 @@ Global $aProph_Maguuma_TangleRootRoute02[102][2] = [ _
         [20838, 7769], _
         [17509, 7014], _
         [15202, 8687], _
-        [14172, 10445] _
+        [14202, 10459], _
+        [14122, 8512], _
+        [13208, 9743], _
+        [12414, 8988], _
+        [9473, 7200] _
 ]
 
 Func GoOutTangleRoot()
