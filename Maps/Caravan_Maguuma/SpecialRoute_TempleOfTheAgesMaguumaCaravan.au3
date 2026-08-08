@@ -16,9 +16,7 @@ Func _Vanquisher_BeginMaguumaCaravanRun()
     $g_b_Vanquisher_AbortRoute = False
     _Vanquisher_ResetGoOutRouteProgress()
 
-    ; Scan all remaining route maps, then target the first incomplete stage.
-    ; GoOutToMap always enters at TOA (plan[0] outpost) and portals — never mid-route TravelTo.
-    ; Full-route history scan from TOA spine start (stage 0), then portal-path to first open map.
+    ; Full-route history scan from TOA (stage 0), then portal-path to the first open map.
     ; GoOutToMap always enters at TOA (plan[0] outpost) and portals — never mid-route TravelTo.
     Local $iStart = 0
     Local $iFirstIncomplete = _Vanquisher_MaguumaCaravanFirstIncompleteStage(0)
