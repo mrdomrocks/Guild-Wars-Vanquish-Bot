@@ -6,7 +6,7 @@ Global $aTheBlackCurtainOutpostPath[2][2] = [ _
 	[-5205, 15562] _
 ]
 
-Global $aProph_Kryta_TheBlackCurtainRoute01[252][2] = [ _
+Global $aProph_Kryta_TheBlackCurtainRoute01[253][2] = [ _
 	[-5217, 14376], _
 	[-5412, 13551], _
 	[-7650, 13391], _
@@ -144,6 +144,7 @@ Global $aProph_Kryta_TheBlackCurtainRoute01[252][2] = [ _
 	[2542, -5372], _
 	[4648, -4638], _
 	[6414, -3595], _
+	[6083, -1864], _
 	[4370, -415], _
 	[3297, 1200], _
 	[945, 3179], _
@@ -261,7 +262,7 @@ Global $aProph_Kryta_TheBlackCurtainRoute01[252][2] = [ _
 	[18864, 17586] _
 ]
 
-Global $aProph_Kryta_TheBlackCurtainRoute02[252][2] = [ _
+Global $aProph_Kryta_TheBlackCurtainRoute02[253][2] = [ _
 	[18864, 17586], _
 	[18018, 16272], _
 	[16379, 15508], _
@@ -377,6 +378,7 @@ Global $aProph_Kryta_TheBlackCurtainRoute02[252][2] = [ _
 	[945, 3179], _
 	[3297, 1200], _
 	[4370, -415], _
+	[6083, -1864], _
 	[6414, -3595], _
 	[4648, -4638], _
 	[2542, -5372], _
