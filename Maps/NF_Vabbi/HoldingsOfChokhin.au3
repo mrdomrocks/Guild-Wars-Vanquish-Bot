@@ -73,7 +73,7 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute01[72][2] = [ _
         [-14403, 12857], _
         [-15009, 10395], _
         [-15700, 9659], _
-        [-14267, 7495]
+        [-14267, 7495] _
 ]
 
 Global $aNF_Vabbi_HoldingsOfChokhinRoute02[22][2] = [ _
@@ -98,7 +98,7 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute02[22][2] = [ _
         [-16684, -15626], _
         [-15641, -14058], _
         [-10036, 5369], _
-        [-15641, -14058]
+        [-15641, -14058] _
 ]
 
 Global $aNF_Vabbi_HoldingsOfChokhinRoute03[12][2] = [ _
@@ -113,7 +113,7 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute03[12][2] = [ _
         [-10471, -3067], _
         [-8792, -1604], _
         [-7908, 1591], _
-        [-8546, -1995]
+        [-8546, -1995] _
 ]
 
 Global $aNF_Vabbi_HoldingsOfChokhinRoute04[15][2] = [ _
@@ -131,7 +131,7 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute04[15][2] = [ _
         [1052, -10418], _
         [5320, -13577], _
         [6583, -15485], _
-        [10050, -15706]
+        [10050, -15706] _
 ]
 
 Global $aNF_Vabbi_HoldingsOfChokhinRoute05[117][2] = [ _
@@ -251,7 +251,7 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute05[117][2] = [ _
         [10307, -7894], _
         [9155, -10185], _
         [10846, -11145], _
-        [16657, -12876]
+        [16657, -12876] _
 ]
 
 Func GoOutHoldingsOfChokhin()

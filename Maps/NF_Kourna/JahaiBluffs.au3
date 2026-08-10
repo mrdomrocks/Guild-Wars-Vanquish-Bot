@@ -12,7 +12,7 @@ Global $aNF_Kourna_JahaiBluffsRoute01[11][2] = [ _
         [15701, -6635], _
         [13276, -4883], _
         [14273, -2428], _
-        [16293, 393]
+        [16293, 393] _
 ]
 
 Global $aNF_Kourna_JahaiBluffsRoute02[23][2] = [ _
@@ -38,7 +38,7 @@ Global $aNF_Kourna_JahaiBluffsRoute02[23][2] = [ _
         [11135, 10770], _
         [12532, 10774], _
         [10384, 12487], _
-        [9084, 11900]
+        [9084, 11900] _
 ]
 
 Global $aNF_Kourna_JahaiBluffsRoute03[44][2] = [ _
@@ -85,7 +85,7 @@ Global $aNF_Kourna_JahaiBluffsRoute03[44][2] = [ _
         [-5504, -3160], _
         [-4953, -1719], _
         [-7497, 782], _
-        [-12811, -2258]
+        [-12811, -2258] _
 ]
 
 Global $aNF_Kourna_JahaiBluffsRoute04[40][2] = [ _
@@ -128,7 +128,7 @@ Global $aNF_Kourna_JahaiBluffsRoute04[40][2] = [ _
         [-1788, -446], _
         [2414, 299], _
         [2348, -4477], _
-        [-2005, -3687]
+        [-2005, -3687] _
 ]
 
 Global $aNF_Kourna_JahaiBluffsRoute05[114][2] = [ _
@@ -245,7 +245,7 @@ Global $aNF_Kourna_JahaiBluffsRoute05[114][2] = [ _
         [15526, -8430], _
         [13515, -9860], _
         [15066, -15097], _
-        [14885, -13335]
+        [14885, -13335] _
 ]
 
 Func GoOutJahaiBluffs()

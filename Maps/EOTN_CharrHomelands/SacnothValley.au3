@@ -3,7 +3,8 @@ Global $vqrange = 1450
 Global $ActionCounter = 1
 
 Local $aSacnothValleyOutpostPath[1][2] = [ _
-	[-15660, 13968]]
+	[-15660, 13968] _
+]
 
 Local $aSacnothValleyTransitPath[18][2] = [ _
 	[-14310, 12724], _
@@ -23,7 +24,8 @@ Local $aSacnothValleyTransitPath[18][2] = [ _
 	[9598, -12690], _
 	[11233, -14754], _
 	[12766, -16898], _
-	[13959, -19234]]
+	[13959, -19234] _
+]
 
 Global $aEOTN_CharrHomelands_SacnothValleyRoute01[1][2] = [ _
         [12118, 18377] _

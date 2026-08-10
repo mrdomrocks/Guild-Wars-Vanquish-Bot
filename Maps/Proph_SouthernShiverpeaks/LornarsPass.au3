@@ -6,7 +6,8 @@ Global $ActionCounter = 1
 
 Local $aLornarsPassOutpostPath[2][2] = [ _
 	[-10030, 18833], _
-	[-9797, 19027]]
+	[-9797, 19027] _
+        ]
 
 Local $aLornarsPassTransitPath[38][2] = [ _
 	[4361, -40986], _
@@ -46,9 +47,8 @@ Local $aLornarsPassTransitPath[38][2] = [ _
 	[-2023, 40926], _
 	[-5916, 41977], _
 	[-7311, 44525], _
-	[-7091, 45561]]
-
-
+	[-7091, 45561] _
+        ]
 
 Local $aLornarsPassTransit2Path[12][2] = [ _
 	[-7259, -6921], _
@@ -62,7 +62,8 @@ Local $aLornarsPassTransit2Path[12][2] = [ _
 	[-3474, 843], _
 	[-5840, 1989], _
 	[-6887, 4313], _
-	[-5679, 6641]]
+	[-5679, 6641] _
+        ]
 
 
 
@@ -376,8 +377,8 @@ Global $aProph_SouthernShiverpeaks_LornarsPassRoute01[310][2] = [ _
         [-2386, 7708], _
         [-4783, 7055], _
         [-5363, 7789], _
-        [-5705, 8493]
-]
+        [-5705, 8493] _
+         ]
 
 Global $aProph_SouthernShiverpeaks_LornarsPassRoute02[310][2] = [ _
         [-5705, 8493], _
@@ -689,8 +690,8 @@ Global $aProph_SouthernShiverpeaks_LornarsPassRoute02[310][2] = [ _
         [-5422, -31422], _
         [-7673, -32562], _
         [-9985, -33718], _
-        [-8678, -34615]
-]
+        [-8678, -34615] _
+        ]
 
 Func GoOutLornarsPass()
 

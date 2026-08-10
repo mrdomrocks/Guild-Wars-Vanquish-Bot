@@ -17,14 +17,14 @@ Global $aNF_Vabbi_YatendiCanyonsRoute01[16][2] = [ _
         [7142, -16674], _
         [8972, -13722], _
         [9981, -11332], _
-        [11795, -10457]
+        [11795, -10457] _
 ]
 
 Global $aNF_Vabbi_YatendiCanyonsRoute02[4][2] = [ _
         [12247, -12688], _
         [13664, -17589], _
         [6508, -16853], _
-        [605, -16238]
+        [605, -16238] _
 ]
 
 Global $aNF_Vabbi_YatendiCanyonsRoute03[6][2] = [ _
@@ -33,7 +33,7 @@ Global $aNF_Vabbi_YatendiCanyonsRoute03[6][2] = [ _
         [-6166, -11651], _
         [-5954, -8503], _
         [-8937, -10417], _
-        [-11155, -11101]
+        [-11155, -11101] _
 ]
 
 Global $aNF_Vabbi_YatendiCanyonsRoute04[31][2] = [ _
@@ -67,7 +67,7 @@ Global $aNF_Vabbi_YatendiCanyonsRoute04[31][2] = [ _
         [7864, 5265], _
         [8005, 7598], _
         [6743, 9059], _
-        [10224, 9013]
+        [10224, 9013] _
 ]
 
 Global $aNF_Vabbi_YatendiCanyonsRoute05[20][2] = [ _
@@ -90,7 +90,7 @@ Global $aNF_Vabbi_YatendiCanyonsRoute05[20][2] = [ _
         [1640, 3399], _
         [-1373, -621], _
         [-1354, -3942], _
-        [1180, -6005]
+        [1180, -6005] _
 ]
 
 Global $aNF_Vabbi_YatendiCanyonsRoute06[72][2] = [ _
@@ -165,7 +165,7 @@ Global $aNF_Vabbi_YatendiCanyonsRoute06[72][2] = [ _
         [16384, -4880], _
         [17825, -607], _
         [19922, -396], _
-        [20291, 477]
+        [20291, 477] _
 ]
 
 Func GoOutYatendiCanyons()

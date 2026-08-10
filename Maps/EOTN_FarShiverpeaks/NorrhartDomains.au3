@@ -13,7 +13,7 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute02[9][2] = [ _
         [16162, 5330], _
         [13316, 3935], _
         [10208, 2679], _
-        [6191, 2436]
+        [6191, 2436] _
 ]
 
 Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute03[8][2] = [ _
@@ -24,7 +24,7 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute03[8][2] = [ _
         [-4837, 9821], _
         [-5591, 13759], _
         [-7694, 13277], _
-        [-5008, 14924]
+        [-5008, 14924] _
 ]
 
 Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute04[11][2] = [ _
@@ -38,7 +38,7 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute04[11][2] = [ _
         [1436, 14191], _
         [5473, 14642], _
         [9363, 15709], _
-        [12725, 13484]
+        [12725, 13484] _
 ]
 
 Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute05[10][2] = [ _
@@ -51,7 +51,7 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute05[10][2] = [ _
         [20806, 11454], _
         [24172, 9851], _
         [20292, 8845], _
-        [17673, 6851]
+        [17673, 6851] _
 ]
 
 Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute06[8][2] = [ _
@@ -62,7 +62,7 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute06[8][2] = [ _
         [15833, -1619], _
         [13042, -4503], _
         [10038, -7193], _
-        [10149, -11248]
+        [10149, -11248] _
 ]
 
 Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute07[19][2] = [ _
@@ -84,7 +84,7 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute07[19][2] = [ _
         [-9246, -5576], _
         [-12714, -7613], _
         [-15950, -10050], _
-        [-19706, -8615]
+        [-19706, -8615] _
 ]
 
 Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute08[19][2] = [ _
@@ -106,7 +106,7 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute08[19][2] = [ _
         [-16461, 9372], _
         [-15042, 5625], _
         [-11006, 6042], _
-        [-10141, 2130]
+        [-10141, 2130] _
 ]
 
 Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute09[24][2] = [ _
@@ -133,7 +133,7 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute09[24][2] = [ _
         [-18093, 14965], _
         [-20244, 11438], _
         [-24172, 10483], _
-        [-24540, 10834]
+        [-24540, 10834] _
 ]
 
 Func _NorrhartDomainsTakeBlessing($nX, $nY)

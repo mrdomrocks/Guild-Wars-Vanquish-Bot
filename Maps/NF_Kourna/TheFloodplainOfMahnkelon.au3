@@ -9,7 +9,7 @@ Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute01[8][2] = [ _
         [-13173, -8565], _
         [-9704, -9111], _
         [-11439, -12825], _
-        [-8739, -10848]
+        [-8739, -10848] _
 ]
 
 Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute02[26][2] = [ _
@@ -38,7 +38,7 @@ Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute02[26][2] = [ _
         [17185, -2602], _
         [16911, -1560], _
         [17211, 307], _
-        [18625, -524]
+        [18625, -524] _
 ]
 
 Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute03[10][2] = [ _
@@ -51,7 +51,7 @@ Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute03[10][2] = [ _
         [6654, 15143], _
         [5156, 14175], _
         [3270, 15741], _
-        [1748, 14823]
+        [1748, 14823] _
 ]
 
 Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute04[42][2] = [ _
@@ -96,7 +96,7 @@ Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute04[42][2] = [ _
         [7785, 8337], _
         [6663, 6444], _
         [6791, 4867], _
-        [4495, 3693]
+        [4495, 3693] _
 ]
 
 Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute05[82][2] = [ _
@@ -181,7 +181,7 @@ Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute05[82][2] = [ _
         [-13173, -8565], _
         [-13385, -12015], _
         [-13711, -13165], _
-        [-15002, -14809]
+        [-15002, -14809] _
 ]
 
 Func GoOutTheFloodplainOfMahnkelon()

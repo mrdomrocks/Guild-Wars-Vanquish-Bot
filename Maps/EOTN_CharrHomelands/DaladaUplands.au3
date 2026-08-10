@@ -3,7 +3,8 @@ Global $vqrange = 1450
 Global $ActionCounter = 1
 
 Local $aDaladaUplandsOutpostPath[1][2] = [ _
-	[-15789, 14108]]
+	[-15789, 14108] _
+]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute01[1][2] = [ _
         [-14310, 12724] _
@@ -38,7 +39,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute02[29][2] = [ _
         [-14100, -8039], _
         [-15384, -6564], _
         [-17154, -4690], _
-        [-17557, -2144]
+        [-17557, -2144] _
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute03[20][2] = [ _
@@ -91,7 +92,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute05[9][2] = [ _
         [1838, -1532], _
         [4062, -1698], _
         [4657, -4137], _
-        [7207, -4360]
+        [7207, -4360] _
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute06[26][2] = [ _
@@ -384,7 +385,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute13[14][2] = [ _
         [-9187, -15978], _
         [-7334, -17769], _
         [-5205, -16425], _
-        [-4354, -14049]
+        [-4354, -14049] _
 ]
 
 Global $aEOTN_CharrHomelands_DaladaUplandsRoute14[20][2] = [ _
@@ -538,7 +539,7 @@ Global $aEOTN_CharrHomelands_DaladaUplandsRoute16[95][2] = [ _
         [4666, 10422], _
         [1773, 13213], _
         [-14703, 6234], _
-        [-10898.6, 4878.2]
+        [-10898.6, 4878.2] _
 ]
 
 Func GoOutDaladaUplands()

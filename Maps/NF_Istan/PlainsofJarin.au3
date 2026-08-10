@@ -52,7 +52,7 @@ Global $aNF_Istan_PlainsofJarinRoute02[34][2] = [ _
         [-12825, 2951], _
         [-10480, 1934], _
         [-15741, -202], _
-        [-16660, -2566]
+        [-16660, -2566] _
 ]
 
 Global $aNF_Istan_PlainsofJarinRoute03[58][2] = [ _
@@ -113,7 +113,7 @@ Global $aNF_Istan_PlainsofJarinRoute03[58][2] = [ _
         [-4, 1649], _
         [-6132, 1686], _
         [-8150, 4112], _
-        [-8243, 8285]
+        [-8243, 8285] _
 ]
 
 Global $aNF_Istan_PlainsofJarinRoute04[104][2] = [ _
@@ -220,7 +220,7 @@ Global $aNF_Istan_PlainsofJarinRoute04[104][2] = [ _
         [9517, -9223], _
         [10998, -3788], _
         [12657, -3190], _
-        [15474, 855]
+        [15474, 855] _
 ]
 
 Func GoOutPlainsofJarin()

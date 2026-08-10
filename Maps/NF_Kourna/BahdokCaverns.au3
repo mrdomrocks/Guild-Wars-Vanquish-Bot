@@ -35,7 +35,7 @@ Global $aNF_Kourna_BahdokCavernsRoute01[34][2] = [ _
         [-7613, 13840], _
         [-5690, 10261], _
         [-4420, 6589], _
-        [-822, 8017]
+        [-822, 8017] _
 ]
 
 Global $aNF_Kourna_BahdokCavernsRoute02[9][2] = [ _
@@ -47,7 +47,7 @@ Global $aNF_Kourna_BahdokCavernsRoute02[9][2] = [ _
         [3312, 12004], _
         [5078, 14005], _
         [6034, 13685], _
-        [5759, 18317]
+        [5759, 18317] _
 ]
 
 Global $aNF_Kourna_BahdokCavernsRoute03[10][2] = [ _
@@ -60,7 +60,7 @@ Global $aNF_Kourna_BahdokCavernsRoute03[10][2] = [ _
         [13927, 11182], _
         [11175, 8530], _
         [9568, 5247], _
-        [11880, 3924]
+        [11880, 3924] _
 ]
 
 Global $aNF_Kourna_BahdokCavernsRoute04[58][2] = [ _
@@ -121,7 +121,7 @@ Global $aNF_Kourna_BahdokCavernsRoute04[58][2] = [ _
         [-2153, 1205], _
         [-3010, 3677], _
         [-1054, 3651], _
-        [-987, 7377]
+        [-987, 7377] _
 ]
 
 Global $aNF_Kourna_BahdokCavernsRoute05[107][2] = [ _
@@ -231,11 +231,12 @@ Global $aNF_Kourna_BahdokCavernsRoute05[107][2] = [ _
         [-7490, 963], _
         [-8875, -1961], _
         [-7208, -4384], _
-        [-7575, -6450]
+        [-7575, -6450] _
 ]
 
 Func GoOutBahdokCaverns()
-        Local $aGoOutRoute[1][2] = [ [-13756, -11190] ]
+        Local $aGoOutRoute[1][2] = [ [-13756, -11190] _
+]
 
         _Vanquisher_RunPathfinderRoute($aGoOutRoute, $vqrange, "BahdokCaverns exit ")
         GoNearestNPCToCoords(-13647, -10442)

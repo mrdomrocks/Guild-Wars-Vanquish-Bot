@@ -83,7 +83,7 @@ Global $aFactions_EchovaldForest_MelandrusHopeRoute01[82][2] = [ _
         [12004, -9052], _
         [8189, -8571], _
         [3951, -7624], _
-        [11982, -9030]
+        [11982, -9030] _
 ]
 
 Global $aFactions_EchovaldForest_MelandrusHopeRoute02[82][2] = [ _
@@ -168,7 +168,7 @@ Global $aFactions_EchovaldForest_MelandrusHopeRoute02[82][2] = [ _
         [6569, 18649], _
         [10183, 15669], _
         [13383, 12167], _
-        [14778, 15936]
+        [14778, 15936] _
 ]
 
 Func GoOutMelandrusHope()

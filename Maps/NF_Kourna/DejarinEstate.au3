@@ -12,7 +12,7 @@ Global $aNF_Kourna_DejarinEstateRoute01[11][2] = [ _
         [-16254, -3439], _
         [-16772, -1006], _
         [-15502, -784], _
-        [-15212, -3882]
+        [-15212, -3882] _
 ]
 
 Global $aNF_Kourna_DejarinEstateRoute02[93][2] = [ _
@@ -108,7 +108,7 @@ Global $aNF_Kourna_DejarinEstateRoute02[93][2] = [ _
         [7664, -4117], _
         [6639, -6964], _
         [4129, -6851], _
-        [8717, -9563]
+        [8717, -9563] _
 ]
 
 Global $aNF_Kourna_DejarinEstateRoute03[102][2] = [ _
@@ -213,7 +213,7 @@ Global $aNF_Kourna_DejarinEstateRoute03[102][2] = [ _
         [-12219, -9120], _
         [-15433, -7796], _
         [-15681, -11678], _
-        [-17504, -16545]
+        [-17504, -16545] _
 ]
 
 Func GoOutDejarinEstate()

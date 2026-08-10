@@ -7,7 +7,7 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute01[6][2] = [ _
         [-13593, 281], _
         [-13539, -1646], _
         [-12130, -3759], _
-        [-9474, -3800]
+        [-9474, -3800] _
 ]
 
 Global $aNF_Vabbi_WildernessOfBahdzaRoute02[7][2] = [ _
@@ -17,7 +17,7 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute02[7][2] = [ _
         [-18020, -7578], _
         [-19340, -7477], _
         [-17766, -10716], _
-        [-15681, -11067]
+        [-15681, -11067] _
 ]
 
 Global $aNF_Vabbi_WildernessOfBahdzaRoute03[50][2] = [ _
@@ -70,7 +70,7 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute03[50][2] = [ _
         [16258, -5410], _
         [17619, -2703], _
         [15063, -930], _
-        [13361, -2756]
+        [13361, -2756] _
 ]
 
 Global $aNF_Vabbi_WildernessOfBahdzaRoute04[26][2] = [ _
@@ -99,7 +99,7 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute04[26][2] = [ _
         [-1790, 16263], _
         [-809, 12785], _
         [2821, 11473], _
-        [3007, 8016]
+        [3007, 8016] _
 ]
 
 Global $aNF_Vabbi_WildernessOfBahdzaRoute05[10][2] = [ _
@@ -112,7 +112,7 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute05[10][2] = [ _
         [505, 608], _
         [-5831, -1347], _
         [-5486, 3207], _
-        [-9553, -752]
+        [-9553, -752] _
 ]
 
 Global $aNF_Vabbi_WildernessOfBahdzaRoute06[94][2] = [ _
@@ -209,7 +209,7 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute06[94][2] = [ _
         [-12130, -3759], _
         [-13539, -1646], _
         [-13593, 281], _
-        [-16584, 293]
+        [-16584, 293] _
 ]
 
 Func GoOutWildernessOfBahdza()

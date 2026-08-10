@@ -146,7 +146,7 @@ Global $aNF_TheDesolation_TheSulfurousWastesRoute14[92][2] = [ _
         [-11163, 10114], _
         [-12605, 11523], _
         [-10125, 13549], _
-        [-14385, 15328]
+        [-14385, 15328] _
 ]
 
 Func GoOutTheSulfurousWastes()

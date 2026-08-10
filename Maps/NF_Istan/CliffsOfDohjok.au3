@@ -15,7 +15,7 @@ Global $aNF_Istan_CliffsOfDohjokRoute01[14][2] = [ _
         [-18748, -3056], _
         [-14797, -5997], _
         [-14993, -3079], _
-        [-13661, -2347]
+        [-13661, -2347] _
 ]
 
 Global $aNF_Istan_CliffsOfDohjokRoute02[13][2] = [ _
@@ -31,7 +31,7 @@ Global $aNF_Istan_CliffsOfDohjokRoute02[13][2] = [ _
         [6425, -3035], _
         [8758, -5358], _
         [9702, -7516], _
-        [11702, -9216]
+        [11702, -9216] _
 ]
 
 Global $aNF_Istan_CliffsOfDohjokRoute03[19][2] = [ _
@@ -53,7 +53,7 @@ Global $aNF_Istan_CliffsOfDohjokRoute03[19][2] = [ _
         [11459, 5175], _
         [8427, 9919], _
         [9465, 12401], _
-        [4368, 12205]
+        [4368, 12205] _
 ]
 
 Global $aNF_Istan_CliffsOfDohjokRoute04[39][2] = [ _
@@ -95,7 +95,7 @@ Global $aNF_Istan_CliffsOfDohjokRoute04[39][2] = [ _
         [-17557, 3384], _
         [-20972, -868], _
         [-21064, 4469], _
-        [-21180, 6472]
+        [-21180, 6472] _
 ]
 
 Global $aNF_Istan_CliffsOfDohjokRoute05[81][2] = [ _
@@ -179,7 +179,7 @@ Global $aNF_Istan_CliffsOfDohjokRoute05[81][2] = [ _
         [-19788, -10289], _
         [-21084, -7115], _
         [-24124, -5753], _
-        [-25755, -6529]
+        [-25755, -6529] _
 ]
 
 Func GoOutCliffsOfDohjok()

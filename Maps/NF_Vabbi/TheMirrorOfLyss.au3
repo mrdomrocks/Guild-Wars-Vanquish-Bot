@@ -10,7 +10,7 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute01[9][2] = [ _
         [-21481, 201], _
         [-22147, 1533], _
         [-18989, 3270], _
-        [-17629, 236]
+        [-17629, 236] _
 ]
 
 Global $aNF_Vabbi_TheMirrorOfLyssRoute02[29][2] = [ _
@@ -42,7 +42,7 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute02[29][2] = [ _
         [-21376, -8769], _
         [-21093, -4286], _
         [-15892, -3760], _
-        [-10620, -7764]
+        [-10620, -7764] _
 ]
 
 Global $aNF_Vabbi_TheMirrorOfLyssRoute03[35][2] = [ _
@@ -80,7 +80,7 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute03[35][2] = [ _
         [18323, -16226], _
         [16600, -12630], _
         [13962, -11793], _
-        [15777, -11000]
+        [15777, -11000] _
 ]
 
 Global $aNF_Vabbi_TheMirrorOfLyssRoute04[18][2] = [ _
@@ -101,7 +101,7 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute04[18][2] = [ _
         [-4932, -10437], _
         [-1284, -10528], _
         [1828, -7453], _
-        [2714, -5016]
+        [2714, -5016] _
 ]
 
 Global $aNF_Vabbi_TheMirrorOfLyssRoute05[87][2] = [ _
@@ -191,7 +191,7 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute05[87][2] = [ _
         [-20726, -2981], _
         [-21990, -4574], _
         [-22606, -7806], _
-        [-22192, -12551]
+        [-22192, -12551] _
 ]
 
 Func GoOutTheMirrorOfLyss()

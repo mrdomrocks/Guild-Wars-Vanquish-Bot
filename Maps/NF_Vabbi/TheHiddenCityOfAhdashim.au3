@@ -14,7 +14,7 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute01[13][2] = [ _
         [-10156, -11631], _
         [-7549, -9195], _
         [-10154, -8474], _
-        [-6813, -7554]
+        [-6813, -7554] _
 ]
 
 Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute02[35][2] = [ _
@@ -52,7 +52,7 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute02[35][2] = [ _
         [1455, 14259], _
         [3653, 14076], _
         [5512, 12176], _
-        [8922, 12876]
+        [8922, 12876] _
 ]
 
 Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute03[16][2] = [ _
@@ -71,7 +71,7 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute03[16][2] = [ _
         [15092, 4135], _
         [15133, 1062], _
         [14316, -1902], _
-        [13173, -3855]
+        [13173, -3855] _
 ]
 
 Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute04[51][2] = [ _
@@ -125,7 +125,7 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute04[51][2] = [ _
         [1454, 19405], _
         [-2592, 20778], _
         [991, 23002], _
-        [64, 24479]
+        [64, 24479] _
 ]
 
 Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute05[111][2] = [ _
@@ -239,11 +239,12 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute05[111][2] = [ _
         [-474, -17564], _
         [-393, -15021], _
         [2154, -14822], _
-        [3423, -16710]
+        [3423, -16710] _
 ]
 
 Func GoOutTheHiddenCityOfAhdashim()
-        Local $aGoOutRoute[1][2] = [ [1387, -20884] ]
+        Local $aGoOutRoute[1][2] = [ [1387, -20884] _
+]
 
         _Vanquisher_RunPathfinderRoute($aGoOutRoute, $vqrange, "TheHiddenCityOfAhdashim exit ")
         GoNearestNPCToCoords(1339, -20418)

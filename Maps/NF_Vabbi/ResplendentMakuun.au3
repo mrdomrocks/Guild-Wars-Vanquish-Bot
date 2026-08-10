@@ -18,7 +18,7 @@ Global $aNF_Vabbi_ResplendentMakuunRoute01[17][2] = [ _
         [-18340, -9773], _
         [-14715, -13232], _
         [-18685, -13650], _
-        [-15944, -15648]
+        [-15944, -15648] _
 ]
 
 Global $aNF_Vabbi_ResplendentMakuunRoute02[78][2] = [ _
@@ -99,7 +99,7 @@ Global $aNF_Vabbi_ResplendentMakuunRoute02[78][2] = [ _
         [12061, 8423], _
         [12442, 7296], _
         [12225, 4691], _
-        [10973, 1482]
+        [10973, 1482] _
 ]
 
 Global $aNF_Vabbi_ResplendentMakuunRoute03[93][2] = [ _
@@ -195,7 +195,7 @@ Global $aNF_Vabbi_ResplendentMakuunRoute03[93][2] = [ _
         [-16402, 2272], _
         [-16419, 4477], _
         [-15885, 7665], _
-        [-17701, 8109]
+        [-17701, 8109] _
 ]
 
 Func GoOutResplendentMakuun()

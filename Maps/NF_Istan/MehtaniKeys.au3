@@ -10,7 +10,7 @@ Global $aNF_Istan_MehtaniKeysRoute01[9][2] = [ _
         [-13527, -649], _
         [-15207, -2338], _
         [-17135, -3041], _
-        [-13905, -7812]
+        [-13905, -7812] _
 ]
 
 Global $aNF_Istan_MehtaniKeysRoute02[15][2] = [ _
@@ -28,7 +28,7 @@ Global $aNF_Istan_MehtaniKeysRoute02[15][2] = [ _
         [-393, -12833], _
         [-87, -15914], _
         [-884, -18621], _
-        [2433, -19901]
+        [2433, -19901] _
 ]
 
 Global $aNF_Istan_MehtaniKeysRoute03[14][2] = [ _
@@ -45,7 +45,7 @@ Global $aNF_Istan_MehtaniKeysRoute03[14][2] = [ _
         [3907, -6725], _
         [1898, -8888], _
         [2956, -11617], _
-        [3229, -6308]
+        [3229, -6308] _
 ]
 
 Global $aNF_Istan_MehtaniKeysRoute04[19][2] = [ _
@@ -67,7 +67,7 @@ Global $aNF_Istan_MehtaniKeysRoute04[19][2] = [ _
         [4346, 12430], _
         [-717, 11305], _
         [-906, 13154], _
-        [-826, 11153]
+        [-826, 11153] _
 ]
 
 Global $aNF_Istan_MehtaniKeysRoute05[30][2] = [ _
@@ -100,7 +100,7 @@ Global $aNF_Istan_MehtaniKeysRoute05[30][2] = [ _
         [-7926, 1876], _
         [-4409, -934], _
         [-2709, -1452], _
-        [69, -2046]
+        [69, -2046] _
 ]
 
 Global $aNF_Istan_MehtaniKeysRoute06[82][2] = [ _
@@ -185,7 +185,7 @@ Global $aNF_Istan_MehtaniKeysRoute06[82][2] = [ _
         [-15740, 1437], _
         [-16162, 3596], _
         [-18745, 5349], _
-        [-18295, 9208]
+        [-18295, 9208] _
 ]
 
 Func GoOutMehtaniKeys()

@@ -11,7 +11,7 @@ Global $aNF_Vabbi_VehtendiValleyRoute01[10][2] = [ _
         [6193, 18533], _
         [6118, 18583], _
         [7988, 17027], _
-        [11041, 14874]
+        [11041, 14874] _
 ]
 
 Global $aNF_Vabbi_VehtendiValleyRoute02[57][2] = [ _
@@ -71,7 +71,7 @@ Global $aNF_Vabbi_VehtendiValleyRoute02[57][2] = [ _
         [-6728, -10907], _
         [-8836, -12314], _
         [-10684, -11914], _
-        [-11491, -15780]
+        [-11491, -15780] _
 ]
 
 Global $aNF_Vabbi_VehtendiValleyRoute03[16][2] = [ _
@@ -90,7 +90,7 @@ Global $aNF_Vabbi_VehtendiValleyRoute03[16][2] = [ _
         [6204, -19566], _
         [4604, -21646], _
         [7802, -19394], _
-        [10464, -19008]
+        [10464, -19008] _
 ]
 
 Global $aNF_Vabbi_VehtendiValleyRoute04[32][2] = [ _
@@ -125,7 +125,7 @@ Global $aNF_Vabbi_VehtendiValleyRoute04[32][2] = [ _
         [1444, -1810], _
         [-1749, -810], _
         [-758, 2142], _
-        [-1611, 4203]
+        [-1611, 4203] _
 ]
 
 Global $aNF_Vabbi_VehtendiValleyRoute05[111][2] = [ _
@@ -239,7 +239,7 @@ Global $aNF_Vabbi_VehtendiValleyRoute05[111][2] = [ _
         [1876, 19088], _
         [1124, 17817], _
         [-1180, 16296], _
-        [-4404, 16677]
+        [-4404, 16677] _
 ]
 
 Func GoOutVehtendiValley()

@@ -634,7 +634,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute18[89][2] = [ _
         [1907, 2910], _
         [4789, 645], _
         [6745, -3807], _
-        [5977, -7175]
+        [5977, -7175] _
 ]
 
 Func GoOutDrakkarLake()

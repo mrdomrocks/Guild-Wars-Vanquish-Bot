@@ -6,7 +6,7 @@ Global $aMamnoonLagoonOutpostPath[4][2] = [ _
 	[1692, -2650], _
 	[2013, -2216], _
 	[1691, -2667], _
-	[1950, -2315]
+	[1950, -2315] _
 ]
 
 Global $aMamnoonLagoonTransitPath[15][2] = [ _

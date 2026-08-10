@@ -11,7 +11,7 @@ Global $aNF_Vabbi_ForumHighlandsRoute01[10][2] = [ _
         [-10841, 11888], _
         [-10147, 16371], _
         [-8773, 14362], _
-        [-5404, 5939]
+        [-5404, 5939] _
 ]
 
 Global $aNF_Vabbi_ForumHighlandsRoute02[40][2] = [ _
@@ -54,7 +54,7 @@ Global $aNF_Vabbi_ForumHighlandsRoute02[40][2] = [ _
         [-9429, -6743], _
         [-9270, -9220], _
         [-5454, -10006], _
-        [-2456, -9862]
+        [-2456, -9862] _
 ]
 
 Global $aNF_Vabbi_ForumHighlandsRoute03[53][2] = [ _
@@ -110,7 +110,7 @@ Global $aNF_Vabbi_ForumHighlandsRoute03[53][2] = [ _
         [-6033, 6341], _
         [-6720, 4265], _
         [-9070, -1104], _
-        [-14034, -2308]
+        [-14034, -2308] _
 ]
 
 Global $aNF_Vabbi_ForumHighlandsRoute04[100][2] = [ _
@@ -213,7 +213,7 @@ Global $aNF_Vabbi_ForumHighlandsRoute04[100][2] = [ _
         [-12803, 14578], _
         [-16006, 12724], _
         [-18473, 9902], _
-        [-22919, 12238]
+        [-22919, 12238] _
 ]
 
 Func GoOutForumHighlands()
