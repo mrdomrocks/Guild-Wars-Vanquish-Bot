@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_SunwardMarchesRoute01[12][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute01[13][2] = [ _
+        [22169, 14426], _
         [20586, 11658], _
         [21972, 9027], _
         [24731, 7517], _
@@ -13,10 +14,11 @@ Global $aNF_Kourna_SunwardMarchesRoute01[12][2] = [ _
         [13001, 15393], _
         [8233, 12265], _
         [5860, 10730], _
-        [4630, 7358] _
+        [4630, 7358]
 ]
 
-Global $aNF_Kourna_SunwardMarchesRoute02[18][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute02[19][2] = [ _
+        [6997, 6962], _
         [8606, 5750], _
         [12983, 4007], _
         [15805, -136], _
@@ -34,10 +36,11 @@ Global $aNF_Kourna_SunwardMarchesRoute02[18][2] = [ _
         [4577, -10240], _
         [2908, -12434], _
         [-3903, -12118], _
-        [-1793, -9735] _
+        [-1793, -9735]
 ]
 
-Global $aNF_Kourna_SunwardMarchesRoute03[9][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute03[10][2] = [ _
+        [-3712, -7064], _
         [-5843, -4057], _
         [-7023, -5108], _
         [-8676, -6764], _
@@ -46,10 +49,11 @@ Global $aNF_Kourna_SunwardMarchesRoute03[9][2] = [ _
         [-15378, -8988], _
         [-12949, -7815], _
         [-16397, -5107], _
-        [-17490, -9998] _
+        [-17490, -9998]
 ]
 
-Global $aNF_Kourna_SunwardMarchesRoute04[12][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute04[13][2] = [ _
+        [-17964, -12200], _
         [-21092, -11896], _
         [-20871, -8630], _
         [-19530, -10058], _
@@ -61,10 +65,11 @@ Global $aNF_Kourna_SunwardMarchesRoute04[12][2] = [ _
         [-20645, -883], _
         [-23817, -1361], _
         [-26009, 2175], _
-        [-23360, 3770] _
+        [-23360, 3770]
 ]
 
-Global $aNF_Kourna_SunwardMarchesRoute05[51][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute05[52][2] = [ _
+        [-22600, 5634], _
         [-20629, 1955], _
         [-18727, 1348], _
         [-17142, -2138], _
@@ -115,7 +120,7 @@ Global $aNF_Kourna_SunwardMarchesRoute05[51][2] = [ _
         [-6186, 175], _
         [-5034, 4374], _
         [-3156, 6219], _
-        [-2498, 7232] _
+        [-2498, 7232]
 ]
 
 Global $aNF_Kourna_SunwardMarchesRoute06[102][2] = [ _
@@ -220,7 +225,7 @@ Global $aNF_Kourna_SunwardMarchesRoute06[102][2] = [ _
         [18615, 5451], _
         [24731, 7517], _
         [21972, 9027], _
-        [20586, 11658] _
+        [20586, 11658]
 ]
 
 Func GoOutSunwardMarches()

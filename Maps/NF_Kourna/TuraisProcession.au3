@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_TuraisProcessionRoute01[20][2] = [ _
+Global $aNF_Kourna_TuraisProcessionRoute01[21][2] = [ _
+        [-10586, -24874], _
         [-6114, -20397], _
         [-4095, -17921], _
         [-7340, -17788], _
@@ -21,10 +22,11 @@ Global $aNF_Kourna_TuraisProcessionRoute01[20][2] = [ _
         [4929, -17848], _
         [9398, -15939], _
         [10032, -19318], _
-        [10262, -21147] _
+        [10262, -21147]
 ]
 
-Global $aNF_Kourna_TuraisProcessionRoute02[34][2] = [ _
+Global $aNF_Kourna_TuraisProcessionRoute02[35][2] = [ _
+        [12830, -23732], _
         [16845, -23993], _
         [10268, -22104], _
         [6317, -22580], _
@@ -58,10 +60,11 @@ Global $aNF_Kourna_TuraisProcessionRoute02[34][2] = [ _
         [8826, 10222], _
         [9130, 15367], _
         [7028, 10962], _
-        [6328, 14296] _
+        [6328, 14296]
 ]
 
-Global $aNF_Kourna_TuraisProcessionRoute03[56][2] = [ _
+Global $aNF_Kourna_TuraisProcessionRoute03[57][2] = [ _
+        [1862, 12542], _
         [-1206, 7737], _
         [-1714, 12661], _
         [-4191, 15211], _
@@ -117,10 +120,10 @@ Global $aNF_Kourna_TuraisProcessionRoute03[56][2] = [ _
         [-10008, -7587], _
         [-4131, -6352], _
         [-4009, -6989], _
-        [-2476, -1151] _
+        [-2476, -1151]
 ]
 
-Global $aNF_Kourna_TuraisProcessionRoute04[125][2] = [ _
+Global $aNF_Kourna_TuraisProcessionRoute04[126][2] = [ _
         [-2476, -1151], _
         [-4009, -6989], _
         [-4131, -6352], _
@@ -155,6 +158,7 @@ Global $aNF_Kourna_TuraisProcessionRoute04[125][2] = [ _
         [7386, 21123], _
         [2479, 25275], _
         [5236, 21926], _
+        [2514, 25267], _
         [5949, 18287], _
         [4377, 20201], _
         [4799, 15484], _
@@ -245,7 +249,7 @@ Global $aNF_Kourna_TuraisProcessionRoute04[125][2] = [ _
         [4458, -1472], _
         [5658, 2569], _
         [3064, 1768], _
-        [803, -2506] _
+        [803, -2506]
 ]
 
 Func GoOutTuraisProcession()

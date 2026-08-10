@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_DejarinEstateRoute01[10][2] = [ _
+Global $aNF_Kourna_DejarinEstateRoute01[11][2] = [ _
+        [-18081, -16359], _
         [-17504, -16545], _
         [-15681, -11678], _
         [-15433, -7796], _
@@ -11,10 +12,11 @@ Global $aNF_Kourna_DejarinEstateRoute01[10][2] = [ _
         [-16254, -3439], _
         [-16772, -1006], _
         [-15502, -784], _
-        [-15212, -3882] _
+        [-15212, -3882]
 ]
 
-Global $aNF_Kourna_DejarinEstateRoute02[92][2] = [ _
+Global $aNF_Kourna_DejarinEstateRoute02[93][2] = [ _
+        [-13004, -2433], _
         [-14086, 1905], _
         [-13974, 4614], _
         [-11814, 4770], _
@@ -106,7 +108,7 @@ Global $aNF_Kourna_DejarinEstateRoute02[92][2] = [ _
         [7664, -4117], _
         [6639, -6964], _
         [4129, -6851], _
-        [8717, -9563] _
+        [8717, -9563]
 ]
 
 Global $aNF_Kourna_DejarinEstateRoute03[102][2] = [ _
@@ -211,7 +213,7 @@ Global $aNF_Kourna_DejarinEstateRoute03[102][2] = [ _
         [-12219, -9120], _
         [-15433, -7796], _
         [-15681, -11678], _
-        [-17504, -16545] _
+        [-17504, -16545]
 ]
 
 Func GoOutDejarinEstate()

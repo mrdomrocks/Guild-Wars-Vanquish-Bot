@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_GardenOfSeborhinRoute01[28][2] = [ _
+Global $aNF_Vabbi_GardenOfSeborhinRoute01[29][2] = [ _
+        [4032, -14621], _
         [1130, -13809], _
         [-535, -10938], _
         [826, -10329], _
@@ -29,20 +30,22 @@ Global $aNF_Vabbi_GardenOfSeborhinRoute01[28][2] = [ _
         [17568, -1841], _
         [14878, -1820], _
         [11847, -909], _
-        [9404, -1424] _
+        [9404, -1424]
 ]
 
-Global $aNF_Vabbi_GardenOfSeborhinRoute02[7][2] = [ _
+Global $aNF_Vabbi_GardenOfSeborhinRoute02[8][2] = [ _
+        [3960, -14652], _
         [7828, 858], _
         [3117, 1011], _
         [-2252, 987], _
         [-2620, 2125], _
         [2047, 2054], _
         [6273, 2179], _
-        [7826, 2244] _
+        [7826, 2244]
 ]
 
-Global $aNF_Vabbi_GardenOfSeborhinRoute03[57][2] = [ _
+Global $aNF_Vabbi_GardenOfSeborhinRoute03[58][2] = [ _
+        [8315, -949], _
         [10904, 4469], _
         [11142, 1598], _
         [13513, 4871], _
@@ -99,7 +102,7 @@ Global $aNF_Vabbi_GardenOfSeborhinRoute03[57][2] = [ _
         [-9374, -12856], _
         [-7414, -13980], _
         [-3208, -13306], _
-        [45, -12888] _
+        [45, -12888]
 ]
 
 Global $aNF_Vabbi_GardenOfSeborhinRoute04[93][2] = [ _
@@ -195,7 +198,7 @@ Global $aNF_Vabbi_GardenOfSeborhinRoute04[93][2] = [ _
         [826, -10329], _
         [-535, -10938], _
         [1130, -13809], _
-        [-4507, 15730] _
+        [-4507, 15730]
 ]
 
 Func GoOutGardenOfSeborhin()

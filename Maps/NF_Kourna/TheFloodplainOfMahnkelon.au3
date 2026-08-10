@@ -1,17 +1,19 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute01[7][2] = [ _
+Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute01[8][2] = [ _
+        [-19184, -13485], _
         [-15002, -14809], _
         [-13711, -13165], _
         [-13385, -12015], _
         [-13173, -8565], _
         [-9704, -9111], _
         [-11439, -12825], _
-        [-8739, -10848] _
+        [-8739, -10848]
 ]
 
-Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute02[25][2] = [ _
+Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute02[26][2] = [ _
+        [-5912, -11262], _
         [-4454, -9503], _
         [-2484, -8955], _
         [-1935, -7149], _
@@ -36,10 +38,11 @@ Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute02[25][2] = [ _
         [17185, -2602], _
         [16911, -1560], _
         [17211, 307], _
-        [18625, -524] _
+        [18625, -524]
 ]
 
-Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute03[9][2] = [ _
+Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute03[10][2] = [ _
+        [13534, 1442], _
         [15402, 4672], _
         [15109, 7002], _
         [12692, 10020], _
@@ -48,10 +51,11 @@ Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute03[9][2] = [ _
         [6654, 15143], _
         [5156, 14175], _
         [3270, 15741], _
-        [1748, 14823] _
+        [1748, 14823]
 ]
 
-Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute04[41][2] = [ _
+Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute04[42][2] = [ _
+        [-701, 11798], _
         [-2909, 9103], _
         [-802, 12067], _
         [-3218, 15914], _
@@ -92,7 +96,7 @@ Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute04[41][2] = [ _
         [7785, 8337], _
         [6663, 6444], _
         [6791, 4867], _
-        [4495, 3693] _
+        [4495, 3693]
 ]
 
 Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute05[82][2] = [ _
@@ -177,7 +181,7 @@ Global $aNF_Kourna_TheFloodplainOfMahnkelonRoute05[82][2] = [ _
         [-13173, -8565], _
         [-13385, -12015], _
         [-13711, -13165], _
-        [-15002, -14809] _
+        [-15002, -14809]
 ]
 
 Func GoOutTheFloodplainOfMahnkelon()

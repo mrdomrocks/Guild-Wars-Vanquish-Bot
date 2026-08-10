@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Istan_CliffsOfDohjokRoute01[13][2] = [ _
+Global $aNF_Istan_CliffsOfDohjokRoute01[14][2] = [ _
+        [-25984, -9240], _
         [-25755, -6529], _
         [-24124, -5753], _
         [-21084, -7115], _
@@ -14,10 +15,11 @@ Global $aNF_Istan_CliffsOfDohjokRoute01[13][2] = [ _
         [-18748, -3056], _
         [-14797, -5997], _
         [-14993, -3079], _
-        [-13661, -2347] _
+        [-13661, -2347]
 ]
 
-Global $aNF_Istan_CliffsOfDohjokRoute02[12][2] = [ _
+Global $aNF_Istan_CliffsOfDohjokRoute02[13][2] = [ _
+        [-14045, -1982], _
         [-10014, 145], _
         [-9031, -4292], _
         [-6139, -6385], _
@@ -29,10 +31,11 @@ Global $aNF_Istan_CliffsOfDohjokRoute02[12][2] = [ _
         [6425, -3035], _
         [8758, -5358], _
         [9702, -7516], _
-        [11702, -9216] _
+        [11702, -9216]
 ]
 
-Global $aNF_Istan_CliffsOfDohjokRoute03[18][2] = [ _
+Global $aNF_Istan_CliffsOfDohjokRoute03[19][2] = [ _
+        [12640, -6353], _
         [14531, -6114], _
         [10438, -4186], _
         [10317, -3958], _
@@ -50,10 +53,11 @@ Global $aNF_Istan_CliffsOfDohjokRoute03[18][2] = [ _
         [11459, 5175], _
         [8427, 9919], _
         [9465, 12401], _
-        [4368, 12205] _
+        [4368, 12205]
 ]
 
-Global $aNF_Istan_CliffsOfDohjokRoute04[38][2] = [ _
+Global $aNF_Istan_CliffsOfDohjokRoute04[39][2] = [ _
+        [1548, 13289], _
         [1893, 8700], _
         [-476, 7017], _
         [-3206, 3948], _
@@ -91,7 +95,7 @@ Global $aNF_Istan_CliffsOfDohjokRoute04[38][2] = [ _
         [-17557, 3384], _
         [-20972, -868], _
         [-21064, 4469], _
-        [-21180, 6472] _
+        [-21180, 6472]
 ]
 
 Global $aNF_Istan_CliffsOfDohjokRoute05[81][2] = [ _
@@ -175,7 +179,7 @@ Global $aNF_Istan_CliffsOfDohjokRoute05[81][2] = [ _
         [-19788, -10289], _
         [-21084, -7115], _
         [-24124, -5753], _
-        [-25755, -6529] _
+        [-25755, -6529]
 ]
 
 Func GoOutCliffsOfDohjok()

@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_TheMirrorOfLyssRoute01[8][2] = [ _
+Global $aNF_Vabbi_TheMirrorOfLyssRoute01[9][2] = [ _
+        [-20964, -13053], _
         [-22192, -12551], _
         [-22606, -7806], _
         [-21990, -4574], _
@@ -9,10 +10,11 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute01[8][2] = [ _
         [-21481, 201], _
         [-22147, 1533], _
         [-18989, 3270], _
-        [-17629, 236] _
+        [-17629, 236]
 ]
 
-Global $aNF_Vabbi_TheMirrorOfLyssRoute02[28][2] = [ _
+Global $aNF_Vabbi_TheMirrorOfLyssRoute02[29][2] = [ _
+        [-15165, 3285], _
         [-16401, 6466], _
         [-20395, 8001], _
         [-16944, 10069], _
@@ -40,10 +42,11 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute02[28][2] = [ _
         [-21376, -8769], _
         [-21093, -4286], _
         [-15892, -3760], _
-        [-10620, -7764] _
+        [-10620, -7764]
 ]
 
-Global $aNF_Vabbi_TheMirrorOfLyssRoute03[34][2] = [ _
+Global $aNF_Vabbi_TheMirrorOfLyssRoute03[35][2] = [ _
+        [-6438, -6872], _
         [-7842, -1507], _
         [-3435, -3017], _
         [586, -1338], _
@@ -77,10 +80,11 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute03[34][2] = [ _
         [18323, -16226], _
         [16600, -12630], _
         [13962, -11793], _
-        [15777, -11000] _
+        [15777, -11000]
 ]
 
-Global $aNF_Vabbi_TheMirrorOfLyssRoute04[17][2] = [ _
+Global $aNF_Vabbi_TheMirrorOfLyssRoute04[18][2] = [ _
+        [10814, -8738], _
         [7232, -11797], _
         [9099, -15348], _
         [5530, -12405], _
@@ -97,7 +101,7 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute04[17][2] = [ _
         [-4932, -10437], _
         [-1284, -10528], _
         [1828, -7453], _
-        [2714, -5016] _
+        [2714, -5016]
 ]
 
 Global $aNF_Vabbi_TheMirrorOfLyssRoute05[87][2] = [ _
@@ -187,7 +191,7 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute05[87][2] = [ _
         [-20726, -2981], _
         [-21990, -4574], _
         [-22606, -7806], _
-        [-22192, -12551] _
+        [-22192, -12551]
 ]
 
 Func GoOutTheMirrorOfLyss()

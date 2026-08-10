@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_BahdokCavernsRoute01[33][2] = [ _
+Global $aNF_Kourna_BahdokCavernsRoute01[34][2] = [ _
+        [-9443, -7763], _
         [-7575, -6450], _
         [-7208, -4384], _
         [-8875, -1961], _
@@ -34,10 +35,11 @@ Global $aNF_Kourna_BahdokCavernsRoute01[33][2] = [ _
         [-7613, 13840], _
         [-5690, 10261], _
         [-4420, 6589], _
-        [-822, 8017] _
+        [-822, 8017]
 ]
 
-Global $aNF_Kourna_BahdokCavernsRoute02[8][2] = [ _
+Global $aNF_Kourna_BahdokCavernsRoute02[9][2] = [ _
+        [-2601, 12695], _
         [-4487, 15111], _
         [-6730, 16106], _
         [-1834, 12888], _
@@ -45,10 +47,11 @@ Global $aNF_Kourna_BahdokCavernsRoute02[8][2] = [ _
         [3312, 12004], _
         [5078, 14005], _
         [6034, 13685], _
-        [5759, 18317] _
+        [5759, 18317]
 ]
 
-Global $aNF_Kourna_BahdokCavernsRoute03[9][2] = [ _
+Global $aNF_Kourna_BahdokCavernsRoute03[10][2] = [ _
+        [9180, 18324], _
         [12860, 18295], _
         [15978, 17684], _
         [17179, 14549], _
@@ -57,10 +60,11 @@ Global $aNF_Kourna_BahdokCavernsRoute03[9][2] = [ _
         [13927, 11182], _
         [11175, 8530], _
         [9568, 5247], _
-        [11880, 3924] _
+        [11880, 3924]
 ]
 
-Global $aNF_Kourna_BahdokCavernsRoute04[57][2] = [ _
+Global $aNF_Kourna_BahdokCavernsRoute04[58][2] = [ _
+        [9053, 2959], _
         [11969, 1423], _
         [14133, 262], _
         [14602, -154], _
@@ -117,7 +121,7 @@ Global $aNF_Kourna_BahdokCavernsRoute04[57][2] = [ _
         [-2153, 1205], _
         [-3010, 3677], _
         [-1054, 3651], _
-        [-987, 7377] _
+        [-987, 7377]
 ]
 
 Global $aNF_Kourna_BahdokCavernsRoute05[107][2] = [ _
@@ -227,7 +231,7 @@ Global $aNF_Kourna_BahdokCavernsRoute05[107][2] = [ _
         [-7490, 963], _
         [-8875, -1961], _
         [-7208, -4384], _
-        [-7575, -6450] _
+        [-7575, -6450]
 ]
 
 Func GoOutBahdokCaverns()

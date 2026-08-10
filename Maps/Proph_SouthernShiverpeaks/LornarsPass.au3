@@ -66,7 +66,7 @@ Local $aLornarsPassTransit2Path[12][2] = [ _
 
 
 
-Global $aProph_SouthernShiverpeaks_LornarsPassRoute01[309][2] = [ _
+Global $aProph_SouthernShiverpeaks_LornarsPassRoute01[310][2] = [ _
         [-8678, -34615], _
         [-9985, -33718], _
         [-7673, -32562], _
@@ -323,6 +323,7 @@ Global $aProph_SouthernShiverpeaks_LornarsPassRoute01[309][2] = [ _
         [4621, 28321], _
         [5453, 30474], _
         [3987, 32287], _
+        [4116, 33119], _
         [4666, 34042], _
         [5577, 34562], _
         [7269, 33969], _
@@ -375,10 +376,10 @@ Global $aProph_SouthernShiverpeaks_LornarsPassRoute01[309][2] = [ _
         [-2386, 7708], _
         [-4783, 7055], _
         [-5363, 7789], _
-        [-5705, 8493] _
+        [-5705, 8493]
 ]
 
-Global $aProph_SouthernShiverpeaks_LornarsPassRoute02[309][2] = [ _
+Global $aProph_SouthernShiverpeaks_LornarsPassRoute02[310][2] = [ _
         [-5705, 8493], _
         [-5363, 7789], _
         [-4783, 7055], _
@@ -432,6 +433,7 @@ Global $aProph_SouthernShiverpeaks_LornarsPassRoute02[309][2] = [ _
         [7269, 33969], _
         [5577, 34562], _
         [4666, 34042], _
+        [4116, 33119], _
         [3987, 32287], _
         [5453, 30474], _
         [4621, 28321], _
@@ -687,7 +689,7 @@ Global $aProph_SouthernShiverpeaks_LornarsPassRoute02[309][2] = [ _
         [-5422, -31422], _
         [-7673, -32562], _
         [-9985, -33718], _
-        [-8678, -34615] _
+        [-8678, -34615]
 ]
 
 Func GoOutLornarsPass()

@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute01[12][2] = [ _
+Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute01[13][2] = [ _
+        [2222, -19038], _
         [3423, -16710], _
         [2154, -14822], _
         [-393, -15021], _
@@ -13,10 +14,11 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute01[12][2] = [ _
         [-10156, -11631], _
         [-7549, -9195], _
         [-10154, -8474], _
-        [-6813, -7554] _
+        [-6813, -7554]
 ]
 
-Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute02[34][2] = [ _
+Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute02[35][2] = [ _
+        [-6828, -3803], _
         [-4265, -2891], _
         [-4442, 171], _
         [-8162, 583], _
@@ -50,10 +52,11 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute02[34][2] = [ _
         [1455, 14259], _
         [3653, 14076], _
         [5512, 12176], _
-        [8922, 12876] _
+        [8922, 12876]
 ]
 
-Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute03[15][2] = [ _
+Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute03[16][2] = [ _
+        [9543, 14725], _
         [10113, 16181], _
         [11436, 17456], _
         [12644, 15487], _
@@ -68,10 +71,11 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute03[15][2] = [ _
         [15092, 4135], _
         [15133, 1062], _
         [14316, -1902], _
-        [13173, -3855] _
+        [13173, -3855]
 ]
 
-Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute04[50][2] = [ _
+Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute04[51][2] = [ _
+        [12398, -2575], _
         [13670, -5095], _
         [14552, -5865], _
         [13948, -7314], _
@@ -121,7 +125,7 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute04[50][2] = [ _
         [1454, 19405], _
         [-2592, 20778], _
         [991, 23002], _
-        [64, 24479] _
+        [64, 24479]
 ]
 
 Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute05[111][2] = [ _
@@ -235,7 +239,7 @@ Global $aNF_Vabbi_TheHiddenCityOfAhdashimRoute05[111][2] = [ _
         [-474, -17564], _
         [-393, -15021], _
         [2154, -14822], _
-        [3423, -16710] _
+        [3423, -16710]
 ]
 
 Func GoOutTheHiddenCityOfAhdashim()

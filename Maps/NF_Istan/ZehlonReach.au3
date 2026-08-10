@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Istan_ZehlonReachRoute01[8][2] = [ _
+Global $aNF_Istan_ZehlonReachRoute01[9][2] = [ _
+        [-18642, -18011], _
         [-19207, -14374], _
         [-18194, -10506], _
         [-18454, -7118], _
@@ -9,10 +10,11 @@ Global $aNF_Istan_ZehlonReachRoute01[8][2] = [ _
         [-17693, 351], _
         [-17639, 4548], _
         [-19518, 5342], _
-        [-19201, 7077] _
+        [-19201, 7077]
 ]
 
-Global $aNF_Istan_ZehlonReachRoute02[21][2] = [ _
+Global $aNF_Istan_ZehlonReachRoute02[22][2] = [ _
+        [-17092, 10583], _
         [-18727, 14739], _
         [-19258, 16571], _
         [-15041, 14997], _
@@ -33,10 +35,11 @@ Global $aNF_Istan_ZehlonReachRoute02[21][2] = [ _
         [10615, 14788], _
         [13711, 15175], _
         [14357, 13851], _
-        [18316, 13479] _
+        [18316, 13479]
 ]
 
-Global $aNF_Istan_ZehlonReachRoute03[31][2] = [ _
+Global $aNF_Istan_ZehlonReachRoute03[32][2] = [ _
+        [9812, -18747], _
         [18940, 13528], _
         [16825, 12640], _
         [13329, 8718], _
@@ -67,7 +70,7 @@ Global $aNF_Istan_ZehlonReachRoute03[31][2] = [ _
         [14428, -15728], _
         [12436, -14541], _
         [11229, -17276], _
-        [12740, -18585] _
+        [12740, -18585]
 ]
 
 Global $aNF_Istan_ZehlonReachRoute04[49][2] = [ _
@@ -231,7 +234,7 @@ Global $aNF_Istan_ZehlonReachRoute05[109][2] = [ _
         [-19040, -4312], _
         [-18454, -7118], _
         [-18194, -10506], _
-        [-19207, -14374] _
+        [-19207, -14374]
 ]
 
 Func GoOutZehlonReach()

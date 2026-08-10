@@ -21,7 +21,8 @@ Global $aNF_Kourna_ArkjokWardRoute01[17][2] = [ _
         [-5372, -10061] _
 ]
 
-Global $aNF_Kourna_ArkjokWardRoute02[12][2] = [ _
+Global $aNF_Kourna_ArkjokWardRoute02[13][2] = [ _
+        [-4249, -8328], _
         [-1331, -7498], _
         [444, -7480], _
         [2881, -6484], _
@@ -33,10 +34,11 @@ Global $aNF_Kourna_ArkjokWardRoute02[12][2] = [ _
         [11055, -11333], _
         [11933, -12685], _
         [12473, -13369], _
-        [15418, -13423] _
+        [15418, -13423]
 ]
 
-Global $aNF_Kourna_ArkjokWardRoute03[35][2] = [ _
+Global $aNF_Kourna_ArkjokWardRoute03[36][2] = [ _
+        [16190, -16132], _
         [15036, -13387], _
         [11680, -12333], _
         [11862, -10506], _
@@ -71,10 +73,11 @@ Global $aNF_Kourna_ArkjokWardRoute03[35][2] = [ _
         [-4639, 11802], _
         [-6291, 13139], _
         [-7325, 16782], _
-        [-11486, 12193] _
+        [-11486, 12193]
 ]
 
-Global $aNF_Kourna_ArkjokWardRoute04[27][2] = [ _
+Global $aNF_Kourna_ArkjokWardRoute04[28][2] = [ _
+        [-12883, 11741], _
         [-10168, 8073], _
         [-7471, 7122], _
         [-5977, 6169], _
@@ -101,7 +104,7 @@ Global $aNF_Kourna_ArkjokWardRoute04[27][2] = [ _
         [-6346, -8444], _
         [504, -7348], _
         [1574, -4029], _
-        [6256, -1017] _
+        [6256, -1017]
 ]
 
 Global $aNF_Kourna_ArkjokWardRoute05[91][2] = [ _
@@ -195,7 +198,7 @@ Global $aNF_Kourna_ArkjokWardRoute05[91][2] = [ _
         [-12325, -17841], _
         [-14801, -17412], _
         [-16560, -17762], _
-        [-17286, -15368] _
+        [-17286, -15368]
 ]
 
 Func GoOutArkjokWard()

@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_HoldingsOfChokhinRoute01[71][2] = [ _
+Global $aNF_Vabbi_HoldingsOfChokhinRoute01[72][2] = [ _
+        [15810, -15238], _
         [16657, -12876], _
         [10846, -11145], _
         [9155, -10185], _
@@ -72,10 +73,11 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute01[71][2] = [ _
         [-14403, 12857], _
         [-15009, 10395], _
         [-15700, 9659], _
-        [-14267, 7495] _
+        [-14267, 7495]
 ]
 
-Global $aNF_Vabbi_HoldingsOfChokhinRoute02[21][2] = [ _
+Global $aNF_Vabbi_HoldingsOfChokhinRoute02[22][2] = [ _
+        [-14951, 5922], _
         [-17416, 5274], _
         [-16549, 2521], _
         [-13914, 2093], _
@@ -96,10 +98,11 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute02[21][2] = [ _
         [-16684, -15626], _
         [-15641, -14058], _
         [-10036, 5369], _
-        [-15641, -14058] _
+        [-15641, -14058]
 ]
 
-Global $aNF_Vabbi_HoldingsOfChokhinRoute03[11][2] = [ _
+Global $aNF_Vabbi_HoldingsOfChokhinRoute03[12][2] = [ _
+        [-14563, -14857], _
         [-14259, -12932], _
         [-13468, -9040], _
         [-14802, -6722], _
@@ -110,10 +113,11 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute03[11][2] = [ _
         [-10471, -3067], _
         [-8792, -1604], _
         [-7908, 1591], _
-        [-8546, -1995] _
+        [-8546, -1995]
 ]
 
-Global $aNF_Vabbi_HoldingsOfChokhinRoute04[14][2] = [ _
+Global $aNF_Vabbi_HoldingsOfChokhinRoute04[15][2] = [ _
+        [-6527, -3880], _
         [-5244, -8209], _
         [-3302, -5919], _
         [-6553, -8761], _
@@ -127,7 +131,7 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute04[14][2] = [ _
         [1052, -10418], _
         [5320, -13577], _
         [6583, -15485], _
-        [10050, -15706] _
+        [10050, -15706]
 ]
 
 Global $aNF_Vabbi_HoldingsOfChokhinRoute05[117][2] = [ _
@@ -247,7 +251,7 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute05[117][2] = [ _
         [10307, -7894], _
         [9155, -10185], _
         [10846, -11145], _
-        [16657, -12876] _
+        [16657, -12876]
 ]
 
 Func GoOutHoldingsOfChokhin()

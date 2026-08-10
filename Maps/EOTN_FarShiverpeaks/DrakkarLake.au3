@@ -545,9 +545,10 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute17[10][2] = [ _
         [4923, 23037] _
 ]
 
-Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute18[87][2] = [ _
+Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute18[89][2] = [ _
         [7417, 23727], _
         [8872, 23295], _
+        [7367, 23752], _
         [7555, 23089], _
         [2741, 22562], _
         [-105, 24213], _
@@ -607,6 +608,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute18[87][2] = [ _
         [3110, 16233], _
         [-5243, 15864], _
         [-895, 15205], _
+        [-3926, 11033], _
         [4153, 15669], _
         [8628, 14016], _
         [4060, 15773], _
@@ -632,7 +634,7 @@ Global $aEOTN_FarShiverpeaks_DrakkarLakeRoute18[87][2] = [ _
         [1907, 2910], _
         [4789, 645], _
         [6745, -3807], _
-        [5977, -7175] _
+        [5977, -7175]
 ]
 
 Func GoOutDrakkarLake()

@@ -1,17 +1,19 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_GandaraTheMoonFortressRoute01[7][2] = [ _
+Global $aNF_Kourna_GandaraTheMoonFortressRoute01[8][2] = [ _
+        [6818, 15641], _
         [5425, 16446], _
         [3246, 13158], _
         [-2989, 14295], _
         [-4304, 11465], _
         [-1938, 11165], _
         [-2396, 14301], _
-        [-6098, 15735] _
+        [-6098, 15735]
 ]
 
-Global $aNF_Kourna_GandaraTheMoonFortressRoute02[36][2] = [ _
+Global $aNF_Kourna_GandaraTheMoonFortressRoute02[37][2] = [ _
+        [-7412, 14230], _
         [-10125, 14233], _
         [-10210, 9811], _
         [-12946, 12759], _
@@ -47,7 +49,7 @@ Global $aNF_Kourna_GandaraTheMoonFortressRoute02[36][2] = [ _
         [21646, 6598], _
         [22185, 4098], _
         [21294, 3045], _
-        [18447, 6224] _
+        [18447, 6224]
 ]
 
 Global $aNF_Kourna_GandaraTheMoonFortressRoute03[43][2] = [ _
@@ -93,7 +95,7 @@ Global $aNF_Kourna_GandaraTheMoonFortressRoute03[43][2] = [ _
         [-4304, 11465], _
         [-2989, 14295], _
         [3246, 13158], _
-        [5425, 16446] _
+        [5425, 16446]
 ]
 
 Func GoOutGandaraTheMoonFortress()

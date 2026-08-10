@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Istan_FahranurTheFirstCityRoute01[15][2] = [ _
+Global $aNF_Istan_FahranurTheFirstCityRoute01[16][2] = [ _
+        [19580, -18261], _
         [17114, -15098], _
         [14233, -16398], _
         [12906, -12544], _
@@ -16,10 +17,11 @@ Global $aNF_Istan_FahranurTheFirstCityRoute01[15][2] = [ _
         [10374, -8814], _
         [13405, -6799], _
         [14633, -7028], _
-        [11603, -4415] _
+        [11603, -4415]
 ]
 
-Global $aNF_Istan_FahranurTheFirstCityRoute02[9][2] = [ _
+Global $aNF_Istan_FahranurTheFirstCityRoute02[10][2] = [ _
+        [11197, -2793], _
         [10571, -1557], _
         [13390, -1988], _
         [14698, -480], _
@@ -28,10 +30,11 @@ Global $aNF_Istan_FahranurTheFirstCityRoute02[9][2] = [ _
         [12727, 6161], _
         [10534, 8302], _
         [12732, 13091], _
-        [15049, 13401] _
+        [15049, 13401]
 ]
 
-Global $aNF_Istan_FahranurTheFirstCityRoute03[25][2] = [ _
+Global $aNF_Istan_FahranurTheFirstCityRoute03[26][2] = [ _
+        [19635, 12267], _
         [14578, 6185], _
         [11730, 6483], _
         [11133, 12517], _
@@ -56,19 +59,21 @@ Global $aNF_Istan_FahranurTheFirstCityRoute03[25][2] = [ _
         [-4228, 13048], _
         [-4262, 11313], _
         [-5707, 10476], _
-        [-5112, 5805] _
+        [-5112, 5805]
 ]
 
-Global $aNF_Istan_FahranurTheFirstCityRoute04[6][2] = [ _
+Global $aNF_Istan_FahranurTheFirstCityRoute04[7][2] = [ _
+        [-2049, 7944], _
         [-740, 6319], _
         [-660, 4043], _
         [2479, 191], _
         [2369, -3786], _
         [490, -5990], _
-        [-499, -7172] _
+        [-499, -7172]
 ]
 
-Global $aNF_Istan_FahranurTheFirstCityRoute05[52][2] = [ _
+Global $aNF_Istan_FahranurTheFirstCityRoute05[53][2] = [ _
+        [271, -8397], _
         [-933, -11364], _
         [-6333, -11165], _
         [-4865, -12986], _
@@ -120,7 +125,7 @@ Global $aNF_Istan_FahranurTheFirstCityRoute05[52][2] = [ _
         [5566, -15988], _
         [7954, -14109], _
         [8155, -10840], _
-        [13368, -6845] _
+        [13368, -6845]
 ]
 
 Global $aNF_Istan_FahranurTheFirstCityRoute06[107][2] = [ _
@@ -230,7 +235,7 @@ Global $aNF_Istan_FahranurTheFirstCityRoute06[107][2] = [ _
         [9792, -12646], _
         [12906, -12544], _
         [14233, -16398], _
-        [17114, -15098] _
+        [17114, -15098]
 ]
 
 Func GoOutFahranurTheFirstCity()

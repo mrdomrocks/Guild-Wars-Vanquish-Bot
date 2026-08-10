@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_MargaCoastRoute01[14][2] = [ _
+Global $aNF_Kourna_MargaCoastRoute01[15][2] = [ _
+        [19917, -16160], _
         [20256, -8736], _
         [16572, -11979], _
         [16945, -14747], _
@@ -15,10 +16,11 @@ Global $aNF_Kourna_MargaCoastRoute01[14][2] = [ _
         [6339, -13872], _
         [5094, -11137], _
         [6811, -6363], _
-        [3379, -4040] _
+        [3379, -4040]
 ]
 
-Global $aNF_Kourna_MargaCoastRoute02[18][2] = [ _
+Global $aNF_Kourna_MargaCoastRoute02[19][2] = [ _
+        [2324, -4866], _
         [1583, -6992], _
         [-2056, -6894], _
         [-1891, -5044], _
@@ -36,10 +38,11 @@ Global $aNF_Kourna_MargaCoastRoute02[18][2] = [ _
         [-11165, -10282], _
         [-9515, -8620], _
         [-8499, -4949], _
-        [-13177, -1519] _
+        [-13177, -1519]
 ]
 
-Global $aNF_Kourna_MargaCoastRoute03[25][2] = [ _
+Global $aNF_Kourna_MargaCoastRoute03[26][2] = [ _
+        [-16695, -2723], _
         [-19015, -1859], _
         [-22150, 32], _
         [-21433, 3809], _
@@ -64,10 +67,11 @@ Global $aNF_Kourna_MargaCoastRoute03[25][2] = [ _
         [1319, 14235], _
         [3502, 14721], _
         [5472, 16320], _
-        [6535, 10692] _
+        [6535, 10692]
 ]
 
-Global $aNF_Kourna_MargaCoastRoute04[35][2] = [ _
+Global $aNF_Kourna_MargaCoastRoute04[36][2] = [ _
+        [10417, 9560], _
         [7883, 3006], _
         [5829, 1256], _
         [12247, 3565], _
@@ -102,10 +106,10 @@ Global $aNF_Kourna_MargaCoastRoute04[35][2] = [ _
         [-2395, 1168], _
         [-4381, 863], _
         [-1627, -2612], _
-        [-8307, -4237] _
+        [-8307, -4237]
 ]
 
-Global $aNF_Kourna_MargaCoastRoute05[98][2] = [ _
+Global $aNF_Kourna_MargaCoastRoute05[99][2] = [ _
         [-8307, -4237], _
         [-1627, -2612], _
         [-4381, 863], _
@@ -117,6 +121,7 @@ Global $aNF_Kourna_MargaCoastRoute05[98][2] = [ _
         [-9244, -1587], _
         [-9583, 1147], _
         [-5914, 2975], _
+        [-9590, 1164], _
         [-4331, 7225], _
         [-174, 7502], _
         [4496, 9533], _
@@ -203,7 +208,7 @@ Global $aNF_Kourna_MargaCoastRoute05[98][2] = [ _
         [-9515, 9936], _
         [3381, 14704], _
         [196, 15113], _
-        [-12290, 3495] _
+        [-12290, 3495]
 ]
 
 Func GoOutMargaCoast()
