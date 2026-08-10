@@ -13,7 +13,7 @@ Global $aNF_Istan_IssnurIslesRoute01[12][2] = [ _
         [-13103, 1322], _
         [-13983, -1819], _
         [-15639, -951], _
-        [-12112, -2878]
+        [-12112, -2878] _
 ]
 
 Global $aNF_Istan_IssnurIslesRoute02[30][2] = [ _
@@ -46,7 +46,7 @@ Global $aNF_Istan_IssnurIslesRoute02[30][2] = [ _
         [3303, -9040], _
         [6756, -10241], _
         [4691, -6035], _
-        [6346, -4165]
+        [6346, -4165] _
 ]
 
 Global $aNF_Istan_IssnurIslesRoute03[61][2] = [ _
@@ -110,7 +110,7 @@ Global $aNF_Istan_IssnurIslesRoute03[61][2] = [ _
         [-9715, 5138], _
         [-12328, 3637], _
         [-9369, 1922], _
-        [-7469, 6646]
+        [-7469, 6646] _
 ]
 
 Global $aNF_Istan_IssnurIslesRoute04[16][2] = [ _
@@ -129,7 +129,7 @@ Global $aNF_Istan_IssnurIslesRoute04[16][2] = [ _
         [5000, 1908], _
         [5013, -1760], _
         [1582, -4757], _
-        [-2128, -2698]
+        [-2128, -2698] _
 ]
 
 Global $aNF_Istan_IssnurIslesRoute05[115][2] = [ _
@@ -247,7 +247,7 @@ Global $aNF_Istan_IssnurIslesRoute05[115][2] = [ _
         [-17843, 3575], _
         [-16354, 3022], _
         [-14645, 3908], _
-        [-12890, 6722]
+        [-12890, 6722] _
 ]
 
 Func GoOutIssnurIsles()
