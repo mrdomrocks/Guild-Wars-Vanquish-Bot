@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_ResplendentMakuunRoute01[16][2] = [ _
+Global $aNF_Vabbi_ResplendentMakuunRoute01[17][2] = [ _
+        [-16952, 10390], _
         [-17701, 8109], _
         [-15885, 7665], _
         [-16419, 4477], _
@@ -20,7 +21,8 @@ Global $aNF_Vabbi_ResplendentMakuunRoute01[16][2] = [ _
         [-15944, -15648] _
 ]
 
-Global $aNF_Vabbi_ResplendentMakuunRoute02[77][2] = [ _
+Global $aNF_Vabbi_ResplendentMakuunRoute02[78][2] = [ _
+        [-18640, -16601], _
         [-19002, -20048], _
         [-15343, -16486], _
         [-13811, -17871], _

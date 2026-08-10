@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_VehjinMinesRoute01[16][2] = [ _
+Global $aNF_Vabbi_VehjinMinesRoute01[17][2] = [ _
+        [15129, -14619], _
         [13769, -16048], _
         [11436, -12145], _
         [10061, -8375], _
@@ -20,7 +21,8 @@ Global $aNF_Vabbi_VehjinMinesRoute01[16][2] = [ _
         [-6825, 708] _
 ]
 
-Global $aNF_Vabbi_VehjinMinesRoute02[5][2] = [ _
+Global $aNF_Vabbi_VehjinMinesRoute02[6][2] = [ _
+        [-6937, 2346], _
         [-4588, 4086], _
         [-5728, 341], _
         [-5208, 7331], _
@@ -28,7 +30,8 @@ Global $aNF_Vabbi_VehjinMinesRoute02[5][2] = [ _
         [-3285, 11647] _
 ]
 
-Global $aNF_Vabbi_VehjinMinesRoute03[7][2] = [ _
+Global $aNF_Vabbi_VehjinMinesRoute03[8][2] = [ _
+        [-3149, 15984], _
         [-4883, 16521], _
         [-3739, 18688], _
         [-7843, 16857], _
@@ -38,7 +41,8 @@ Global $aNF_Vabbi_VehjinMinesRoute03[7][2] = [ _
         [-14004, 16804] _
 ]
 
-Global $aNF_Vabbi_VehjinMinesRoute04[44][2] = [ _
+Global $aNF_Vabbi_VehjinMinesRoute04[45][2] = [ _
+        [-17615, 15911], _
         [-13943, 14417], _
         [-13874, 11666], _
         [-16461, 10010], _

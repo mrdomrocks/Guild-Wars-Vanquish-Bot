@@ -1,7 +1,7 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aAscalonFoothillsTransitPath[143][2] = [ _
+Global $aAscalonFoothillsTransitPath[144][2] = [ _
 	[9115, 3364], _
 	[8221, 1462], _
 	[8291, 559], _
@@ -144,7 +144,8 @@ Global $aAscalonFoothillsTransitPath[143][2] = [ _
 	[8938, -14476], _
 	[9243, -15713], _
 	[9755, -16879], _
-	[10843, -17072] _
+	[10843, -17072], _
+	[9741, -16900] _
 ]
 
 Global $aProph_Ascalon_AscalonFoothillsRoute01[20][2] = [ _

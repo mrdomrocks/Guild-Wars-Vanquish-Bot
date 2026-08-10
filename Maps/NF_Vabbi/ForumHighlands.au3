@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_ForumHighlandsRoute01[9][2] = [ _
+Global $aNF_Vabbi_ForumHighlandsRoute01[10][2] = [ _
+        [-21186, 16195], _
         [-22919, 12238], _
         [-18473, 9902], _
         [-16006, 12724], _
@@ -13,7 +14,8 @@ Global $aNF_Vabbi_ForumHighlandsRoute01[9][2] = [ _
         [-5404, 5939] _
 ]
 
-Global $aNF_Vabbi_ForumHighlandsRoute02[39][2] = [ _
+Global $aNF_Vabbi_ForumHighlandsRoute02[40][2] = [ _
+        [-3139, 15071], _
         [-3510, 11532], _
         [2278, 9411], _
         [5572, 13102], _
@@ -55,7 +57,8 @@ Global $aNF_Vabbi_ForumHighlandsRoute02[39][2] = [ _
         [-2456, -9862] _
 ]
 
-Global $aNF_Vabbi_ForumHighlandsRoute03[52][2] = [ _
+Global $aNF_Vabbi_ForumHighlandsRoute03[53][2] = [ _
+        [-2224, -8726], _
         [-563, -10798], _
         [1125, -12448], _
         [3360, -8872], _

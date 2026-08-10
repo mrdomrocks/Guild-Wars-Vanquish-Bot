@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_GandaraTheMoonFortressRoute01[7][2] = [ _
+Global $aNF_Kourna_GandaraTheMoonFortressRoute01[8][2] = [ _
+        [6818, 15641], _
         [5425, 16446], _
         [3246, 13158], _
         [-2989, 14295], _
@@ -11,7 +12,8 @@ Global $aNF_Kourna_GandaraTheMoonFortressRoute01[7][2] = [ _
         [-6098, 15735] _
 ]
 
-Global $aNF_Kourna_GandaraTheMoonFortressRoute02[36][2] = [ _
+Global $aNF_Kourna_GandaraTheMoonFortressRoute02[37][2] = [ _
+        [-7412, 14230], _
         [-10125, 14233], _
         [-10210, 9811], _
         [-12946, 12759], _

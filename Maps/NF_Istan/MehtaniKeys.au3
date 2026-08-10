@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Istan_MehtaniKeysRoute01[8][2] = [ _
+Global $aNF_Istan_MehtaniKeysRoute01[9][2] = [ _
+        [-18985, 12968], _
         [-18295, 9208], _
         [-18745, 5349], _
         [-16162, 3596], _
@@ -12,7 +13,8 @@ Global $aNF_Istan_MehtaniKeysRoute01[8][2] = [ _
         [-13905, -7812] _
 ]
 
-Global $aNF_Istan_MehtaniKeysRoute02[14][2] = [ _
+Global $aNF_Istan_MehtaniKeysRoute02[15][2] = [ _
+        [-11923, -7150], _
         [-14751, -11438], _
         [-16303, -12243], _
         [-11418, -14069], _
@@ -29,7 +31,8 @@ Global $aNF_Istan_MehtaniKeysRoute02[14][2] = [ _
         [2433, -19901] _
 ]
 
-Global $aNF_Istan_MehtaniKeysRoute03[13][2] = [ _
+Global $aNF_Istan_MehtaniKeysRoute03[14][2] = [ _
+        [2343, -18959], _
         [3663, -14860], _
         [5903, -16218], _
         [7024, -17224], _
@@ -45,7 +48,8 @@ Global $aNF_Istan_MehtaniKeysRoute03[13][2] = [ _
         [3229, -6308] _
 ]
 
-Global $aNF_Istan_MehtaniKeysRoute04[18][2] = [ _
+Global $aNF_Istan_MehtaniKeysRoute04[19][2] = [ _
+        [4020, -4569], _
         [5312, -2084], _
         [8590, -4741], _
         [10364, -3954], _
@@ -66,7 +70,8 @@ Global $aNF_Istan_MehtaniKeysRoute04[18][2] = [ _
         [-826, 11153] _
 ]
 
-Global $aNF_Istan_MehtaniKeysRoute05[29][2] = [ _
+Global $aNF_Istan_MehtaniKeysRoute05[30][2] = [ _
+        [-1387, 10455], _
         [-3321, 7011], _
         [-1507, 5717], _
         [698, 3600], _

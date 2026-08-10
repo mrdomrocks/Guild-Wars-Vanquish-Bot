@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Istan_LahtendaBogRoute01[14][2] = [ _
+Global $aNF_Istan_LahtendaBogRoute01[15][2] = [ _
+        [7067, 18385], _
         [4978, 17330], _
         [3321, 15208], _
         [1892, 11866], _
@@ -18,7 +19,8 @@ Global $aNF_Istan_LahtendaBogRoute01[14][2] = [ _
         [-8959, 11261] _
 ]
 
-Global $aNF_Istan_LahtendaBogRoute02[26][2] = [ _
+Global $aNF_Istan_LahtendaBogRoute02[27][2] = [ _
+        [-10459, 8716], _
         [-12228, 7579], _
         [-14101, 8205], _
         [-15387, 10300], _
@@ -47,7 +49,8 @@ Global $aNF_Istan_LahtendaBogRoute02[26][2] = [ _
         [-16169, -2284] _
 ]
 
-Global $aNF_Istan_LahtendaBogRoute03[78][2] = [ _
+Global $aNF_Istan_LahtendaBogRoute03[79][2] = [ _
+        [-16808, -5438], _
         [-15572, -9019], _
         [-13755, -9337], _
         [-14562, -12148], _

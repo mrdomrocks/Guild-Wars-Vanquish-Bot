@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Istan_IssnurIslesRoute01[11][2] = [ _
+Global $aNF_Istan_IssnurIslesRoute01[12][2] = [ _
+        [-15435, 10793], _
         [-12890, 6722], _
         [-14645, 3908], _
         [-16354, 3022], _
@@ -15,7 +16,8 @@ Global $aNF_Istan_IssnurIslesRoute01[11][2] = [ _
         [-12112, -2878] _
 ]
 
-Global $aNF_Istan_IssnurIslesRoute02[29][2] = [ _
+Global $aNF_Istan_IssnurIslesRoute02[30][2] = [ _
+        [-10625, -4355], _
         [-15023, -4004], _
         [-17097, -3336], _
         [-16181, -5683], _
@@ -47,7 +49,8 @@ Global $aNF_Istan_IssnurIslesRoute02[29][2] = [ _
         [6346, -4165] _
 ]
 
-Global $aNF_Istan_IssnurIslesRoute03[60][2] = [ _
+Global $aNF_Istan_IssnurIslesRoute03[61][2] = [ _
+        [7807, -4604], _
         [9568, -5791], _
         [11666, -7077], _
         [13394, -5986], _
@@ -110,7 +113,8 @@ Global $aNF_Istan_IssnurIslesRoute03[60][2] = [ _
         [-7469, 6646] _
 ]
 
-Global $aNF_Istan_IssnurIslesRoute04[15][2] = [ _
+Global $aNF_Istan_IssnurIslesRoute04[16][2] = [ _
+        [-828, 7911], _
         [-1110, 6412], _
         [-4820, 5146], _
         [-5739, 2380], _

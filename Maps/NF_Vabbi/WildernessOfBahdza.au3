@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_WildernessOfBahdzaRoute01[5][2] = [ _
+Global $aNF_Vabbi_WildernessOfBahdzaRoute01[6][2] = [ _
+        [-19332, 454], _
         [-16584, 293], _
         [-13593, 281], _
         [-13539, -1646], _
@@ -9,7 +10,8 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute01[5][2] = [ _
         [-9474, -3800] _
 ]
 
-Global $aNF_Vabbi_WildernessOfBahdzaRoute02[6][2] = [ _
+Global $aNF_Vabbi_WildernessOfBahdzaRoute02[7][2] = [ _
+        [-7801, -2353], _
         [-13429, -3636], _
         [-15145, -6588], _
         [-18020, -7578], _
@@ -18,7 +20,8 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute02[6][2] = [ _
         [-15681, -11067] _
 ]
 
-Global $aNF_Vabbi_WildernessOfBahdzaRoute03[49][2] = [ _
+Global $aNF_Vabbi_WildernessOfBahdzaRoute03[50][2] = [ _
+        [-13847, -9505], _
         [-11251, -11194], _
         [-11027, -16307], _
         [-10557, -18805], _
@@ -70,7 +73,8 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute03[49][2] = [ _
         [13361, -2756] _
 ]
 
-Global $aNF_Vabbi_WildernessOfBahdzaRoute04[25][2] = [ _
+Global $aNF_Vabbi_WildernessOfBahdzaRoute04[26][2] = [ _
+        [10599, -4168], _
         [11703, -7209], _
         [9122, -4374], _
         [6911, -3183], _
@@ -98,7 +102,8 @@ Global $aNF_Vabbi_WildernessOfBahdzaRoute04[25][2] = [ _
         [3007, 8016] _
 ]
 
-Global $aNF_Vabbi_WildernessOfBahdzaRoute05[9][2] = [ _
+Global $aNF_Vabbi_WildernessOfBahdzaRoute05[10][2] = [ _
+        [3456, 6603], _
         [-26, 8229], _
         [2260, 7246], _
         [2074, 4361], _

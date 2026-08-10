@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_BarbarousShoreRoute01[6][2] = [ _
+Global $aNF_Kourna_BarbarousShoreRoute01[7][2] = [ _
+        [-11238, 17290], _
         [-11151, 14892], _
         [-8457, 13802], _
         [-8809, 16884], _
@@ -10,7 +11,8 @@ Global $aNF_Kourna_BarbarousShoreRoute01[6][2] = [ _
         [770, 16144] _
 ]
 
-Global $aNF_Kourna_BarbarousShoreRoute02[22][2] = [ _
+Global $aNF_Kourna_BarbarousShoreRoute02[23][2] = [ _
+        [2678, 16611], _
         [3401, 18857], _
         [110, 13263], _
         [-81, 7907], _
@@ -35,7 +37,8 @@ Global $aNF_Kourna_BarbarousShoreRoute02[22][2] = [ _
         [-7984, 7710] _
 ]
 
-Global $aNF_Kourna_BarbarousShoreRoute03[60][2] = [ _
+Global $aNF_Kourna_BarbarousShoreRoute03[61][2] = [ _
+        [-5451, 5782], _
         [-4284, 2227], _
         [-4002, -642], _
         [-125, 644], _

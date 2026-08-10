@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Istan_CliffsOfDohjokRoute01[13][2] = [ _
+Global $aNF_Istan_CliffsOfDohjokRoute01[14][2] = [ _
+        [-25984, -9240], _
         [-25755, -6529], _
         [-24124, -5753], _
         [-21084, -7115], _
@@ -17,7 +18,8 @@ Global $aNF_Istan_CliffsOfDohjokRoute01[13][2] = [ _
         [-13661, -2347] _
 ]
 
-Global $aNF_Istan_CliffsOfDohjokRoute02[12][2] = [ _
+Global $aNF_Istan_CliffsOfDohjokRoute02[13][2] = [ _
+        [-14045, -1982], _
         [-10014, 145], _
         [-9031, -4292], _
         [-6139, -6385], _
@@ -32,7 +34,8 @@ Global $aNF_Istan_CliffsOfDohjokRoute02[12][2] = [ _
         [11702, -9216] _
 ]
 
-Global $aNF_Istan_CliffsOfDohjokRoute03[18][2] = [ _
+Global $aNF_Istan_CliffsOfDohjokRoute03[19][2] = [ _
+        [12640, -6353], _
         [14531, -6114], _
         [10438, -4186], _
         [10317, -3958], _
@@ -53,7 +56,8 @@ Global $aNF_Istan_CliffsOfDohjokRoute03[18][2] = [ _
         [4368, 12205] _
 ]
 
-Global $aNF_Istan_CliffsOfDohjokRoute04[38][2] = [ _
+Global $aNF_Istan_CliffsOfDohjokRoute04[39][2] = [ _
+        [1548, 13289], _
         [1893, 8700], _
         [-476, 7017], _
         [-3206, 3948], _

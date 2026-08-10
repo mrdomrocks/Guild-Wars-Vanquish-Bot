@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_HoldingsOfChokhinRoute01[71][2] = [ _
+Global $aNF_Vabbi_HoldingsOfChokhinRoute01[72][2] = [ _
+        [15810, -15238], _
         [16657, -12876], _
         [10846, -11145], _
         [9155, -10185], _
@@ -75,7 +76,8 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute01[71][2] = [ _
         [-14267, 7495] _
 ]
 
-Global $aNF_Vabbi_HoldingsOfChokhinRoute02[21][2] = [ _
+Global $aNF_Vabbi_HoldingsOfChokhinRoute02[22][2] = [ _
+        [-14951, 5922], _
         [-17416, 5274], _
         [-16549, 2521], _
         [-13914, 2093], _
@@ -99,7 +101,8 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute02[21][2] = [ _
         [-15641, -14058] _
 ]
 
-Global $aNF_Vabbi_HoldingsOfChokhinRoute03[11][2] = [ _
+Global $aNF_Vabbi_HoldingsOfChokhinRoute03[12][2] = [ _
+        [-14563, -14857], _
         [-14259, -12932], _
         [-13468, -9040], _
         [-14802, -6722], _
@@ -113,7 +116,8 @@ Global $aNF_Vabbi_HoldingsOfChokhinRoute03[11][2] = [ _
         [-8546, -1995] _
 ]
 
-Global $aNF_Vabbi_HoldingsOfChokhinRoute04[14][2] = [ _
+Global $aNF_Vabbi_HoldingsOfChokhinRoute04[15][2] = [ _
+        [-6527, -3880], _
         [-5244, -8209], _
         [-3302, -5919], _
         [-6553, -8761], _

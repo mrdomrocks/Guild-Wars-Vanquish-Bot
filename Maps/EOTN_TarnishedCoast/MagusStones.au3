@@ -11,7 +11,8 @@ Global $aEOTN_TarnishedCoast_MagusStonesRoute02[1][2] = [ _
         [17383, 8685] _
 ]
 
-Global $aEOTN_TarnishedCoast_MagusStonesRoute03[7][2] = [ _
+Global $aEOTN_TarnishedCoast_MagusStonesRoute03[8][2] = [ _
+        [14778, 13178], _
         [18824, 6179], _
         [18447, 4537], _
         [18331, 2108], _
@@ -64,11 +65,12 @@ Global $aEOTN_TarnishedCoast_MagusStonesRoute10[1][2] = [ _
         [-12885, -14651] _
 ]
 
-Global $aEOTN_TarnishedCoast_MagusStonesRoute11[8][2] = [ _
+Global $aEOTN_TarnishedCoast_MagusStonesRoute11[9][2] = [ _
         [-13975, -17857], _
         [-11912, -10641], _
         [-8760, -9933], _
         [-14030, -9780], _
+        [-9317, -2618], _
         [-12368, -7330], _
         [-16527, -8175], _
         [-17391, -5984], _
@@ -110,8 +112,9 @@ Global $aEOTN_TarnishedCoast_MagusStonesRoute16[15][2] = [ _
         [-3468, 10837] _
 ]
 
-Global $aEOTN_TarnishedCoast_MagusStonesRoute17[2][2] = [ _
+Global $aEOTN_TarnishedCoast_MagusStonesRoute17[3][2] = [ _
         [-3804, 8017], _
+        [4835, 440], _
         [-1346, 12360] _
 ]
 

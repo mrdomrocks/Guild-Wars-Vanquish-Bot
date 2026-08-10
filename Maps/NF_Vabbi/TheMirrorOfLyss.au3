@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_TheMirrorOfLyssRoute01[8][2] = [ _
+Global $aNF_Vabbi_TheMirrorOfLyssRoute01[9][2] = [ _
+        [-20964, -13053], _
         [-22192, -12551], _
         [-22606, -7806], _
         [-21990, -4574], _
@@ -12,7 +13,8 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute01[8][2] = [ _
         [-17629, 236] _
 ]
 
-Global $aNF_Vabbi_TheMirrorOfLyssRoute02[28][2] = [ _
+Global $aNF_Vabbi_TheMirrorOfLyssRoute02[29][2] = [ _
+        [-15165, 3285], _
         [-16401, 6466], _
         [-20395, 8001], _
         [-16944, 10069], _
@@ -43,7 +45,8 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute02[28][2] = [ _
         [-10620, -7764] _
 ]
 
-Global $aNF_Vabbi_TheMirrorOfLyssRoute03[34][2] = [ _
+Global $aNF_Vabbi_TheMirrorOfLyssRoute03[35][2] = [ _
+        [-6438, -6872], _
         [-7842, -1507], _
         [-3435, -3017], _
         [586, -1338], _
@@ -80,7 +83,8 @@ Global $aNF_Vabbi_TheMirrorOfLyssRoute03[34][2] = [ _
         [15777, -11000] _
 ]
 
-Global $aNF_Vabbi_TheMirrorOfLyssRoute04[17][2] = [ _
+Global $aNF_Vabbi_TheMirrorOfLyssRoute04[18][2] = [ _
+        [10814, -8738], _
         [7232, -11797], _
         [9099, -15348], _
         [5530, -12405], _

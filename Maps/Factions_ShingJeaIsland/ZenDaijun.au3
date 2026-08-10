@@ -160,7 +160,8 @@ Global $aFactions_ShingJeaIsland_ZenDaijunRoute02[76][2] = [ _
 ]
 
 Func GoOutZenDaijun()
-        Local $aGoOutRoute[1][2] = [ [19571.55, 9977.90] ]
+        Local $aGoOutRoute[1][2] = [ [19571.55, 9977.90] _
+]
 
         _Vanquisher_RunPathfinderRoute($aGoOutRoute, $vqrange, "ZenDaijun exit ")
         GoNearestNPCToCoords(20290.98, 9131.50)

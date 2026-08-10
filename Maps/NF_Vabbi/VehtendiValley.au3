@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_VehtendiValleyRoute01[9][2] = [ _
+Global $aNF_Vabbi_VehtendiValleyRoute01[10][2] = [ _
+        [-7552, 18559], _
         [-4404, 16677], _
         [-1180, 16296], _
         [1124, 17817], _
@@ -13,7 +14,8 @@ Global $aNF_Vabbi_VehtendiValleyRoute01[9][2] = [ _
         [11041, 14874] _
 ]
 
-Global $aNF_Vabbi_VehtendiValleyRoute02[56][2] = [ _
+Global $aNF_Vabbi_VehtendiValleyRoute02[57][2] = [ _
+        [9883, 13547], _
         [13558, 13084], _
         [12688, 10949], _
         [12063, 8786], _
@@ -72,7 +74,8 @@ Global $aNF_Vabbi_VehtendiValleyRoute02[56][2] = [ _
         [-11491, -15780] _
 ]
 
-Global $aNF_Vabbi_VehtendiValleyRoute03[15][2] = [ _
+Global $aNF_Vabbi_VehtendiValleyRoute03[16][2] = [ _
+        [-13485, -17893], _
         [-11500, -15909], _
         [-10511, -12186], _
         [-6514, -14096], _
@@ -90,7 +93,8 @@ Global $aNF_Vabbi_VehtendiValleyRoute03[15][2] = [ _
         [10464, -19008] _
 ]
 
-Global $aNF_Vabbi_VehtendiValleyRoute04[31][2] = [ _
+Global $aNF_Vabbi_VehtendiValleyRoute04[32][2] = [ _
+        [12380, -15979], _
         [12317, -12396], _
         [11719, -16228], _
         [7999, -19267], _

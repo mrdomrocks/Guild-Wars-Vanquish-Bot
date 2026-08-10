@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_SunwardMarchesRoute01[12][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute01[13][2] = [ _
+        [22169, 14426], _
         [20586, 11658], _
         [21972, 9027], _
         [24731, 7517], _
@@ -16,7 +17,8 @@ Global $aNF_Kourna_SunwardMarchesRoute01[12][2] = [ _
         [4630, 7358] _
 ]
 
-Global $aNF_Kourna_SunwardMarchesRoute02[18][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute02[19][2] = [ _
+        [6997, 6962], _
         [8606, 5750], _
         [12983, 4007], _
         [15805, -136], _
@@ -37,7 +39,8 @@ Global $aNF_Kourna_SunwardMarchesRoute02[18][2] = [ _
         [-1793, -9735] _
 ]
 
-Global $aNF_Kourna_SunwardMarchesRoute03[9][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute03[10][2] = [ _
+        [-3712, -7064], _
         [-5843, -4057], _
         [-7023, -5108], _
         [-8676, -6764], _
@@ -49,7 +52,8 @@ Global $aNF_Kourna_SunwardMarchesRoute03[9][2] = [ _
         [-17490, -9998] _
 ]
 
-Global $aNF_Kourna_SunwardMarchesRoute04[12][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute04[13][2] = [ _
+        [-17964, -12200], _
         [-21092, -11896], _
         [-20871, -8630], _
         [-19530, -10058], _
@@ -64,7 +68,8 @@ Global $aNF_Kourna_SunwardMarchesRoute04[12][2] = [ _
         [-23360, 3770] _
 ]
 
-Global $aNF_Kourna_SunwardMarchesRoute05[51][2] = [ _
+Global $aNF_Kourna_SunwardMarchesRoute05[52][2] = [ _
+        [-22600, 5634], _
         [-20629, 1955], _
         [-18727, 1348], _
         [-17142, -2138], _

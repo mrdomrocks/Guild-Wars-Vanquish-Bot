@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Vabbi_YatendiCanyonsRoute01[15][2] = [ _
+Global $aNF_Vabbi_YatendiCanyonsRoute01[16][2] = [ _
+        [17575, -6019], _
         [20291, 477], _
         [19922, -396], _
         [17825, -607], _
@@ -19,13 +20,15 @@ Global $aNF_Vabbi_YatendiCanyonsRoute01[15][2] = [ _
         [11795, -10457] _
 ]
 
-Global $aNF_Vabbi_YatendiCanyonsRoute02[3][2] = [ _
+Global $aNF_Vabbi_YatendiCanyonsRoute02[4][2] = [ _
+        [12247, -12688], _
         [13664, -17589], _
         [6508, -16853], _
         [605, -16238] _
 ]
 
-Global $aNF_Vabbi_YatendiCanyonsRoute03[5][2] = [ _
+Global $aNF_Vabbi_YatendiCanyonsRoute03[6][2] = [ _
+        [-2736, -16359], _
         [-2970, -14463], _
         [-6166, -11651], _
         [-5954, -8503], _
@@ -33,9 +36,10 @@ Global $aNF_Vabbi_YatendiCanyonsRoute03[5][2] = [ _
         [-11155, -11101] _
 ]
 
-Global $aNF_Vabbi_YatendiCanyonsRoute04[30][2] = [ _
+Global $aNF_Vabbi_YatendiCanyonsRoute04[31][2] = [ _
+        [-14088, -14200], _
         [-15595, -13564], _
-        [-18466.30, -12050.60], _
+        [-18466.3, -12050.6], _
         [-16031, -14150], _
         [-17012, -17188], _
         [-17898, -18981], _
@@ -66,7 +70,8 @@ Global $aNF_Vabbi_YatendiCanyonsRoute04[30][2] = [ _
         [10224, 9013] _
 ]
 
-Global $aNF_Vabbi_YatendiCanyonsRoute05[19][2] = [ _
+Global $aNF_Vabbi_YatendiCanyonsRoute05[20][2] = [ _
+        [10624, 9662], _
         [10384, 13095], _
         [6827, 12399], _
         [5771, 12851], _

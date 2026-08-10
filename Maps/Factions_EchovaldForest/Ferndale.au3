@@ -337,7 +337,8 @@ Global $aFactions_EchovaldForest_FerndaleRoute01[330][2] = [ _
 Func GoOutFerndale()
         Local $aGoOutRoute[3][2] = [ [7810, -726] _
                 , [10042, -1173] _
-                , [10446, -1147] ]
+                , [10446, -1147] _
+]
 
         _Vanquisher_RunPathfinderPortalRoute($aGoOutRoute, $vqrange, "Ferndale exit ")
 EndFunc

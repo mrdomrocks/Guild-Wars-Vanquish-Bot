@@ -1,7 +1,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aNF_Kourna_JahaiBluffsRoute01[10][2] = [ _
+Global $aNF_Kourna_JahaiBluffsRoute01[11][2] = [ _
+        [19865, -13361], _
         [14885, -13335], _
         [15066, -15097], _
         [13515, -9860], _
@@ -14,7 +15,8 @@ Global $aNF_Kourna_JahaiBluffsRoute01[10][2] = [ _
         [16293, 393] _
 ]
 
-Global $aNF_Kourna_JahaiBluffsRoute02[22][2] = [ _
+Global $aNF_Kourna_JahaiBluffsRoute02[23][2] = [ _
+        [17035, 2879], _
         [17585, 4955], _
         [14320, 3437], _
         [14077, 1405], _
@@ -39,7 +41,8 @@ Global $aNF_Kourna_JahaiBluffsRoute02[22][2] = [ _
         [9084, 11900] _
 ]
 
-Global $aNF_Kourna_JahaiBluffsRoute03[43][2] = [ _
+Global $aNF_Kourna_JahaiBluffsRoute03[44][2] = [ _
+        [8593, 11728], _
         [10431, 14649], _
         [10462, 15781], _
         [13498, 14659], _
@@ -85,7 +88,8 @@ Global $aNF_Kourna_JahaiBluffsRoute03[43][2] = [ _
         [-12811, -2258] _
 ]
 
-Global $aNF_Kourna_JahaiBluffsRoute04[39][2] = [ _
+Global $aNF_Kourna_JahaiBluffsRoute04[40][2] = [ _
+        [-15087, -2003], _
         [-13368, -4555], _
         [-16094, -5416], _
         [-17786, -7633], _

@@ -4,7 +4,8 @@
 Global $vqrange = 1450
 Global $ActionCounter = 1
 
-Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute02[8][2] = [ _
+Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute02[9][2] = [ _
+        [14430, -3824], _
         [10206, -3630], _
         [11176, -1605], _
         [15157, -892], _
@@ -15,7 +16,8 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute02[8][2] = [ _
         [6191, 2436] _
 ]
 
-Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute03[7][2] = [ _
+Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute03[8][2] = [ _
+        [5677, 809], _
         [2521, 666], _
         [-906, 2797], _
         [-2995, 6264], _
@@ -25,7 +27,8 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute03[7][2] = [ _
         [-5008, 14924] _
 ]
 
-Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute04[10][2] = [ _
+Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute04[11][2] = [ _
+        [-3224, 11581], _
         [-2622, 11229], _
         [1442, 11209], _
         [5490, 11284], _
@@ -38,7 +41,8 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute04[10][2] = [ _
         [12725, 13484] _
 ]
 
-Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute05[9][2] = [ _
+Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute05[10][2] = [ _
+        [15785, 14790], _
         [16328, 15250], _
         [20329, 15592], _
         [24230, 14634], _
@@ -50,7 +54,8 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute05[9][2] = [ _
         [17673, 6851] _
 ]
 
-Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute06[7][2] = [ _
+Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute06[8][2] = [ _
+        [24022, 7636], _
         [22030, 5201], _
         [23282, 1357], _
         [19738, -516], _
@@ -60,7 +65,8 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute06[7][2] = [ _
         [10149, -11248] _
 ]
 
-Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute07[18][2] = [ _
+Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute07[19][2] = [ _
+        [9984, -13001], _
         [6150, -11377], _
         [4465, -7682], _
         [1411, -5032], _
@@ -81,7 +87,8 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute07[18][2] = [ _
         [-19706, -8615] _
 ]
 
-Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute08[18][2] = [ _
+Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute08[19][2] = [ _
+        [-22581, -10877], _
         [-20335, -8851], _
         [-21095, -4860], _
         [-19197, -3470], _
@@ -102,7 +109,8 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute08[18][2] = [ _
         [-10141, 2130] _
 ]
 
-Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute09[22][2] = [ _
+Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute09[24][2] = [ _
+        [-7398, -839], _
         [-6084, 2190], _
         [-6295, 6211], _
         [-6715, 8056], _
@@ -124,7 +132,8 @@ Global $aEOTN_FarShiverpeaks_NorrhartDomainsRoute09[22][2] = [ _
         [-20063, 15427], _
         [-18093, 14965], _
         [-20244, 11438], _
-        [-24172, 10483] _
+        [-24172, 10483], _
+        [-24540, 10834] _
 ]
 
 Func _NorrhartDomainsTakeBlessing($nX, $nY)
