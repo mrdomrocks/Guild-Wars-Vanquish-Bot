@@ -6,7 +6,8 @@ Global $DeadOnTheRun = 0
 ; Keeps routes from continuing after the GUI/run state has been stopped.
 Func _Vanquisher_ShouldStop()
     Global $boolrun, $g_b_Vanquisher_AbortRoute, $g_b_Vanquisher_RunFinished
-    If IsFunc("_Vanquisher_PumpGUI") Then _Vanquisher_PumpGUI()
+    ; Call() accepts a function *name* string. IsFunc("Name") is always false in AutoIt.
+    Call("_Vanquisher_PumpGUI")
     If Not $boolrun Then Return True
     If $g_b_Vanquisher_AbortRoute Then Return True
     If $g_b_Vanquisher_RunFinished Then Return True
@@ -126,7 +127,7 @@ EndFunc
 Func _Vanquisher_AppendNamesFromProcess($a_s_Process, ByRef $a_s_Names)
     Local $l_as_ProcessList = ProcessList($a_s_Process)
     For $l_i_Idx = 1 To $l_as_ProcessList[0][0]
-        If IsFunc("_Vanquisher_PumpGUI") Then _Vanquisher_PumpGUI()
+        Call("_Vanquisher_PumpGUI")
         Memory_Open($l_as_ProcessList[$l_i_Idx][1])
         If $g_h_GWProcess And Scanner_InitializeSections() And Scanner_ScanForCharname() Then
             _Gwen_AppendCharName($a_s_Names, Player_GetCharName())
